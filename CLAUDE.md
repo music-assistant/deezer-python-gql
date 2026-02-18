@@ -290,6 +290,20 @@ def test_<what_is_being_tested>() -> None:
 
 ## CI/CD
 
+### Commit Messages
+
+Use [Conventional Commits](https://www.conventionalcommits.org/) format:
+
+```
+<type>: <short summary>
+
+<optional body>
+```
+
+Common types: `feat`, `fix`, `docs`, `chore`, `refactor`, `test`, `ci`.
+
+Release Drafter uses these prefixes to categorize changelog entries automatically.
+
 ### Workflows
 
 | Workflow              | Trigger                       | Purpose                                                     |
