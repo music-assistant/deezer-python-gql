@@ -71,7 +71,8 @@ def convert_to_sdl(introspection: dict[str, Any]) -> str:
     """Build a GraphQL schema from introspection and return as SDL string."""
     fix_introspection(introspection)
     schema = build_client_schema(cast("IntrospectionQuery", introspection))
-    return print_schema(schema)
+    sdl: str = print_schema(schema)
+    return sdl
 
 
 def main() -> None:
