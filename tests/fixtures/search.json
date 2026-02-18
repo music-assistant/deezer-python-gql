@@ -1,0 +1,301 @@
+{
+  "data": {
+    "search": {
+      "results": {
+        "tracks": {
+          "edges": [
+            {
+              "cursor": "3135563",
+              "node": {
+                "id": "3135563",
+                "title": "Veridis Quo",
+                "ISRC": "GBDUW0000066",
+                "duration": 345,
+                "isExplicit": false,
+                "album": {
+                  "id": "302127",
+                  "displayTitle": "Discovery",
+                  "cover": {
+                    "id": "668f60476275925f1614ea835e1501e7c17c2db0",
+                    "urls": [
+                      "https://cdn-images.dzcdn.net/images/cover/5718f7c81c27e0b2417e2a4c45224f8a/264x264-000000-80-0-0.jpg"
+                    ]
+                  }
+                },
+                "contributors": {
+                  "edges": [
+                    {
+                      "roles": ["MAIN"],
+                      "node": {
+                        "id": "27",
+                        "name": "Daft Punk",
+                        "__typename": "Artist"
+                      }
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "cursor": "3129775",
+              "node": {
+                "id": "3129775",
+                "title": "Around the World",
+                "ISRC": "GBDUW0600009",
+                "duration": 429,
+                "isExplicit": false,
+                "album": {
+                  "id": "301775",
+                  "displayTitle": "Homework",
+                  "cover": {
+                    "id": "b4bca92c989f8190c26245b6d64ee3f8d6de61cb",
+                    "urls": [
+                      "https://cdn-images.dzcdn.net/images/cover/b870579c8650cd59b1cce656dde2ef17/264x264-000000-80-0-0.jpg"
+                    ]
+                  }
+                },
+                "contributors": {
+                  "edges": [
+                    {
+                      "roles": ["MAIN"],
+                      "node": {
+                        "id": "27",
+                        "name": "Daft Punk",
+                        "__typename": "Artist"
+                      }
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "cursor": "3135553",
+              "node": {
+                "id": "3135553",
+                "title": "One More Time",
+                "ISRC": "GBDUW0000053",
+                "duration": 320,
+                "isExplicit": false,
+                "album": {
+                  "id": "302127",
+                  "displayTitle": "Discovery",
+                  "cover": {
+                    "id": "668f60476275925f1614ea835e1501e7c17c2db0",
+                    "urls": [
+                      "https://cdn-images.dzcdn.net/images/cover/5718f7c81c27e0b2417e2a4c45224f8a/264x264-000000-80-0-0.jpg"
+                    ]
+                  }
+                },
+                "contributors": {
+                  "edges": [
+                    {
+                      "roles": ["MAIN"],
+                      "node": {
+                        "id": "27",
+                        "name": "Daft Punk",
+                        "__typename": "Artist"
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          ],
+          "pageInfo": {
+            "hasNextPage": true,
+            "endCursor": "3135553"
+          }
+        },
+        "albums": {
+          "edges": [
+            {
+              "cursor": "6575789",
+              "node": {
+                "id": "6575789",
+                "displayTitle": "Random Access Memories",
+                "type": "ALBUM",
+                "cover": {
+                  "id": "b41dd99a5497912d8ca9e3258fff86702262c4b4",
+                  "urls": [
+                    "https://cdn-images.dzcdn.net/images/cover/311bba0fc112d15f72c8b5a65f0456c1/264x264-000000-80-0-0.jpg"
+                  ]
+                },
+                "contributors": {
+                  "edges": [
+                    {
+                      "node": {
+                        "id": "27",
+                        "name": "Daft Punk",
+                        "__typename": "Artist"
+                      }
+                    }
+                  ]
+                },
+                "releaseDate": "2013-05-17T00:00:00.000Z",
+                "isExplicit": false
+              }
+            },
+            {
+              "cursor": "302127",
+              "node": {
+                "id": "302127",
+                "displayTitle": "Discovery",
+                "type": "ALBUM",
+                "cover": {
+                  "id": "668f60476275925f1614ea835e1501e7c17c2db0",
+                  "urls": [
+                    "https://cdn-images.dzcdn.net/images/cover/5718f7c81c27e0b2417e2a4c45224f8a/264x264-000000-80-0-0.jpg"
+                  ]
+                },
+                "contributors": {
+                  "edges": [
+                    {
+                      "node": {
+                        "id": "27",
+                        "name": "Daft Punk",
+                        "__typename": "Artist"
+                      }
+                    }
+                  ]
+                },
+                "releaseDate": "2001-03-07T00:00:00.000Z",
+                "isExplicit": false
+              }
+            },
+            {
+              "cursor": "301775",
+              "node": {
+                "id": "301775",
+                "displayTitle": "Homework",
+                "type": "ALBUM",
+                "cover": {
+                  "id": "b4bca92c989f8190c26245b6d64ee3f8d6de61cb",
+                  "urls": [
+                    "https://cdn-images.dzcdn.net/images/cover/b870579c8650cd59b1cce656dde2ef17/264x264-000000-80-0-0.jpg"
+                  ]
+                },
+                "contributors": {
+                  "edges": [
+                    {
+                      "node": {
+                        "id": "27",
+                        "name": "Daft Punk",
+                        "__typename": "Artist"
+                      }
+                    }
+                  ]
+                },
+                "releaseDate": "1997-01-17T00:00:00.000Z",
+                "isExplicit": false
+              }
+            }
+          ],
+          "pageInfo": {
+            "hasNextPage": true,
+            "endCursor": "301775"
+          }
+        },
+        "artists": {
+          "edges": [
+            {
+              "cursor": "27",
+              "node": {
+                "id": "27",
+                "name": "Daft Punk",
+                "picture": {
+                  "id": "1c59631b1636efb7ebeb686629e29e64dce830b9",
+                  "urls": [
+                    "https://cdn-images.dzcdn.net/images/artist/638e69b9caaf9f9f3f8826febea7b543/264x264-000000-80-0-0.jpg"
+                  ]
+                },
+                "fansCount": 5114536,
+                "__typename": "Artist"
+              }
+            },
+            {
+              "cursor": "1477045",
+              "node": {
+                "id": "1477045",
+                "name": "Daft Punk - Stardust",
+                "picture": {
+                  "id": "1661151fdd80131d768fb003fd6ab6a1e219ac1b",
+                  "urls": [
+                    "https://cdn-images.dzcdn.net/images/artist/d41d8cd98f00b204e9800998ecf8427e/264x264-000000-80-0-0.jpg"
+                  ]
+                },
+                "fansCount": 8393,
+                "__typename": "Artist"
+              }
+            },
+            {
+              "cursor": "176017197",
+              "node": {
+                "id": "176017197",
+                "name": "Daft Punk Experience",
+                "picture": {
+                  "id": "1b76c01c4f56efd790f91f198f622be6686adb15",
+                  "urls": [
+                    "https://cdn-images.dzcdn.net/images/artist/9fd69f0a47ad30d7eba3d18cb5e46741/264x264-000000-80-0-0.jpg"
+                  ]
+                },
+                "fansCount": 49,
+                "__typename": "Artist"
+              }
+            }
+          ],
+          "pageInfo": {
+            "hasNextPage": true,
+            "endCursor": "176017197"
+          }
+        },
+        "playlists": {
+          "edges": [
+            {
+              "cursor": "6423436964",
+              "node": {
+                "id": "6423436964",
+                "title": "French Touch Essentials",
+                "picture": {
+                  "id": "41661fb9d732a3752caabdd36595ac01fdbcf8b6",
+                  "urls": [
+                    "https://cdn-images.dzcdn.net/images/playlist/424bbf87f277d4fd41e453550cf33032/264x264-000000-80-0-0.jpg"
+                  ]
+                },
+                "estimatedTracksCount": 50,
+                "owner": {
+                  "id": "9876543210",
+                  "name": "Deezer Editor"
+                }
+              }
+            },
+            {
+              "cursor": "14821664523",
+              "node": {
+                "id": "14821664523",
+                "title": "abend",
+                "picture": {
+                  "id": "72ffb145f2d9a13d66ae52e5ac2b4d60430fb36d",
+                  "urls": [
+                    "https://cdn-images.dzcdn.net/images/playlist/93b642399de40444346453379c355286/264x264-000000-80-0-0.jpg"
+                  ]
+                },
+                "estimatedTracksCount": 95,
+                "owner": {
+                  "id": "9876543211",
+                  "name": "Deezer User"
+                }
+              }
+            }
+          ],
+          "pageInfo": {
+            "hasNextPage": true,
+            "endCursor": "14821664523"
+          }
+        }
+      }
+    }
+  },
+  "extensions": {
+    "queryCost": 548
+  }
+}

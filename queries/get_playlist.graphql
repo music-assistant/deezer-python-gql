@@ -1,0 +1,59 @@
+query GetPlaylist($playlistId: String!) {
+  playlist(playlistId: $playlistId) {
+    id
+    title
+    description
+    isPrivate
+    isCollaborative
+    estimatedTracksCount
+    estimatedDuration
+    isFavorite
+    picture {
+      id
+      urls(pictureRequest: { width: 1000, height: 1000 })
+    }
+    owner {
+      id
+      name
+    }
+    tracks(first: 50) {
+      edges {
+        cursor
+        node {
+          id
+          title
+          ISRC
+          diskInfo {
+            diskNumber
+            trackNumber
+          }
+          duration
+          isExplicit
+          album {
+            id
+            displayTitle
+            cover {
+              id
+              urls(pictureRequest: { width: 264, height: 264 })
+            }
+          }
+          contributors(first: 10, roles: [MAIN, FEATURED]) {
+            edges {
+              roles
+              node {
+                ... on Artist {
+                  id
+                  name
+                }
+              }
+            }
+          }
+        }
+      }
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
+    }
+  }
+}

@@ -1,0 +1,198 @@
+"""Custom async base client with Deezer ARL → JWT authentication."""
+
+from __future__ import annotations
+
+import json
+import time
+from base64 import urlsafe_b64decode
+from typing import Any, cast
+
+import httpx
+
+
+class GraphQLClientError(Exception):
+    """Base exception for GraphQL client errors."""
+
+
+class GraphQLClientHttpError(GraphQLClientError):
+    """Raised when the HTTP response indicates an error."""
+
+    def __init__(self, status_code: int, response: httpx.Response) -> None:
+        self.status_code = status_code
+        self.response = response
+        super().__init__(f"HTTP status code: {status_code}")
+
+
+class GraphQLClientInvalidResponseError(GraphQLClientError):
+    """Raised when the response cannot be parsed as valid GraphQL."""
+
+    def __init__(self, response: httpx.Response) -> None:
+        self.response = response
+        super().__init__("Invalid response format")
+
+
+class GraphQLClientGraphQLError(GraphQLClientError):
+    """A single GraphQL error from the response."""
+
+    def __init__(self, message: str, locations: Any = None, path: Any = None) -> None:
+        self.message = message
+        self.locations = locations
+        self.path = path
+        super().__init__(message)
+
+
+class GraphQLClientGraphQLMultiError(GraphQLClientError):
+    """Raised when the GraphQL response contains errors."""
+
+    def __init__(self, errors: list[GraphQLClientGraphQLError], data: Any = None) -> None:
+        self.errors = errors
+        self.data = data
+        super().__init__(str(errors))
+
+    @classmethod
+    def from_errors_dicts(
+        cls,
+        errors_dicts: list[dict[str, Any]],
+        data: Any = None,
+    ) -> GraphQLClientGraphQLMultiError:
+        """Create from raw error dicts in a GraphQL response."""
+        errors = [
+            GraphQLClientGraphQLError(
+                message=e.get("message", "Unknown error"),
+                locations=e.get("locations"),
+                path=e.get("path"),
+            )
+            for e in errors_dicts
+        ]
+        return cls(errors=errors, data=data)
+
+
+class DeezerBaseClient:
+    """Async HTTP client for Deezer's Pipe GraphQL API with ARL-based auth.
+
+    Handles the ARL cookie → JWT token exchange and automatic refresh.
+    This class is used as the base client for ariadne-codegen's generated client.
+
+    :param arl: Deezer ARL cookie value for authentication.
+    :param url: GraphQL endpoint URL (defaults to Pipe API).
+    :param http_client: Optional pre-configured httpx.AsyncClient.
+    """
+
+    PIPE_URL = "https://pipe.deezer.com/api"
+    AUTH_URL = "https://auth.deezer.com/login/arl"
+    JWT_REFRESH_MARGIN_SECONDS = 30
+
+    def __init__(
+        self,
+        arl: str,
+        url: str = PIPE_URL,
+        http_client: httpx.AsyncClient | None = None,
+    ) -> None:
+        self.url = url
+        self._arl = arl
+        self._http_client = http_client
+        self._jwt: str | None = None
+        self._jwt_expires_at: float = 0
+
+    async def execute(
+        self,
+        query: str,
+        operation_name: str | None = None,
+        variables: dict[str, Any] | None = None,
+        **kwargs: Any,
+    ) -> httpx.Response:
+        """Execute a GraphQL query against the Pipe API.
+
+        Automatically handles JWT acquisition and refresh from the ARL cookie.
+
+        :param query: The GraphQL query string.
+        :param operation_name: Optional operation name for multi-operation documents.
+        :param variables: Optional query variables.
+        :param kwargs: Additional keyword arguments passed to httpx.
+        """
+        jwt = await self._ensure_jwt()
+
+        headers: dict[str, str] = kwargs.pop("headers", None) or {}
+        headers["Authorization"] = f"Bearer {jwt}"
+        headers["Content-Type"] = "application/json"
+
+        payload: dict[str, Any] = {"query": query}
+        if operation_name:
+            payload["operationName"] = operation_name
+        if variables:
+            payload["variables"] = variables
+
+        client = self._http_client or httpx.AsyncClient()
+        try:
+            return await client.post(
+                self.url,
+                json=payload,
+                headers=headers,
+                **kwargs,
+            )
+        finally:
+            if not self._http_client:
+                await client.aclose()
+
+    def get_data(self, response: httpx.Response) -> dict[str, Any]:
+        """Parse a GraphQL response and return the data dict.
+
+        Handles the Pipe API's text/plain content type and standard
+        GraphQL error responses.
+
+        :param response: The HTTP response from execute().
+        """
+        if not response.is_success:
+            raise GraphQLClientHttpError(status_code=response.status_code, response=response)
+
+        try:
+            response_json = response.json()
+        except ValueError as exc:
+            raise GraphQLClientInvalidResponseError(response=response) from exc
+
+        if (not isinstance(response_json, dict)) or (
+            "data" not in response_json and "errors" not in response_json
+        ):
+            raise GraphQLClientInvalidResponseError(response=response)
+
+        data = response_json.get("data")
+        errors = response_json.get("errors")
+
+        if errors:
+            raise GraphQLClientGraphQLMultiError.from_errors_dicts(errors_dicts=errors, data=data)
+
+        return cast("dict[str, Any]", data)
+
+    async def _ensure_jwt(self) -> str:
+        """Acquire or refresh the JWT token from ARL cookie.
+
+        The Pipe API uses short-lived JWTs (~6 min TTL) obtained by
+        POSTing the ARL cookie to auth.deezer.com. The response is
+        Content-Type: text/plain containing JSON.
+        """
+        now = time.time()
+        if self._jwt and now < (self._jwt_expires_at - self.JWT_REFRESH_MARGIN_SECONDS):
+            return self._jwt
+
+        params = {"jo": "p", "rto": "c", "i": "c"}
+
+        async with httpx.AsyncClient() as http:
+            resp = await http.post(
+                self.AUTH_URL,
+                params=params,
+                cookies={"arl": self._arl},
+            )
+            resp.raise_for_status()
+
+        # Response body is text/plain containing JSON
+        data = json.loads(resp.text)
+        self._jwt = data["jwt"]
+
+        # Decode expiration from JWT payload (second segment, base64url-encoded)
+        payload_segment = self._jwt.split(".")[1]
+        # Add padding for base64 decoding
+        padded = payload_segment + "=" * (-len(payload_segment) % 4)
+        payload = json.loads(urlsafe_b64decode(padded))
+        self._jwt_expires_at = float(payload["exp"])
+
+        return self._jwt

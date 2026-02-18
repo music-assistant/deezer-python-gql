@@ -1,0 +1,445 @@
+{
+    "data": {
+        "album": {
+            "id": "302127",
+            "displayTitle": "Discovery",
+            "type": "ALBUM",
+            "cover": {
+                "id": "668f60476275925f1614ea835e1501e7c17c2db0",
+                "urls": [
+                    "https://cdn-images.dzcdn.net/images/cover/5718f7c81c27e0b2417e2a4c45224f8a/1000x1000-000000-80-0-0.jpg"
+                ]
+            },
+            "label": "Daft Life Ltd./ADA France",
+            "contributors": {
+                "edges": [
+                    {
+                        "roles": [
+                            "MAIN"
+                        ],
+                        "node": {
+                            "id": "27",
+                            "name": "Daft Punk",
+                            "__typename": "Artist"
+                        }
+                    }
+                ]
+            },
+            "releaseDate": "2001-03-07T00:00:00.000Z",
+            "duration": 3662,
+            "tracksCount": 14,
+            "discsCount": 1,
+            "isExplicit": false,
+            "isTakenDown": false,
+            "isFavorite": false,
+            "fallback": null,
+            "tracks": {
+                "edges": [
+                    {
+                        "cursor": "3135553",
+                        "node": {
+                            "id": "3135553",
+                            "title": "One More Time",
+                            "ISRC": "GBDUW0000053",
+                            "diskInfo": {
+                                "diskNumber": 1,
+                                "trackNumber": 1
+                            },
+                            "duration": 320,
+                            "isExplicit": false,
+                            "contributors": {
+                                "edges": [
+                                    {
+                                        "roles": [
+                                            "MAIN"
+                                        ],
+                                        "node": {
+                                            "id": "27",
+                                            "name": "Daft Punk",
+                                            "__typename": "Artist"
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "cursor": "3135554",
+                        "node": {
+                            "id": "3135554",
+                            "title": "Aerodynamic",
+                            "ISRC": "GBDUW0000057",
+                            "diskInfo": {
+                                "diskNumber": 1,
+                                "trackNumber": 2
+                            },
+                            "duration": 212,
+                            "isExplicit": false,
+                            "contributors": {
+                                "edges": [
+                                    {
+                                        "roles": [
+                                            "MAIN"
+                                        ],
+                                        "node": {
+                                            "id": "27",
+                                            "name": "Daft Punk",
+                                            "__typename": "Artist"
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "cursor": "3135555",
+                        "node": {
+                            "id": "3135555",
+                            "title": "Digital Love",
+                            "ISRC": "GBDUW0000058",
+                            "diskInfo": {
+                                "diskNumber": 1,
+                                "trackNumber": 3
+                            },
+                            "duration": 301,
+                            "isExplicit": false,
+                            "contributors": {
+                                "edges": [
+                                    {
+                                        "roles": [
+                                            "MAIN"
+                                        ],
+                                        "node": {
+                                            "id": "27",
+                                            "name": "Daft Punk",
+                                            "__typename": "Artist"
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "cursor": "3135556",
+                        "node": {
+                            "id": "3135556",
+                            "title": "Harder, Better, Faster, Stronger",
+                            "ISRC": "GBDUW0000059",
+                            "diskInfo": {
+                                "diskNumber": 1,
+                                "trackNumber": 4
+                            },
+                            "duration": 226,
+                            "isExplicit": false,
+                            "contributors": {
+                                "edges": [
+                                    {
+                                        "roles": [
+                                            "MAIN"
+                                        ],
+                                        "node": {
+                                            "id": "27",
+                                            "name": "Daft Punk",
+                                            "__typename": "Artist"
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "cursor": "3135557",
+                        "node": {
+                            "id": "3135557",
+                            "title": "Crescendolls",
+                            "ISRC": "GBDUW0000060",
+                            "diskInfo": {
+                                "diskNumber": 1,
+                                "trackNumber": 5
+                            },
+                            "duration": 211,
+                            "isExplicit": false,
+                            "contributors": {
+                                "edges": [
+                                    {
+                                        "roles": [
+                                            "MAIN"
+                                        ],
+                                        "node": {
+                                            "id": "27",
+                                            "name": "Daft Punk",
+                                            "__typename": "Artist"
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "cursor": "3135558",
+                        "node": {
+                            "id": "3135558",
+                            "title": "Nightvision",
+                            "ISRC": "GBDUW0000061",
+                            "diskInfo": {
+                                "diskNumber": 1,
+                                "trackNumber": 6
+                            },
+                            "duration": 104,
+                            "isExplicit": false,
+                            "contributors": {
+                                "edges": [
+                                    {
+                                        "roles": [
+                                            "MAIN"
+                                        ],
+                                        "node": {
+                                            "id": "27",
+                                            "name": "Daft Punk",
+                                            "__typename": "Artist"
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "cursor": "3135559",
+                        "node": {
+                            "id": "3135559",
+                            "title": "Superheroes",
+                            "ISRC": "GBDUW0000062",
+                            "diskInfo": {
+                                "diskNumber": 1,
+                                "trackNumber": 7
+                            },
+                            "duration": 237,
+                            "isExplicit": false,
+                            "contributors": {
+                                "edges": [
+                                    {
+                                        "roles": [
+                                            "MAIN"
+                                        ],
+                                        "node": {
+                                            "id": "27",
+                                            "name": "Daft Punk",
+                                            "__typename": "Artist"
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "cursor": "3135560",
+                        "node": {
+                            "id": "3135560",
+                            "title": "High Life",
+                            "ISRC": "GBDUW0000063",
+                            "diskInfo": {
+                                "diskNumber": 1,
+                                "trackNumber": 8
+                            },
+                            "duration": 201,
+                            "isExplicit": false,
+                            "contributors": {
+                                "edges": [
+                                    {
+                                        "roles": [
+                                            "MAIN"
+                                        ],
+                                        "node": {
+                                            "id": "27",
+                                            "name": "Daft Punk",
+                                            "__typename": "Artist"
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "cursor": "3135561",
+                        "node": {
+                            "id": "3135561",
+                            "title": "Something About Us",
+                            "ISRC": "GBDUW0000064",
+                            "diskInfo": {
+                                "diskNumber": 1,
+                                "trackNumber": 9
+                            },
+                            "duration": 232,
+                            "isExplicit": false,
+                            "contributors": {
+                                "edges": [
+                                    {
+                                        "roles": [
+                                            "MAIN"
+                                        ],
+                                        "node": {
+                                            "id": "27",
+                                            "name": "Daft Punk",
+                                            "__typename": "Artist"
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "cursor": "3135562",
+                        "node": {
+                            "id": "3135562",
+                            "title": "Voyager",
+                            "ISRC": "GBDUW0000065",
+                            "diskInfo": {
+                                "diskNumber": 1,
+                                "trackNumber": 10
+                            },
+                            "duration": 227,
+                            "isExplicit": false,
+                            "contributors": {
+                                "edges": [
+                                    {
+                                        "roles": [
+                                            "MAIN"
+                                        ],
+                                        "node": {
+                                            "id": "27",
+                                            "name": "Daft Punk",
+                                            "__typename": "Artist"
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "cursor": "3135563",
+                        "node": {
+                            "id": "3135563",
+                            "title": "Veridis Quo",
+                            "ISRC": "GBDUW0000066",
+                            "diskInfo": {
+                                "diskNumber": 1,
+                                "trackNumber": 11
+                            },
+                            "duration": 345,
+                            "isExplicit": false,
+                            "contributors": {
+                                "edges": [
+                                    {
+                                        "roles": [
+                                            "MAIN"
+                                        ],
+                                        "node": {
+                                            "id": "27",
+                                            "name": "Daft Punk",
+                                            "__typename": "Artist"
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "cursor": "3135564",
+                        "node": {
+                            "id": "3135564",
+                            "title": "Short Circuit",
+                            "ISRC": "GBDUW0000067",
+                            "diskInfo": {
+                                "diskNumber": 1,
+                                "trackNumber": 12
+                            },
+                            "duration": 206,
+                            "isExplicit": false,
+                            "contributors": {
+                                "edges": [
+                                    {
+                                        "roles": [
+                                            "MAIN"
+                                        ],
+                                        "node": {
+                                            "id": "27",
+                                            "name": "Daft Punk",
+                                            "__typename": "Artist"
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "cursor": "3135565",
+                        "node": {
+                            "id": "3135565",
+                            "title": "Face to Face",
+                            "ISRC": "GBDUW0000068",
+                            "diskInfo": {
+                                "diskNumber": 1,
+                                "trackNumber": 13
+                            },
+                            "duration": 240,
+                            "isExplicit": false,
+                            "contributors": {
+                                "edges": [
+                                    {
+                                        "roles": [
+                                            "MAIN"
+                                        ],
+                                        "node": {
+                                            "id": "27",
+                                            "name": "Daft Punk",
+                                            "__typename": "Artist"
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "cursor": "3135566",
+                        "node": {
+                            "id": "3135566",
+                            "title": "Too Long",
+                            "ISRC": "GBDUW0000069",
+                            "diskInfo": {
+                                "diskNumber": 1,
+                                "trackNumber": 14
+                            },
+                            "duration": 600,
+                            "isExplicit": false,
+                            "contributors": {
+                                "edges": [
+                                    {
+                                        "roles": [
+                                            "MAIN"
+                                        ],
+                                        "node": {
+                                            "id": "27",
+                                            "name": "Daft Punk",
+                                            "__typename": "Artist"
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                ],
+                "pageInfo": {
+                    "hasNextPage": false,
+                    "endCursor": "3135566"
+                }
+            },
+            "url": {
+                "webUrl": "https://www.deezer.com/album/302127",
+                "__typename": "Url"
+            }
+        }
+    },
+    "extensions": {
+        "queryCost": 4073
+    }
+}

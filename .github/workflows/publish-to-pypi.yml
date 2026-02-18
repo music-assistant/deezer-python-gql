@@ -1,0 +1,56 @@
+name: Publish to PyPI
+
+on:
+    release:
+        types: [published]
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+            - name: Set up Python
+              uses: actions/setup-python@v5
+              with:
+                  python-version: "3.12"
+            - name: Install build tools
+              run: pip install build tomli tomli_w
+            - name: Inject version from tag
+              run: |
+                  python3 - <<'EOF'
+                  import tomli, tomli_w, os
+
+                  version = os.environ["GITHUB_REF_NAME"].lstrip("v")
+
+                  with open("pyproject.toml", "rb") as f:
+                      data = tomli.load(f)
+
+                  data["project"]["version"] = version
+
+                  with open("pyproject.toml", "wb") as f:
+                      tomli_w.dump(data, f)
+
+                  print(f"Set version to {version}")
+                  EOF
+            - name: Build package
+              run: python3 -m build
+            - uses: actions/upload-artifact@v4
+              with:
+                  name: dist
+                  path: dist/
+
+    publish:
+        needs: build
+        runs-on: ubuntu-latest
+        environment:
+            name: pypi
+            url: https://pypi.org/p/deezer-python-gql
+        permissions:
+            id-token: write
+        steps:
+            - uses: actions/download-artifact@v4
+              with:
+                  name: dist
+                  path: dist/
+            - name: Publish to PyPI
+              uses: pypa/gh-action-pypi-publish@release/v1

@@ -1,0 +1,482 @@
+{
+    "data": {
+        "track": {
+            "id": "3135556",
+            "title": "Harder, Better, Faster, Stronger",
+            "ISRC": "GBDUW0000059",
+            "diskInfo": {
+                "diskNumber": 1,
+                "trackNumber": 4
+            },
+            "duration": 226,
+            "isExplicit": false,
+            "isAtmos": false,
+            "releaseDate": "2001-03-12T00:00:00.000Z",
+            "album": {
+                "id": "302127",
+                "displayTitle": "Discovery",
+                "cover": {
+                    "id": "668f60476275925f1614ea835e1501e7c17c2db0",
+                    "urls": [
+                        "https://cdn-images.dzcdn.net/images/cover/5718f7c81c27e0b2417e2a4c45224f8a/1000x1000-000000-80-0-0.jpg"
+                    ]
+                }
+            },
+            "contributors": {
+                "edges": [
+                    {
+                        "roles": [
+                            "MAIN"
+                        ],
+                        "node": {
+                            "id": "27",
+                            "name": "Daft Punk",
+                            "__typename": "Artist"
+                        }
+                    }
+                ]
+            },
+            "media": {
+                "id": "3135556",
+                "version": "3",
+                "token": {
+                    "payload": "eyJhbGciOiJFUzI1NiJ9.REDACTED.sig",
+                    "expiresAt": "2099-12-31T23:59:59.000Z"
+                },
+                "estimatedSizes": {
+                    "MP3_MISC": null,
+                    "MP3_128": 3623705,
+                    "MP3_320": 9059264,
+                    "FLAC": 25275843
+                },
+                "rights": {
+                    "ads": {
+                        "available": true
+                    },
+                    "sub": {
+                        "available": true
+                    }
+                }
+            },
+            "lyrics": {
+                "synchronizedLines": [
+                    {
+                        "lrcTimestamp": "[00:51.78]",
+                        "line": "Work it, make it",
+                        "milliseconds": 51780,
+                        "duration": 1990
+                    },
+                    {
+                        "lrcTimestamp": "[00:53.77]",
+                        "line": "Do it, makes us",
+                        "milliseconds": 53770,
+                        "duration": 6420
+                    },
+                    {
+                        "lrcTimestamp": "[01:00.19]",
+                        "line": "Harder, better",
+                        "milliseconds": 60190,
+                        "duration": 1700
+                    },
+                    {
+                        "lrcTimestamp": "[01:01.89]",
+                        "line": "Faster, stronger",
+                        "milliseconds": 61890,
+                        "duration": 5430
+                    },
+                    {
+                        "lrcTimestamp": "[01:07.32]",
+                        "line": "More than, hour",
+                        "milliseconds": 67320,
+                        "duration": 1960
+                    },
+                    {
+                        "lrcTimestamp": "[01:09.28]",
+                        "line": "Hour, never",
+                        "milliseconds": 69280,
+                        "duration": 6490
+                    },
+                    {
+                        "lrcTimestamp": "[01:15.77]",
+                        "line": "Ever, after",
+                        "milliseconds": 75770,
+                        "duration": 1730
+                    },
+                    {
+                        "lrcTimestamp": "[01:17.50]",
+                        "line": "Work is, over",
+                        "milliseconds": 77500,
+                        "duration": 5330
+                    },
+                    {
+                        "lrcTimestamp": "[01:22.83]",
+                        "line": "Work it, make it",
+                        "milliseconds": 82830,
+                        "duration": 1980
+                    },
+                    {
+                        "lrcTimestamp": "[01:24.81]",
+                        "line": "Do it, makes us",
+                        "milliseconds": 84810,
+                        "duration": 6470
+                    },
+                    {
+                        "lrcTimestamp": "[01:31.28]",
+                        "line": "Harder, better",
+                        "milliseconds": 91280,
+                        "duration": 1760
+                    },
+                    {
+                        "lrcTimestamp": "[01:33.04]",
+                        "line": "Faster, stronger",
+                        "milliseconds": 93040,
+                        "duration": 5610
+                    },
+                    {
+                        "lrcTimestamp": "[01:38.65]",
+                        "line": "Work it harder, make it better",
+                        "milliseconds": 98650,
+                        "duration": 1760
+                    },
+                    {
+                        "lrcTimestamp": "[01:40.41]",
+                        "line": "Do it faster, makes us stronger",
+                        "milliseconds": 100410,
+                        "duration": 5830
+                    },
+                    {
+                        "lrcTimestamp": "[01:46.24]",
+                        "line": "More than ever, hour after hour",
+                        "milliseconds": 106240,
+                        "duration": 2460
+                    },
+                    {
+                        "lrcTimestamp": "[01:48.70]",
+                        "line": "Work is never over",
+                        "milliseconds": 108700,
+                        "duration": 5380
+                    },
+                    {
+                        "lrcTimestamp": "[01:54.08]",
+                        "line": "Work it harder, make it better",
+                        "milliseconds": 114080,
+                        "duration": 1990
+                    },
+                    {
+                        "lrcTimestamp": "[01:56.07]",
+                        "line": "Do it faster, makes us stronger",
+                        "milliseconds": 116070,
+                        "duration": 1780
+                    },
+                    {
+                        "lrcTimestamp": "[01:57.85]",
+                        "line": "More than ever, hour after hour",
+                        "milliseconds": 117850,
+                        "duration": 2550
+                    },
+                    {
+                        "lrcTimestamp": "[02:00.40]",
+                        "line": "Work is never over",
+                        "milliseconds": 120400,
+                        "duration": 1360
+                    },
+                    {
+                        "lrcTimestamp": "[02:01.76]",
+                        "line": "Work it harder, make it better",
+                        "milliseconds": 121760,
+                        "duration": 2010
+                    },
+                    {
+                        "lrcTimestamp": "[02:03.77]",
+                        "line": "Do it faster, makes us stronger",
+                        "milliseconds": 123770,
+                        "duration": 2000
+                    },
+                    {
+                        "lrcTimestamp": "[02:05.77]",
+                        "line": "More than ever, hour after hour",
+                        "milliseconds": 125770,
+                        "duration": 2450
+                    },
+                    {
+                        "lrcTimestamp": "[02:08.22]",
+                        "line": "Work is never over",
+                        "milliseconds": 128220,
+                        "duration": 1480
+                    },
+                    {
+                        "lrcTimestamp": "[02:09.70]",
+                        "line": "Work it harder, make it better",
+                        "milliseconds": 129700,
+                        "duration": 1780
+                    },
+                    {
+                        "lrcTimestamp": "[02:11.48]",
+                        "line": "Do it faster, makes us stronger",
+                        "milliseconds": 131480,
+                        "duration": 2020
+                    },
+                    {
+                        "lrcTimestamp": "[02:13.50]",
+                        "line": "More than ever, hour after hour",
+                        "milliseconds": 133500,
+                        "duration": 2520
+                    },
+                    {
+                        "lrcTimestamp": "[02:16.02]",
+                        "line": "Work is never over",
+                        "milliseconds": 136020,
+                        "duration": 1420
+                    },
+                    {
+                        "lrcTimestamp": "[02:17.44]",
+                        "line": "Work it harder, make it better",
+                        "milliseconds": 137440,
+                        "duration": 1940
+                    },
+                    {
+                        "lrcTimestamp": "[02:19.38]",
+                        "line": "Do it faster, makes us stronger",
+                        "milliseconds": 139380,
+                        "duration": 1920
+                    },
+                    {
+                        "lrcTimestamp": "[02:21.30]",
+                        "line": "More than ever, hour after hour",
+                        "milliseconds": 141300,
+                        "duration": 2520
+                    },
+                    {
+                        "lrcTimestamp": "[02:23.82]",
+                        "line": "Work is never over",
+                        "milliseconds": 143820,
+                        "duration": 1420
+                    },
+                    {
+                        "lrcTimestamp": "[02:25.24]",
+                        "line": "Work it harder, make it better",
+                        "milliseconds": 145240,
+                        "duration": 1770
+                    },
+                    {
+                        "lrcTimestamp": "[02:27.01]",
+                        "line": "Do it faster, makes us",
+                        "milliseconds": 147010,
+                        "duration": 1890
+                    },
+                    {
+                        "lrcTimestamp": "[02:28.90]",
+                        "line": "More than ever, hour after hour",
+                        "milliseconds": 148900,
+                        "duration": 2650
+                    },
+                    {
+                        "lrcTimestamp": "[02:31.55]",
+                        "line": "Work is never over",
+                        "milliseconds": 151550,
+                        "duration": 1420
+                    },
+                    {
+                        "lrcTimestamp": "[02:32.97]",
+                        "line": "Work it harder, make it better",
+                        "milliseconds": 152970,
+                        "duration": 1750
+                    },
+                    {
+                        "lrcTimestamp": "[02:34.72]",
+                        "line": "Do it faster, makes us stronger",
+                        "milliseconds": 154720,
+                        "duration": 1980
+                    },
+                    {
+                        "lrcTimestamp": "[02:36.70]",
+                        "line": "More than ever, hour after hour",
+                        "milliseconds": 156700,
+                        "duration": 2660
+                    },
+                    {
+                        "lrcTimestamp": "[02:39.36]",
+                        "line": "Work is never over",
+                        "milliseconds": 159360,
+                        "duration": 8840
+                    },
+                    {
+                        "lrcTimestamp": "[02:48.20]",
+                        "line": "Work it harder, make it",
+                        "milliseconds": 168200,
+                        "duration": 2050
+                    },
+                    {
+                        "lrcTimestamp": "[02:50.25]",
+                        "line": "Do it faster, makes us",
+                        "milliseconds": 170250,
+                        "duration": 2000
+                    },
+                    {
+                        "lrcTimestamp": "[02:52.25]",
+                        "line": "More than ever, hour after hour",
+                        "milliseconds": 172250,
+                        "duration": 2760
+                    },
+                    {
+                        "lrcTimestamp": "[02:55.01]",
+                        "line": "Work is never over",
+                        "milliseconds": 175010,
+                        "duration": 1380
+                    },
+                    {
+                        "lrcTimestamp": "[02:56.39]",
+                        "line": "Work it harder, make it better",
+                        "milliseconds": 176390,
+                        "duration": 1790
+                    },
+                    {
+                        "lrcTimestamp": "[02:58.18]",
+                        "line": "Do it faster, makes us stronger",
+                        "milliseconds": 178180,
+                        "duration": 1920
+                    },
+                    {
+                        "lrcTimestamp": "[03:00.10]",
+                        "line": "More than ever, hour after hour",
+                        "milliseconds": 180100,
+                        "duration": 2420
+                    },
+                    {
+                        "lrcTimestamp": "[03:02.52]",
+                        "line": "Work is never over",
+                        "milliseconds": 182520,
+                        "duration": 1660
+                    },
+                    {
+                        "lrcTimestamp": "[03:04.18]",
+                        "line": "Work it, make it better",
+                        "milliseconds": 184180,
+                        "duration": 1950
+                    },
+                    {
+                        "lrcTimestamp": "[03:06.13]",
+                        "line": "Do it faster, makes us stronger",
+                        "milliseconds": 186130,
+                        "duration": 1650
+                    },
+                    {
+                        "lrcTimestamp": "[03:07.78]",
+                        "line": "More than ever, hour after hour",
+                        "milliseconds": 187780,
+                        "duration": 2460
+                    },
+                    {
+                        "lrcTimestamp": "[03:10.24]",
+                        "line": "Work is never over",
+                        "milliseconds": 190240,
+                        "duration": 1620
+                    },
+                    {
+                        "lrcTimestamp": "[03:11.86]",
+                        "line": "Work it harder, make it better",
+                        "milliseconds": 191860,
+                        "duration": 1870
+                    },
+                    {
+                        "lrcTimestamp": "[03:13.73]",
+                        "line": "Do it faster, makes us stronger",
+                        "milliseconds": 193730,
+                        "duration": 1930
+                    },
+                    {
+                        "lrcTimestamp": "[03:15.66]",
+                        "line": "More than ever, hour after hour",
+                        "milliseconds": 195660,
+                        "duration": 2390
+                    },
+                    {
+                        "lrcTimestamp": "[03:18.05]",
+                        "line": "Work is never over",
+                        "milliseconds": 198050,
+                        "duration": 1640
+                    },
+                    {
+                        "lrcTimestamp": "[03:19.69]",
+                        "line": "Work it harder, make it better",
+                        "milliseconds": 199690,
+                        "duration": 1780
+                    },
+                    {
+                        "lrcTimestamp": "[03:21.47]",
+                        "line": "Do it faster, makes us stronger",
+                        "milliseconds": 201470,
+                        "duration": 1930
+                    },
+                    {
+                        "lrcTimestamp": "[03:23.40]",
+                        "line": "More than ever, hour after hour",
+                        "milliseconds": 203400,
+                        "duration": 2370
+                    },
+                    {
+                        "lrcTimestamp": "[03:25.77]",
+                        "line": "Work is never over",
+                        "milliseconds": 205770,
+                        "duration": 1640
+                    },
+                    {
+                        "lrcTimestamp": "[03:27.41]",
+                        "line": "Work it harder",
+                        "milliseconds": 207410,
+                        "duration": 1920
+                    },
+                    {
+                        "lrcTimestamp": "[03:29.33]",
+                        "line": "Do it faster",
+                        "milliseconds": 209330,
+                        "duration": 1830
+                    },
+                    {
+                        "lrcTimestamp": "[03:31.16]",
+                        "line": "More than ever, hour",
+                        "milliseconds": 211160,
+                        "duration": 2620
+                    },
+                    {
+                        "lrcTimestamp": "[03:33.78]",
+                        "line": "Work is never over",
+                        "milliseconds": 213780,
+                        "duration": 1420
+                    },
+                    {
+                        "lrcTimestamp": "[03:35.20]",
+                        "line": "Work it harder, make it better",
+                        "milliseconds": 215200,
+                        "duration": 2050
+                    },
+                    {
+                        "lrcTimestamp": "[03:37.25]",
+                        "line": "Do it faster, makes us stronger",
+                        "milliseconds": 217250,
+                        "duration": 1750
+                    },
+                    {
+                        "lrcTimestamp": "[03:39.00]",
+                        "line": "More than ever, hour after hour",
+                        "milliseconds": 219000,
+                        "duration": 2520
+                    },
+                    {
+                        "lrcTimestamp": "[03:41.52]",
+                        "line": "Work is never over",
+                        "milliseconds": 221520,
+                        "duration": 2560
+                    }
+                ],
+                "text": "Work it, make it\r\nDo it, makes us\r\nHarder, better\r\nFaster, stronger\r\nMore than, hour\r\nHour, never\r\nEver, after\r\nWork is, over\r\nWork it, make it\r\nDo it, makes us\r\nHarder, better\r\nFaster, stronger\r\n\r\nWork it harder, make it better\r\nDo it faster, makes us stronger\r\nMore than ever, hour after hour\r\nWork is never over\r\nWork it harder, make it better\r\nDo it faster, makes us stronger\r\nMore than ever, hour after hour\r\nWork is never over\r\nWork it harder, make it better\r\nDo it faster, makes us stronger\r\nMore than ever, hour after hour\r\nWork is never over\r\nWork it harder, make it better\r\nDo it faster, makes us stronger\r\nMore than ever, hour after hour\r\nWork is never over\r\nWork it harder, make it better\r\nDo it faster, makes us stronger\r\nMore than ever, hour after hour\r\nWork is never over\r\nWork it harder, make it better\r\nDo it faster, makes us\r\nMore than ever, hour after hour\r\nWork is never over\r\nWork it harder, make it better\r\nDo it faster, makes us stronger\r\nMore than ever, hour after hour\r\nWork is never over\r\n\r\nWork it harder, make it\r\nDo it faster, makes us\r\nMore than ever, hour after hour\r\nWork is never over\r\nWork it harder, make it better\r\nDo it faster, makes us stronger\r\nMore than ever, hour after hour\r\nWork is never over\r\nWork it, make it better\r\nDo it faster, makes us stronger\r\nMore than ever, hour after hour\r\nWork is never over\r\nWork it harder, make it better\r\nDo it faster, makes us stronger\r\nMore than ever, hour after hour\r\nWork is never over\r\nWork it harder, make it better\r\nDo it faster, makes us stronger\r\nMore than ever, hour after hour\r\nWork is never over\r\n\r\nWork it harder\r\nDo it faster\r\nMore than ever, hour\r\nWork is never over\r\nWork it harder, make it better\r\nDo it faster, makes us stronger\r\nMore than ever, hour after hour\r\nWork is never over",
+                "copyright": "BECAUSE EDITIONS, CONCORD MUSIC PUBLISHING LLC, Downtown Music Publishing",
+                "writers": "Christo Guy Manuel D Homem, Edwin Birdsong, Thomas Bangalter"
+            },
+            "isFavorite": false
+        }
+    },
+    "extensions": {
+        "queryCost": 346
+    }
+}

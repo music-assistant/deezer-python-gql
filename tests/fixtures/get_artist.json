@@ -1,0 +1,2248 @@
+{
+    "data": {
+        "artist": {
+            "id": "27",
+            "name": "Daft Punk",
+            "picture": {
+                "id": "1c59631b1636efb7ebeb686629e29e64dce830b9",
+                "urls": [
+                    "https://cdn-images.dzcdn.net/images/artist/638e69b9caaf9f9f3f8826febea7b543/1000x1000-000000-80-0-0.jpg"
+                ]
+            },
+            "bio": {
+                "summary": "Schoolmates Thomas and Guy-Manuel began their career in 1992 with the indie rock trio Darlin' (named after The Beach Boys song) but were scathingly dismissed by Melody Maker magazine as \"daft punk.\" Turning to house-inspired electronica, they used the put down as a name for their DJ-ing partnership and became a hugely successful and influential dance act. First major single \u201cDa Funk\u201d was accompanied by a Spike Jonze-directed video and more success followed with global dance floor anthem \u201cAround the World,\u201d \u201cOne More Time,\u201d and \u201cHarder, Faster, Better, Stronger\u201d - which was sampled by Kanye West for his hit \u201cStronger.\u201d Albums Homework (1997), Discovery (2001) and Human After All (2005) all made the UK Top 10 establishing a style of simple, Chicago house-inspired grooves exploding into a robotic, rave sound. Disguising their faces with masks, crash helmets and robot heads, the duo cultivated an air of mystique, but they've been sampled by Janet Jackson, appeared in TV commercials, and performed at the 2008 Grammy Awards. In the following years, they appeared alongside Kanye West at the 50th Grammy Awards and then pivoted to film music, composing the entire soundtrack of the sci-fi movie Tron: Legacy (2010), which spawned a collection of remixes under the name Tron: Legacy Reconfigured in 2011. The disco and funk-oriented Random Access Memories, their fourth full-length, arrived in 2013 and soon Daft Punk found themselves reaping the fruits of their labor, winning a Grammy for Best Dance/Electronica Album and Best Pop Duo/Group Performance for the Number 1 hit single \u201cGet Lucky,\u201d featuring Pharrell Williams and Chic\u2019s Nile Rodgers. Despite not releasing any new material of their own, Daft Punk continued to collaborate with some of the biggest stars in pop music, scoring production credits on Kanye West\u2019s Yeezus (2013) and an appearance on The Weeknd\u2019s Starboy (2016). After years of radio silence, the duo announced their breakup in 2021 through their video streaming channel.",
+                "full": "<p>Schoolmates Thomas and Guy-Manuel began their career in 1992 with the indie rock trio Darlin' (named after The Beach Boys song) but were scathingly dismissed by Melody Maker magazine as \"daft punk.\" Turning to house-inspired electronica, they used the put down as a name for their DJ-ing partnership and became a hugely successful and influential dance act. First major single <em>\u201cDa Funk\u201d</em> was accompanied by a Spike Jonze-directed video and more success followed with global dance floor anthem <em>\u201cAround the World,\u201d \u201cOne More Time,\u201d</em> and <em>\u201cHarder, Faster, Better, Stronger\u201d</em> - which was sampled by Kanye West for his hit <em>\u201cStronger.\u201d</em> Albums <em>Homework</em> (1997), <em>Discovery</em> (2001) and <em>Human After All</em> (2005) all made the UK Top 10 establishing a style of simple, Chicago house-inspired grooves exploding into a robotic, rave sound. Disguising their faces with masks, crash helmets and robot heads, the duo cultivated an air of mystique, but they've been sampled by Janet Jackson, appeared in TV commercials, and performed at the 2008 Grammy Awards. In the following years, they appeared alongside Kanye West at the 50th Grammy Awards and then pivoted to film music, composing the entire soundtrack of the sci-fi movie <em>Tron: Legacy</em> (2010), which spawned a collection of remixes under the name <em>Tron: Legacy Reconfigured</em> in 2011. The disco and funk-oriented <em>Random Access Memories</em>, their fourth full-length, arrived in 2013 and soon Daft Punk found themselves reaping the fruits of their labor, winning a Grammy for Best Dance/Electronica Album and Best Pop Duo/Group Performance for the Number 1 hit single <em>\u201cGet Lucky,\u201d</em> featuring Pharrell Williams and Chic\u2019s Nile Rodgers. Despite not releasing any new material of their own, Daft Punk continued to collaborate with some of the biggest stars in pop music, scoring production credits on Kanye West\u2019s <em>Yeezus</em> (2013) and an appearance on The Weeknd\u2019s <em>Starboy</em> (2016). After years of radio silence, the duo announced their breakup in 2021 through their video streaming channel.</p>"
+            },
+            "fansCount": 5114536,
+            "isFavorite": false,
+            "url": {
+                "webUrl": "https://www.deezer.com/artist/27",
+                "__typename": "Url"
+            },
+            "topTracks": {
+                "edges": [
+                    {
+                        "cursor": "66609426",
+                        "node": {
+                            "id": "66609426",
+                            "title": "Get Lucky (Radio Edit - feat. Pharrell Williams and Nile Rodgers)",
+                            "ISRC": "USQX91300809",
+                            "duration": 248,
+                            "isExplicit": false,
+                            "album": {
+                                "id": "6516139",
+                                "displayTitle": "Get Lucky (Radio Edit - feat. Pharrell Williams and Nile Rodgers)",
+                                "cover": {
+                                    "id": "4a4b95ce2d46f30acfe55974a05978b5fc16e36b",
+                                    "urls": [
+                                        "https://cdn-images.dzcdn.net/images/cover/bc49adb87758e0c8c4e508a9c5cce85d/264x264-000000-80-0-0.jpg"
+                                    ]
+                                }
+                            },
+                            "contributors": {
+                                "edges": [
+                                    {
+                                        "roles": [
+                                            "MAIN"
+                                        ],
+                                        "node": {
+                                            "id": "27",
+                                            "name": "Daft Punk",
+                                            "__typename": "Artist"
+                                        }
+                                    },
+                                    {
+                                        "roles": [
+                                            "MAIN"
+                                        ],
+                                        "node": {
+                                            "id": "103",
+                                            "name": "Pharrell Williams",
+                                            "__typename": "Artist"
+                                        }
+                                    },
+                                    {
+                                        "roles": [
+                                            "MAIN"
+                                        ],
+                                        "node": {
+                                            "id": "7207",
+                                            "name": "Nile Rodgers",
+                                            "__typename": "Artist"
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "cursor": "3135553",
+                        "node": {
+                            "id": "3135553",
+                            "title": "One More Time",
+                            "ISRC": "GBDUW0000053",
+                            "duration": 320,
+                            "isExplicit": false,
+                            "album": {
+                                "id": "302127",
+                                "displayTitle": "Discovery",
+                                "cover": {
+                                    "id": "668f60476275925f1614ea835e1501e7c17c2db0",
+                                    "urls": [
+                                        "https://cdn-images.dzcdn.net/images/cover/5718f7c81c27e0b2417e2a4c45224f8a/264x264-000000-80-0-0.jpg"
+                                    ]
+                                }
+                            },
+                            "contributors": {
+                                "edges": [
+                                    {
+                                        "roles": [
+                                            "MAIN"
+                                        ],
+                                        "node": {
+                                            "id": "27",
+                                            "name": "Daft Punk",
+                                            "__typename": "Artist"
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "cursor": "67238732",
+                        "node": {
+                            "id": "67238732",
+                            "title": "Instant Crush (feat. Julian Casablancas)",
+                            "ISRC": "USQX91300105",
+                            "duration": 337,
+                            "isExplicit": false,
+                            "album": {
+                                "id": "6575789",
+                                "displayTitle": "Random Access Memories",
+                                "cover": {
+                                    "id": "b41dd99a5497912d8ca9e3258fff86702262c4b4",
+                                    "urls": [
+                                        "https://cdn-images.dzcdn.net/images/cover/311bba0fc112d15f72c8b5a65f0456c1/264x264-000000-80-0-0.jpg"
+                                    ]
+                                }
+                            },
+                            "contributors": {
+                                "edges": [
+                                    {
+                                        "roles": [
+                                            "MAIN"
+                                        ],
+                                        "node": {
+                                            "id": "27",
+                                            "name": "Daft Punk",
+                                            "__typename": "Artist"
+                                        }
+                                    },
+                                    {
+                                        "roles": [
+                                            "MAIN"
+                                        ],
+                                        "node": {
+                                            "id": "295821",
+                                            "name": "Julian Casablancas",
+                                            "__typename": "Artist"
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "cursor": "67238735",
+                        "node": {
+                            "id": "67238735",
+                            "title": "Get Lucky (feat. Pharrell Williams and Nile Rodgers)",
+                            "ISRC": "USQX91300108",
+                            "duration": 367,
+                            "isExplicit": false,
+                            "album": {
+                                "id": "6575789",
+                                "displayTitle": "Random Access Memories",
+                                "cover": {
+                                    "id": "b41dd99a5497912d8ca9e3258fff86702262c4b4",
+                                    "urls": [
+                                        "https://cdn-images.dzcdn.net/images/cover/311bba0fc112d15f72c8b5a65f0456c1/264x264-000000-80-0-0.jpg"
+                                    ]
+                                }
+                            },
+                            "contributors": {
+                                "edges": [
+                                    {
+                                        "roles": [
+                                            "MAIN"
+                                        ],
+                                        "node": {
+                                            "id": "27",
+                                            "name": "Daft Punk",
+                                            "__typename": "Artist"
+                                        }
+                                    },
+                                    {
+                                        "roles": [
+                                            "MAIN"
+                                        ],
+                                        "node": {
+                                            "id": "103",
+                                            "name": "Pharrell Williams",
+                                            "__typename": "Artist"
+                                        }
+                                    },
+                                    {
+                                        "roles": [
+                                            "MAIN"
+                                        ],
+                                        "node": {
+                                            "id": "7207",
+                                            "name": "Nile Rodgers",
+                                            "__typename": "Artist"
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "cursor": "3129775",
+                        "node": {
+                            "id": "3129775",
+                            "title": "Around the World",
+                            "ISRC": "GBDUW0600009",
+                            "duration": 429,
+                            "isExplicit": false,
+                            "album": {
+                                "id": "301775",
+                                "displayTitle": "Homework",
+                                "cover": {
+                                    "id": "b4bca92c989f8190c26245b6d64ee3f8d6de61cb",
+                                    "urls": [
+                                        "https://cdn-images.dzcdn.net/images/cover/b870579c8650cd59b1cce656dde2ef17/264x264-000000-80-0-0.jpg"
+                                    ]
+                                }
+                            },
+                            "contributors": {
+                                "edges": [
+                                    {
+                                        "roles": [
+                                            "MAIN"
+                                        ],
+                                        "node": {
+                                            "id": "27",
+                                            "name": "Daft Punk",
+                                            "__typename": "Artist"
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "cursor": "3135556",
+                        "node": {
+                            "id": "3135556",
+                            "title": "Harder, Better, Faster, Stronger",
+                            "ISRC": "GBDUW0000059",
+                            "duration": 226,
+                            "isExplicit": false,
+                            "album": {
+                                "id": "302127",
+                                "displayTitle": "Discovery",
+                                "cover": {
+                                    "id": "668f60476275925f1614ea835e1501e7c17c2db0",
+                                    "urls": [
+                                        "https://cdn-images.dzcdn.net/images/cover/5718f7c81c27e0b2417e2a4c45224f8a/264x264-000000-80-0-0.jpg"
+                                    ]
+                                }
+                            },
+                            "contributors": {
+                                "edges": [
+                                    {
+                                        "roles": [
+                                            "MAIN"
+                                        ],
+                                        "node": {
+                                            "id": "27",
+                                            "name": "Daft Punk",
+                                            "__typename": "Artist"
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "cursor": "3135563",
+                        "node": {
+                            "id": "3135563",
+                            "title": "Veridis Quo",
+                            "ISRC": "GBDUW0000066",
+                            "duration": 345,
+                            "isExplicit": false,
+                            "album": {
+                                "id": "302127",
+                                "displayTitle": "Discovery",
+                                "cover": {
+                                    "id": "668f60476275925f1614ea835e1501e7c17c2db0",
+                                    "urls": [
+                                        "https://cdn-images.dzcdn.net/images/cover/5718f7c81c27e0b2417e2a4c45224f8a/264x264-000000-80-0-0.jpg"
+                                    ]
+                                }
+                            },
+                            "contributors": {
+                                "edges": [
+                                    {
+                                        "roles": [
+                                            "MAIN"
+                                        ],
+                                        "node": {
+                                            "id": "27",
+                                            "name": "Daft Punk",
+                                            "__typename": "Artist"
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "cursor": "3135561",
+                        "node": {
+                            "id": "3135561",
+                            "title": "Something About Us",
+                            "ISRC": "GBDUW0000064",
+                            "duration": 232,
+                            "isExplicit": false,
+                            "album": {
+                                "id": "302127",
+                                "displayTitle": "Discovery",
+                                "cover": {
+                                    "id": "668f60476275925f1614ea835e1501e7c17c2db0",
+                                    "urls": [
+                                        "https://cdn-images.dzcdn.net/images/cover/5718f7c81c27e0b2417e2a4c45224f8a/264x264-000000-80-0-0.jpg"
+                                    ]
+                                }
+                            },
+                            "contributors": {
+                                "edges": [
+                                    {
+                                        "roles": [
+                                            "MAIN"
+                                        ],
+                                        "node": {
+                                            "id": "27",
+                                            "name": "Daft Punk",
+                                            "__typename": "Artist"
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "cursor": "67238733",
+                        "node": {
+                            "id": "67238733",
+                            "title": "Lose Yourself to Dance (feat. Pharrell Williams)",
+                            "ISRC": "USQX91300106",
+                            "duration": 353,
+                            "isExplicit": false,
+                            "album": {
+                                "id": "6575789",
+                                "displayTitle": "Random Access Memories",
+                                "cover": {
+                                    "id": "b41dd99a5497912d8ca9e3258fff86702262c4b4",
+                                    "urls": [
+                                        "https://cdn-images.dzcdn.net/images/cover/311bba0fc112d15f72c8b5a65f0456c1/264x264-000000-80-0-0.jpg"
+                                    ]
+                                }
+                            },
+                            "contributors": {
+                                "edges": [
+                                    {
+                                        "roles": [
+                                            "MAIN"
+                                        ],
+                                        "node": {
+                                            "id": "27",
+                                            "name": "Daft Punk",
+                                            "__typename": "Artist"
+                                        }
+                                    },
+                                    {
+                                        "roles": [
+                                            "MAIN"
+                                        ],
+                                        "node": {
+                                            "id": "103",
+                                            "name": "Pharrell Williams",
+                                            "__typename": "Artist"
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "cursor": "3129772",
+                        "node": {
+                            "id": "3129772",
+                            "title": "Da Funk",
+                            "ISRC": "GBDUW0600006",
+                            "duration": 328,
+                            "isExplicit": false,
+                            "album": {
+                                "id": "301775",
+                                "displayTitle": "Homework",
+                                "cover": {
+                                    "id": "b4bca92c989f8190c26245b6d64ee3f8d6de61cb",
+                                    "urls": [
+                                        "https://cdn-images.dzcdn.net/images/cover/b870579c8650cd59b1cce656dde2ef17/264x264-000000-80-0-0.jpg"
+                                    ]
+                                }
+                            },
+                            "contributors": {
+                                "edges": [
+                                    {
+                                        "roles": [
+                                            "MAIN"
+                                        ],
+                                        "node": {
+                                            "id": "27",
+                                            "name": "Daft Punk",
+                                            "__typename": "Artist"
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "cursor": "1173629942",
+                        "node": {
+                            "id": "1173629942",
+                            "title": "End of Line",
+                            "ISRC": "USWD11054887",
+                            "duration": 156,
+                            "isExplicit": false,
+                            "album": {
+                                "id": "192529232",
+                                "displayTitle": "TRON: Legacy - The Complete Edition (Original Motion Picture Soundtrack)",
+                                "cover": {
+                                    "id": "45de53808f255e3b595cfd99f2174146a7ae6e89",
+                                    "urls": [
+                                        "https://cdn-images.dzcdn.net/images/cover/313e8a988614445ab1ad508da2805187/264x264-000000-80-0-0.jpg"
+                                    ]
+                                }
+                            },
+                            "contributors": {
+                                "edges": [
+                                    {
+                                        "roles": [
+                                            "MAIN"
+                                        ],
+                                        "node": {
+                                            "id": "27",
+                                            "name": "Daft Punk",
+                                            "__typename": "Artist"
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "cursor": "3135562",
+                        "node": {
+                            "id": "3135562",
+                            "title": "Voyager",
+                            "ISRC": "GBDUW0000065",
+                            "duration": 227,
+                            "isExplicit": false,
+                            "album": {
+                                "id": "302127",
+                                "displayTitle": "Discovery",
+                                "cover": {
+                                    "id": "668f60476275925f1614ea835e1501e7c17c2db0",
+                                    "urls": [
+                                        "https://cdn-images.dzcdn.net/images/cover/5718f7c81c27e0b2417e2a4c45224f8a/264x264-000000-80-0-0.jpg"
+                                    ]
+                                }
+                            },
+                            "contributors": {
+                                "edges": [
+                                    {
+                                        "roles": [
+                                            "MAIN"
+                                        ],
+                                        "node": {
+                                            "id": "27",
+                                            "name": "Daft Punk",
+                                            "__typename": "Artist"
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "cursor": "67238730",
+                        "node": {
+                            "id": "67238730",
+                            "title": "Giorgio by Moroder",
+                            "ISRC": "USQX91300103",
+                            "duration": 544,
+                            "isExplicit": false,
+                            "album": {
+                                "id": "6575789",
+                                "displayTitle": "Random Access Memories",
+                                "cover": {
+                                    "id": "b41dd99a5497912d8ca9e3258fff86702262c4b4",
+                                    "urls": [
+                                        "https://cdn-images.dzcdn.net/images/cover/311bba0fc112d15f72c8b5a65f0456c1/264x264-000000-80-0-0.jpg"
+                                    ]
+                                }
+                            },
+                            "contributors": {
+                                "edges": [
+                                    {
+                                        "roles": [
+                                            "MAIN"
+                                        ],
+                                        "node": {
+                                            "id": "27",
+                                            "name": "Daft Punk",
+                                            "__typename": "Artist"
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "cursor": "3135555",
+                        "node": {
+                            "id": "3135555",
+                            "title": "Digital Love",
+                            "ISRC": "GBDUW0000058",
+                            "duration": 301,
+                            "isExplicit": false,
+                            "album": {
+                                "id": "302127",
+                                "displayTitle": "Discovery",
+                                "cover": {
+                                    "id": "668f60476275925f1614ea835e1501e7c17c2db0",
+                                    "urls": [
+                                        "https://cdn-images.dzcdn.net/images/cover/5718f7c81c27e0b2417e2a4c45224f8a/264x264-000000-80-0-0.jpg"
+                                    ]
+                                }
+                            },
+                            "contributors": {
+                                "edges": [
+                                    {
+                                        "roles": [
+                                            "MAIN"
+                                        ],
+                                        "node": {
+                                            "id": "27",
+                                            "name": "Daft Punk",
+                                            "__typename": "Artist"
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "cursor": "3157685",
+                        "node": {
+                            "id": "3157685",
+                            "title": "One More Time (Short Radio Edit)",
+                            "ISRC": "GBDUW0000054",
+                            "duration": 235,
+                            "isExplicit": false,
+                            "album": {
+                                "id": "303598",
+                                "displayTitle": "One More Time",
+                                "cover": {
+                                    "id": "a112ec4736aa32177c1e85f12ff11b54a3a34d8c",
+                                    "urls": [
+                                        "https://cdn-images.dzcdn.net/images/cover/07d17f7608a4cbcb60d701faa3c257c8/264x264-000000-80-0-0.jpg"
+                                    ]
+                                }
+                            },
+                            "contributors": {
+                                "edges": [
+                                    {
+                                        "roles": [
+                                            "MAIN"
+                                        ],
+                                        "node": {
+                                            "id": "27",
+                                            "name": "Daft Punk",
+                                            "__typename": "Artist"
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "cursor": "67238728",
+                        "node": {
+                            "id": "67238728",
+                            "title": "Give Life Back to Music",
+                            "ISRC": "USQX91300101",
+                            "duration": 274,
+                            "isExplicit": false,
+                            "album": {
+                                "id": "6575789",
+                                "displayTitle": "Random Access Memories",
+                                "cover": {
+                                    "id": "b41dd99a5497912d8ca9e3258fff86702262c4b4",
+                                    "urls": [
+                                        "https://cdn-images.dzcdn.net/images/cover/311bba0fc112d15f72c8b5a65f0456c1/264x264-000000-80-0-0.jpg"
+                                    ]
+                                }
+                            },
+                            "contributors": {
+                                "edges": [
+                                    {
+                                        "roles": [
+                                            "MAIN"
+                                        ],
+                                        "node": {
+                                            "id": "27",
+                                            "name": "Daft Punk",
+                                            "__typename": "Artist"
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "cursor": "3135554",
+                        "node": {
+                            "id": "3135554",
+                            "title": "Aerodynamic",
+                            "ISRC": "GBDUW0000057",
+                            "duration": 212,
+                            "isExplicit": false,
+                            "album": {
+                                "id": "302127",
+                                "displayTitle": "Discovery",
+                                "cover": {
+                                    "id": "668f60476275925f1614ea835e1501e7c17c2db0",
+                                    "urls": [
+                                        "https://cdn-images.dzcdn.net/images/cover/5718f7c81c27e0b2417e2a4c45224f8a/264x264-000000-80-0-0.jpg"
+                                    ]
+                                }
+                            },
+                            "contributors": {
+                                "edges": [
+                                    {
+                                        "roles": [
+                                            "MAIN"
+                                        ],
+                                        "node": {
+                                            "id": "27",
+                                            "name": "Daft Punk",
+                                            "__typename": "Artist"
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "cursor": "3155977",
+                        "node": {
+                            "id": "3155977",
+                            "title": "Robot Rock",
+                            "ISRC": "GBDUW0400103",
+                            "duration": 287,
+                            "isExplicit": false,
+                            "album": {
+                                "id": "303459",
+                                "displayTitle": "Human After All",
+                                "cover": {
+                                    "id": "2237403d973739fa0507a13b1f70ea83bc3b9a4e",
+                                    "urls": [
+                                        "https://cdn-images.dzcdn.net/images/cover/48701ef0699add067f257045a72d06af/264x264-000000-80-0-0.jpg"
+                                    ]
+                                }
+                            },
+                            "contributors": {
+                                "edges": [
+                                    {
+                                        "roles": [
+                                            "MAIN"
+                                        ],
+                                        "node": {
+                                            "id": "27",
+                                            "name": "Daft Punk",
+                                            "__typename": "Artist"
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "cursor": "67238738",
+                        "node": {
+                            "id": "67238738",
+                            "title": "Fragments of Time (feat. Todd Edwards)",
+                            "ISRC": "USQX91300111",
+                            "duration": 279,
+                            "isExplicit": false,
+                            "album": {
+                                "id": "6575789",
+                                "displayTitle": "Random Access Memories",
+                                "cover": {
+                                    "id": "b41dd99a5497912d8ca9e3258fff86702262c4b4",
+                                    "urls": [
+                                        "https://cdn-images.dzcdn.net/images/cover/311bba0fc112d15f72c8b5a65f0456c1/264x264-000000-80-0-0.jpg"
+                                    ]
+                                }
+                            },
+                            "contributors": {
+                                "edges": [
+                                    {
+                                        "roles": [
+                                            "MAIN"
+                                        ],
+                                        "node": {
+                                            "id": "27",
+                                            "name": "Daft Punk",
+                                            "__typename": "Artist"
+                                        }
+                                    },
+                                    {
+                                        "roles": [
+                                            "MAIN"
+                                        ],
+                                        "node": {
+                                            "id": "11533",
+                                            "name": "Todd Edwards",
+                                            "__typename": "Artist"
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "cursor": "3155983",
+                        "node": {
+                            "id": "3155983",
+                            "title": "Technologic",
+                            "ISRC": "GBDUW0400109",
+                            "duration": 284,
+                            "isExplicit": false,
+                            "album": {
+                                "id": "303459",
+                                "displayTitle": "Human After All",
+                                "cover": {
+                                    "id": "2237403d973739fa0507a13b1f70ea83bc3b9a4e",
+                                    "urls": [
+                                        "https://cdn-images.dzcdn.net/images/cover/48701ef0699add067f257045a72d06af/264x264-000000-80-0-0.jpg"
+                                    ]
+                                }
+                            },
+                            "contributors": {
+                                "edges": [
+                                    {
+                                        "roles": [
+                                            "MAIN"
+                                        ],
+                                        "node": {
+                                            "id": "27",
+                                            "name": "Daft Punk",
+                                            "__typename": "Artist"
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "cursor": "67238731",
+                        "node": {
+                            "id": "67238731",
+                            "title": "Within",
+                            "ISRC": "USQX91300104",
+                            "duration": 228,
+                            "isExplicit": false,
+                            "album": {
+                                "id": "6575789",
+                                "displayTitle": "Random Access Memories",
+                                "cover": {
+                                    "id": "b41dd99a5497912d8ca9e3258fff86702262c4b4",
+                                    "urls": [
+                                        "https://cdn-images.dzcdn.net/images/cover/311bba0fc112d15f72c8b5a65f0456c1/264x264-000000-80-0-0.jpg"
+                                    ]
+                                }
+                            },
+                            "contributors": {
+                                "edges": [
+                                    {
+                                        "roles": [
+                                            "MAIN"
+                                        ],
+                                        "node": {
+                                            "id": "27",
+                                            "name": "Daft Punk",
+                                            "__typename": "Artist"
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "cursor": "3135565",
+                        "node": {
+                            "id": "3135565",
+                            "title": "Face to Face",
+                            "ISRC": "GBDUW0000068",
+                            "duration": 240,
+                            "isExplicit": false,
+                            "album": {
+                                "id": "302127",
+                                "displayTitle": "Discovery",
+                                "cover": {
+                                    "id": "668f60476275925f1614ea835e1501e7c17c2db0",
+                                    "urls": [
+                                        "https://cdn-images.dzcdn.net/images/cover/5718f7c81c27e0b2417e2a4c45224f8a/264x264-000000-80-0-0.jpg"
+                                    ]
+                                }
+                            },
+                            "contributors": {
+                                "edges": [
+                                    {
+                                        "roles": [
+                                            "MAIN"
+                                        ],
+                                        "node": {
+                                            "id": "27",
+                                            "name": "Daft Punk",
+                                            "__typename": "Artist"
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "cursor": "3135557",
+                        "node": {
+                            "id": "3135557",
+                            "title": "Crescendolls",
+                            "ISRC": "GBDUW0000060",
+                            "duration": 211,
+                            "isExplicit": false,
+                            "album": {
+                                "id": "302127",
+                                "displayTitle": "Discovery",
+                                "cover": {
+                                    "id": "668f60476275925f1614ea835e1501e7c17c2db0",
+                                    "urls": [
+                                        "https://cdn-images.dzcdn.net/images/cover/5718f7c81c27e0b2417e2a4c45224f8a/264x264-000000-80-0-0.jpg"
+                                    ]
+                                }
+                            },
+                            "contributors": {
+                                "edges": [
+                                    {
+                                        "roles": [
+                                            "MAIN"
+                                        ],
+                                        "node": {
+                                            "id": "27",
+                                            "name": "Daft Punk",
+                                            "__typename": "Artist"
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "cursor": "3155976",
+                        "node": {
+                            "id": "3155976",
+                            "title": "The Prime Time of Your Life",
+                            "ISRC": "GBDUW0400102",
+                            "duration": 263,
+                            "isExplicit": false,
+                            "album": {
+                                "id": "303459",
+                                "displayTitle": "Human After All",
+                                "cover": {
+                                    "id": "2237403d973739fa0507a13b1f70ea83bc3b9a4e",
+                                    "urls": [
+                                        "https://cdn-images.dzcdn.net/images/cover/48701ef0699add067f257045a72d06af/264x264-000000-80-0-0.jpg"
+                                    ]
+                                }
+                            },
+                            "contributors": {
+                                "edges": [
+                                    {
+                                        "roles": [
+                                            "MAIN"
+                                        ],
+                                        "node": {
+                                            "id": "27",
+                                            "name": "Daft Punk",
+                                            "__typename": "Artist"
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "cursor": "3135560",
+                        "node": {
+                            "id": "3135560",
+                            "title": "High Life",
+                            "ISRC": "GBDUW0000063",
+                            "duration": 201,
+                            "isExplicit": false,
+                            "album": {
+                                "id": "302127",
+                                "displayTitle": "Discovery",
+                                "cover": {
+                                    "id": "668f60476275925f1614ea835e1501e7c17c2db0",
+                                    "urls": [
+                                        "https://cdn-images.dzcdn.net/images/cover/5718f7c81c27e0b2417e2a4c45224f8a/264x264-000000-80-0-0.jpg"
+                                    ]
+                                }
+                            },
+                            "contributors": {
+                                "edges": [
+                                    {
+                                        "roles": [
+                                            "MAIN"
+                                        ],
+                                        "node": {
+                                            "id": "27",
+                                            "name": "Daft Punk",
+                                            "__typename": "Artist"
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "cursor": "3155975",
+                        "node": {
+                            "id": "3155975",
+                            "title": "Human After All",
+                            "ISRC": "GBDUW0400101",
+                            "duration": 319,
+                            "isExplicit": false,
+                            "album": {
+                                "id": "303459",
+                                "displayTitle": "Human After All",
+                                "cover": {
+                                    "id": "2237403d973739fa0507a13b1f70ea83bc3b9a4e",
+                                    "urls": [
+                                        "https://cdn-images.dzcdn.net/images/cover/48701ef0699add067f257045a72d06af/264x264-000000-80-0-0.jpg"
+                                    ]
+                                }
+                            },
+                            "contributors": {
+                                "edges": [
+                                    {
+                                        "roles": [
+                                            "MAIN"
+                                        ],
+                                        "node": {
+                                            "id": "27",
+                                            "name": "Daft Punk",
+                                            "__typename": "Artist"
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "cursor": "3167843",
+                        "node": {
+                            "id": "3167843",
+                            "title": "Around the World / Harder, Better, Faster, Stronger",
+                            "ISRC": "GBDUW0700005",
+                            "duration": 342,
+                            "isExplicit": false,
+                            "album": {
+                                "id": "304193",
+                                "displayTitle": "Alive 2007",
+                                "cover": {
+                                    "id": "4a8c186acac7a12abc340cce720134da74e48ea3",
+                                    "urls": [
+                                        "https://cdn-images.dzcdn.net/images/cover/ad3dda2e1b770ad143d5dbfeb667fa39/264x264-000000-80-0-0.jpg"
+                                    ]
+                                }
+                            },
+                            "contributors": {
+                                "edges": [
+                                    {
+                                        "roles": [
+                                            "MAIN"
+                                        ],
+                                        "node": {
+                                            "id": "27",
+                                            "name": "Daft Punk",
+                                            "__typename": "Artist"
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "cursor": "67238729",
+                        "node": {
+                            "id": "67238729",
+                            "title": "The Game of Love",
+                            "ISRC": "USQX91300102",
+                            "duration": 321,
+                            "isExplicit": false,
+                            "album": {
+                                "id": "6575789",
+                                "displayTitle": "Random Access Memories",
+                                "cover": {
+                                    "id": "b41dd99a5497912d8ca9e3258fff86702262c4b4",
+                                    "urls": [
+                                        "https://cdn-images.dzcdn.net/images/cover/311bba0fc112d15f72c8b5a65f0456c1/264x264-000000-80-0-0.jpg"
+                                    ]
+                                }
+                            },
+                            "contributors": {
+                                "edges": [
+                                    {
+                                        "roles": [
+                                            "MAIN"
+                                        ],
+                                        "node": {
+                                            "id": "27",
+                                            "name": "Daft Punk",
+                                            "__typename": "Artist"
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "cursor": "3129771",
+                        "node": {
+                            "id": "3129771",
+                            "title": "Revolution 909",
+                            "ISRC": "GBDUW0600005",
+                            "duration": 335,
+                            "isExplicit": false,
+                            "album": {
+                                "id": "301775",
+                                "displayTitle": "Homework",
+                                "cover": {
+                                    "id": "b4bca92c989f8190c26245b6d64ee3f8d6de61cb",
+                                    "urls": [
+                                        "https://cdn-images.dzcdn.net/images/cover/b870579c8650cd59b1cce656dde2ef17/264x264-000000-80-0-0.jpg"
+                                    ]
+                                }
+                            },
+                            "contributors": {
+                                "edges": [
+                                    {
+                                        "roles": [
+                                            "MAIN"
+                                        ],
+                                        "node": {
+                                            "id": "27",
+                                            "name": "Daft Punk",
+                                            "__typename": "Artist"
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "cursor": "1173629832",
+                        "node": {
+                            "id": "1173629832",
+                            "title": "The Son of Flynn",
+                            "ISRC": "USWD11054878",
+                            "duration": 95,
+                            "isExplicit": false,
+                            "album": {
+                                "id": "192529232",
+                                "displayTitle": "TRON: Legacy - The Complete Edition (Original Motion Picture Soundtrack)",
+                                "cover": {
+                                    "id": "45de53808f255e3b595cfd99f2174146a7ae6e89",
+                                    "urls": [
+                                        "https://cdn-images.dzcdn.net/images/cover/313e8a988614445ab1ad508da2805187/264x264-000000-80-0-0.jpg"
+                                    ]
+                                }
+                            },
+                            "contributors": {
+                                "edges": [
+                                    {
+                                        "roles": [
+                                            "MAIN"
+                                        ],
+                                        "node": {
+                                            "id": "27",
+                                            "name": "Daft Punk",
+                                            "__typename": "Artist"
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "cursor": "1173629902",
+                        "node": {
+                            "id": "1173629902",
+                            "title": "The Game Has Changed",
+                            "ISRC": "USWD11054883",
+                            "duration": 205,
+                            "isExplicit": false,
+                            "album": {
+                                "id": "192529232",
+                                "displayTitle": "TRON: Legacy - The Complete Edition (Original Motion Picture Soundtrack)",
+                                "cover": {
+                                    "id": "45de53808f255e3b595cfd99f2174146a7ae6e89",
+                                    "urls": [
+                                        "https://cdn-images.dzcdn.net/images/cover/313e8a988614445ab1ad508da2805187/264x264-000000-80-0-0.jpg"
+                                    ]
+                                }
+                            },
+                            "contributors": {
+                                "edges": [
+                                    {
+                                        "roles": [
+                                            "MAIN"
+                                        ],
+                                        "node": {
+                                            "id": "27",
+                                            "name": "Daft Punk",
+                                            "__typename": "Artist"
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "cursor": "3167846",
+                        "node": {
+                            "id": "3167846",
+                            "title": "One More Time / Aerodynamic",
+                            "ISRC": "GBDUW0700008",
+                            "duration": 370,
+                            "isExplicit": false,
+                            "album": {
+                                "id": "304193",
+                                "displayTitle": "Alive 2007",
+                                "cover": {
+                                    "id": "4a8c186acac7a12abc340cce720134da74e48ea3",
+                                    "urls": [
+                                        "https://cdn-images.dzcdn.net/images/cover/ad3dda2e1b770ad143d5dbfeb667fa39/264x264-000000-80-0-0.jpg"
+                                    ]
+                                }
+                            },
+                            "contributors": {
+                                "edges": [
+                                    {
+                                        "roles": [
+                                            "MAIN"
+                                        ],
+                                        "node": {
+                                            "id": "27",
+                                            "name": "Daft Punk",
+                                            "__typename": "Artist"
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "cursor": "14598347",
+                        "node": {
+                            "id": "14598347",
+                            "title": "Around the World (Radio Edit)",
+                            "ISRC": "GBDUW0600057",
+                            "duration": 241,
+                            "isExplicit": false,
+                            "album": {
+                                "id": "1343199",
+                                "displayTitle": "Musique, Vol. 1",
+                                "cover": {
+                                    "id": "501a2c6ca40ce728f9b6b62e6c126e5eb2f88dd8",
+                                    "urls": [
+                                        "https://cdn-images.dzcdn.net/images/cover/39e2281a0e9f564e73b4f49dfa06f4ab/264x264-000000-80-0-0.jpg"
+                                    ]
+                                }
+                            },
+                            "contributors": {
+                                "edges": [
+                                    {
+                                        "roles": [
+                                            "MAIN"
+                                        ],
+                                        "node": {
+                                            "id": "27",
+                                            "name": "Daft Punk",
+                                            "__typename": "Artist"
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "cursor": "1173629952",
+                        "node": {
+                            "id": "1173629952",
+                            "title": "Derezzed",
+                            "ISRC": "USWD11054888",
+                            "duration": 104,
+                            "isExplicit": false,
+                            "album": {
+                                "id": "192529232",
+                                "displayTitle": "TRON: Legacy - The Complete Edition (Original Motion Picture Soundtrack)",
+                                "cover": {
+                                    "id": "45de53808f255e3b595cfd99f2174146a7ae6e89",
+                                    "urls": [
+                                        "https://cdn-images.dzcdn.net/images/cover/313e8a988614445ab1ad508da2805187/264x264-000000-80-0-0.jpg"
+                                    ]
+                                }
+                            },
+                            "contributors": {
+                                "edges": [
+                                    {
+                                        "roles": [
+                                            "MAIN"
+                                        ],
+                                        "node": {
+                                            "id": "27",
+                                            "name": "Daft Punk",
+                                            "__typename": "Artist"
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "cursor": "67238737",
+                        "node": {
+                            "id": "67238737",
+                            "title": "Motherboard",
+                            "ISRC": "USQX91300110",
+                            "duration": 341,
+                            "isExplicit": false,
+                            "album": {
+                                "id": "6575789",
+                                "displayTitle": "Random Access Memories",
+                                "cover": {
+                                    "id": "b41dd99a5497912d8ca9e3258fff86702262c4b4",
+                                    "urls": [
+                                        "https://cdn-images.dzcdn.net/images/cover/311bba0fc112d15f72c8b5a65f0456c1/264x264-000000-80-0-0.jpg"
+                                    ]
+                                }
+                            },
+                            "contributors": {
+                                "edges": [
+                                    {
+                                        "roles": [
+                                            "MAIN"
+                                        ],
+                                        "node": {
+                                            "id": "27",
+                                            "name": "Daft Punk",
+                                            "__typename": "Artist"
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "cursor": "3135566",
+                        "node": {
+                            "id": "3135566",
+                            "title": "Too Long",
+                            "ISRC": "GBDUW0000069",
+                            "duration": 600,
+                            "isExplicit": false,
+                            "album": {
+                                "id": "302127",
+                                "displayTitle": "Discovery",
+                                "cover": {
+                                    "id": "668f60476275925f1614ea835e1501e7c17c2db0",
+                                    "urls": [
+                                        "https://cdn-images.dzcdn.net/images/cover/5718f7c81c27e0b2417e2a4c45224f8a/264x264-000000-80-0-0.jpg"
+                                    ]
+                                }
+                            },
+                            "contributors": {
+                                "edges": [
+                                    {
+                                        "roles": [
+                                            "MAIN"
+                                        ],
+                                        "node": {
+                                            "id": "27",
+                                            "name": "Daft Punk",
+                                            "__typename": "Artist"
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "cursor": "1173630032",
+                        "node": {
+                            "id": "1173630032",
+                            "title": "TRON Legacy (End Titles)",
+                            "ISRC": "USWD11054896",
+                            "duration": 198,
+                            "isExplicit": false,
+                            "album": {
+                                "id": "192529232",
+                                "displayTitle": "TRON: Legacy - The Complete Edition (Original Motion Picture Soundtrack)",
+                                "cover": {
+                                    "id": "45de53808f255e3b595cfd99f2174146a7ae6e89",
+                                    "urls": [
+                                        "https://cdn-images.dzcdn.net/images/cover/313e8a988614445ab1ad508da2805187/264x264-000000-80-0-0.jpg"
+                                    ]
+                                }
+                            },
+                            "contributors": {
+                                "edges": [
+                                    {
+                                        "roles": [
+                                            "MAIN"
+                                        ],
+                                        "node": {
+                                            "id": "27",
+                                            "name": "Daft Punk",
+                                            "__typename": "Artist"
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "cursor": "67238736",
+                        "node": {
+                            "id": "67238736",
+                            "title": "Beyond",
+                            "ISRC": "USQX91300109",
+                            "duration": 290,
+                            "isExplicit": false,
+                            "album": {
+                                "id": "6575789",
+                                "displayTitle": "Random Access Memories",
+                                "cover": {
+                                    "id": "b41dd99a5497912d8ca9e3258fff86702262c4b4",
+                                    "urls": [
+                                        "https://cdn-images.dzcdn.net/images/cover/311bba0fc112d15f72c8b5a65f0456c1/264x264-000000-80-0-0.jpg"
+                                    ]
+                                }
+                            },
+                            "contributors": {
+                                "edges": [
+                                    {
+                                        "roles": [
+                                            "MAIN"
+                                        ],
+                                        "node": {
+                                            "id": "27",
+                                            "name": "Daft Punk",
+                                            "__typename": "Artist"
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "cursor": "3135559",
+                        "node": {
+                            "id": "3135559",
+                            "title": "Superheroes",
+                            "ISRC": "GBDUW0000062",
+                            "duration": 237,
+                            "isExplicit": false,
+                            "album": {
+                                "id": "302127",
+                                "displayTitle": "Discovery",
+                                "cover": {
+                                    "id": "668f60476275925f1614ea835e1501e7c17c2db0",
+                                    "urls": [
+                                        "https://cdn-images.dzcdn.net/images/cover/5718f7c81c27e0b2417e2a4c45224f8a/264x264-000000-80-0-0.jpg"
+                                    ]
+                                }
+                            },
+                            "contributors": {
+                                "edges": [
+                                    {
+                                        "roles": [
+                                            "MAIN"
+                                        ],
+                                        "node": {
+                                            "id": "27",
+                                            "name": "Daft Punk",
+                                            "__typename": "Artist"
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "cursor": "2478010401",
+                        "node": {
+                            "id": "2478010401",
+                            "title": "Lose Yourself to Dance (Drumless Edition) (feat. Pharrell Williams)",
+                            "ISRC": "GBDUW2300140",
+                            "duration": 353,
+                            "isExplicit": false,
+                            "album": {
+                                "id": "494309801",
+                                "displayTitle": "Random Access Memories (Drumless Edition)",
+                                "cover": {
+                                    "id": "4f0cf07d3cd5db63e5da57dc4a67e5acf9c55a27",
+                                    "urls": [
+                                        "https://cdn-images.dzcdn.net/images/cover/bb8b5f188ae380ac3a7c876b70556357/264x264-000000-80-0-0.jpg"
+                                    ]
+                                }
+                            },
+                            "contributors": {
+                                "edges": [
+                                    {
+                                        "roles": [
+                                            "MAIN"
+                                        ],
+                                        "node": {
+                                            "id": "27",
+                                            "name": "Daft Punk",
+                                            "__typename": "Artist"
+                                        }
+                                    },
+                                    {
+                                        "roles": [
+                                            "MAIN"
+                                        ],
+                                        "node": {
+                                            "id": "103",
+                                            "name": "Pharrell Williams",
+                                            "__typename": "Artist"
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "cursor": "3089386",
+                        "node": {
+                            "id": "3089386",
+                            "title": "Aerodynamic (Daft Punk Remix)",
+                            "ISRC": "GBDUW0300001",
+                            "duration": 370,
+                            "isExplicit": false,
+                            "album": {
+                                "id": "299205",
+                                "displayTitle": "Daft Club",
+                                "cover": {
+                                    "id": "4f5dbcade0c7b18b47fb964a903e822739bff2f8",
+                                    "urls": [
+                                        "https://cdn-images.dzcdn.net/images/cover/0416976ab8f3f32e0b447dd1b9b1e0cf/264x264-000000-80-0-0.jpg"
+                                    ]
+                                }
+                            },
+                            "contributors": {
+                                "edges": [
+                                    {
+                                        "roles": [
+                                            "MAIN"
+                                        ],
+                                        "node": {
+                                            "id": "27",
+                                            "name": "Daft Punk",
+                                            "__typename": "Artist"
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "cursor": "1173630052",
+                        "node": {
+                            "id": "1173630052",
+                            "title": "Sea of Simulation",
+                            "ISRC": "USWD11055414",
+                            "duration": 161,
+                            "isExplicit": false,
+                            "album": {
+                                "id": "192529232",
+                                "displayTitle": "TRON: Legacy - The Complete Edition (Original Motion Picture Soundtrack)",
+                                "cover": {
+                                    "id": "45de53808f255e3b595cfd99f2174146a7ae6e89",
+                                    "urls": [
+                                        "https://cdn-images.dzcdn.net/images/cover/313e8a988614445ab1ad508da2805187/264x264-000000-80-0-0.jpg"
+                                    ]
+                                }
+                            },
+                            "contributors": {
+                                "edges": [
+                                    {
+                                        "roles": [
+                                            "MAIN"
+                                        ],
+                                        "node": {
+                                            "id": "27",
+                                            "name": "Daft Punk",
+                                            "__typename": "Artist"
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "cursor": "3135558",
+                        "node": {
+                            "id": "3135558",
+                            "title": "Nightvision",
+                            "ISRC": "GBDUW0000061",
+                            "duration": 104,
+                            "isExplicit": false,
+                            "album": {
+                                "id": "302127",
+                                "displayTitle": "Discovery",
+                                "cover": {
+                                    "id": "668f60476275925f1614ea835e1501e7c17c2db0",
+                                    "urls": [
+                                        "https://cdn-images.dzcdn.net/images/cover/5718f7c81c27e0b2417e2a4c45224f8a/264x264-000000-80-0-0.jpg"
+                                    ]
+                                }
+                            },
+                            "contributors": {
+                                "edges": [
+                                    {
+                                        "roles": [
+                                            "MAIN"
+                                        ],
+                                        "node": {
+                                            "id": "27",
+                                            "name": "Daft Punk",
+                                            "__typename": "Artist"
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "cursor": "3129779",
+                        "node": {
+                            "id": "3129779",
+                            "title": "Rock'n Roll",
+                            "ISRC": "GBDUW0600013",
+                            "duration": 453,
+                            "isExplicit": false,
+                            "album": {
+                                "id": "301775",
+                                "displayTitle": "Homework",
+                                "cover": {
+                                    "id": "b4bca92c989f8190c26245b6d64ee3f8d6de61cb",
+                                    "urls": [
+                                        "https://cdn-images.dzcdn.net/images/cover/b870579c8650cd59b1cce656dde2ef17/264x264-000000-80-0-0.jpg"
+                                    ]
+                                }
+                            },
+                            "contributors": {
+                                "edges": [
+                                    {
+                                        "roles": [
+                                            "MAIN"
+                                        ],
+                                        "node": {
+                                            "id": "27",
+                                            "name": "Daft Punk",
+                                            "__typename": "Artist"
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "cursor": "3155982",
+                        "node": {
+                            "id": "3155982",
+                            "title": "Television Rules the Nation",
+                            "ISRC": "GBDUW0400108",
+                            "duration": 287,
+                            "isExplicit": false,
+                            "album": {
+                                "id": "303459",
+                                "displayTitle": "Human After All",
+                                "cover": {
+                                    "id": "2237403d973739fa0507a13b1f70ea83bc3b9a4e",
+                                    "urls": [
+                                        "https://cdn-images.dzcdn.net/images/cover/48701ef0699add067f257045a72d06af/264x264-000000-80-0-0.jpg"
+                                    ]
+                                }
+                            },
+                            "contributors": {
+                                "edges": [
+                                    {
+                                        "roles": [
+                                            "MAIN"
+                                        ],
+                                        "node": {
+                                            "id": "27",
+                                            "name": "Daft Punk",
+                                            "__typename": "Artist"
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "cursor": "3155979",
+                        "node": {
+                            "id": "3155979",
+                            "title": "Make Love",
+                            "ISRC": "GBDUW0400105",
+                            "duration": 289,
+                            "isExplicit": false,
+                            "album": {
+                                "id": "303459",
+                                "displayTitle": "Human After All",
+                                "cover": {
+                                    "id": "2237403d973739fa0507a13b1f70ea83bc3b9a4e",
+                                    "urls": [
+                                        "https://cdn-images.dzcdn.net/images/cover/48701ef0699add067f257045a72d06af/264x264-000000-80-0-0.jpg"
+                                    ]
+                                }
+                            },
+                            "contributors": {
+                                "edges": [
+                                    {
+                                        "roles": [
+                                            "MAIN"
+                                        ],
+                                        "node": {
+                                            "id": "27",
+                                            "name": "Daft Punk",
+                                            "__typename": "Artist"
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "cursor": "3089385",
+                        "node": {
+                            "id": "3089385",
+                            "title": "Ouverture",
+                            "ISRC": "GBDUW0300005",
+                            "duration": 160,
+                            "isExplicit": false,
+                            "album": {
+                                "id": "299205",
+                                "displayTitle": "Daft Club",
+                                "cover": {
+                                    "id": "4f5dbcade0c7b18b47fb964a903e822739bff2f8",
+                                    "urls": [
+                                        "https://cdn-images.dzcdn.net/images/cover/0416976ab8f3f32e0b447dd1b9b1e0cf/264x264-000000-80-0-0.jpg"
+                                    ]
+                                }
+                            },
+                            "contributors": {
+                                "edges": [
+                                    {
+                                        "roles": [
+                                            "MAIN"
+                                        ],
+                                        "node": {
+                                            "id": "27",
+                                            "name": "Daft Punk",
+                                            "__typename": "Artist"
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "cursor": "3167847",
+                        "node": {
+                            "id": "3167847",
+                            "title": "Aerodynamic Beats / Gabrielle , Forget About the World",
+                            "ISRC": "GBDUW0700009",
+                            "duration": 211,
+                            "isExplicit": false,
+                            "album": {
+                                "id": "304193",
+                                "displayTitle": "Alive 2007",
+                                "cover": {
+                                    "id": "4a8c186acac7a12abc340cce720134da74e48ea3",
+                                    "urls": [
+                                        "https://cdn-images.dzcdn.net/images/cover/ad3dda2e1b770ad143d5dbfeb667fa39/264x264-000000-80-0-0.jpg"
+                                    ]
+                                }
+                            },
+                            "contributors": {
+                                "edges": [
+                                    {
+                                        "roles": [
+                                            "MAIN"
+                                        ],
+                                        "node": {
+                                            "id": "27",
+                                            "name": "Daft Punk",
+                                            "__typename": "Artist"
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "cursor": "3129034151",
+                        "node": {
+                            "id": "3129034151",
+                            "title": "Veridis Quo (Edit)",
+                            "ISRC": "GBDUW2400010",
+                            "duration": 164,
+                            "isExplicit": false,
+                            "album": {
+                                "id": "680155971",
+                                "displayTitle": "Veridis Quo",
+                                "cover": {
+                                    "id": "c5a032dcd59dfdd4076cdcca70b3682dba47e315",
+                                    "urls": [
+                                        "https://cdn-images.dzcdn.net/images/cover/29eb1fad6f59eaa701bc65bdf29b782f/264x264-000000-80-0-0.jpg"
+                                    ]
+                                }
+                            },
+                            "contributors": {
+                                "edges": [
+                                    {
+                                        "roles": [
+                                            "MAIN"
+                                        ],
+                                        "node": {
+                                            "id": "27",
+                                            "name": "Daft Punk",
+                                            "__typename": "Artist"
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "cursor": "3155984",
+                        "node": {
+                            "id": "3155984",
+                            "title": "Emotion",
+                            "ISRC": "GBDUW0400110",
+                            "duration": 417,
+                            "isExplicit": false,
+                            "album": {
+                                "id": "303459",
+                                "displayTitle": "Human After All",
+                                "cover": {
+                                    "id": "2237403d973739fa0507a13b1f70ea83bc3b9a4e",
+                                    "urls": [
+                                        "https://cdn-images.dzcdn.net/images/cover/48701ef0699add067f257045a72d06af/264x264-000000-80-0-0.jpg"
+                                    ]
+                                }
+                            },
+                            "contributors": {
+                                "edges": [
+                                    {
+                                        "roles": [
+                                            "MAIN"
+                                        ],
+                                        "node": {
+                                            "id": "27",
+                                            "name": "Daft Punk",
+                                            "__typename": "Artist"
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                ],
+                "pageInfo": {
+                    "hasNextPage": true,
+                    "endCursor": "3155984"
+                }
+            },
+            "albums": {
+                "edges": [
+                    {
+                        "cursor": "494309801",
+                        "node": {
+                            "id": "494309801",
+                            "displayTitle": "Random Access Memories (Drumless Edition)",
+                            "type": "ALBUM",
+                            "cover": {
+                                "id": "4f0cf07d3cd5db63e5da57dc4a67e5acf9c55a27",
+                                "urls": [
+                                    "https://cdn-images.dzcdn.net/images/cover/bb8b5f188ae380ac3a7c876b70556357/264x264-000000-80-0-0.jpg"
+                                ]
+                            },
+                            "releaseDate": "2023-11-17T00:00:00.000Z",
+                            "tracksCount": 13,
+                            "isExplicit": false
+                        }
+                    },
+                    {
+                        "cursor": "431082537",
+                        "node": {
+                            "id": "431082537",
+                            "displayTitle": "GLBTM (Studio Outtakes)",
+                            "type": "SINGLES",
+                            "cover": {
+                                "id": "daa5d7c5d5564970922bb613d7758f4501d444f7",
+                                "urls": [
+                                    "https://cdn-images.dzcdn.net/images/cover/ad250e6b44b43490a294d90d6104e124/264x264-000000-80-0-0.jpg"
+                                ]
+                            },
+                            "releaseDate": "2023-04-20T00:00:00.000Z",
+                            "tracksCount": 3,
+                            "isExplicit": false
+                        }
+                    },
+                    {
+                        "cursor": "418374497",
+                        "node": {
+                            "id": "418374497",
+                            "displayTitle": "The Writing of Fragments of Time",
+                            "type": "SINGLES",
+                            "cover": {
+                                "id": "daa5d7c5d5564970922bb613d7758f4501d444f7",
+                                "urls": [
+                                    "https://cdn-images.dzcdn.net/images/cover/ad250e6b44b43490a294d90d6104e124/264x264-000000-80-0-0.jpg"
+                                ]
+                            },
+                            "releaseDate": "2023-03-22T00:00:00.000Z",
+                            "tracksCount": 2,
+                            "isExplicit": false
+                        }
+                    },
+                    {
+                        "cursor": "294609352",
+                        "node": {
+                            "id": "294609352",
+                            "displayTitle": "Homework (25th Anniversary Edition)",
+                            "type": "ALBUM",
+                            "cover": {
+                                "id": "c6c892355f5ff5a902b85e9eef860d7c8f75009e",
+                                "urls": [
+                                    "https://cdn-images.dzcdn.net/images/cover/117dcf85bdf0851347403796521d1e9d/264x264-000000-80-0-0.jpg"
+                                ]
+                            },
+                            "releaseDate": "2022-02-22T00:00:00.000Z",
+                            "tracksCount": 31,
+                            "isExplicit": false
+                        }
+                    },
+                    {
+                        "cursor": "7561419",
+                        "node": {
+                            "id": "7561419",
+                            "displayTitle": "Derezzed (From \u201cTRON: Legacy\u201d Avicii \"So Amazing Mix\" Feat. Negin)",
+                            "type": "SINGLES",
+                            "cover": {
+                                "id": "151e2afdd3d1a5d5492740bdd3082f7995c7e377",
+                                "urls": [
+                                    "https://cdn-images.dzcdn.net/images/cover/f3e62688b1f759f9c986a073df77ee63/264x264-000000-80-0-0.jpg"
+                                ]
+                            },
+                            "releaseDate": "2014-01-01T00:00:00.000Z",
+                            "tracksCount": 1,
+                            "isExplicit": false
+                        }
+                    },
+                    {
+                        "cursor": "6703346",
+                        "node": {
+                            "id": "6703346",
+                            "displayTitle": "Get Lucky (feat. Pharrell Williams & Nile Rodgers)",
+                            "type": "EP",
+                            "cover": {
+                                "id": "68a1d51280b0871807d1dae8c69337f113c1dc47",
+                                "urls": [
+                                    "https://cdn-images.dzcdn.net/images/cover/b1b2ac88710b0c721a680b9f9df947d7/264x264-000000-80-0-0.jpg"
+                                ]
+                            },
+                            "releaseDate": "2013-07-03T00:00:00.000Z",
+                            "tracksCount": 1,
+                            "isExplicit": false
+                        }
+                    },
+                    {
+                        "cursor": "6575789",
+                        "node": {
+                            "id": "6575789",
+                            "displayTitle": "Random Access Memories",
+                            "type": "ALBUM",
+                            "cover": {
+                                "id": "b41dd99a5497912d8ca9e3258fff86702262c4b4",
+                                "urls": [
+                                    "https://cdn-images.dzcdn.net/images/cover/311bba0fc112d15f72c8b5a65f0456c1/264x264-000000-80-0-0.jpg"
+                                ]
+                            },
+                            "releaseDate": "2013-05-17T00:00:00.000Z",
+                            "tracksCount": 13,
+                            "isExplicit": false
+                        }
+                    },
+                    {
+                        "cursor": "438167857",
+                        "node": {
+                            "id": "438167857",
+                            "displayTitle": "Random Access Memories (10th Anniversary Edition)",
+                            "type": "ALBUM",
+                            "cover": {
+                                "id": "daa5d7c5d5564970922bb613d7758f4501d444f7",
+                                "urls": [
+                                    "https://cdn-images.dzcdn.net/images/cover/ad250e6b44b43490a294d90d6104e124/264x264-000000-80-0-0.jpg"
+                                ]
+                            },
+                            "releaseDate": "2013-05-17T00:00:00.000Z",
+                            "tracksCount": 22,
+                            "isExplicit": false
+                        }
+                    },
+                    {
+                        "cursor": "6516139",
+                        "node": {
+                            "id": "6516139",
+                            "displayTitle": "Get Lucky (Radio Edit - feat. Pharrell Williams and Nile Rodgers)",
+                            "type": "SINGLES",
+                            "cover": {
+                                "id": "4a4b95ce2d46f30acfe55974a05978b5fc16e36b",
+                                "urls": [
+                                    "https://cdn-images.dzcdn.net/images/cover/bc49adb87758e0c8c4e508a9c5cce85d/264x264-000000-80-0-0.jpg"
+                                ]
+                            },
+                            "releaseDate": "2013-04-19T00:00:00.000Z",
+                            "tracksCount": 1,
+                            "isExplicit": false
+                        }
+                    },
+                    {
+                        "cursor": "3492561",
+                        "node": {
+                            "id": "3492561",
+                            "displayTitle": "Human After All (Medley)",
+                            "type": "SINGLES",
+                            "cover": {
+                                "id": "f71cfbb12c08805d9da4107ffa0a136cf40459f5",
+                                "urls": [
+                                    "https://cdn-images.dzcdn.net/images/cover/9882207e85296dc1ef9933bc73fb1b1d/264x264-000000-80-0-0.jpg"
+                                ]
+                            },
+                            "releaseDate": "2012-06-22T00:00:00.000Z",
+                            "tracksCount": 1,
+                            "isExplicit": false
+                        }
+                    },
+                    {
+                        "cursor": "1471670",
+                        "node": {
+                            "id": "1471670",
+                            "displayTitle": "TRON: Legacy Reconfigured",
+                            "type": "ALBUM",
+                            "cover": {
+                                "id": "a00e0adf5caa29c2dc5b6199805db8d09d0c247e",
+                                "urls": [
+                                    "https://cdn-images.dzcdn.net/images/cover/2f34e0fe8086785fab7d6dfd8d48ba5a/264x264-000000-80-0-0.jpg"
+                                ]
+                            },
+                            "releaseDate": "2011-01-01T00:00:00.000Z",
+                            "tracksCount": 15,
+                            "isExplicit": false
+                        }
+                    },
+                    {
+                        "cursor": "192529232",
+                        "node": {
+                            "id": "192529232",
+                            "displayTitle": "TRON: Legacy - The Complete Edition (Original Motion Picture Soundtrack)",
+                            "type": "ALBUM",
+                            "cover": {
+                                "id": "45de53808f255e3b595cfd99f2174146a7ae6e89",
+                                "urls": [
+                                    "https://cdn-images.dzcdn.net/images/cover/313e8a988614445ab1ad508da2805187/264x264-000000-80-0-0.jpg"
+                                ]
+                            },
+                            "releaseDate": "2010-12-06T00:00:00.000Z",
+                            "tracksCount": 31,
+                            "isExplicit": false
+                        }
+                    },
+                    {
+                        "cursor": "7294967",
+                        "node": {
+                            "id": "7294967",
+                            "displayTitle": "Harder, Better, Faster, Stronger",
+                            "type": "SINGLES",
+                            "cover": {
+                                "id": "8327bda8f5ac3cad93cef1b2137747d2b6b081c2",
+                                "urls": [
+                                    "https://cdn-images.dzcdn.net/images/cover/43a0af617608677263fba3fb4709b706/264x264-000000-80-0-0.jpg"
+                                ]
+                            },
+                            "releaseDate": "2010-04-05T00:00:00.000Z",
+                            "tracksCount": 2,
+                            "isExplicit": false
+                        }
+                    },
+                    {
+                        "cursor": "7294838",
+                        "node": {
+                            "id": "7294838",
+                            "displayTitle": "Harder, Better, Faster, Stronger (Live)",
+                            "type": "SINGLES",
+                            "cover": {
+                                "id": "8327bda8f5ac3cad93cef1b2137747d2b6b081c2",
+                                "urls": [
+                                    "https://cdn-images.dzcdn.net/images/cover/43a0af617608677263fba3fb4709b706/264x264-000000-80-0-0.jpg"
+                                ]
+                            },
+                            "releaseDate": "2010-03-15T00:00:00.000Z",
+                            "tracksCount": 2,
+                            "isExplicit": false
+                        }
+                    },
+                    {
+                        "cursor": "321108967",
+                        "node": {
+                            "id": "321108967",
+                            "displayTitle": "TRON: Legacy",
+                            "type": "ALBUM",
+                            "cover": {
+                                "id": "1e6fa43221d7a35892834f4c37954c5c0e3e9d0f",
+                                "urls": [
+                                    "https://cdn-images.dzcdn.net/images/cover/9c0250e6453c73a96d9e3a99d119ec2f/264x264-000000-80-0-0.jpg"
+                                ]
+                            },
+                            "releaseDate": "2010-01-01T00:00:00.000Z",
+                            "tracksCount": 22,
+                            "isExplicit": false
+                        }
+                    },
+                    {
+                        "cursor": "304193",
+                        "node": {
+                            "id": "304193",
+                            "displayTitle": "Alive 2007",
+                            "type": "ALBUM",
+                            "cover": {
+                                "id": "4a8c186acac7a12abc340cce720134da74e48ea3",
+                                "urls": [
+                                    "https://cdn-images.dzcdn.net/images/cover/ad3dda2e1b770ad143d5dbfeb667fa39/264x264-000000-80-0-0.jpg"
+                                ]
+                            },
+                            "releaseDate": "2007-11-14T00:00:00.000Z",
+                            "tracksCount": 13,
+                            "isExplicit": true
+                        }
+                    },
+                    {
+                        "cursor": "325490",
+                        "node": {
+                            "id": "325490",
+                            "displayTitle": "Harder, Better, Faster, Stronger (Alive Radio Edit 2007)",
+                            "type": "SINGLES",
+                            "cover": {
+                                "id": "8327bda8f5ac3cad93cef1b2137747d2b6b081c2",
+                                "urls": [
+                                    "https://cdn-images.dzcdn.net/images/cover/43a0af617608677263fba3fb4709b706/264x264-000000-80-0-0.jpg"
+                                ]
+                            },
+                            "releaseDate": "2007-10-09T00:00:00.000Z",
+                            "tracksCount": 1,
+                            "isExplicit": false
+                        }
+                    },
+                    {
+                        "cursor": "1343199",
+                        "node": {
+                            "id": "1343199",
+                            "displayTitle": "Musique, Vol. 1",
+                            "type": "ALBUM",
+                            "cover": {
+                                "id": "501a2c6ca40ce728f9b6b62e6c126e5eb2f88dd8",
+                                "urls": [
+                                    "https://cdn-images.dzcdn.net/images/cover/39e2281a0e9f564e73b4f49dfa06f4ab/264x264-000000-80-0-0.jpg"
+                                ]
+                            },
+                            "releaseDate": "2006-03-06T00:00:00.000Z",
+                            "tracksCount": 15,
+                            "isExplicit": false
+                        }
+                    },
+                    {
+                        "cursor": "325424",
+                        "node": {
+                            "id": "325424",
+                            "displayTitle": "Human After All",
+                            "type": "SINGLES",
+                            "cover": {
+                                "id": "d7eb552fa8745de9b4bbb685c51546c823a205ae",
+                                "urls": [
+                                    "https://cdn-images.dzcdn.net/images/cover/eedf82df23d351df0bbba0d3d27ce48e/264x264-000000-80-0-0.jpg"
+                                ]
+                            },
+                            "releaseDate": "2005-10-28T00:00:00.000Z",
+                            "tracksCount": 1,
+                            "isExplicit": false
+                        }
+                    },
+                    {
+                        "cursor": "303165",
+                        "node": {
+                            "id": "303165",
+                            "displayTitle": "Technologic",
+                            "type": "SINGLES",
+                            "cover": {
+                                "id": "b4add543c709608a957ccd9633d598b359fb1bda",
+                                "urls": [
+                                    "https://cdn-images.dzcdn.net/images/cover/c139f190f4d55df305e96add35075710/264x264-000000-80-0-0.jpg"
+                                ]
+                            },
+                            "releaseDate": "2005-06-10T00:00:00.000Z",
+                            "tracksCount": 1,
+                            "isExplicit": false
+                        }
+                    },
+                    {
+                        "cursor": "303567",
+                        "node": {
+                            "id": "303567",
+                            "displayTitle": "Technologic (Radio Edit)",
+                            "type": "SINGLES",
+                            "cover": {
+                                "id": "84958db32fdc0187f1109e7c2a71de9cabefb441",
+                                "urls": [
+                                    "https://cdn-images.dzcdn.net/images/cover/fd3b10e76c3ddea1b1db8d85fa09b9ba/264x264-000000-80-0-0.jpg"
+                                ]
+                            },
+                            "releaseDate": "2005-04-22T00:00:00.000Z",
+                            "tracksCount": 1,
+                            "isExplicit": false
+                        }
+                    },
+                    {
+                        "cursor": "8244118",
+                        "node": {
+                            "id": "8244118",
+                            "displayTitle": "Human After All (Remixes)",
+                            "type": "ALBUM",
+                            "cover": {
+                                "id": "2940dac763e8964f81d18bc71cb89732608bfbe8",
+                                "urls": [
+                                    "https://cdn-images.dzcdn.net/images/cover/f6a4dbf47cb8828c281ed4e63364f99e/264x264-000000-80-0-0.jpg"
+                                ]
+                            },
+                            "releaseDate": "2005-03-11T00:00:00.000Z",
+                            "tracksCount": 15,
+                            "isExplicit": false
+                        }
+                    },
+                    {
+                        "cursor": "303459",
+                        "node": {
+                            "id": "303459",
+                            "displayTitle": "Human After All",
+                            "type": "ALBUM",
+                            "cover": {
+                                "id": "2237403d973739fa0507a13b1f70ea83bc3b9a4e",
+                                "urls": [
+                                    "https://cdn-images.dzcdn.net/images/cover/48701ef0699add067f257045a72d06af/264x264-000000-80-0-0.jpg"
+                                ]
+                            },
+                            "releaseDate": "2005-03-01T00:00:00.000Z",
+                            "tracksCount": 10,
+                            "isExplicit": false
+                        }
+                    },
+                    {
+                        "cursor": "325470",
+                        "node": {
+                            "id": "325470",
+                            "displayTitle": "Robot Rock (Edit)",
+                            "type": "SINGLES",
+                            "cover": {
+                                "id": "4bf4d9eba2cd12b8f94ff45950267c86dfd043ea",
+                                "urls": [
+                                    "https://cdn-images.dzcdn.net/images/cover/611182646e04c0a5966e2bf07963e95c/264x264-000000-80-0-0.jpg"
+                                ]
+                            },
+                            "releaseDate": "2005-01-25T00:00:00.000Z",
+                            "tracksCount": 1,
+                            "isExplicit": false
+                        }
+                    },
+                    {
+                        "cursor": "299205",
+                        "node": {
+                            "id": "299205",
+                            "displayTitle": "Daft Club",
+                            "type": "ALBUM",
+                            "cover": {
+                                "id": "4f5dbcade0c7b18b47fb964a903e822739bff2f8",
+                                "urls": [
+                                    "https://cdn-images.dzcdn.net/images/cover/0416976ab8f3f32e0b447dd1b9b1e0cf/264x264-000000-80-0-0.jpg"
+                                ]
+                            },
+                            "releaseDate": "2003-12-01T00:00:00.000Z",
+                            "tracksCount": 14,
+                            "isExplicit": true
+                        }
+                    }
+                ],
+                "pageInfo": {
+                    "hasNextPage": true,
+                    "endCursor": "299205"
+                }
+            }
+        }
+    },
+    "extensions": {
+        "queryCost": 4741
+    }
+}

@@ -1,0 +1,117 @@
+query Search(
+  $query: String!
+  $tracksFirst: Int = 20
+  $albumsFirst: Int = 20
+  $artistsFirst: Int = 20
+  $playlistsFirst: Int = 10
+) {
+  search(query: $query) {
+    results {
+      tracks(first: $tracksFirst) {
+        edges {
+          cursor
+          node {
+            id
+            title
+            ISRC
+            duration
+            isExplicit
+            album {
+              id
+              displayTitle
+              cover {
+                id
+                urls(pictureRequest: { width: 264, height: 264 })
+              }
+            }
+            contributors(first: 10, roles: [MAIN, FEATURED]) {
+              edges {
+                roles
+                node {
+                  ... on Artist {
+                    id
+                    name
+                  }
+                }
+              }
+            }
+          }
+        }
+        pageInfo {
+          hasNextPage
+          endCursor
+        }
+      }
+      albums(first: $albumsFirst) {
+        edges {
+          cursor
+          node {
+            id
+            displayTitle
+            type
+            cover {
+              id
+              urls(pictureRequest: { width: 264, height: 264 })
+            }
+            contributors(first: 5, roles: [MAIN]) {
+              edges {
+                node {
+                  ... on Artist {
+                    id
+                    name
+                  }
+                }
+              }
+            }
+            releaseDate
+            isExplicit
+          }
+        }
+        pageInfo {
+          hasNextPage
+          endCursor
+        }
+      }
+      artists(first: $artistsFirst) {
+        edges {
+          cursor
+          node {
+            id
+            name
+            picture {
+              id
+              urls(pictureRequest: { width: 264, height: 264 })
+            }
+            fansCount
+          }
+        }
+        pageInfo {
+          hasNextPage
+          endCursor
+        }
+      }
+      playlists(first: $playlistsFirst) {
+        edges {
+          cursor
+          node {
+            id
+            title
+            picture {
+              id
+              urls(pictureRequest: { width: 264, height: 264 })
+            }
+            estimatedTracksCount
+            owner {
+              id
+              name
+            }
+          }
+        }
+        pageInfo {
+          hasNextPage
+          endCursor
+        }
+      }
+    }
+  }
+}

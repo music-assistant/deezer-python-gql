@@ -1,0 +1,70 @@
+query GetAlbum($albumId: String!) {
+  album(albumId: $albumId) {
+    id
+    displayTitle
+    type
+    cover {
+      id
+      urls(pictureRequest: { width: 1000, height: 1000 })
+    }
+    label
+    contributors(first: 50, roles: [MAIN, FEATURED]) {
+      edges {
+        roles
+        node {
+          ... on Artist {
+            id
+            name
+          }
+        }
+      }
+    }
+    releaseDate
+    duration
+    tracksCount
+    discsCount
+    isExplicit
+    isTakenDown
+    isFavorite
+    fallback {
+      id
+      displayTitle
+    }
+    tracks(first: 50) {
+      edges {
+        cursor
+        node {
+          id
+          title
+          ISRC
+          diskInfo {
+            diskNumber
+            trackNumber
+          }
+          duration
+          isExplicit
+          contributors(first: 10, roles: [MAIN, FEATURED]) {
+            edges {
+              roles
+              node {
+                ... on Artist {
+                  id
+                  name
+                }
+              }
+            }
+          }
+        }
+      }
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
+    }
+    url {
+      ... on Url {
+        webUrl
+      }
+    }
+  }
+}

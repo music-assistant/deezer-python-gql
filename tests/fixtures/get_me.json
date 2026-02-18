@@ -1,0 +1,10 @@
+{
+    "data": {
+        "me": {
+            "id": "1234567890"
+        }
+    },
+    "extensions": {
+        "queryCost": 2
+    }
+}

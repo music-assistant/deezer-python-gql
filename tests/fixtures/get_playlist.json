@@ -1,0 +1,2067 @@
+{
+  "data": {
+    "playlist": {
+      "id": "53362031",
+      "title": "Les titres du moment",
+      "description": "Plus besoin de chercher, tous les sons du moment sont ici.",
+      "isPrivate": false,
+      "isCollaborative": false,
+      "estimatedTracksCount": 60,
+      "estimatedDuration": 11302,
+      "isFavorite": false,
+      "picture": {
+        "id": "42992a0c87691adaafbd45bd500b8ee4877275db",
+        "urls": [
+          "https://cdn-images.dzcdn.net/images/playlist/14a1444c574b90669c759e262e583f19/1000x1000-000000-80-0-0.jpg"
+        ]
+      },
+      "owner": {
+        "id": "9876543210",
+        "name": "Deezer Editor"
+      },
+      "tracks": {
+        "edges": [
+          {
+            "cursor": "3558373981",
+            "node": {
+              "id": "3558373981",
+              "title": "melodrama",
+              "ISRC": "FR9W12550711",
+              "diskInfo": {
+                "diskNumber": 1,
+                "trackNumber": 1
+              },
+              "duration": 176,
+              "isExplicit": false,
+              "album": {
+                "id": "822345001",
+                "displayTitle": "melodrama",
+                "cover": {
+                  "id": "34f90c5c852735826021f317ae59fd37096e8d26",
+                  "urls": [
+                    "https://cdn-images.dzcdn.net/images/cover/f2d340d41d5612ed3d875e64c300c732/264x264-000000-80-0-0.jpg"
+                  ]
+                }
+              },
+              "contributors": {
+                "edges": [
+                  {
+                    "roles": ["MAIN"],
+                    "node": {
+                      "id": "292",
+                      "name": "disiz",
+                      "__typename": "Artist"
+                    }
+                  },
+                  {
+                    "roles": ["MAIN"],
+                    "node": {
+                      "id": "13820325",
+                      "name": "Theodora",
+                      "__typename": "Artist"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "cursor": "3171003131",
+            "node": {
+              "id": "3171003131",
+              "title": "DtMF",
+              "ISRC": "QMFMF2447070",
+              "diskInfo": {
+                "diskNumber": 1,
+                "trackNumber": 16
+              },
+              "duration": 237,
+              "isExplicit": true,
+              "album": {
+                "id": "693008911",
+                "displayTitle": "DeB\u00cd TiRAR M\u00e1S FOToS",
+                "cover": {
+                  "id": "66ab64994682e4073c479c325a4f3be8be6ad5ab",
+                  "urls": [
+                    "https://cdn-images.dzcdn.net/images/cover/d98eaccfbb945bdf68241d6de7fe6a49/264x264-000000-80-0-0.jpg"
+                  ]
+                }
+              },
+              "contributors": {
+                "edges": [
+                  {
+                    "roles": ["MAIN"],
+                    "node": {
+                      "id": "10583405",
+                      "name": "Bad Bunny",
+                      "__typename": "Artist"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "cursor": "1899060227",
+            "node": {
+              "id": "1899060227",
+              "title": "End of Beginning",
+              "ISRC": "GBKPL2205058",
+              "diskInfo": {
+                "diskNumber": 1,
+                "trackNumber": 6
+              },
+              "duration": 159,
+              "isExplicit": false,
+              "album": {
+                "id": "353216957",
+                "displayTitle": "DECIDE",
+                "cover": {
+                  "id": "0ab7d269c6080f74ed1ce18c6989bee6e60d46fe",
+                  "urls": [
+                    "https://cdn-images.dzcdn.net/images/cover/f13749b2a226afa7f5f866ce2f4d3015/264x264-000000-80-0-0.jpg"
+                  ]
+                }
+              },
+              "contributors": {
+                "edges": [
+                  {
+                    "roles": ["MAIN"],
+                    "node": {
+                      "id": "70227002",
+                      "name": "Djo",
+                      "__typename": "Artist"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "cursor": "3548216281",
+            "node": {
+              "id": "3548216281",
+              "title": "WHERE IS MY HUSBAND!",
+              "ISRC": "QMFME2535037",
+              "diskInfo": {
+                "diskNumber": 1,
+                "trackNumber": 1
+              },
+              "duration": 196,
+              "isExplicit": false,
+              "album": {
+                "id": "818660961",
+                "displayTitle": "WHERE IS MY HUSBAND!",
+                "cover": {
+                  "id": "e543f33a77155ec317002eb8ce15a1f03bea58b8",
+                  "urls": [
+                    "https://cdn-images.dzcdn.net/images/cover/924237f02fb85d4c849ab324ff42b30d/264x264-000000-80-0-0.jpg"
+                  ]
+                }
+              },
+              "contributors": {
+                "edges": [
+                  {
+                    "roles": ["MAIN"],
+                    "node": {
+                      "id": "805948",
+                      "name": "RAYE",
+                      "__typename": "Artist"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "cursor": "3763842212",
+            "node": {
+              "id": "3763842212",
+              "title": "I Just Might",
+              "ISRC": "USAT22509144",
+              "diskInfo": {
+                "diskNumber": 1,
+                "trackNumber": 1
+              },
+              "duration": 212,
+              "isExplicit": false,
+              "album": {
+                "id": "893791002",
+                "displayTitle": "I Just Might",
+                "cover": {
+                  "id": "faf8bd6d01b177ae4600f02bb94e9472a638fc6f",
+                  "urls": [
+                    "https://cdn-images.dzcdn.net/images/cover/d68fc5f1f260273691180b9f4b77b354/264x264-000000-80-0-0.jpg"
+                  ]
+                }
+              },
+              "contributors": {
+                "edges": [
+                  {
+                    "roles": ["MAIN"],
+                    "node": {
+                      "id": "429675",
+                      "name": "Bruno Mars",
+                      "__typename": "Artist"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "cursor": "3758716202",
+            "node": {
+              "id": "3758716202",
+              "title": "SPA",
+              "ISRC": "FR10S2605140",
+              "diskInfo": {
+                "diskNumber": 1,
+                "trackNumber": 1
+              },
+              "duration": 183,
+              "isExplicit": false,
+              "album": {
+                "id": "891920462",
+                "displayTitle": "SPA",
+                "cover": {
+                  "id": "ccac134d063094c4301d6ed4c1bfeba18c9e0558",
+                  "urls": [
+                    "https://cdn-images.dzcdn.net/images/cover/96234fff2333de42b22858be5c4fabcb/264x264-000000-80-0-0.jpg"
+                  ]
+                }
+              },
+              "contributors": {
+                "edges": [
+                  {
+                    "roles": ["MAIN"],
+                    "node": {
+                      "id": "4429712",
+                      "name": "GIMS",
+                      "__typename": "Artist"
+                    }
+                  },
+                  {
+                    "roles": ["MAIN"],
+                    "node": {
+                      "id": "13820325",
+                      "name": "Theodora",
+                      "__typename": "Artist"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "cursor": "3589389951",
+            "node": {
+              "id": "3589389951",
+              "title": "Zoo (From \"Zootropolis 2\")",
+              "ISRC": "USWD12538420",
+              "diskInfo": {
+                "diskNumber": 1,
+                "trackNumber": 1
+              },
+              "duration": 191,
+              "isExplicit": false,
+              "album": {
+                "id": "833470021",
+                "displayTitle": "Zoo (From \"Zootropolis 2\")",
+                "cover": {
+                  "id": "69fcacc4c06acb3dc6f2ddde3e55858712ed1cdc",
+                  "urls": [
+                    "https://cdn-images.dzcdn.net/images/cover/9151f179bfdc23a9656f909f85855026/264x264-000000-80-0-0.jpg"
+                  ]
+                }
+              },
+              "contributors": {
+                "edges": [
+                  {
+                    "roles": ["MAIN"],
+                    "node": {
+                      "id": "9219",
+                      "name": "Disney",
+                      "__typename": "Artist"
+                    }
+                  },
+                  {
+                    "roles": ["MAIN"],
+                    "node": {
+                      "id": "160",
+                      "name": "Shakira",
+                      "__typename": "Artist"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "cursor": "3615047102",
+            "node": {
+              "id": "3615047102",
+              "title": "heureux",
+              "ISRC": "FREGC2501350",
+              "diskInfo": {
+                "diskNumber": 1,
+                "trackNumber": 2
+              },
+              "duration": 166,
+              "isExplicit": false,
+              "album": {
+                "id": "842408202",
+                "displayTitle": "failles",
+                "cover": {
+                  "id": "36d67be1f9c579c2ed5105a055e6eb205fde682a",
+                  "urls": [
+                    "https://cdn-images.dzcdn.net/images/cover/68473a205942e3edc907c602286a0838/264x264-000000-80-0-0.jpg"
+                  ]
+                }
+              },
+              "contributors": {
+                "edges": [
+                  {
+                    "roles": ["MAIN"],
+                    "node": {
+                      "id": "1683958",
+                      "name": "Heroe",
+                      "__typename": "Artist"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "cursor": "3591983602",
+            "node": {
+              "id": "3591983602",
+              "title": "G\u00e9n\u00e9ration impolie",
+              "ISRC": "FRD8V2500250",
+              "diskInfo": {
+                "diskNumber": 1,
+                "trackNumber": 1
+              },
+              "duration": 141,
+              "isExplicit": false,
+              "album": {
+                "id": "834360862",
+                "displayTitle": "G\u00e9n\u00e9ration impolie",
+                "cover": {
+                  "id": "145571b388f773e6d23f4d6758ac9feebc9e2627",
+                  "urls": [
+                    "https://cdn-images.dzcdn.net/images/cover/89e0e671e88f4ad96a635beaa3d12b8d/264x264-000000-80-0-0.jpg"
+                  ]
+                }
+              },
+              "contributors": {
+                "edges": [
+                  {
+                    "roles": ["MAIN"],
+                    "node": {
+                      "id": "10695573",
+                      "name": "Franglish",
+                      "__typename": "Artist"
+                    }
+                  },
+                  {
+                    "roles": ["MAIN"],
+                    "node": {
+                      "id": "7459268",
+                      "name": "KeBlack",
+                      "__typename": "Artist"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "cursor": "3461914191",
+            "node": {
+              "id": "3461914191",
+              "title": "Eternity",
+              "ISRC": "USAT22503779",
+              "diskInfo": {
+                "diskNumber": 1,
+                "trackNumber": 1
+              },
+              "duration": 189,
+              "isExplicit": false,
+              "album": {
+                "id": "788607171",
+                "displayTitle": "You'll Be Alright, Kid",
+                "cover": {
+                  "id": "bc0bf85dbad0296f565cd6a3f2cd07a563923ca6",
+                  "urls": [
+                    "https://cdn-images.dzcdn.net/images/cover/88a961c9c9bea69ba0b992fc54571d86/264x264-000000-80-0-0.jpg"
+                  ]
+                }
+              },
+              "contributors": {
+                "edges": [
+                  {
+                    "roles": ["MAIN"],
+                    "node": {
+                      "id": "541784",
+                      "name": "Alex Warren",
+                      "__typename": "Artist"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "cursor": "3412611901",
+            "node": {
+              "id": "3412611901",
+              "title": "Gabriela",
+              "ISRC": "USUM72503465",
+              "diskInfo": {
+                "diskNumber": 1,
+                "trackNumber": 1
+              },
+              "duration": 196,
+              "isExplicit": false,
+              "album": {
+                "id": "771888461",
+                "displayTitle": "Gabriela",
+                "cover": {
+                  "id": "657f5381337e1214ea153fa007fc63f93b5d68f0",
+                  "urls": [
+                    "https://cdn-images.dzcdn.net/images/cover/1494eab6b5e209bbaeeab5bbdfc1a9fa/264x264-000000-80-0-0.jpg"
+                  ]
+                }
+              },
+              "contributors": {
+                "edges": [
+                  {
+                    "roles": ["MAIN"],
+                    "node": {
+                      "id": "271210292",
+                      "name": "KATSEYE",
+                      "__typename": "Artist"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "cursor": "3494868771",
+            "node": {
+              "id": "3494868771",
+              "title": "Sar\u00e0 perch\u00e9 ti amo",
+              "ISRC": "CH4882500601",
+              "diskInfo": {
+                "diskNumber": 1,
+                "trackNumber": 1
+              },
+              "duration": 165,
+              "isExplicit": false,
+              "album": {
+                "id": "800382201",
+                "displayTitle": "Sar\u00e0 perch\u00e9 ti amo",
+                "cover": {
+                  "id": "83a7e527c9148b02213cbeddcf0856bdfd976fbe",
+                  "urls": [
+                    "https://cdn-images.dzcdn.net/images/cover/28bbd0752e3b36ed7093b8ffc5f48bf9/264x264-000000-80-0-0.jpg"
+                  ]
+                }
+              },
+              "contributors": {
+                "edges": [
+                  {
+                    "roles": ["MAIN"],
+                    "node": {
+                      "id": "10041",
+                      "name": "DJ Antoine",
+                      "__typename": "Artist"
+                    }
+                  },
+                  {
+                    "roles": ["MAIN"],
+                    "node": {
+                      "id": "4427922",
+                      "name": "Paolo Ortelli",
+                      "__typename": "Artist"
+                    }
+                  },
+                  {
+                    "roles": ["MAIN"],
+                    "node": {
+                      "id": "1205339",
+                      "name": "Jay C",
+                      "__typename": "Artist"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "cursor": "3580188661",
+            "node": {
+              "id": "3580188661",
+              "title": "Gone Gone Gone",
+              "ISRC": "UKWLG2500132",
+              "diskInfo": {
+                "diskNumber": 1,
+                "trackNumber": 1
+              },
+              "duration": 198,
+              "isExplicit": false,
+              "album": {
+                "id": "830150841",
+                "displayTitle": "Gone Gone Gone",
+                "cover": {
+                  "id": "59aa338b6c890cc0625b83a33b67928e6f760b3b",
+                  "urls": [
+                    "https://cdn-images.dzcdn.net/images/cover/34fdbc4aa1b7552d23d19117b02593d8/264x264-000000-80-0-0.jpg"
+                  ]
+                }
+              },
+              "contributors": {
+                "edges": [
+                  {
+                    "roles": ["MAIN"],
+                    "node": {
+                      "id": "542",
+                      "name": "David Guetta",
+                      "__typename": "Artist"
+                    }
+                  },
+                  {
+                    "roles": ["MAIN"],
+                    "node": {
+                      "id": "64927672",
+                      "name": "Teddy Swims",
+                      "__typename": "Artist"
+                    }
+                  },
+                  {
+                    "roles": ["MAIN"],
+                    "node": {
+                      "id": "59070642",
+                      "name": "Tones And I",
+                      "__typename": "Artist"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "cursor": "3513841141",
+            "node": {
+              "id": "3513841141",
+              "title": "Tant pis pour elle",
+              "ISRC": "QMDA62591177",
+              "diskInfo": {
+                "diskNumber": 1,
+                "trackNumber": 1
+              },
+              "duration": 158,
+              "isExplicit": false,
+              "album": {
+                "id": "806729021",
+                "displayTitle": "Tant pis pour elle",
+                "cover": {
+                  "id": "38e65187ce582fe8827355668275051b3d58cc4b",
+                  "urls": [
+                    "https://cdn-images.dzcdn.net/images/cover/0731b4ecad3b4747477426eae44f906a/264x264-000000-80-0-0.jpg"
+                  ]
+                }
+              },
+              "contributors": {
+                "edges": [
+                  {
+                    "roles": ["MAIN"],
+                    "node": {
+                      "id": "5417036",
+                      "name": "Charlotte Cardin",
+                      "__typename": "Artist"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "cursor": "3171002981",
+            "node": {
+              "id": "3171002981",
+              "title": "NUEVAYoL",
+              "ISRC": "QMFMF2447055",
+              "diskInfo": {
+                "diskNumber": 1,
+                "trackNumber": 1
+              },
+              "duration": 183,
+              "isExplicit": false,
+              "album": {
+                "id": "693008911",
+                "displayTitle": "DeB\u00cd TiRAR M\u00e1S FOToS",
+                "cover": {
+                  "id": "66ab64994682e4073c479c325a4f3be8be6ad5ab",
+                  "urls": [
+                    "https://cdn-images.dzcdn.net/images/cover/d98eaccfbb945bdf68241d6de7fe6a49/264x264-000000-80-0-0.jpg"
+                  ]
+                }
+              },
+              "contributors": {
+                "edges": [
+                  {
+                    "roles": ["MAIN"],
+                    "node": {
+                      "id": "10583405",
+                      "name": "Bad Bunny",
+                      "__typename": "Artist"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "cursor": "3579685451",
+            "node": {
+              "id": "3579685451",
+              "title": "Opalite",
+              "ISRC": "USUG12506438",
+              "diskInfo": {
+                "diskNumber": 1,
+                "trackNumber": 3
+              },
+              "duration": 235,
+              "isExplicit": false,
+              "album": {
+                "id": "829966251",
+                "displayTitle": "The Life of a Showgirl",
+                "cover": {
+                  "id": "5e866bdb1899f7ea77eac3f7f9842c75206442ed",
+                  "urls": [
+                    "https://cdn-images.dzcdn.net/images/cover/d0bed55a0efb3c5c3ddb3dacda67d9b3/264x264-000000-80-0-0.jpg"
+                  ]
+                }
+              },
+              "contributors": {
+                "edges": [
+                  {
+                    "roles": ["MAIN"],
+                    "node": {
+                      "id": "12246",
+                      "name": "Taylor Swift",
+                      "__typename": "Artist"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "cursor": "3270730031",
+            "node": {
+              "id": "3270730031",
+              "title": "Tout a chang\u00e9 (Rien n'a chang\u00e9)",
+              "ISRC": "FRZ052400442",
+              "diskInfo": {
+                "diskNumber": 1,
+                "trackNumber": 2
+              },
+              "duration": 166,
+              "isExplicit": false,
+              "album": {
+                "id": "724914391",
+                "displayTitle": "H\u00e9l\u00e9",
+                "cover": {
+                  "id": "5f873b6c4e9c5c0f66235e61ce1e4749ae5fbaa1",
+                  "urls": [
+                    "https://cdn-images.dzcdn.net/images/cover/60abc68bb9f92e910d8e259837c709b3/264x264-000000-80-0-0.jpg"
+                  ]
+                }
+              },
+              "contributors": {
+                "edges": [
+                  {
+                    "roles": ["MAIN"],
+                    "node": {
+                      "id": "258938052",
+                      "name": "Helena",
+                      "__typename": "Artist"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "cursor": "3635951612",
+            "node": {
+              "id": "3635951612",
+              "title": "Turn The Lights Off",
+              "ISRC": "NLZ542500653",
+              "diskInfo": {
+                "diskNumber": 1,
+                "trackNumber": 1
+              },
+              "duration": 162,
+              "isExplicit": false,
+              "album": {
+                "id": "849587142",
+                "displayTitle": "Turn The Lights Off",
+                "cover": {
+                  "id": "191cb953109b62a554efe67e6868a6ca235bd26d",
+                  "urls": [
+                    "https://cdn-images.dzcdn.net/images/cover/c72c704c8d43915cdb6a87d11d429f79/264x264-000000-80-0-0.jpg"
+                  ]
+                }
+              },
+              "contributors": {
+                "edges": [
+                  {
+                    "roles": ["MAIN"],
+                    "node": {
+                      "id": "354392422",
+                      "name": "Just\u0117",
+                      "__typename": "Artist"
+                    }
+                  },
+                  {
+                    "roles": ["MAIN"],
+                    "node": {
+                      "id": "13968747",
+                      "name": "Jaxstyle",
+                      "__typename": "Artist"
+                    }
+                  },
+                  {
+                    "roles": ["MAIN"],
+                    "node": {
+                      "id": "244656",
+                      "name": "Jon",
+                      "__typename": "Artist"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "cursor": "2787705102",
+            "node": {
+              "id": "2787705102",
+              "title": "L'horizon",
+              "ISRC": "FRZ052400154",
+              "diskInfo": {
+                "diskNumber": 1,
+                "trackNumber": 5
+              },
+              "duration": 162,
+              "isExplicit": false,
+              "album": {
+                "id": "583438662",
+                "displayTitle": "Chaque seconde",
+                "cover": {
+                  "id": "b418632476eb9f0e30bc117f5576d82f15637dd1",
+                  "urls": [
+                    "https://cdn-images.dzcdn.net/images/cover/a887e70aaebc1a8a99c1aacb9b5280f2/264x264-000000-80-0-0.jpg"
+                  ]
+                }
+              },
+              "contributors": {
+                "edges": [
+                  {
+                    "roles": ["MAIN"],
+                    "node": {
+                      "id": "5811815",
+                      "name": "Pierre Garnier",
+                      "__typename": "Artist"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "cursor": "3629572332",
+            "node": {
+              "id": "3629572332",
+              "title": "BLOQU\u00c9",
+              "ISRC": "FR8FB2520900",
+              "diskInfo": {
+                "diskNumber": 1,
+                "trackNumber": 1
+              },
+              "duration": 201,
+              "isExplicit": false,
+              "album": {
+                "id": "847327982",
+                "displayTitle": "BLOQU\u00c9",
+                "cover": {
+                  "id": "48a78f02633c357961be863d759d98eff69b2d3b",
+                  "urls": [
+                    "https://cdn-images.dzcdn.net/images/cover/44a8b684d176a5e5a776e30f452d3861/264x264-000000-80-0-0.jpg"
+                  ]
+                }
+              },
+              "contributors": {
+                "edges": [
+                  {
+                    "roles": ["MAIN"],
+                    "node": {
+                      "id": "4429712",
+                      "name": "GIMS",
+                      "__typename": "Artist"
+                    }
+                  },
+                  {
+                    "roles": ["MAIN"],
+                    "node": {
+                      "id": "13790723",
+                      "name": "L2B ",
+                      "__typename": "Artist"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "cursor": "3677123262",
+            "node": {
+              "id": "3677123262",
+              "title": "Unfaithful",
+              "ISRC": "NLZ542500702",
+              "diskInfo": {
+                "diskNumber": 1,
+                "trackNumber": 1
+              },
+              "duration": 231,
+              "isExplicit": false,
+              "album": {
+                "id": "863661692",
+                "displayTitle": "Unfaithful",
+                "cover": {
+                  "id": "1ea5cdc4e1201103013abed944294fc38352f440",
+                  "urls": [
+                    "https://cdn-images.dzcdn.net/images/cover/ae80e341a3c4e030efcefd668f4c2814/264x264-000000-80-0-0.jpg"
+                  ]
+                }
+              },
+              "contributors": {
+                "edges": [
+                  {
+                    "roles": ["MAIN"],
+                    "node": {
+                      "id": "789285",
+                      "name": "Blasterjaxx",
+                      "__typename": "Artist"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "cursor": "3430787101",
+            "node": {
+              "id": "3430787101",
+              "title": "Respire fort",
+              "ISRC": "TCAJU2533871",
+              "diskInfo": {
+                "diskNumber": 1,
+                "trackNumber": 1
+              },
+              "duration": 172,
+              "isExplicit": false,
+              "album": {
+                "id": "900428832",
+                "displayTitle": "Respire fort",
+                "cover": {
+                  "id": "362b8ad12270fb1d156ca47da797c4c85c080065",
+                  "urls": [
+                    "https://cdn-images.dzcdn.net/images/cover/66c1ed3929018e3654952b8681905b4f/264x264-000000-80-0-0.jpg"
+                  ]
+                }
+              },
+              "contributors": {
+                "edges": [
+                  {
+                    "roles": ["MAIN"],
+                    "node": {
+                      "id": "334164821",
+                      "name": "Jeanne",
+                      "__typename": "Artist"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "cursor": "3412534581",
+            "node": {
+              "id": "3412534581",
+              "title": "Golden",
+              "ISRC": "QZ8BZ2513510",
+              "diskInfo": {
+                "diskNumber": 1,
+                "trackNumber": 4
+              },
+              "duration": 192,
+              "isExplicit": false,
+              "album": {
+                "id": "771853201",
+                "displayTitle": "KPop Demon Hunters (Soundtrack from the Netflix Film)",
+                "cover": {
+                  "id": "9018fd3960d8fe30377c73acf75a0d9a5adade15",
+                  "urls": [
+                    "https://cdn-images.dzcdn.net/images/cover/e54bda0628749119f7a9a05b71b40283/264x264-000000-80-0-0.jpg"
+                  ]
+                }
+              },
+              "contributors": {
+                "edges": [
+                  {
+                    "roles": ["MAIN"],
+                    "node": {
+                      "id": "330311461",
+                      "name": "HUNTR/X",
+                      "__typename": "Artist"
+                    }
+                  },
+                  {
+                    "roles": ["MAIN"],
+                    "node": {
+                      "id": "332797341",
+                      "name": "EJAE",
+                      "__typename": "Artist"
+                    }
+                  },
+                  {
+                    "roles": ["MAIN"],
+                    "node": {
+                      "id": "86739352",
+                      "name": "AUDREY NUNA",
+                      "__typename": "Artist"
+                    }
+                  },
+                  {
+                    "roles": ["MAIN"],
+                    "node": {
+                      "id": "67515242",
+                      "name": "REI AMI",
+                      "__typename": "Artist"
+                    }
+                  },
+                  {
+                    "roles": ["MAIN"],
+                    "node": {
+                      "id": "330311451",
+                      "name": "KPop Demon Hunters Cast",
+                      "__typename": "Artist"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "cursor": "3606166592",
+            "node": {
+              "id": "3606166592",
+              "title": "CHANEL",
+              "ISRC": "USSM12503648",
+              "diskInfo": {
+                "diskNumber": 1,
+                "trackNumber": 1
+              },
+              "duration": 188,
+              "isExplicit": true,
+              "album": {
+                "id": "839307952",
+                "displayTitle": "CHANEL",
+                "cover": {
+                  "id": "8acf6d825c3d2bae9ebaa6c5411d4580157046e0",
+                  "urls": [
+                    "https://cdn-images.dzcdn.net/images/cover/e2b75eb1435115ecbc7afd0638ea16a6/264x264-000000-80-0-0.jpg"
+                  ]
+                }
+              },
+              "contributors": {
+                "edges": [
+                  {
+                    "roles": ["MAIN"],
+                    "node": {
+                      "id": "1220981",
+                      "name": "Tyla",
+                      "__typename": "Artist"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "cursor": "3579685431",
+            "node": {
+              "id": "3579685431",
+              "title": "The Fate of Ophelia",
+              "ISRC": "USUG12506436",
+              "diskInfo": {
+                "diskNumber": 1,
+                "trackNumber": 1
+              },
+              "duration": 226,
+              "isExplicit": false,
+              "album": {
+                "id": "829966251",
+                "displayTitle": "The Life of a Showgirl",
+                "cover": {
+                  "id": "5e866bdb1899f7ea77eac3f7f9842c75206442ed",
+                  "urls": [
+                    "https://cdn-images.dzcdn.net/images/cover/d0bed55a0efb3c5c3ddb3dacda67d9b3/264x264-000000-80-0-0.jpg"
+                  ]
+                }
+              },
+              "contributors": {
+                "edges": [
+                  {
+                    "roles": ["MAIN"],
+                    "node": {
+                      "id": "12246",
+                      "name": "Taylor Swift",
+                      "__typename": "Artist"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "cursor": "3532320051",
+            "node": {
+              "id": "3532320051",
+              "title": "particule",
+              "ISRC": "FREDS2599900",
+              "diskInfo": {
+                "diskNumber": 1,
+                "trackNumber": 3
+              },
+              "duration": 180,
+              "isExplicit": true,
+              "album": {
+                "id": "812891361",
+                "displayTitle": "industry plant",
+                "cover": {
+                  "id": "9cea52ada1687b6284ec9b6a4576a11044d12ca8",
+                  "urls": [
+                    "https://cdn-images.dzcdn.net/images/cover/77d3b4467f2faf0203365196f8625c74/264x264-000000-80-0-0.jpg"
+                  ]
+                }
+              },
+              "contributors": {
+                "edges": [
+                  {
+                    "roles": ["MAIN"],
+                    "node": {
+                      "id": "219251825",
+                      "name": "miki",
+                      "__typename": "Artist"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "cursor": "3537990861",
+            "node": {
+              "id": "3537990861",
+              "title": "The Dead Dance",
+              "ISRC": "USUM72407034",
+              "diskInfo": {
+                "diskNumber": 1,
+                "trackNumber": 1
+              },
+              "duration": 228,
+              "isExplicit": false,
+              "album": {
+                "id": "815082671",
+                "displayTitle": "The Dead Dance",
+                "cover": {
+                  "id": "72f554c5c100a9d447892fd407ed3af3be2eb557",
+                  "urls": [
+                    "https://cdn-images.dzcdn.net/images/cover/fc4424eb510961154235c0d1d562beeb/264x264-000000-80-0-0.jpg"
+                  ]
+                }
+              },
+              "contributors": {
+                "edges": [
+                  {
+                    "roles": ["MAIN"],
+                    "node": {
+                      "id": "75491",
+                      "name": "Lady Gaga",
+                      "__typename": "Artist"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "cursor": "3616144112",
+            "node": {
+              "id": "3616144112",
+              "title": "Raindance",
+              "ISRC": "GBUM72506029",
+              "diskInfo": {
+                "diskNumber": 1,
+                "trackNumber": 5
+              },
+              "duration": 221,
+              "isExplicit": true,
+              "album": {
+                "id": "842707462",
+                "displayTitle": "The Boy Who Played the Harp",
+                "cover": {
+                  "id": "264620a5ea8efc96c97f6230feb96f9e5ddde017",
+                  "urls": [
+                    "https://cdn-images.dzcdn.net/images/cover/02552930a9bbf685ec4f683ff0ca2029/264x264-000000-80-0-0.jpg"
+                  ]
+                }
+              },
+              "contributors": {
+                "edges": [
+                  {
+                    "roles": ["MAIN"],
+                    "node": {
+                      "id": "11256100",
+                      "name": "Dave",
+                      "__typename": "Artist"
+                    }
+                  },
+                  {
+                    "roles": ["MAIN"],
+                    "node": {
+                      "id": "13905711",
+                      "name": "Tems",
+                      "__typename": "Artist"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "cursor": "3570555711",
+            "node": {
+              "id": "3570555711",
+              "title": "Par coeur (feat. Joseph Kamel)",
+              "ISRC": "FREGC2501410",
+              "diskInfo": {
+                "diskNumber": 1,
+                "trackNumber": 1
+              },
+              "duration": 176,
+              "isExplicit": false,
+              "album": {
+                "id": "826644281",
+                "displayTitle": "Par coeur (feat. Joseph Kamel)",
+                "cover": {
+                  "id": "5d59fe1e2dac581f446fcad5df8a63bc084ca837",
+                  "urls": [
+                    "https://cdn-images.dzcdn.net/images/cover/87a1dae3d19d96f5c12dbabe1260bb3a/264x264-000000-80-0-0.jpg"
+                  ]
+                }
+              },
+              "contributors": {
+                "edges": [
+                  {
+                    "roles": ["MAIN"],
+                    "node": {
+                      "id": "54780872",
+                      "name": "DAYSY",
+                      "__typename": "Artist"
+                    }
+                  },
+                  {
+                    "roles": ["MAIN"],
+                    "node": {
+                      "id": "93298862",
+                      "name": "Joseph Kamel",
+                      "__typename": "Artist"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "cursor": "3602108062",
+            "node": {
+              "id": "3602108062",
+              "title": "MON B\u00c9B\u00c9",
+              "ISRC": "FR9W12555806",
+              "diskInfo": {
+                "diskNumber": 1,
+                "trackNumber": 1
+              },
+              "duration": 130,
+              "isExplicit": false,
+              "album": {
+                "id": "837893162",
+                "displayTitle": "MON B\u00c9B\u00c9",
+                "cover": {
+                  "id": "08c2f6758a04f4f830c299e298d3aa40ea3194e1",
+                  "urls": [
+                    "https://cdn-images.dzcdn.net/images/cover/d97090fc2375a517eaefa2134d8eb58b/264x264-000000-80-0-0.jpg"
+                  ]
+                }
+              },
+              "contributors": {
+                "edges": [
+                  {
+                    "roles": ["MAIN"],
+                    "node": {
+                      "id": "172662567",
+                      "name": "RnBoi",
+                      "__typename": "Artist"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "cursor": "3624958872",
+            "node": {
+              "id": "3624958872",
+              "title": "Jamaican (Bam Bam)",
+              "ISRC": "ITFGO2500099",
+              "diskInfo": {
+                "diskNumber": 1,
+                "trackNumber": 1
+              },
+              "duration": 156,
+              "isExplicit": false,
+              "album": {
+                "id": "845836462",
+                "displayTitle": "Jamaican (Bam Bam)",
+                "cover": {
+                  "id": "6b4c6dc6ee1fbee60949e4fd31f084a78f18317c",
+                  "urls": [
+                    "https://cdn-images.dzcdn.net/images/cover/165f0ea8d5ecdc3fbb1ce235d3bce15f/264x264-000000-80-0-0.jpg"
+                  ]
+                }
+              },
+              "contributors": {
+                "edges": [
+                  {
+                    "roles": ["MAIN"],
+                    "node": {
+                      "id": "7803478",
+                      "name": "HUGEL",
+                      "__typename": "Artist"
+                    }
+                  },
+                  {
+                    "roles": ["MAIN"],
+                    "node": {
+                      "id": "353399622",
+                      "name": "SOLTO (FR)",
+                      "__typename": "Artist"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "cursor": "3584616411",
+            "node": {
+              "id": "3584616411",
+              "title": "Die On This Hill",
+              "ISRC": "USUG12508560",
+              "diskInfo": {
+                "diskNumber": 1,
+                "trackNumber": 1
+              },
+              "duration": 217,
+              "isExplicit": false,
+              "album": {
+                "id": "831650311",
+                "displayTitle": "Die On This Hill",
+                "cover": {
+                  "id": "9a5aa890625572b7decac6e8224dfbb179c91360",
+                  "urls": [
+                    "https://cdn-images.dzcdn.net/images/cover/33d8405a7628c0ce8dbc13dd6f4d17c9/264x264-000000-80-0-0.jpg"
+                  ]
+                }
+              },
+              "contributors": {
+                "edges": [
+                  {
+                    "roles": ["MAIN"],
+                    "node": {
+                      "id": "265272032",
+                      "name": "SIENNA SPIRO",
+                      "__typename": "Artist"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "cursor": "3410229851",
+            "node": {
+              "id": "3410229851",
+              "title": "No Broke Boys",
+              "ISRC": "USAT22504362",
+              "diskInfo": {
+                "diskNumber": 1,
+                "trackNumber": 1
+              },
+              "duration": 163,
+              "isExplicit": true,
+              "album": {
+                "id": "771059371",
+                "displayTitle": "No Broke Boys",
+                "cover": {
+                  "id": "5cccc5d5fcb4a1def6c7cf7d755b65dcad8bed68",
+                  "urls": [
+                    "https://cdn-images.dzcdn.net/images/cover/87001d51243fd7164a02a74cb38e2e4c/264x264-000000-80-0-0.jpg"
+                  ]
+                }
+              },
+              "contributors": {
+                "edges": [
+                  {
+                    "roles": ["MAIN"],
+                    "node": {
+                      "id": "65148802",
+                      "name": "Disco Lines",
+                      "__typename": "Artist"
+                    }
+                  },
+                  {
+                    "roles": ["MAIN"],
+                    "node": {
+                      "id": "345052",
+                      "name": "Tinashe",
+                      "__typename": "Artist"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "cursor": "3638389092",
+            "node": {
+              "id": "3638389092",
+              "title": "Daddy Yankee: Bzrp Music Sessions, Vol. 0/66",
+              "ISRC": "UYB282546130",
+              "diskInfo": {
+                "diskNumber": 1,
+                "trackNumber": 1
+              },
+              "duration": 151,
+              "isExplicit": false,
+              "album": {
+                "id": "850435472",
+                "displayTitle": "Daddy Yankee: Bzrp Music Sessions, Vol. 0/66",
+                "cover": {
+                  "id": "1d36a3d0ee69a5ed038b6fc3bebb7f559d4fc123",
+                  "urls": [
+                    "https://cdn-images.dzcdn.net/images/cover/0c584f1fc8c55a604545bbae3c8a3b1b/264x264-000000-80-0-0.jpg"
+                  ]
+                }
+              },
+              "contributors": {
+                "edges": [
+                  {
+                    "roles": ["MAIN"],
+                    "node": {
+                      "id": "12487862",
+                      "name": "Bizarrap",
+                      "__typename": "Artist"
+                    }
+                  },
+                  {
+                    "roles": ["MAIN"],
+                    "node": {
+                      "id": "3839",
+                      "name": "Daddy Yankee",
+                      "__typename": "Artist"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "cursor": "3637839292",
+            "node": {
+              "id": "3637839292",
+              "title": "Ailleurs",
+              "ISRC": "FR9W12551645",
+              "diskInfo": {
+                "diskNumber": 1,
+                "trackNumber": 3
+              },
+              "duration": 192,
+              "isExplicit": false,
+              "album": {
+                "id": "850246932",
+                "displayTitle": "La fuite en avant",
+                "cover": {
+                  "id": "6dcbe23dca5113727278779ed4bd05a04b22de24",
+                  "urls": [
+                    "https://cdn-images.dzcdn.net/images/cover/7a9d1807d77676a4f182dba7ca09c122/264x264-000000-80-0-0.jpg"
+                  ]
+                }
+              },
+              "contributors": {
+                "edges": [
+                  {
+                    "roles": ["MAIN"],
+                    "node": {
+                      "id": "259467",
+                      "name": "Orelsan",
+                      "__typename": "Artist"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "cursor": "3471224101",
+            "node": {
+              "id": "3471224101",
+              "title": "12 to 12",
+              "ISRC": "USWB12502453",
+              "diskInfo": {
+                "diskNumber": 1,
+                "trackNumber": 1
+              },
+              "duration": 242,
+              "isExplicit": false,
+              "album": {
+                "id": "791892231",
+                "displayTitle": "12 to 12",
+                "cover": {
+                  "id": "3137d32a8a49822933bc130e72acfa2045b74434",
+                  "urls": [
+                    "https://cdn-images.dzcdn.net/images/cover/cd1cc167d16454ce45401681fe6b25af/264x264-000000-80-0-0.jpg"
+                  ]
+                }
+              },
+              "contributors": {
+                "edges": [
+                  {
+                    "roles": ["MAIN"],
+                    "node": {
+                      "id": "145468192",
+                      "name": "sombr",
+                      "__typename": "Artist"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "cursor": "3663852612",
+            "node": {
+              "id": "3663852612",
+              "title": "Hips Don't Lie",
+              "ISRC": "USQX92505612",
+              "diskInfo": {
+                "diskNumber": 1,
+                "trackNumber": 5
+              },
+              "duration": 208,
+              "isExplicit": false,
+              "album": {
+                "id": "859209172",
+                "displayTitle": "Anniversary | Oral Fixation (20th) and Pies Descalzos (30th) LIVE",
+                "cover": {
+                  "id": "05e7b652e26608b8e3cd49fde465f96eb65668db",
+                  "urls": [
+                    "https://cdn-images.dzcdn.net/images/cover/b570890728621ec68d5c5558164c3945/264x264-000000-80-0-0.jpg"
+                  ]
+                }
+              },
+              "contributors": {
+                "edges": [
+                  {
+                    "roles": ["MAIN"],
+                    "node": {
+                      "id": "160",
+                      "name": "Shakira",
+                      "__typename": "Artist"
+                    }
+                  },
+                  {
+                    "roles": ["MAIN"],
+                    "node": {
+                      "id": "384236",
+                      "name": "Ed Sheeran",
+                      "__typename": "Artist"
+                    }
+                  },
+                  {
+                    "roles": ["MAIN"],
+                    "node": {
+                      "id": "68358002",
+                      "name": "Beele",
+                      "__typename": "Artist"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "cursor": "3648482872",
+            "node": {
+              "id": "3648482872",
+              "title": "Dream As One (from Avatar: Fire and Ash)",
+              "ISRC": "USSM12509552",
+              "diskInfo": {
+                "diskNumber": 1,
+                "trackNumber": 1
+              },
+              "duration": 200,
+              "isExplicit": false,
+              "album": {
+                "id": "853951852",
+                "displayTitle": "Dream As One (from Avatar: Fire and Ash)",
+                "cover": {
+                  "id": "7afca3cc04d8809aa0c7708b45b7c8a4b9a4da3e",
+                  "urls": [
+                    "https://cdn-images.dzcdn.net/images/cover/de43a711012ebeac13764710e54eeb49/264x264-000000-80-0-0.jpg"
+                  ]
+                }
+              },
+              "contributors": {
+                "edges": [
+                  {
+                    "roles": ["MAIN"],
+                    "node": {
+                      "id": "12436",
+                      "name": "Miley Cyrus",
+                      "__typename": "Artist"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "cursor": "3532091011",
+            "node": {
+              "id": "3532091011",
+              "title": "Dis-moi oui",
+              "ISRC": "FR9W12547571",
+              "diskInfo": {
+                "diskNumber": 1,
+                "trackNumber": 1
+              },
+              "duration": 236,
+              "isExplicit": false,
+              "album": {
+                "id": "812817171",
+                "displayTitle": "Dis-moi oui",
+                "cover": {
+                  "id": "29431819fb5d90038792627d6485d94a7ec2e3ac",
+                  "urls": [
+                    "https://cdn-images.dzcdn.net/images/cover/12e584197e5a57dbebedb58bfae74591/264x264-000000-80-0-0.jpg"
+                  ]
+                }
+              },
+              "contributors": {
+                "edges": [
+                  {
+                    "roles": ["MAIN"],
+                    "node": {
+                      "id": "163325847",
+                      "name": "SANTA",
+                      "__typename": "Artist"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "cursor": "3412534601",
+            "node": {
+              "id": "3412534601",
+              "title": "Takedown",
+              "ISRC": "QZ8BZ2513511",
+              "diskInfo": {
+                "diskNumber": 1,
+                "trackNumber": 6
+              },
+              "duration": 182,
+              "isExplicit": false,
+              "album": {
+                "id": "771853201",
+                "displayTitle": "KPop Demon Hunters (Soundtrack from the Netflix Film)",
+                "cover": {
+                  "id": "9018fd3960d8fe30377c73acf75a0d9a5adade15",
+                  "urls": [
+                    "https://cdn-images.dzcdn.net/images/cover/e54bda0628749119f7a9a05b71b40283/264x264-000000-80-0-0.jpg"
+                  ]
+                }
+              },
+              "contributors": {
+                "edges": [
+                  {
+                    "roles": ["MAIN"],
+                    "node": {
+                      "id": "330311461",
+                      "name": "HUNTR/X",
+                      "__typename": "Artist"
+                    }
+                  },
+                  {
+                    "roles": ["MAIN"],
+                    "node": {
+                      "id": "332797341",
+                      "name": "EJAE",
+                      "__typename": "Artist"
+                    }
+                  },
+                  {
+                    "roles": ["MAIN"],
+                    "node": {
+                      "id": "86739352",
+                      "name": "AUDREY NUNA",
+                      "__typename": "Artist"
+                    }
+                  },
+                  {
+                    "roles": ["MAIN"],
+                    "node": {
+                      "id": "67515242",
+                      "name": "REI AMI",
+                      "__typename": "Artist"
+                    }
+                  },
+                  {
+                    "roles": ["MAIN"],
+                    "node": {
+                      "id": "330311451",
+                      "name": "KPop Demon Hunters Cast",
+                      "__typename": "Artist"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "cursor": "3812192212",
+            "node": {
+              "id": "3812192212",
+              "title": "Des mythos",
+              "ISRC": "FR9W12603521",
+              "diskInfo": {
+                "diskNumber": 1,
+                "trackNumber": 1
+              },
+              "duration": 178,
+              "isExplicit": true,
+              "album": {
+                "id": "908046502",
+                "displayTitle": "Des mythos",
+                "cover": {
+                  "id": "5351e77dfe3433011a52b148fdd3bcd3e61ad3dd",
+                  "urls": [
+                    "https://cdn-images.dzcdn.net/images/cover/befb0fa013c75957d2cd8798cdc3c39b/264x264-000000-80-0-0.jpg"
+                  ]
+                }
+              },
+              "contributors": {
+                "edges": [
+                  {
+                    "roles": ["MAIN"],
+                    "node": {
+                      "id": "13820325",
+                      "name": "Theodora",
+                      "__typename": "Artist"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "cursor": "3362855201",
+            "node": {
+              "id": "3362855201",
+              "title": "The First Time",
+              "ISRC": "ITB002500180",
+              "diskInfo": {
+                "diskNumber": 1,
+                "trackNumber": 11
+              },
+              "duration": 218,
+              "isExplicit": false,
+              "album": {
+                "id": "763955771",
+                "displayTitle": "The First Time",
+                "cover": {
+                  "id": "903cebc43b7ee36db817e0cc176c1f69a6514fda",
+                  "urls": [
+                    "https://cdn-images.dzcdn.net/images/cover/812582837d3006d43ab53535635e3bfb/264x264-000000-80-0-0.jpg"
+                  ]
+                }
+              },
+              "contributors": {
+                "edges": [
+                  {
+                    "roles": ["MAIN"],
+                    "node": {
+                      "id": "13612391",
+                      "name": "Damiano David",
+                      "__typename": "Artist"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "cursor": "3571022131",
+            "node": {
+              "id": "3571022131",
+              "title": "JE NE SERAI JAMAIS.",
+              "ISRC": "FR9W12551559",
+              "diskInfo": {
+                "diskNumber": 1,
+                "trackNumber": 1
+              },
+              "duration": 246,
+              "isExplicit": true,
+              "album": {
+                "id": "826814151",
+                "displayTitle": "JE NE SERAI JAMAIS.",
+                "cover": {
+                  "id": "c7d331ab9bbd42a98c4e27abddc4008d120c12e4",
+                  "urls": [
+                    "https://cdn-images.dzcdn.net/images/cover/18684ff0c63cb97310673a6dd5c62610/264x264-000000-80-0-0.jpg"
+                  ]
+                }
+              },
+              "contributors": {
+                "edges": [
+                  {
+                    "roles": ["MAIN"],
+                    "node": {
+                      "id": "5435777",
+                      "name": "Z\u00e9lie",
+                      "__typename": "Artist"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "cursor": "3503857201",
+            "node": {
+              "id": "3503857201",
+              "title": "Man I Need",
+              "ISRC": "GBUM72503089",
+              "diskInfo": {
+                "diskNumber": 1,
+                "trackNumber": 1
+              },
+              "duration": 184,
+              "isExplicit": false,
+              "album": {
+                "id": "803181741",
+                "displayTitle": "Man I Need",
+                "cover": {
+                  "id": "4279c5131111344ee616e0ea4ec8ec1d649d01cb",
+                  "urls": [
+                    "https://cdn-images.dzcdn.net/images/cover/73eb46e655061c72096b67f70a8dc609/264x264-000000-80-0-0.jpg"
+                  ]
+                }
+              },
+              "contributors": {
+                "edges": [
+                  {
+                    "roles": ["MAIN"],
+                    "node": {
+                      "id": "75659582",
+                      "name": "Olivia Dean",
+                      "__typename": "Artist"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "cursor": "3571311501",
+            "node": {
+              "id": "3571311501",
+              "title": "La recette",
+              "ISRC": "FR8FB2513240",
+              "diskInfo": {
+                "diskNumber": 1,
+                "trackNumber": 7
+              },
+              "duration": 182,
+              "isExplicit": false,
+              "album": {
+                "id": "826908501",
+                "displayTitle": "Oxyg\u00e8ne",
+                "cover": {
+                  "id": "23779971f7fd504b3fa6d4d82d03beb0321417e0",
+                  "urls": [
+                    "https://cdn-images.dzcdn.net/images/cover/46e4e0f0b955dd0c0721963f4f9ac20b/264x264-000000-80-0-0.jpg"
+                  ]
+                }
+              },
+              "contributors": {
+                "edges": [
+                  {
+                    "roles": ["MAIN"],
+                    "node": {
+                      "id": "165461207",
+                      "name": "Jeck",
+                      "__typename": "Artist"
+                    }
+                  },
+                  {
+                    "roles": ["MAIN"],
+                    "node": {
+                      "id": "78960852",
+                      "name": "Carla",
+                      "__typename": "Artist"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "cursor": "3502053411",
+            "node": {
+              "id": "3502053411",
+              "title": "QUE CE SOIT CLAIR",
+              "ISRC": "DEE862501171",
+              "diskInfo": {
+                "diskNumber": 1,
+                "trackNumber": 1
+              },
+              "duration": 176,
+              "isExplicit": false,
+              "album": {
+                "id": "802780041",
+                "displayTitle": "QUE CE SOIT CLAIR",
+                "cover": {
+                  "id": "75712b64bd20d8f672b4c007eac7c1033987f4e2",
+                  "urls": [
+                    "https://cdn-images.dzcdn.net/images/cover/e60b7a4afe0ce1e58dfe01aff61b6b90/264x264-000000-80-0-0.jpg"
+                  ]
+                }
+              },
+              "contributors": {
+                "edges": [
+                  {
+                    "roles": ["MAIN"],
+                    "node": {
+                      "id": "6377",
+                      "name": "Paul Kalkbrenner",
+                      "__typename": "Artist"
+                    }
+                  },
+                  {
+                    "roles": ["MAIN"],
+                    "node": {
+                      "id": "310260",
+                      "name": "Stromae",
+                      "__typename": "Artist"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "cursor": "3537311621",
+            "node": {
+              "id": "3537311621",
+              "title": "Camera",
+              "ISRC": "GBAHS2500245",
+              "diskInfo": {
+                "diskNumber": 1,
+                "trackNumber": 6
+              },
+              "duration": 215,
+              "isExplicit": false,
+              "album": {
+                "id": "814817411",
+                "displayTitle": "Play",
+                "cover": {
+                  "id": "d4f74de4d2f79571ca3924388166bf663cf61c9e",
+                  "urls": [
+                    "https://cdn-images.dzcdn.net/images/cover/09f34007fcf245de7ef8f67d2173ee6e/264x264-000000-80-0-0.jpg"
+                  ]
+                }
+              },
+              "contributors": {
+                "edges": [
+                  {
+                    "roles": ["MAIN"],
+                    "node": {
+                      "id": "384236",
+                      "name": "Ed Sheeran",
+                      "__typename": "Artist"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "cursor": "3492924741",
+            "node": {
+              "id": "3492924741",
+              "title": "Avec toi",
+              "ISRC": "FR9W12542532",
+              "diskInfo": {
+                "diskNumber": 1,
+                "trackNumber": 4
+              },
+              "duration": 210,
+              "isExplicit": false,
+              "album": {
+                "id": "799734241",
+                "displayTitle": "C amir\u00b2",
+                "cover": {
+                  "id": "58c044f4b04cca01a91b520750423a5f43b1e571",
+                  "urls": [
+                    "https://cdn-images.dzcdn.net/images/cover/71be48de97360bfec1859e6d4b8fe4ba/264x264-000000-80-0-0.jpg"
+                  ]
+                }
+              },
+              "contributors": {
+                "edges": [
+                  {
+                    "roles": ["MAIN"],
+                    "node": {
+                      "id": "164704",
+                      "name": "Amir",
+                      "__typename": "Artist"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "cursor": "3513736251",
+            "node": {
+              "id": "3513736251",
+              "title": "Quand m\u00eame",
+              "ISRC": "FRZ052500059",
+              "diskInfo": {
+                "diskNumber": 1,
+                "trackNumber": 9
+              },
+              "duration": 193,
+              "isExplicit": false,
+              "album": {
+                "id": "806705831",
+                "displayTitle": "Adr\u00e9naline",
+                "cover": {
+                  "id": "dcbc63293560595ae14c1b2b88e05801642d4e77",
+                  "urls": [
+                    "https://cdn-images.dzcdn.net/images/cover/5ed068c7553edcbfaf5507f775eebb75/264x264-000000-80-0-0.jpg"
+                  ]
+                }
+              },
+              "contributors": {
+                "edges": [
+                  {
+                    "roles": ["MAIN"],
+                    "node": {
+                      "id": "144446",
+                      "name": "M. Pokora",
+                      "__typename": "Artist"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "cursor": "3670646882",
+            "node": {
+              "id": "3670646882",
+              "title": "INCOGNITO",
+              "ISRC": "DGA072574379",
+              "diskInfo": {
+                "diskNumber": 1,
+                "trackNumber": 1
+              },
+              "duration": 158,
+              "isExplicit": true,
+              "album": {
+                "id": "861345932",
+                "displayTitle": "INCOGNITO",
+                "cover": {
+                  "id": "e100085b65cd29d2704ab0912e92dd14028e4974",
+                  "urls": [
+                    "https://cdn-images.dzcdn.net/images/cover/18704afefb2d5c357e23797786cac565/264x264-000000-80-0-0.jpg"
+                  ]
+                }
+              },
+              "contributors": {
+                "edges": [
+                  {
+                    "roles": ["MAIN"],
+                    "node": {
+                      "id": "4429712",
+                      "name": "GIMS",
+                      "__typename": "Artist"
+                    }
+                  },
+                  {
+                    "roles": ["MAIN"],
+                    "node": {
+                      "id": "249270492",
+                      "name": "R2",
+                      "__typename": "Artist"
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        ],
+        "pageInfo": {
+          "hasNextPage": true,
+          "endCursor": "3670646882"
+        }
+      }
+    }
+  },
+  "extensions": {
+    "queryCost": 4018
+  }
+}
