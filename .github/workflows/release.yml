@@ -29,25 +29,20 @@ jobs:
               with:
                   fetch-depth: 0
 
+            - name: Install git-cliff
+              uses: taiki-e/install-action@git-cliff
+
             - name: Determine next version
               id: version
-              uses: orhun/git-cliff-action@v4
-              with:
-                  config: cliff.toml
-                  args: >-
-                      --bumped-version
-                      ${{ inputs.bump && format('--bump {0}', inputs.bump) || '--bump' }}
-              env:
-                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-            - name: Check version was bumped
               run: |
-                  VERSION="${{ steps.version.outputs.version }}"
+                  BUMP_ARG="${{ inputs.bump && format('--bump {0}', inputs.bump) || '--bump' }}"
+                  VERSION=$(git-cliff --bumped-version $BUMP_ARG)
                   if [ -z "$VERSION" ]; then
                       echo "::error::No version bump detected. Are there any conventional commits since the last tag?"
                       exit 1
                   fi
                   echo "Next version: $VERSION"
+                  echo "version=$VERSION" >> "$GITHUB_OUTPUT"
 
             - name: Generate changelog
               id: changelog
