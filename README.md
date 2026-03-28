@@ -51,14 +51,26 @@ asyncio.run(main())
 
 ## Available Queries
 
-| Method                      | Description                                                   |
-| --------------------------- | ------------------------------------------------------------- |
-| `get_me()`                  | Current authenticated user                                    |
-| `get_track(track_id)`       | Full track details — ISRC, media tokens, lyrics, contributors |
-| `get_album(album_id)`       | Album with cover, label, paginated tracks, fallback           |
-| `get_artist(artist_id)`     | Artist with bio, top tracks, albums (ordered by release date) |
-| `get_playlist(playlist_id)` | Playlist with owner, picture, paginated tracks                |
-| `search(query, ...)`        | Unified search across tracks, albums, artists, playlists      |
+| Method                                           | Description                                                   |
+| ------------------------------------------------ | ------------------------------------------------------------- |
+| `get_me()`                                       | Current authenticated user                                    |
+| `get_track(track_id)`                            | Full track details — ISRC, media tokens, lyrics, contributors |
+| `get_album(album_id)`                            | Album with cover, label, paginated tracks, fallback           |
+| `get_artist(artist_id)`                          | Artist with bio, top tracks, albums (ordered by release date) |
+| `get_playlist(playlist_id)`                      | Playlist with owner, picture, paginated tracks                |
+| `search(query, ...)`                             | Unified search across tracks, albums, artists, playlists      |
+| `get_flow()`                                     | User's default Flow with tracks                               |
+| `get_flow_configs(moods_first, genres_first)`    | Mood & genre flow config lists for discovery                  |
+| `get_flow_config_tracks(flow_config_id)`         | Tracks for a specific mood/genre flow config                  |
+| `get_made_for_me(first)`                         | "Made For You" SmartTracklist & Flow items                    |
+| `get_smart_tracklist(smart_tracklist_id, first)` | Smart tracklist with paginated tracks                         |
+| `get_charts(country_code, ...)`                  | Country charts — tracks, albums, artists, playlists           |
+| `get_recommendations(playlists_first, ...)`      | Personalized recommendations across categories                |
+| `get_recently_played(first)`                     | Recently played mixed content (albums, playlists, artists...) |
+| `get_favorite_artists(first, after)`             | Paginated favorite artists                                    |
+| `get_favorite_albums(first, after)`              | Paginated favorite albums                                     |
+| `get_favorite_tracks(first, after)`              | Paginated favorite tracks                                     |
+| `get_favorite_playlists(first, after)`           | Paginated favorite playlists                                  |
 
 All methods return fully-typed Pydantic models generated from the GraphQL schema.
 

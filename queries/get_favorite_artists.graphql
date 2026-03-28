@@ -1,0 +1,19 @@
+# Get the current user's favorite artists (paginated).
+
+query GetFavoriteArtists($first: Int = 50, $after: String) {
+  me {
+    userFavorites {
+      artists(first: $first, after: $after) {
+        edges {
+          cursor
+          node {
+            ...ArtistFields
+          }
+        }
+        pageInfo {
+          ...PageInfoFields
+        }
+      }
+    }
+  }
+}

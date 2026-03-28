@@ -1,0 +1,90 @@
+{
+  "data": {
+    "me": {
+      "recentlyPlayed": {
+        "edges": [
+          {
+            "cursor": "YXJyYXljb25uZWN0aW9uOjA=",
+            "node": {
+              "__typename": "Album",
+              "id": "302127",
+              "displayTitle": "Discovery",
+              "type": "ALBUM",
+              "cover": {
+                "id": "cover_302127",
+                "urls": [
+                  "https://cdn-images.deezer.com/images/cover/302127/264x264.jpg"
+                ]
+              },
+              "contributors": {
+                "edges": [
+                  {
+                    "node": {
+                      "__typename": "Artist",
+                      "id": "27",
+                      "name": "Daft Punk"
+                    }
+                  }
+                ]
+              },
+              "releaseDate": "2001-03-12",
+              "isExplicit": false
+            }
+          },
+          {
+            "cursor": "YXJyYXljb25uZWN0aW9uOjE=",
+            "node": {
+              "__typename": "Playlist",
+              "id": "53362031",
+              "title": "Electronic Hits",
+              "picture": {
+                "id": "pic_53362031",
+                "urls": [
+                  "https://cdn-images.deezer.com/images/playlist/53362031/264x264.jpg"
+                ]
+              },
+              "estimatedTracksCount": 50,
+              "owner": {
+                "id": "2529",
+                "name": "Deezer Editor"
+              }
+            }
+          },
+          {
+            "cursor": "YXJyYXljb25uZWN0aW9uOjI=",
+            "node": {
+              "__typename": "Artist",
+              "id": "27",
+              "name": "Daft Punk",
+              "picture": {
+                "id": "pic_27",
+                "urls": [
+                  "https://cdn-images.deezer.com/images/artist/27/264x264.jpg"
+                ]
+              },
+              "fansCount": 18000000
+            }
+          },
+          {
+            "cursor": "YXJyYXljb25uZWN0aW9uOjM=",
+            "node": {
+              "__typename": "Flow",
+              "id": "flow:default",
+              "title": "Flow",
+              "cover": {
+                "id": "cover_flow",
+                "urls": [
+                  "https://cdn-images.deezer.com/images/flow/default/264x264.jpg"
+                ]
+              }
+            }
+          }
+        ],
+        "pageInfo": {
+          "hasNextPage": true,
+          "endCursor": "YXJyYXljb25uZWN0aW9uOjM="
+        }
+      }
+    }
+  }
+}

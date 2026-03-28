@@ -1,0 +1,61 @@
+# Get personalized recommendations — playlists, artist playlists, new releases, artists, hot tracks.
+
+query GetRecommendations(
+  $playlistsFirst: Int = 20
+  $artistPlaylistsFirst: Int = 20
+  $newReleasesFirst: Int = 20
+  $artistsFirst: Int = 20
+  $hotTracksLimit: Int = 50
+) {
+  me {
+    recommendations {
+      playlists(first: $playlistsFirst) {
+        edges {
+          cursor
+          node {
+            ...PlaylistFields
+          }
+        }
+        pageInfo {
+          ...PageInfoFields
+        }
+      }
+      artistPlaylists(first: $artistPlaylistsFirst) {
+        edges {
+          cursor
+          node {
+            ...PlaylistFields
+          }
+        }
+        pageInfo {
+          ...PageInfoFields
+        }
+      }
+      newReleases(first: $newReleasesFirst) {
+        edges {
+          cursor
+          node {
+            ...AlbumFields
+          }
+        }
+        pageInfo {
+          ...PageInfoFields
+        }
+      }
+      artists(first: $artistsFirst) {
+        edges {
+          cursor
+          node {
+            ...ArtistFields
+          }
+        }
+        pageInfo {
+          ...PageInfoFields
+        }
+      }
+      hotTracks(limit: $hotTracksLimit) {
+        ...TrackFields
+      }
+    }
+  }
+}

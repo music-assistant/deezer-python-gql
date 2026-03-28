@@ -1,0 +1,58 @@
+# Get country and worldwide charts — top tracks, albums, artists, playlists.
+
+query GetCharts(
+  $countryCode: String
+  $tracksFirst: Int = 100
+  $albumsFirst: Int = 50
+  $artistsFirst: Int = 50
+  $playlistsFirst: Int = 50
+) {
+  charts {
+    country(countryCode: $countryCode) {
+      tracks(first: $tracksFirst) {
+        edges {
+          cursor
+          node {
+            ...TrackFields
+          }
+        }
+        pageInfo {
+          ...PageInfoFields
+        }
+      }
+      albums(first: $albumsFirst) {
+        edges {
+          cursor
+          node {
+            ...AlbumFields
+          }
+        }
+        pageInfo {
+          ...PageInfoFields
+        }
+      }
+      artists(first: $artistsFirst) {
+        edges {
+          cursor
+          node {
+            ...ArtistFields
+          }
+        }
+        pageInfo {
+          ...PageInfoFields
+        }
+      }
+      playlists(first: $playlistsFirst) {
+        edges {
+          cursor
+          node {
+            ...PlaylistFields
+          }
+        }
+        pageInfo {
+          ...PageInfoFields
+        }
+      }
+    }
+  }
+}

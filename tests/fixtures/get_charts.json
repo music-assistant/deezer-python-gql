@@ -1,0 +1,139 @@
+{
+  "data": {
+    "charts": {
+      "country": {
+        "tracks": {
+          "edges": [
+            {
+              "cursor": "YXJyYXljb25uZWN0aW9uOjA=",
+              "node": {
+                "__typename": "Track",
+                "id": "2310126685",
+                "title": "Greedy",
+                "ISRC": "USRC12400301",
+                "diskInfo": {
+                  "diskNumber": 1,
+                  "trackNumber": 1
+                },
+                "duration": 132,
+                "isExplicit": false,
+                "album": {
+                  "id": "601123455",
+                  "displayTitle": "Short n' Sweet",
+                  "cover": {
+                    "id": "cover_601123455",
+                    "urls": [
+                      "https://cdn-images.deezer.com/images/cover/601123455/264x264.jpg"
+                    ]
+                  }
+                },
+                "contributors": {
+                  "edges": [
+                    {
+                      "roles": ["MAIN"],
+                      "node": {
+                        "__typename": "Artist",
+                        "id": "11024061",
+                        "name": "Tate McRae"
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          ],
+          "pageInfo": {
+            "hasNextPage": true,
+            "endCursor": "YXJyYXljb25uZWN0aW9uOjA="
+          }
+        },
+        "albums": {
+          "edges": [
+            {
+              "cursor": "YXJyYXljb25uZWN0aW9uOjA=",
+              "node": {
+                "__typename": "Album",
+                "id": "601123455",
+                "displayTitle": "Short n' Sweet",
+                "type": "ALBUM",
+                "cover": {
+                  "id": "cover_601123455",
+                  "urls": [
+                    "https://cdn-images.deezer.com/images/cover/601123455/264x264.jpg"
+                  ]
+                },
+                "contributors": {
+                  "edges": [
+                    {
+                      "node": {
+                        "__typename": "Artist",
+                        "id": "11024061",
+                        "name": "Tate McRae"
+                      }
+                    }
+                  ]
+                },
+                "releaseDate": "2024-08-23",
+                "isExplicit": true
+              }
+            }
+          ],
+          "pageInfo": {
+            "hasNextPage": true,
+            "endCursor": "YXJyYXljb25uZWN0aW9uOjA="
+          }
+        },
+        "artists": {
+          "edges": [
+            {
+              "cursor": "YXJyYXljb25uZWN0aW9uOjA=",
+              "node": {
+                "__typename": "Artist",
+                "id": "11024061",
+                "name": "Tate McRae",
+                "picture": {
+                  "id": "pic_11024061",
+                  "urls": [
+                    "https://cdn-images.deezer.com/images/artist/11024061/264x264.jpg"
+                  ]
+                },
+                "fansCount": 2500000
+              }
+            }
+          ],
+          "pageInfo": {
+            "hasNextPage": true,
+            "endCursor": "YXJyYXljb25uZWN0aW9uOjA="
+          }
+        },
+        "playlists": {
+          "edges": [
+            {
+              "cursor": "YXJyYXljb25uZWN0aW9uOjA=",
+              "node": {
+                "__typename": "Playlist",
+                "id": "1313621735",
+                "title": "Top Hits 2026",
+                "picture": {
+                  "id": "pic_1313621735",
+                  "urls": [
+                    "https://cdn-images.deezer.com/images/playlist/1313621735/264x264.jpg"
+                  ]
+                },
+                "estimatedTracksCount": 100,
+                "owner": {
+                  "id": "2529",
+                  "name": "Deezer Editor"
+                }
+              }
+            }
+          ],
+          "pageInfo": {
+            "hasNextPage": true,
+            "endCursor": "YXJyYXljb25uZWN0aW9uOjA="
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,35 @@
+# Get "Made for me" content — algorithmically generated playlists (SmartTracklists)
+# and Flow variants. Each SmartTracklist is like a personalized playlist.
+
+query GetMadeForMe($first: Int = 10) {
+  me {
+    madeForMe(first: $first) {
+      edges {
+        cursor
+        node {
+          __typename
+          ... on SmartTracklist {
+            id
+            title
+            subTitle
+            cover {
+              id
+              urls(pictureRequest: { width: 264, height: 264 })
+            }
+          }
+          ... on Flow {
+            id
+            title
+            cover {
+              id
+              urls(pictureRequest: { width: 264, height: 264 })
+            }
+          }
+        }
+      }
+      pageInfo {
+        ...PageInfoFields
+      }
+    }
+  }
+}

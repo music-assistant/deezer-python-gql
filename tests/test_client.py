@@ -28,10 +28,24 @@ from deezer_python_gql.base_client import (
 )
 from deezer_python_gql.generated.get_album import GetAlbum
 from deezer_python_gql.generated.get_artist import GetArtist
+from deezer_python_gql.generated.get_charts import GetCharts
+from deezer_python_gql.generated.get_favorite_albums import GetFavoriteAlbums
+from deezer_python_gql.generated.get_favorite_artists import GetFavoriteArtists
+from deezer_python_gql.generated.get_favorite_playlists import GetFavoritePlaylists
+from deezer_python_gql.generated.get_favorite_tracks import GetFavoriteTracks
+from deezer_python_gql.generated.get_flow import GetFlow
+from deezer_python_gql.generated.get_flow_config_tracks import GetFlowConfigTracks
+from deezer_python_gql.generated.get_flow_configs import GetFlowConfigs
+from deezer_python_gql.generated.get_made_for_me import GetMadeForMe
 from deezer_python_gql.generated.get_me import GetMe
 from deezer_python_gql.generated.get_playlist import GetPlaylist
+from deezer_python_gql.generated.get_recently_played import GetRecentlyPlayed
+from deezer_python_gql.generated.get_recommendations import GetRecommendations
+from deezer_python_gql.generated.get_smart_tracklist import GetSmartTracklist
 from deezer_python_gql.generated.get_track import GetTrack
+from deezer_python_gql.generated.get_user_charts import GetUserCharts
 from deezer_python_gql.generated.search import Search
+from deezer_python_gql.generated.search_flows import SearchFlows
 
 FIXTURES = Path(__file__).parent / "fixtures"
 
@@ -96,7 +110,28 @@ def test_client_instantiation() -> None:
 def test_client_has_generated_methods() -> None:
     """Verify that codegen produced all expected query methods."""
     client = DeezerGQLClient(arl="test")
-    expected_methods = ["get_me", "get_track", "get_album", "get_artist", "get_playlist", "search"]
+    expected_methods = [
+        "get_me",
+        "get_track",
+        "get_album",
+        "get_artist",
+        "get_playlist",
+        "search",
+        "get_flow",
+        "get_flow_configs",
+        "get_flow_config_tracks",
+        "get_made_for_me",
+        "get_smart_tracklist",
+        "get_charts",
+        "get_recommendations",
+        "get_recently_played",
+        "get_favorite_artists",
+        "get_favorite_albums",
+        "get_favorite_tracks",
+        "get_favorite_playlists",
+        "search_flows",
+        "get_user_charts",
+    ]
     for method in expected_methods:
         assert hasattr(client, method), f"Missing method: {method}"
         assert callable(getattr(client, method))
@@ -404,3 +439,231 @@ def test_smoke_search() -> None:
     assert len(results.artists.edges) > 0
     assert len(results.playlists.edges) > 0
     assert isinstance(results.tracks.page_info.has_next_page, bool)
+
+
+# ---------------------------------------------------------------------------
+# 5. Browse-related model smoke tests (new queries)
+# ---------------------------------------------------------------------------
+
+
+def test_smoke_get_flow() -> None:
+    """Verify GetFlow fixture parses with flow tracks."""
+    data = _load_fixture("get_flow.json")
+    me = GetFlow.model_validate(data).me
+    assert me is not None
+    assert me.flow is not None
+    assert me.flow.id == "flow:default"
+    assert me.flow.title == "Flow"
+    assert len(me.flow.tracks) == 2
+    assert me.flow.tracks[0].track is not None
+    assert me.flow.tracks[0].track.title == "Harder, Better, Faster, Stronger"
+
+
+def test_smoke_get_flow_configs() -> None:
+    """Verify GetFlowConfigs fixture parses mood and genre flow configs."""
+    data = _load_fixture("get_flow_configs.json")
+    me = GetFlowConfigs.model_validate(data).me
+    assert me is not None
+    configs = me.flow_configs
+    assert len(configs.moods.edges) == 3
+    assert len(configs.genres.edges) == 3
+    mood_node = configs.moods.edges[0].node
+    assert mood_node is not None
+    assert mood_node.title == "Chill"
+    genre_node = configs.genres.edges[0].node
+    assert genre_node is not None
+    assert genre_node.title == "Rock"
+    assert configs.moods.page_info.has_next_page is True
+
+
+def test_smoke_get_flow_config_tracks() -> None:
+    """Verify GetFlowConfigTracks fixture parses tracks for a flow config."""
+    data = _load_fixture("get_flow_config_tracks.json")
+    flow_config = GetFlowConfigTracks.model_validate(data).flow_config
+    assert flow_config is not None
+    assert flow_config.id == "flow_config:chill"
+    assert flow_config.title == "Chill"
+    assert len(flow_config.tracks) == 1
+    assert flow_config.tracks[0].track is not None
+    assert flow_config.tracks[0].track.title == "Around the World"
+
+
+def test_smoke_get_made_for_me() -> None:
+    """Verify GetMadeForMe fixture parses SmartTracklist and Flow items."""
+    data = _load_fixture("get_made_for_me.json")
+    me = GetMadeForMe.model_validate(data).me
+    assert me is not None
+    edges = me.made_for_me.edges
+    assert len(edges) == 3
+    # First two are SmartTracklists, third is a Flow
+    node_0 = edges[0].node
+    assert node_0 is not None
+    assert node_0.typename__ == "SmartTracklist"
+    node_2 = edges[2].node
+    assert node_2 is not None
+    assert node_2.typename__ == "Flow"
+
+
+def test_smoke_get_smart_tracklist() -> None:
+    """Verify GetSmartTracklist fixture parses with paginated tracks."""
+    data = _load_fixture("get_smart_tracklist.json")
+    st = GetSmartTracklist.model_validate(data).smart_tracklist
+    assert st is not None
+    assert st.id == "smart:daily_mix_1"
+    assert st.title == "Your Daily Mix 1"
+    assert len(st.tracks.edges) == 2
+    track_node = st.tracks.edges[0].node
+    assert track_node is not None
+    assert track_node.title == "Harder, Better, Faster, Stronger"
+    assert st.tracks.page_info.has_next_page is True
+
+
+def test_smoke_get_charts() -> None:
+    """Verify GetCharts fixture parses all chart categories."""
+    data = _load_fixture("get_charts.json")
+    charts = GetCharts.model_validate(data).charts
+    assert charts is not None
+    country = charts.country
+    assert country is not None
+    assert country.tracks is not None
+    assert country.albums is not None
+    assert country.artists is not None
+    assert country.playlists is not None
+    assert len(country.tracks.edges) > 0
+    assert len(country.albums.edges) > 0
+    assert len(country.artists.edges) > 0
+    assert len(country.playlists.edges) > 0
+    first_track = country.tracks.edges[0].node
+    assert first_track is not None
+    assert first_track.title == "Greedy"
+
+
+def test_smoke_get_recommendations() -> None:
+    """Verify GetRecommendations fixture parses all recommendation categories."""
+    data = _load_fixture("get_recommendations.json")
+    me = GetRecommendations.model_validate(data).me
+    assert me is not None
+    reco = me.recommendations
+    assert len(reco.playlists.edges) > 0
+    assert len(reco.artist_playlists.edges) == 2
+    assert reco.artist_playlists.edges[0].node is not None
+    assert reco.artist_playlists.edges[0].node.title == "This Is Daft Punk"
+    assert len(reco.new_releases.edges) > 0
+    assert len(reco.artists.edges) > 0
+    assert reco.hot_tracks is not None
+    assert len(reco.hot_tracks) > 0
+    assert reco.hot_tracks[0].title == "Harder, Better, Faster, Stronger"
+
+
+def test_smoke_get_recently_played() -> None:
+    """Verify GetRecentlyPlayed fixture parses mixed content types."""
+    data = _load_fixture("get_recently_played.json")
+    me = GetRecentlyPlayed.model_validate(data).me
+    assert me is not None
+    edges = me.recently_played.edges
+    assert len(edges) == 4
+    # Check discriminated union types
+    node_0 = edges[0].node
+    assert node_0 is not None
+    assert node_0.typename__ == "Album"
+    node_1 = edges[1].node
+    assert node_1 is not None
+    assert node_1.typename__ == "Playlist"
+    node_2 = edges[2].node
+    assert node_2 is not None
+    assert node_2.typename__ == "Artist"
+    node_3 = edges[3].node
+    assert node_3 is not None
+    assert node_3.typename__ == "Flow"
+
+
+def test_smoke_get_favorite_artists() -> None:
+    """Verify GetFavoriteArtists fixture parses with pagination."""
+    data = _load_fixture("get_favorite_artists.json")
+    me = GetFavoriteArtists.model_validate(data).me
+    assert me is not None
+    artists = me.user_favorites.artists
+    assert artists is not None
+    assert len(artists.edges) == 2
+    artist_node = artists.edges[0].node
+    assert artist_node is not None
+    assert artist_node.name == "Daft Punk"
+    assert artists.page_info.has_next_page is True
+
+
+def test_smoke_get_favorite_albums() -> None:
+    """Verify GetFavoriteAlbums fixture parses with pagination."""
+    data = _load_fixture("get_favorite_albums.json")
+    me = GetFavoriteAlbums.model_validate(data).me
+    assert me is not None
+    albums = me.user_favorites.albums
+    assert albums is not None
+    assert len(albums.edges) == 1
+    album_node = albums.edges[0].node
+    assert album_node is not None
+    assert album_node.display_title == "Discovery"
+    assert albums.page_info.has_next_page is True
+
+
+def test_smoke_get_favorite_tracks() -> None:
+    """Verify GetFavoriteTracks fixture parses with pagination."""
+    data = _load_fixture("get_favorite_tracks.json")
+    me = GetFavoriteTracks.model_validate(data).me
+    assert me is not None
+    tracks = me.user_favorites.tracks
+    assert tracks is not None
+    assert len(tracks.edges) == 1
+    track_node = tracks.edges[0].node
+    assert track_node is not None
+    assert track_node.title == "Harder, Better, Faster, Stronger"
+    assert tracks.page_info.has_next_page is True
+
+
+def test_smoke_get_favorite_playlists() -> None:
+    """Verify GetFavoritePlaylists fixture parses with pagination."""
+    data = _load_fixture("get_favorite_playlists.json")
+    me = GetFavoritePlaylists.model_validate(data).me
+    assert me is not None
+    playlists = me.user_favorites.playlists
+    assert playlists is not None
+    assert len(playlists.edges) == 1
+    playlist_node = playlists.edges[0].node
+    assert playlist_node is not None
+    assert playlist_node.title == "Electronic Hits"
+    assert playlists.page_info.has_next_page is True
+
+
+def test_smoke_search_flows() -> None:
+    """Verify SearchFlows fixture parses with flow config nodes."""
+    data = _load_fixture("search_flows.json")
+    search = SearchFlows.model_validate(data).search
+    assert search is not None
+    flow_configs = search.results.flow_configs
+    assert len(flow_configs.edges) == 5
+    first_node = flow_configs.edges[0].node
+    assert first_node is not None
+    assert first_node.id == "flow_config:chill"
+    assert first_node.title == "Chill"
+    assert first_node.visuals.hardware_square_icon is not None
+    assert len(first_node.visuals.hardware_square_icon.urls) == 1
+    assert flow_configs.page_info.has_next_page is True
+
+
+def test_smoke_get_user_charts() -> None:
+    """Verify GetUserCharts fixture parses personal top tracks/artists/albums."""
+    data = _load_fixture("get_user_charts.json")
+    me = GetUserCharts.model_validate(data).me
+    assert me is not None
+    charts = me.charts
+    assert charts.tracks is not None
+    assert len(charts.tracks.edges) == 2
+    assert charts.tracks.edges[0].node is not None
+    assert charts.tracks.edges[0].node.title == "Harder, Better, Faster, Stronger"
+    assert charts.artists is not None
+    assert len(charts.artists.edges) == 2
+    assert charts.artists.edges[0].node is not None
+    assert charts.artists.edges[0].node.name == "Daft Punk"
+    assert charts.albums is not None
+    assert len(charts.albums.edges) == 1
+    assert charts.albums.edges[0].node is not None
+    assert charts.albums.edges[0].node.display_title == "Discovery"

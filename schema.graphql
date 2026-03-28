@@ -19,7 +19,7 @@ type Query {
   """
   Retrieving the configuration allowing the player to know what it can do and when it should retrieve an ad
   
-  Access: This field is restricted to applications granted with specific access.
+  Access: This field requires one of these scopes: [access-playback-sdk].
   """
   adConfig(sourceId: String!): AdConfig
 
@@ -71,13 +71,25 @@ type Query {
   """Get a list of Channel nodes by ID"""
   channelsByIds(ids: [String!]!): [Channel]!
 
-  """Get a unique Track node by ID"""
+  """
+  Get a unique Track node by ID
+  
+  Access: This field requires one of these scopes: [access-playback-sdk,public].
+  """
   track(trackId: String!): Track
 
-  """Get a list of Track nodes by ID, with pagination"""
+  """
+  Get a list of Track nodes by ID, with pagination
+  
+  Access: This field requires one of these scopes: [access-playback-sdk,public].
+  """
   tracks(trackIds: [String!], first: Int! = 10, after: String): TracksConnection! @deprecated(reason: "Use tracksByIds instead")
 
-  """Get a list of Track nodes by ID"""
+  """
+  Get a list of Track nodes by ID
+  
+  Access: This field requires one of these scopes: [access-playback-sdk,public].
+  """
   tracksByIds(ids: [String!]!): [Track]!
 
   """
@@ -240,7 +252,7 @@ type Query {
   """
   Will return the state of all gatekeeps given in the list
   
-  Access: This field is restricted to applications granted with specific access.
+  Access: This field requires one of these scopes: [access-playback-sdk].
   """
   gatekeeps(names: [String!]!): Gatekeeper!
 
@@ -293,6 +305,8 @@ type Query {
   Fetches the information of the currently logged-in user
   
   This node is only reachable in a logged-in context. In case of unlogged context, querying "me" will result in an error.
+  
+  Access: This field requires one of these scopes: [access-playback-sdk,public].
   """
   me: PrivateUser
 
@@ -316,7 +330,7 @@ type Query {
   """
   Get permissions of JWT
   
-  Access: This field is restricted to applications granted with specific access.
+  Access: This field requires one of these scopes: [access-playback-sdk].
   """
   permissions: Permissions
 
@@ -379,7 +393,7 @@ type Query {
   This node contain the tokens available in a logged AND unlogged context.
   WARNING: The tokens requested as unlogged must absolutely be refreshed after login.
   
-  Access: This field is restricted to applications granted with specific access.
+  Access: This field requires one of these scopes: [access-playback-sdk].
   """
   tokens: Tokens!
 
@@ -422,7 +436,7 @@ type Query {
   """
   Get a unique User node by ID
   
-  Access: This field is restricted to applications granted with specific access.
+  Access: This field requires one of these scopes: [access-playback-sdk].
   """
   user(userId: String): User
 
@@ -579,6 +593,16 @@ type Mutation {
   Access: This field is restricted to applications granted with specific access.
   """
   createPlaylist(input: PlaylistCreateMutationInput!): PlaylistCreateMutationOutput!
+
+  """
+  Creates a new exclusivity playlist.
+  
+  Exclusivity playlists are playlists that are exclusive to some client applications group, thus being unlisted and
+  unreachable by any application not belonging to the creation group.
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  createExclusivityPlaylist(input: PlaylistCreateMutationInput!): PlaylistCreateMutationOutput!
 
   """
   Access: This field is restricted to applications granted with specific access.
@@ -1076,14 +1100,14 @@ type AdConfig {
   """
   When queue changes, number of tracks to play before playing an ad break
   
-  Access: This field is restricted to applications granted with specific access.
+  Access: This field requires one of these scopes: [access-playback-sdk].
   """
   start: Int
 
   """
   Number of tracks to play before playing an ad break
   
-  Access: This field is restricted to applications granted with specific access.
+  Access: This field requires one of these scopes: [access-playback-sdk].
   """
   interval: Int
 }
@@ -2250,7 +2274,7 @@ type Gatekeeper {
   """
   List of individual gatekeep
   
-  Access: This field is restricted to applications granted with specific access.
+  Access: This field requires one of these scopes: [access-playback-sdk].
   """
   gatekeeps: [Gatekeep!]!
 }
@@ -2259,14 +2283,14 @@ type Gatekeep {
   """
   Name of the gatekeep. It's a technical name, not for display
   
-  Access: This field is restricted to applications granted with specific access.
+  Access: This field requires one of these scopes: [access-playback-sdk].
   """
   name: String!
 
   """
   True if the gatekeep is open. False otherwise
   
-  Access: This field is restricted to applications granted with specific access.
+  Access: This field requires one of these scopes: [access-playback-sdk].
   """
   isOpen: Boolean!
 }
@@ -3503,7 +3527,7 @@ type OnboardingGenre {
 """Permissions information"""
 type Permissions {
   """
-  Access: This field is restricted to applications granted with specific access.
+  Access: This field requires one of these scopes: [access-playback-sdk].
   """
   access: Access!
 
@@ -3517,14 +3541,14 @@ type Permissions {
   """
   Groups all the permissions related to the player
   
-  Access: This field is restricted to applications granted with specific access.
+  Access: This field requires one of these scopes: [access-playback-sdk].
   """
   player: PlayerPermissions
 }
 
 type Access {
   """
-  Access: This field is restricted to applications granted with specific access.
+  Access: This field requires one of these scopes: [access-playback-sdk].
   """
   hasAccess: Boolean!
 
@@ -3532,7 +3556,7 @@ type Access {
   WARNING!!
   It returns fake data and should only be used for development at the moment.
   
-  Access: This field is restricted to applications granted with specific access.
+  Access: This field requires one of these scopes: [access-playback-sdk].
   """
   hasLimitedPermissions: Boolean
 
@@ -3717,6 +3741,13 @@ type QueueState {
   Access: This field is restricted to applications granted with specific access.
   """
   position: Int!
+
+  """
+  Progress in the current media in ms
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  progressMS: Int
 
   """
   The queue itself
@@ -4975,21 +5006,21 @@ type Tokens {
   """
   Opaque string to pass to REC for authentication
   
-  Access: This field is restricted to applications granted with specific access.
+  Access: This field requires one of these scopes: [access-playback-sdk].
   """
   recToken: RECTokenPackage
 
   """
   Opaque string to pass to live and relive for authentication
   
-  Access: This field is restricted to applications granted with specific access.
+  Access: This field requires one of these scopes: [access-playback-sdk].
   """
   liveToken: LiveTokenPackage
 
   """
   Opaque string to pass to the media service alongside track's token to play music.
   
-  Access: This field is restricted to applications granted with specific access.
+  Access: This field requires one of these scopes: [access-playback-sdk].
   """
   mediaServiceLicenseToken: MediaServiceLicenseTokenPackage
 }
@@ -4998,12 +5029,12 @@ type LiveTokenPackage {
   """
   Token cannot be used after its expiration date, must fetch again for a new one.
   
-  Access: This field is restricted to applications granted with specific access.
+  Access: This field requires one of these scopes: [access-playback-sdk].
   """
   expirationDate: Date
 
   """
-  Access: This field is restricted to applications granted with specific access.
+  Access: This field requires one of these scopes: [access-playback-sdk].
   """
   token: String
 }
@@ -5012,12 +5043,12 @@ type MediaServiceLicenseTokenPackage {
   """
   Token cannot be used after its expiration date, must fetch again for a new one.
   
-  Access: This field is restricted to applications granted with specific access.
+  Access: This field requires one of these scopes: [access-playback-sdk].
   """
   expirationDate: Date
 
   """
-  Access: This field is restricted to applications granted with specific access.
+  Access: This field requires one of these scopes: [access-playback-sdk].
   """
   token: String
 }
@@ -5026,24 +5057,24 @@ type RECTokenPackage {
   """
   Token cannot be used after its expiration date, must fetch again for a new one.
   
-  Access: This field is restricted to applications granted with specific access.
+  Access: This field requires one of these scopes: [access-playback-sdk].
   """
   expirationDate: Date
 
   """
-  Access: This field is restricted to applications granted with specific access.
+  Access: This field requires one of these scopes: [access-playback-sdk].
   """
   token: String
 }
 
 type User implements Node {
   """
-  Access: This field is restricted to applications granted with specific access.
+  Access: This field requires one of these scopes: [access-playback-sdk].
   """
   id: ID!
 
   """
-  Access: This field is restricted to applications granted with specific access.
+  Access: This field requires one of these scopes: [access-playback-sdk].
   """
   name: String!
 
@@ -5407,6 +5438,13 @@ type Album implements Node {
   Those artists can be filtered by their role in the album. See ContributorRoles for existing role list.
   """
   contributors(first: Int = 10, cursor: String, after: String, roles: [ContributorRoles!] = [MAIN, FEATURED]): AlbumContributorsConnection!
+
+  """
+  List of contributor names for the specified roles
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  contributorNames(roles: [ContributorRoles!] = [MAIN]): [String!]
   releaseDate: Date
   fansCount: Int!
 
@@ -6773,52 +6811,52 @@ type MediaRights {
   """
   Rights for users with ads
   
-  Access: This field is restricted to applications granted with specific access.
+  Access: This field requires one of these scopes: [access-playback-sdk].
   """
   ads: AdsRights
 
   """
   Rights for a subscribed user
   
-  Access: This field is restricted to applications granted with specific access.
+  Access: This field requires one of these scopes: [access-playback-sdk].
   """
   sub: SubRights
 
   """
   Rights for an uploaded track
   
-  Access: This field is restricted to applications granted with specific access.
+  Access: This field requires one of these scopes: [access-playback-sdk].
   """
   upload: UploadRights
 }
 
 type AdsRights {
   """
-  Access: This field is restricted to applications granted with specific access.
+  Access: This field requires one of these scopes: [access-playback-sdk].
   """
   available: Boolean!
 
   """
-  Access: This field is restricted to applications granted with specific access.
+  Access: This field requires one of these scopes: [access-playback-sdk].
   """
   availableAfter: Date!
 }
 
 type SubRights {
   """
-  Access: This field is restricted to applications granted with specific access.
+  Access: This field requires one of these scopes: [access-playback-sdk].
   """
   available: Boolean!
 
   """
-  Access: This field is restricted to applications granted with specific access.
+  Access: This field requires one of these scopes: [access-playback-sdk].
   """
   availableAfter: Date!
 }
 
 type UploadRights {
   """
-  Access: This field is restricted to applications granted with specific access.
+  Access: This field requires one of these scopes: [access-playback-sdk].
   """
   available: Boolean!
 }
@@ -6830,21 +6868,21 @@ type TrackMedia {
   """
   ID of the track's associated media
   
-  Access: This field is restricted to applications granted with specific access.
+  Access: This field requires one of these scopes: [access-playback-sdk].
   """
   id: String!
 
   """
   Version of the media
   
-  Access: This field is restricted to applications granted with specific access.
+  Access: This field requires one of these scopes: [access-playback-sdk].
   """
   version: String!
 
   """
   Media provider token used to acquire CDN URL of the media
   
-  Access: This field is restricted to applications granted with specific access.
+  Access: This field requires one of these scopes: [access-playback-sdk].
   """
   token: TrackMediaToken!
 
@@ -6853,7 +6891,7 @@ type TrackMedia {
   
   These sizes are meant for estimation purpose the actual media size might differ.
   
-  Access: This field is restricted to applications granted with specific access.
+  Access: This field requires one of these scopes: [access-playback-sdk].
   """
   estimatedSizes: TrackMediaSizes!
 
@@ -6869,7 +6907,7 @@ type TrackMedia {
   encodingChecksums: TrackMediaChecksums!
 
   """
-  Access: This field is restricted to applications granted with specific access.
+  Access: This field requires one of these scopes: [access-playback-sdk].
   """
   gain: Float
 
@@ -6879,7 +6917,7 @@ type TrackMedia {
   bpm: Float
 
   """
-  Access: This field is restricted to applications granted with specific access.
+  Access: This field requires one of these scopes: [access-playback-sdk].
   """
   rights: MediaRights!
 }
@@ -6927,22 +6965,22 @@ type TrackMediaChecksums {
 
 type TrackMediaSizes {
   """
-  Access: This field is restricted to applications granted with specific access.
+  Access: This field requires one of these scopes: [access-playback-sdk].
   """
   SBC_256: Int @deprecated(reason: "This format is no longer available")
 
   """
-  Access: This field is restricted to applications granted with specific access.
+  Access: This field requires one of these scopes: [access-playback-sdk].
   """
   AAC_64: Int @deprecated(reason: "This format is no longer available")
 
   """
-  Access: This field is restricted to applications granted with specific access.
+  Access: This field requires one of these scopes: [access-playback-sdk].
   """
   AAC_96: Int @deprecated(reason: "This format is no longer available")
 
   """
-  Access: This field is restricted to applications granted with specific access.
+  Access: This field requires one of these scopes: [access-playback-sdk].
   """
   MP3_MISC: Int
 
@@ -6957,7 +6995,7 @@ type TrackMediaSizes {
   MP3_64: Int @deprecated(reason: "This format is no longer available")
 
   """
-  Access: This field is restricted to applications granted with specific access.
+  Access: This field requires one of these scopes: [access-playback-sdk].
   """
   MP3_128: Int
 
@@ -6972,64 +7010,64 @@ type TrackMediaSizes {
   MP3_256: Int @deprecated(reason: "This format is no longer available")
 
   """
-  Access: This field is restricted to applications granted with specific access.
+  Access: This field requires one of these scopes: [access-playback-sdk].
   """
   MP3_320: Int
 
   """
-  Access: This field is restricted to applications granted with specific access.
+  Access: This field requires one of these scopes: [access-playback-sdk].
   """
   FLAC: Int
 
   """
-  Access: This field is restricted to applications granted with specific access.
+  Access: This field requires one of these scopes: [access-playback-sdk].
   """
   MP4_RA1: Int @deprecated(reason: "This format is no longer available")
 
   """
-  Access: This field is restricted to applications granted with specific access.
+  Access: This field requires one of these scopes: [access-playback-sdk].
   """
   MP4_RA2: Int @deprecated(reason: "This format is no longer available")
 
   """
-  Access: This field is restricted to applications granted with specific access.
+  Access: This field requires one of these scopes: [access-playback-sdk].
   """
   MP4_RA3: Int @deprecated(reason: "This format is no longer available")
 
   """
-  Access: This field is restricted to applications granted with specific access.
+  Access: This field requires one of these scopes: [access-playback-sdk].
   """
   DD_JOC: Int @deprecated(reason: "This format is no longer available")
 
   """
-  Access: This field is restricted to applications granted with specific access.
+  Access: This field requires one of these scopes: [access-playback-sdk].
   """
   AC4_IMS: Int @deprecated(reason: "This format is no longer available")
 
   """
-  Access: This field is restricted to applications granted with specific access.
+  Access: This field requires one of these scopes: [access-playback-sdk].
   """
   OPUS_STD: Int
 
   """
-  Access: This field is restricted to applications granted with specific access.
+  Access: This field requires one of these scopes: [access-playback-sdk].
   """
   OPUS_HIGH: Int
 }
 
 type TrackMediaToken {
   """
-  Access: This field is restricted to applications granted with specific access.
+  Access: This field requires one of these scopes: [access-playback-sdk].
   """
   payload: String!
 
   """
-  Access: This field is restricted to applications granted with specific access.
+  Access: This field requires one of these scopes: [access-playback-sdk].
   """
   expiresAt: Date!
 
   """
-  Access: This field is restricted to applications granted with specific access.
+  Access: This field requires one of these scopes: [access-playback-sdk].
   """
   version: String
 }
@@ -7315,6 +7353,9 @@ a track uploaded by a user
 Some fields can vary depending on the languages accepted by the client.
 """
 type Track implements Node {
+  """
+  Access: This field requires one of these scopes: [access-playback-sdk,public].
+  """
   id: ID!
 
   """
@@ -7426,7 +7467,7 @@ type Track implements Node {
   cannot be read at all. Consider using this field for simple availability check (use mediaRights for deep checks)
   You can ask for the field TrackMedia.id only
   
-  Access: This field is restricted to applications granted with specific access.
+  Access: This field requires one of these scopes: [access-playback-sdk].
   """
   media: TrackMedia
 
@@ -7544,12 +7585,23 @@ type TrackUploadInfo {
 }
 
 type TracksConnection {
+  """
+  Access: This field requires one of these scopes: [access-playback-sdk,public].
+  """
   edges: [TracksConnectionEdge!]!
+
+  """
+  Access: This field requires one of these scopes: [access-playback-sdk,public].
+  """
   pageInfo: PageInfo!
 }
 
 type TracksConnectionEdge {
   cursor: String!
+
+  """
+  Access: This field requires one of these scopes: [access-playback-sdk,public].
+  """
   node: Track
 }
 
@@ -8807,7 +8859,7 @@ type PrivateUser implements Node {
   """
   The public view of the logged user
   
-  Access: This field is restricted to applications granted with specific access.
+  Access: This field requires one of these scopes: [access-playback-sdk,public].
   """
   user: User!
 
@@ -9359,6 +9411,8 @@ type PlayerPermissions {
   It returns fake data and should only be used for development at the moment.
   
   If next is allowed for user
+  
+  Access: This field requires one of these scopes: [access-playback-sdk,public].
   """
   allowNext: Boolean!
 
@@ -9367,6 +9421,8 @@ type PlayerPermissions {
   It returns fake data and should only be used for development at the moment.
   
   Limit per hour
+  
+  Access: This field requires one of these scopes: [access-playback-sdk,public].
   """
   nextLimit: Int
 
@@ -9375,6 +9431,8 @@ type PlayerPermissions {
   It returns fake data and should only be used for development at the moment.
   
   If previous is allowed for user
+  
+  Access: This field requires one of these scopes: [access-playback-sdk,public].
   """
   allowPrevious: Boolean!
 
@@ -9383,6 +9441,8 @@ type PlayerPermissions {
   It returns fake data and should only be used for development at the moment.
   
   If seek is allowed for user
+  
+  Access: This field requires one of these scopes: [access-playback-sdk,public].
   """
   allowSeek: Boolean!
 
@@ -9391,6 +9451,8 @@ type PlayerPermissions {
   It returns fake data and should only be used for development at the moment.
   
   If user can use RepeatMode One and All or not
+  
+  Access: This field requires one of these scopes: [access-playback-sdk,public].
   """
   allowRepeat: Boolean!
 
@@ -9399,6 +9461,8 @@ type PlayerPermissions {
   It returns fake data and should only be used for development at the moment.
   
   If user can see the queue (previous and next playables)
+  
+  Access: This field requires one of these scopes: [access-playback-sdk,public].
   """
   allowQeueListAccess: Boolean!
 
@@ -9407,6 +9471,8 @@ type PlayerPermissions {
   It returns fake data and should only be used for development at the moment.
   
   If user can shuffle/unshuffle the queue
+  
+  Access: This field requires one of these scopes: [access-playback-sdk,public].
   """
   allowShuffle: Boolean!
 }
@@ -9806,6 +9872,13 @@ type SmartTracklist implements MadeForMe & Node {
   Access: This field is restricted to applications granted with specific access.
   """
   rawTracks: [SmartTracklistRawTrack!]!
+
+  """
+  Method of SmartTracklist, string format
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  methodId: String!
 
   """
   Method of SmartTracklist
@@ -11372,12 +11445,19 @@ type KeyValue {
   value: String!
 }
 
+"""An object with an ID"""
 interface Node {
+  """The id of the object."""
   id: ID!
 }
 
+"""Information about pagination in a connection."""
 type PageInfo {
-  """When paginating forwards, are there more items?"""
+  """
+  When paginating forwards, are there more items?
+  
+  Access: This field requires one of these scopes: [access-playback-sdk,public].
+  """
   hasNextPage: Boolean!
 
   """When paginating backwards, are there more items?"""
@@ -11386,7 +11466,11 @@ type PageInfo {
   """When paginating backwards, the cursor to continue."""
   startCursor: String
 
-  """When paginating forwards, the cursor to continue."""
+  """
+  When paginating forwards, the cursor to continue.
+  
+  Access: This field requires one of these scopes: [access-playback-sdk,public].
+  """
   endCursor: String
 }
 
@@ -14851,6 +14935,9 @@ input PatchQueueStateInput {
   """Zero based index of the current playback position in the queue"""
   position: Int!
 
+  """Progress in the current media in ms"""
+  progressMS: Int
+
   """Queue state's version patch should be applied from."""
   previousVersion: String!
 
@@ -15044,6 +15131,9 @@ input PushQueueStateInput {
 
   """Zero based index of the current playback position in the queue"""
   position: Int!
+
+  """Progress in the current media in ms"""
+  progressMS: Int
 
   """
   Previous known queue state version

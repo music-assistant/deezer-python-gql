@@ -1,0 +1,176 @@
+{
+  "data": {
+    "me": {
+      "recommendations": {
+        "playlists": {
+          "edges": [
+            {
+              "cursor": "YXJyYXljb25uZWN0aW9uOjA=",
+              "node": {
+                "__typename": "Playlist",
+                "id": "8405546882",
+                "title": "Discover Weekly",
+                "picture": {
+                  "id": "pic_8405546882",
+                  "urls": [
+                    "https://cdn-images.deezer.com/images/playlist/8405546882/264x264.jpg"
+                  ]
+                },
+                "estimatedTracksCount": 30,
+                "owner": {
+                  "id": "2529",
+                  "name": "Deezer Editor"
+                }
+              }
+            }
+          ],
+          "pageInfo": {
+            "hasNextPage": true,
+            "endCursor": "YXJyYXljb25uZWN0aW9uOjA="
+          }
+        },
+        "artistPlaylists": {
+          "edges": [
+            {
+              "cursor": "YXJyYXljb25uZWN0aW9uOjA=",
+              "node": {
+                "__typename": "Playlist",
+                "id": "1000000001",
+                "title": "This Is Daft Punk",
+                "picture": {
+                  "id": "pic_1000000001",
+                  "urls": [
+                    "https://cdn-images.deezer.com/images/playlist/1000000001/264x264.jpg"
+                  ]
+                },
+                "estimatedTracksCount": 50,
+                "owner": {
+                  "id": "2529",
+                  "name": "Deezer Editor"
+                }
+              }
+            },
+            {
+              "cursor": "YXJyYXljb25uZWN0aW9uOjE=",
+              "node": {
+                "__typename": "Playlist",
+                "id": "1000000002",
+                "title": "This Is Justice",
+                "picture": {
+                  "id": "pic_1000000002",
+                  "urls": [
+                    "https://cdn-images.deezer.com/images/playlist/1000000002/264x264.jpg"
+                  ]
+                },
+                "estimatedTracksCount": 40,
+                "owner": {
+                  "id": "2529",
+                  "name": "Deezer Editor"
+                }
+              }
+            }
+          ],
+          "pageInfo": {
+            "hasNextPage": true,
+            "endCursor": "YXJyYXljb25uZWN0aW9uOjE="
+          }
+        },
+        "newReleases": {
+          "edges": [
+            {
+              "cursor": "YXJyYXljb25uZWN0aW9uOjA=",
+              "node": {
+                "__typename": "Album",
+                "id": "700000001",
+                "displayTitle": "New Album",
+                "type": "ALBUM",
+                "cover": {
+                  "id": "cover_700000001",
+                  "urls": [
+                    "https://cdn-images.deezer.com/images/cover/700000001/264x264.jpg"
+                  ]
+                },
+                "contributors": {
+                  "edges": [
+                    {
+                      "node": {
+                        "__typename": "Artist",
+                        "id": "27",
+                        "name": "Daft Punk"
+                      }
+                    }
+                  ]
+                },
+                "releaseDate": "2026-02-20",
+                "isExplicit": false
+              }
+            }
+          ],
+          "pageInfo": {
+            "hasNextPage": true,
+            "endCursor": "YXJyYXljb25uZWN0aW9uOjA="
+          }
+        },
+        "artists": {
+          "edges": [
+            {
+              "cursor": "YXJyYXljb25uZWN0aW9uOjA=",
+              "node": {
+                "__typename": "Artist",
+                "id": "1146",
+                "name": "Justice",
+                "picture": {
+                  "id": "pic_1146",
+                  "urls": [
+                    "https://cdn-images.deezer.com/images/artist/1146/264x264.jpg"
+                  ]
+                },
+                "fansCount": 1800000
+              }
+            }
+          ],
+          "pageInfo": {
+            "hasNextPage": true,
+            "endCursor": "YXJyYXljb25uZWN0aW9uOjA="
+          }
+        },
+        "hotTracks": [
+          {
+            "__typename": "Track",
+            "id": "3135556",
+            "title": "Harder, Better, Faster, Stronger",
+            "ISRC": "GBDUW0000059",
+            "diskInfo": {
+              "diskNumber": 1,
+              "trackNumber": 4
+            },
+            "duration": 226,
+            "isExplicit": false,
+            "album": {
+              "id": "302127",
+              "displayTitle": "Discovery",
+              "cover": {
+                "id": "cover_302127",
+                "urls": [
+                  "https://cdn-images.deezer.com/images/cover/302127/264x264.jpg"
+                ]
+              }
+            },
+            "contributors": {
+              "edges": [
+                {
+                  "roles": ["MAIN"],
+                  "node": {
+                    "__typename": "Artist",
+                    "id": "27",
+                    "name": "Daft Punk"
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  }
+}

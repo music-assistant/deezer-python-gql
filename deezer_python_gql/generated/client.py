@@ -7,10 +7,24 @@ from .base_client import DeezerBaseClient
 from .base_model import UNSET, UnsetType
 from .get_album import GetAlbum, GetAlbumAlbum
 from .get_artist import GetArtist, GetArtistArtist
+from .get_charts import GetCharts, GetChartsCharts
+from .get_favorite_albums import GetFavoriteAlbums, GetFavoriteAlbumsMe
+from .get_favorite_artists import GetFavoriteArtists, GetFavoriteArtistsMe
+from .get_favorite_playlists import GetFavoritePlaylists, GetFavoritePlaylistsMe
+from .get_favorite_tracks import GetFavoriteTracks, GetFavoriteTracksMe
+from .get_flow import GetFlow, GetFlowMe
+from .get_flow_config_tracks import GetFlowConfigTracks, GetFlowConfigTracksFlowConfig
+from .get_flow_configs import GetFlowConfigs, GetFlowConfigsMe
+from .get_made_for_me import GetMadeForMe, GetMadeForMeMe
 from .get_me import GetMe, GetMeMe
 from .get_playlist import GetPlaylist, GetPlaylistPlaylist
+from .get_recently_played import GetRecentlyPlayed, GetRecentlyPlayedMe
+from .get_recommendations import GetRecommendations, GetRecommendationsMe
+from .get_smart_tracklist import GetSmartTracklist, GetSmartTracklistSmartTracklist
 from .get_track import GetTrack, GetTrackTrack
+from .get_user_charts import GetUserCharts, GetUserChartsMe
 from .search import Search, SearchSearch
+from .search_flows import SearchFlows, SearchFlowsSearch
 
 
 def gql(q: str) -> str:
@@ -192,6 +206,628 @@ class DeezerGQLClient(DeezerBaseClient):
         data = self.get_data(response)
         return GetArtist.model_validate(data).artist
 
+    async def get_charts(
+        self,
+        country_code: Union[Optional[str], UnsetType] = UNSET,
+        tracks_first: Union[Optional[int], UnsetType] = UNSET,
+        albums_first: Union[Optional[int], UnsetType] = UNSET,
+        artists_first: Union[Optional[int], UnsetType] = UNSET,
+        playlists_first: Union[Optional[int], UnsetType] = UNSET,
+        **kwargs: Any
+    ) -> Optional[GetChartsCharts]:
+        query = gql("""
+            query GetCharts($countryCode: String, $tracksFirst: Int = 100, $albumsFirst: Int = 50, $artistsFirst: Int = 50, $playlistsFirst: Int = 50) {
+              charts {
+                country(countryCode: $countryCode) {
+                  tracks(first: $tracksFirst) {
+                    edges {
+                      cursor
+                      node {
+                        ...TrackFields
+                      }
+                    }
+                    pageInfo {
+                      ...PageInfoFields
+                    }
+                  }
+                  albums(first: $albumsFirst) {
+                    edges {
+                      cursor
+                      node {
+                        ...AlbumFields
+                      }
+                    }
+                    pageInfo {
+                      ...PageInfoFields
+                    }
+                  }
+                  artists(first: $artistsFirst) {
+                    edges {
+                      cursor
+                      node {
+                        ...ArtistFields
+                      }
+                    }
+                    pageInfo {
+                      ...PageInfoFields
+                    }
+                  }
+                  playlists(first: $playlistsFirst) {
+                    edges {
+                      cursor
+                      node {
+                        ...PlaylistFields
+                      }
+                    }
+                    pageInfo {
+                      ...PageInfoFields
+                    }
+                  }
+                }
+              }
+            }
+
+            fragment AlbumFields on Album {
+              id
+              displayTitle
+              type
+              cover {
+                id
+                urls(pictureRequest: {width: 264, height: 264})
+              }
+              contributors(first: 5, roles: [MAIN]) {
+                edges {
+                  node {
+                    ... on Artist {
+                      id
+                      name
+                    }
+                  }
+                }
+              }
+              releaseDate
+              isExplicit
+            }
+
+            fragment ArtistFields on Artist {
+              id
+              name
+              picture {
+                id
+                urls(pictureRequest: {width: 264, height: 264})
+              }
+              fansCount
+            }
+
+            fragment PageInfoFields on PageInfo {
+              hasNextPage
+              endCursor
+            }
+
+            fragment PlaylistFields on Playlist {
+              id
+              title
+              picture {
+                id
+                urls(pictureRequest: {width: 264, height: 264})
+              }
+              estimatedTracksCount
+              owner {
+                id
+                name
+              }
+            }
+
+            fragment TrackFields on Track {
+              id
+              title
+              ISRC
+              diskInfo {
+                diskNumber
+                trackNumber
+              }
+              duration
+              isExplicit
+              album {
+                id
+                displayTitle
+                cover {
+                  id
+                  urls(pictureRequest: {width: 264, height: 264})
+                }
+              }
+              contributors(first: 10, roles: [MAIN, FEATURED]) {
+                edges {
+                  roles
+                  node {
+                    ... on Artist {
+                      id
+                      name
+                    }
+                  }
+                }
+              }
+            }
+            """)
+        variables: dict[str, object] = {
+            "countryCode": country_code,
+            "tracksFirst": tracks_first,
+            "albumsFirst": albums_first,
+            "artistsFirst": artists_first,
+            "playlistsFirst": playlists_first,
+        }
+        response = await self.execute(
+            query=query, operation_name="GetCharts", variables=variables, **kwargs
+        )
+        data = self.get_data(response)
+        return GetCharts.model_validate(data).charts
+
+    async def get_favorite_albums(
+        self,
+        first: Union[Optional[int], UnsetType] = UNSET,
+        after: Union[Optional[str], UnsetType] = UNSET,
+        **kwargs: Any
+    ) -> Optional[GetFavoriteAlbumsMe]:
+        query = gql("""
+            query GetFavoriteAlbums($first: Int = 50, $after: String) {
+              me {
+                userFavorites {
+                  albums(first: $first, after: $after) {
+                    edges {
+                      cursor
+                      node {
+                        ...AlbumFields
+                      }
+                    }
+                    pageInfo {
+                      ...PageInfoFields
+                    }
+                  }
+                }
+              }
+            }
+
+            fragment AlbumFields on Album {
+              id
+              displayTitle
+              type
+              cover {
+                id
+                urls(pictureRequest: {width: 264, height: 264})
+              }
+              contributors(first: 5, roles: [MAIN]) {
+                edges {
+                  node {
+                    ... on Artist {
+                      id
+                      name
+                    }
+                  }
+                }
+              }
+              releaseDate
+              isExplicit
+            }
+
+            fragment PageInfoFields on PageInfo {
+              hasNextPage
+              endCursor
+            }
+            """)
+        variables: dict[str, object] = {"first": first, "after": after}
+        response = await self.execute(
+            query=query,
+            operation_name="GetFavoriteAlbums",
+            variables=variables,
+            **kwargs
+        )
+        data = self.get_data(response)
+        return GetFavoriteAlbums.model_validate(data).me
+
+    async def get_favorite_artists(
+        self,
+        first: Union[Optional[int], UnsetType] = UNSET,
+        after: Union[Optional[str], UnsetType] = UNSET,
+        **kwargs: Any
+    ) -> Optional[GetFavoriteArtistsMe]:
+        query = gql("""
+            query GetFavoriteArtists($first: Int = 50, $after: String) {
+              me {
+                userFavorites {
+                  artists(first: $first, after: $after) {
+                    edges {
+                      cursor
+                      node {
+                        ...ArtistFields
+                      }
+                    }
+                    pageInfo {
+                      ...PageInfoFields
+                    }
+                  }
+                }
+              }
+            }
+
+            fragment ArtistFields on Artist {
+              id
+              name
+              picture {
+                id
+                urls(pictureRequest: {width: 264, height: 264})
+              }
+              fansCount
+            }
+
+            fragment PageInfoFields on PageInfo {
+              hasNextPage
+              endCursor
+            }
+            """)
+        variables: dict[str, object] = {"first": first, "after": after}
+        response = await self.execute(
+            query=query,
+            operation_name="GetFavoriteArtists",
+            variables=variables,
+            **kwargs
+        )
+        data = self.get_data(response)
+        return GetFavoriteArtists.model_validate(data).me
+
+    async def get_favorite_playlists(
+        self,
+        first: Union[Optional[int], UnsetType] = UNSET,
+        after: Union[Optional[str], UnsetType] = UNSET,
+        **kwargs: Any
+    ) -> Optional[GetFavoritePlaylistsMe]:
+        query = gql("""
+            query GetFavoritePlaylists($first: Int = 50, $after: String) {
+              me {
+                userFavorites {
+                  playlists(first: $first, after: $after) {
+                    edges {
+                      cursor
+                      node {
+                        ...PlaylistFields
+                      }
+                    }
+                    pageInfo {
+                      ...PageInfoFields
+                    }
+                  }
+                }
+              }
+            }
+
+            fragment PageInfoFields on PageInfo {
+              hasNextPage
+              endCursor
+            }
+
+            fragment PlaylistFields on Playlist {
+              id
+              title
+              picture {
+                id
+                urls(pictureRequest: {width: 264, height: 264})
+              }
+              estimatedTracksCount
+              owner {
+                id
+                name
+              }
+            }
+            """)
+        variables: dict[str, object] = {"first": first, "after": after}
+        response = await self.execute(
+            query=query,
+            operation_name="GetFavoritePlaylists",
+            variables=variables,
+            **kwargs
+        )
+        data = self.get_data(response)
+        return GetFavoritePlaylists.model_validate(data).me
+
+    async def get_favorite_tracks(
+        self,
+        first: Union[Optional[int], UnsetType] = UNSET,
+        after: Union[Optional[str], UnsetType] = UNSET,
+        **kwargs: Any
+    ) -> Optional[GetFavoriteTracksMe]:
+        query = gql("""
+            query GetFavoriteTracks($first: Int = 50, $after: String) {
+              me {
+                userFavorites {
+                  tracks(first: $first, after: $after) {
+                    edges {
+                      cursor
+                      node {
+                        ...TrackFields
+                      }
+                    }
+                    pageInfo {
+                      ...PageInfoFields
+                    }
+                  }
+                }
+              }
+            }
+
+            fragment PageInfoFields on PageInfo {
+              hasNextPage
+              endCursor
+            }
+
+            fragment TrackFields on Track {
+              id
+              title
+              ISRC
+              diskInfo {
+                diskNumber
+                trackNumber
+              }
+              duration
+              isExplicit
+              album {
+                id
+                displayTitle
+                cover {
+                  id
+                  urls(pictureRequest: {width: 264, height: 264})
+                }
+              }
+              contributors(first: 10, roles: [MAIN, FEATURED]) {
+                edges {
+                  roles
+                  node {
+                    ... on Artist {
+                      id
+                      name
+                    }
+                  }
+                }
+              }
+            }
+            """)
+        variables: dict[str, object] = {"first": first, "after": after}
+        response = await self.execute(
+            query=query,
+            operation_name="GetFavoriteTracks",
+            variables=variables,
+            **kwargs
+        )
+        data = self.get_data(response)
+        return GetFavoriteTracks.model_validate(data).me
+
+    async def get_flow(self, **kwargs: Any) -> Optional[GetFlowMe]:
+        query = gql("""
+            query GetFlow {
+              me {
+                flow {
+                  id
+                  title
+                  cover {
+                    id
+                    urls(pictureRequest: {width: 264, height: 264})
+                  }
+                  tracks {
+                    track {
+                      ...TrackFields
+                    }
+                  }
+                }
+              }
+            }
+
+            fragment TrackFields on Track {
+              id
+              title
+              ISRC
+              diskInfo {
+                diskNumber
+                trackNumber
+              }
+              duration
+              isExplicit
+              album {
+                id
+                displayTitle
+                cover {
+                  id
+                  urls(pictureRequest: {width: 264, height: 264})
+                }
+              }
+              contributors(first: 10, roles: [MAIN, FEATURED]) {
+                edges {
+                  roles
+                  node {
+                    ... on Artist {
+                      id
+                      name
+                    }
+                  }
+                }
+              }
+            }
+            """)
+        variables: dict[str, object] = {}
+        response = await self.execute(
+            query=query, operation_name="GetFlow", variables=variables, **kwargs
+        )
+        data = self.get_data(response)
+        return GetFlow.model_validate(data).me
+
+    async def get_flow_config_tracks(
+        self, flow_config_id: str, **kwargs: Any
+    ) -> Optional[GetFlowConfigTracksFlowConfig]:
+        query = gql("""
+            query GetFlowConfigTracks($flowConfigId: String!) {
+              flowConfig(flowConfigId: $flowConfigId) {
+                id
+                title
+                tracks {
+                  track {
+                    ...TrackFields
+                  }
+                }
+              }
+            }
+
+            fragment TrackFields on Track {
+              id
+              title
+              ISRC
+              diskInfo {
+                diskNumber
+                trackNumber
+              }
+              duration
+              isExplicit
+              album {
+                id
+                displayTitle
+                cover {
+                  id
+                  urls(pictureRequest: {width: 264, height: 264})
+                }
+              }
+              contributors(first: 10, roles: [MAIN, FEATURED]) {
+                edges {
+                  roles
+                  node {
+                    ... on Artist {
+                      id
+                      name
+                    }
+                  }
+                }
+              }
+            }
+            """)
+        variables: dict[str, object] = {"flowConfigId": flow_config_id}
+        response = await self.execute(
+            query=query,
+            operation_name="GetFlowConfigTracks",
+            variables=variables,
+            **kwargs
+        )
+        data = self.get_data(response)
+        return GetFlowConfigTracks.model_validate(data).flow_config
+
+    async def get_flow_configs(
+        self,
+        moods_first: Union[Optional[int], UnsetType] = UNSET,
+        genres_first: Union[Optional[int], UnsetType] = UNSET,
+        **kwargs: Any
+    ) -> Optional[GetFlowConfigsMe]:
+        query = gql("""
+            query GetFlowConfigs($moodsFirst: Int = 12, $genresFirst: Int = 12) {
+              me {
+                flowConfigs {
+                  moods(first: $moodsFirst) {
+                    edges {
+                      cursor
+                      node {
+                        id
+                        title
+                        visuals {
+                          hardwareSquareIcon {
+                            id
+                            urls(uiAssetRequest: {width: 264, height: 264})
+                          }
+                        }
+                      }
+                    }
+                    pageInfo {
+                      ...PageInfoFields
+                    }
+                  }
+                  genres(first: $genresFirst) {
+                    edges {
+                      cursor
+                      node {
+                        id
+                        title
+                        visuals {
+                          hardwareSquareIcon {
+                            id
+                            urls(uiAssetRequest: {width: 264, height: 264})
+                          }
+                        }
+                      }
+                    }
+                    pageInfo {
+                      ...PageInfoFields
+                    }
+                  }
+                }
+              }
+            }
+
+            fragment PageInfoFields on PageInfo {
+              hasNextPage
+              endCursor
+            }
+            """)
+        variables: dict[str, object] = {
+            "moodsFirst": moods_first,
+            "genresFirst": genres_first,
+        }
+        response = await self.execute(
+            query=query, operation_name="GetFlowConfigs", variables=variables, **kwargs
+        )
+        data = self.get_data(response)
+        return GetFlowConfigs.model_validate(data).me
+
+    async def get_made_for_me(
+        self, first: Union[Optional[int], UnsetType] = UNSET, **kwargs: Any
+    ) -> Optional[GetMadeForMeMe]:
+        query = gql("""
+            query GetMadeForMe($first: Int = 10) {
+              me {
+                madeForMe(first: $first) {
+                  edges {
+                    cursor
+                    node {
+                      __typename
+                      ... on SmartTracklist {
+                        id
+                        title
+                        subTitle
+                        cover {
+                          id
+                          urls(pictureRequest: {width: 264, height: 264})
+                        }
+                      }
+                      ... on Flow {
+                        id
+                        title
+                        cover {
+                          id
+                          urls(pictureRequest: {width: 264, height: 264})
+                        }
+                      }
+                    }
+                  }
+                  pageInfo {
+                    ...PageInfoFields
+                  }
+                }
+              }
+            }
+
+            fragment PageInfoFields on PageInfo {
+              hasNextPage
+              endCursor
+            }
+            """)
+        variables: dict[str, object] = {"first": first}
+        response = await self.execute(
+            query=query, operation_name="GetMadeForMe", variables=variables, **kwargs
+        )
+        data = self.get_data(response)
+        return GetMadeForMe.model_validate(data).me
+
     async def get_me(self, **kwargs: Any) -> Optional[GetMeMe]:
         query = gql("""
             query GetMe {
@@ -279,6 +915,349 @@ class DeezerGQLClient(DeezerBaseClient):
         data = self.get_data(response)
         return GetPlaylist.model_validate(data).playlist
 
+    async def get_recently_played(
+        self, first: Union[Optional[int], UnsetType] = UNSET, **kwargs: Any
+    ) -> Optional[GetRecentlyPlayedMe]:
+        query = gql("""
+            query GetRecentlyPlayed($first: Int = 20) {
+              me {
+                recentlyPlayed(first: $first) {
+                  edges {
+                    cursor
+                    node {
+                      __typename
+                      ... on Album {
+                        ...AlbumFields
+                      }
+                      ... on Playlist {
+                        ...PlaylistFields
+                      }
+                      ... on Artist {
+                        ...ArtistFields
+                      }
+                      ... on Flow {
+                        id
+                        title
+                        cover {
+                          id
+                          urls(pictureRequest: {width: 264, height: 264})
+                        }
+                      }
+                      ... on FlowConfig {
+                        id
+                        title
+                      }
+                    }
+                  }
+                  pageInfo {
+                    ...PageInfoFields
+                  }
+                }
+              }
+            }
+
+            fragment AlbumFields on Album {
+              id
+              displayTitle
+              type
+              cover {
+                id
+                urls(pictureRequest: {width: 264, height: 264})
+              }
+              contributors(first: 5, roles: [MAIN]) {
+                edges {
+                  node {
+                    ... on Artist {
+                      id
+                      name
+                    }
+                  }
+                }
+              }
+              releaseDate
+              isExplicit
+            }
+
+            fragment ArtistFields on Artist {
+              id
+              name
+              picture {
+                id
+                urls(pictureRequest: {width: 264, height: 264})
+              }
+              fansCount
+            }
+
+            fragment PageInfoFields on PageInfo {
+              hasNextPage
+              endCursor
+            }
+
+            fragment PlaylistFields on Playlist {
+              id
+              title
+              picture {
+                id
+                urls(pictureRequest: {width: 264, height: 264})
+              }
+              estimatedTracksCount
+              owner {
+                id
+                name
+              }
+            }
+            """)
+        variables: dict[str, object] = {"first": first}
+        response = await self.execute(
+            query=query,
+            operation_name="GetRecentlyPlayed",
+            variables=variables,
+            **kwargs
+        )
+        data = self.get_data(response)
+        return GetRecentlyPlayed.model_validate(data).me
+
+    async def get_recommendations(
+        self,
+        playlists_first: Union[Optional[int], UnsetType] = UNSET,
+        artist_playlists_first: Union[Optional[int], UnsetType] = UNSET,
+        new_releases_first: Union[Optional[int], UnsetType] = UNSET,
+        artists_first: Union[Optional[int], UnsetType] = UNSET,
+        hot_tracks_limit: Union[Optional[int], UnsetType] = UNSET,
+        **kwargs: Any
+    ) -> Optional[GetRecommendationsMe]:
+        query = gql("""
+            query GetRecommendations($playlistsFirst: Int = 20, $artistPlaylistsFirst: Int = 20, $newReleasesFirst: Int = 20, $artistsFirst: Int = 20, $hotTracksLimit: Int = 50) {
+              me {
+                recommendations {
+                  playlists(first: $playlistsFirst) {
+                    edges {
+                      cursor
+                      node {
+                        ...PlaylistFields
+                      }
+                    }
+                    pageInfo {
+                      ...PageInfoFields
+                    }
+                  }
+                  artistPlaylists(first: $artistPlaylistsFirst) {
+                    edges {
+                      cursor
+                      node {
+                        ...PlaylistFields
+                      }
+                    }
+                    pageInfo {
+                      ...PageInfoFields
+                    }
+                  }
+                  newReleases(first: $newReleasesFirst) {
+                    edges {
+                      cursor
+                      node {
+                        ...AlbumFields
+                      }
+                    }
+                    pageInfo {
+                      ...PageInfoFields
+                    }
+                  }
+                  artists(first: $artistsFirst) {
+                    edges {
+                      cursor
+                      node {
+                        ...ArtistFields
+                      }
+                    }
+                    pageInfo {
+                      ...PageInfoFields
+                    }
+                  }
+                  hotTracks(limit: $hotTracksLimit) {
+                    ...TrackFields
+                  }
+                }
+              }
+            }
+
+            fragment AlbumFields on Album {
+              id
+              displayTitle
+              type
+              cover {
+                id
+                urls(pictureRequest: {width: 264, height: 264})
+              }
+              contributors(first: 5, roles: [MAIN]) {
+                edges {
+                  node {
+                    ... on Artist {
+                      id
+                      name
+                    }
+                  }
+                }
+              }
+              releaseDate
+              isExplicit
+            }
+
+            fragment ArtistFields on Artist {
+              id
+              name
+              picture {
+                id
+                urls(pictureRequest: {width: 264, height: 264})
+              }
+              fansCount
+            }
+
+            fragment PageInfoFields on PageInfo {
+              hasNextPage
+              endCursor
+            }
+
+            fragment PlaylistFields on Playlist {
+              id
+              title
+              picture {
+                id
+                urls(pictureRequest: {width: 264, height: 264})
+              }
+              estimatedTracksCount
+              owner {
+                id
+                name
+              }
+            }
+
+            fragment TrackFields on Track {
+              id
+              title
+              ISRC
+              diskInfo {
+                diskNumber
+                trackNumber
+              }
+              duration
+              isExplicit
+              album {
+                id
+                displayTitle
+                cover {
+                  id
+                  urls(pictureRequest: {width: 264, height: 264})
+                }
+              }
+              contributors(first: 10, roles: [MAIN, FEATURED]) {
+                edges {
+                  roles
+                  node {
+                    ... on Artist {
+                      id
+                      name
+                    }
+                  }
+                }
+              }
+            }
+            """)
+        variables: dict[str, object] = {
+            "playlistsFirst": playlists_first,
+            "artistPlaylistsFirst": artist_playlists_first,
+            "newReleasesFirst": new_releases_first,
+            "artistsFirst": artists_first,
+            "hotTracksLimit": hot_tracks_limit,
+        }
+        response = await self.execute(
+            query=query,
+            operation_name="GetRecommendations",
+            variables=variables,
+            **kwargs
+        )
+        data = self.get_data(response)
+        return GetRecommendations.model_validate(data).me
+
+    async def get_smart_tracklist(
+        self,
+        smart_tracklist_id: str,
+        first: Union[Optional[int], UnsetType] = UNSET,
+        **kwargs: Any
+    ) -> Optional[GetSmartTracklistSmartTracklist]:
+        query = gql("""
+            query GetSmartTracklist($smartTracklistId: String!, $first: Int = 50) {
+              smartTracklist(smartTracklistId: $smartTracklistId) {
+                id
+                title
+                subTitle
+                cover {
+                  id
+                  urls(pictureRequest: {width: 264, height: 264})
+                }
+                tracks(first: $first) {
+                  edges {
+                    cursor
+                    node {
+                      ...TrackFields
+                    }
+                  }
+                  pageInfo {
+                    ...PageInfoFields
+                  }
+                }
+              }
+            }
+
+            fragment PageInfoFields on PageInfo {
+              hasNextPage
+              endCursor
+            }
+
+            fragment TrackFields on Track {
+              id
+              title
+              ISRC
+              diskInfo {
+                diskNumber
+                trackNumber
+              }
+              duration
+              isExplicit
+              album {
+                id
+                displayTitle
+                cover {
+                  id
+                  urls(pictureRequest: {width: 264, height: 264})
+                }
+              }
+              contributors(first: 10, roles: [MAIN, FEATURED]) {
+                edges {
+                  roles
+                  node {
+                    ... on Artist {
+                      id
+                      name
+                    }
+                  }
+                }
+              }
+            }
+            """)
+        variables: dict[str, object] = {
+            "smartTracklistId": smart_tracklist_id,
+            "first": first,
+        }
+        response = await self.execute(
+            query=query,
+            operation_name="GetSmartTracklist",
+            variables=variables,
+            **kwargs
+        )
+        data = self.get_data(response)
+        return GetSmartTracklist.model_validate(data).smart_tracklist
+
     async def get_track(self, track_id: str, **kwargs: Any) -> Optional[GetTrackTrack]:
         query = gql("""
             query GetTrack($trackId: String!) {
@@ -357,6 +1336,133 @@ class DeezerGQLClient(DeezerBaseClient):
         )
         data = self.get_data(response)
         return GetTrack.model_validate(data).track
+
+    async def get_user_charts(
+        self,
+        tracks_first: Union[Optional[int], UnsetType] = UNSET,
+        artists_first: Union[Optional[int], UnsetType] = UNSET,
+        albums_first: Union[Optional[int], UnsetType] = UNSET,
+        **kwargs: Any
+    ) -> Optional[GetUserChartsMe]:
+        query = gql("""
+            query GetUserCharts($tracksFirst: Int = 50, $artistsFirst: Int = 20, $albumsFirst: Int = 20) {
+              me {
+                charts {
+                  tracks(first: $tracksFirst) {
+                    edges {
+                      cursor
+                      node {
+                        ...TrackFields
+                      }
+                    }
+                    pageInfo {
+                      ...PageInfoFields
+                    }
+                  }
+                  artists(first: $artistsFirst) {
+                    edges {
+                      cursor
+                      node {
+                        ...ArtistFields
+                      }
+                    }
+                    pageInfo {
+                      ...PageInfoFields
+                    }
+                  }
+                  albums(first: $albumsFirst) {
+                    edges {
+                      cursor
+                      node {
+                        ...AlbumFields
+                      }
+                    }
+                    pageInfo {
+                      ...PageInfoFields
+                    }
+                  }
+                }
+              }
+            }
+
+            fragment AlbumFields on Album {
+              id
+              displayTitle
+              type
+              cover {
+                id
+                urls(pictureRequest: {width: 264, height: 264})
+              }
+              contributors(first: 5, roles: [MAIN]) {
+                edges {
+                  node {
+                    ... on Artist {
+                      id
+                      name
+                    }
+                  }
+                }
+              }
+              releaseDate
+              isExplicit
+            }
+
+            fragment ArtistFields on Artist {
+              id
+              name
+              picture {
+                id
+                urls(pictureRequest: {width: 264, height: 264})
+              }
+              fansCount
+            }
+
+            fragment PageInfoFields on PageInfo {
+              hasNextPage
+              endCursor
+            }
+
+            fragment TrackFields on Track {
+              id
+              title
+              ISRC
+              diskInfo {
+                diskNumber
+                trackNumber
+              }
+              duration
+              isExplicit
+              album {
+                id
+                displayTitle
+                cover {
+                  id
+                  urls(pictureRequest: {width: 264, height: 264})
+                }
+              }
+              contributors(first: 10, roles: [MAIN, FEATURED]) {
+                edges {
+                  roles
+                  node {
+                    ... on Artist {
+                      id
+                      name
+                    }
+                  }
+                }
+              }
+            }
+            """)
+        variables: dict[str, object] = {
+            "tracksFirst": tracks_first,
+            "artistsFirst": artists_first,
+            "albumsFirst": albums_first,
+        }
+        response = await self.execute(
+            query=query, operation_name="GetUserCharts", variables=variables, **kwargs
+        )
+        data = self.get_data(response)
+        return GetUserCharts.model_validate(data).me
 
     async def search(
         self,
@@ -494,3 +1600,48 @@ class DeezerGQLClient(DeezerBaseClient):
         )
         data = self.get_data(response)
         return Search.model_validate(data).search
+
+    async def search_flows(
+        self,
+        query: str,
+        first: Union[Optional[int], UnsetType] = UNSET,
+        after: Union[Optional[str], UnsetType] = UNSET,
+        **kwargs: Any
+    ) -> Optional[SearchFlowsSearch]:
+        _query = gql("""
+            query SearchFlows($query: String! = "flow", $first: Int = 100, $after: String) {
+              search(query: $query) {
+                results {
+                  flowConfigs(first: $first, after: $after) {
+                    edges {
+                      cursor
+                      node {
+                        id
+                        title
+                        visuals {
+                          hardwareSquareIcon {
+                            id
+                            urls(uiAssetRequest: {width: 264, height: 264})
+                          }
+                        }
+                      }
+                    }
+                    pageInfo {
+                      ...PageInfoFields
+                    }
+                  }
+                }
+              }
+            }
+
+            fragment PageInfoFields on PageInfo {
+              hasNextPage
+              endCursor
+            }
+            """)
+        variables: dict[str, object] = {"query": query, "first": first, "after": after}
+        response = await self.execute(
+            query=_query, operation_name="SearchFlows", variables=variables, **kwargs
+        )
+        data = self.get_data(response)
+        return SearchFlows.model_validate(data).search

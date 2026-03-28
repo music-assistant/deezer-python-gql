@@ -1,0 +1,46 @@
+{
+  "data": {
+    "me": {
+      "userFavorites": {
+        "artists": {
+          "edges": [
+            {
+              "cursor": "YXJyYXljb25uZWN0aW9uOjA=",
+              "node": {
+                "__typename": "Artist",
+                "id": "27",
+                "name": "Daft Punk",
+                "picture": {
+                  "id": "pic_27",
+                  "urls": [
+                    "https://cdn-images.deezer.com/images/artist/27/264x264.jpg"
+                  ]
+                },
+                "fansCount": 18000000
+              }
+            },
+            {
+              "cursor": "YXJyYXljb25uZWN0aW9uOjE=",
+              "node": {
+                "__typename": "Artist",
+                "id": "1146",
+                "name": "Justice",
+                "picture": {
+                  "id": "pic_1146",
+                  "urls": [
+                    "https://cdn-images.deezer.com/images/artist/1146/264x264.jpg"
+                  ]
+                },
+                "fansCount": 1800000
+              }
+            }
+          ],
+          "pageInfo": {
+            "hasNextPage": true,
+            "endCursor": "YXJyYXljb25uZWN0aW9uOjE="
+          }
+        }
+      }
+    }
+  }
+}

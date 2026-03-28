@@ -1,0 +1,19 @@
+# Get the current user's favorite tracks (paginated).
+
+query GetFavoriteTracks($first: Int = 50, $after: String) {
+  me {
+    userFavorites {
+      tracks(first: $first, after: $after) {
+        edges {
+          cursor
+          node {
+            ...TrackFields
+          }
+        }
+        pageInfo {
+          ...PageInfoFields
+        }
+      }
+    }
+  }
+}

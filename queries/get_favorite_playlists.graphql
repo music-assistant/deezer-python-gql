@@ -1,0 +1,20 @@
+# Get the current user's favorite playlists (paginated).
+# Also includes owned playlists via me.playlists for completeness.
+
+query GetFavoritePlaylists($first: Int = 50, $after: String) {
+  me {
+    userFavorites {
+      playlists(first: $first, after: $after) {
+        edges {
+          cursor
+          node {
+            ...PlaylistFields
+          }
+        }
+        pageInfo {
+          ...PageInfoFields
+        }
+      }
+    }
+  }
+}

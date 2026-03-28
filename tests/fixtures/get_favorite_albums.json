@@ -1,0 +1,44 @@
+{
+  "data": {
+    "me": {
+      "userFavorites": {
+        "albums": {
+          "edges": [
+            {
+              "cursor": "YXJyYXljb25uZWN0aW9uOjA=",
+              "node": {
+                "__typename": "Album",
+                "id": "302127",
+                "displayTitle": "Discovery",
+                "type": "ALBUM",
+                "cover": {
+                  "id": "cover_302127",
+                  "urls": [
+                    "https://cdn-images.deezer.com/images/cover/302127/264x264.jpg"
+                  ]
+                },
+                "contributors": {
+                  "edges": [
+                    {
+                      "node": {
+                        "__typename": "Artist",
+                        "id": "27",
+                        "name": "Daft Punk"
+                      }
+                    }
+                  ]
+                },
+                "releaseDate": "2001-03-12",
+                "isExplicit": false
+              }
+            }
+          ],
+          "pageInfo": {
+            "hasNextPage": true,
+            "endCursor": "YXJyYXljb25uZWN0aW9uOjA="
+          }
+        }
+      }
+    }
+  }
+}

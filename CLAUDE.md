@@ -76,20 +76,50 @@ deezer-python-gql/
 │       ├── base_model.py        # Pydantic base model configuration
 │       ├── client.py            # DeezerGQLClient with typed methods (one per .graphql query)
 │       ├── enums.py             # GraphQL enum types used by queries
+│       ├── fragments.py         # Pydantic base classes from shared GraphQL fragments
 │       ├── input_types.py       # GraphQL input types used by mutations
 │       ├── get_me.py            # Response models for GetMe query
 │       ├── get_track.py         # Response models for GetTrack query
 │       ├── get_album.py         # Response models for GetAlbum query
 │       ├── get_artist.py        # Response models for GetArtist query
 │       ├── get_playlist.py      # Response models for GetPlaylist query
-│       └── search.py            # Response models for Search query
+│       ├── search.py            # Response models for Search query
+│       ├── search_flows.py      # Response models for SearchFlows query
+│       ├── get_flow.py          # Response models: user's default Flow
+│       ├── get_flow_configs.py  # Response models: mood & genre flow configs
+│       ├── get_flow_config_tracks.py  # Response models: tracks for a flow config
+│       ├── get_made_for_me.py   # Response models: SmartTracklist/Flow items
+│       ├── get_smart_tracklist.py  # Response models: smart tracklist with tracks
+│       ├── get_charts.py        # Response models: country charts
+│       ├── get_recommendations.py  # Response models: personalized recommendations
+│       ├── get_user_charts.py   # Response models: personal top tracks/artists/albums
+│       ├── get_recently_played.py  # Response models: recently played content
+│       ├── get_favorite_artists.py  # Response models: favorite artists
+│       ├── get_favorite_albums.py   # Response models: favorite albums
+│       ├── get_favorite_tracks.py   # Response models: favorite tracks
+│       └── get_favorite_playlists.py  # Response models: favorite playlists
 ├── queries/                     # GraphQL query/mutation documents (.graphql files)
+│   ├── fragments.graphql        # Shared fragments (TrackFields, ArtistFields, etc.)
 │   ├── get_me.graphql           # GetMe: current authenticated user
 │   ├── get_track.graphql        # GetTrack: full track details with media/lyrics
 │   ├── get_album.graphql        # GetAlbum: album details with paginated tracks
 │   ├── get_artist.graphql       # GetArtist: artist with top tracks and albums
 │   ├── get_playlist.graphql     # GetPlaylist: playlist with paginated tracks
-│   └── search.graphql           # Search: unified search across entity types
+│   ├── search.graphql           # Search: unified search across entity types
+│   ├── search_flows.graphql     # SearchFlows: discover all available Deezer flows via search
+│   ├── get_flow.graphql         # GetFlow: user's default Flow with tracks
+│   ├── get_flow_configs.graphql # GetFlowConfigs: mood & genre flow config lists
+│   ├── get_flow_config_tracks.graphql  # GetFlowConfigTracks: tracks for a specific flow config
+│   ├── get_made_for_me.graphql  # GetMadeForMe: SmartTracklist & Flow items
+│   ├── get_smart_tracklist.graphql  # GetSmartTracklist: tracklist with paginated tracks
+│   ├── get_charts.graphql       # GetCharts: country charts (tracks/albums/artists/playlists)
+│   ├── get_recommendations.graphql  # GetRecommendations: personalized recommendations
+│   ├── get_user_charts.graphql  # GetUserCharts: personal top tracks/artists/albums
+│   ├── get_recently_played.graphql  # GetRecentlyPlayed: recently played mixed content
+│   ├── get_favorite_artists.graphql  # GetFavoriteArtists: paginated favorite artists
+│   ├── get_favorite_albums.graphql   # GetFavoriteAlbums: paginated favorite albums
+│   ├── get_favorite_tracks.graphql   # GetFavoriteTracks: paginated favorite tracks
+│   └── get_favorite_playlists.graphql  # GetFavoritePlaylists: paginated favorite playlists
 ├── schema.graphql               # Full SDL schema (16,235 lines, ~915 types) — generated
 ├── schema.json                  # Raw introspection JSON — generated
 ├── scripts/
@@ -103,11 +133,26 @@ deezer-python-gql/
 │       ├── get_album.json
 │       ├── get_artist.json
 │       ├── get_playlist.json
-│       └── search.json
+│       ├── search.json
+│       ├── search_flows.json
+│       ├── get_flow.json
+│       ├── get_flow_configs.json
+│       ├── get_flow_config_tracks.json
+│       ├── get_made_for_me.json
+│       ├── get_smart_tracklist.json
+│       ├── get_charts.json
+│       ├── get_recommendations.json
+│       ├── get_user_charts.json
+│       ├── get_recently_played.json
+│       ├── get_favorite_artists.json
+│       ├── get_favorite_albums.json
+│       ├── get_favorite_tracks.json
+│       └── get_favorite_playlists.json
 ├── pyproject.toml               # Project config (dependencies, ruff, mypy, pytest, codegen)
 ├── Makefile                     # Dev commands
 ├── .pre-commit-config.yaml      # Local hooks (no remote repos)
-└── .github/workflows/           # CI: test.yml, publish-to-pypi.yml, release-drafter.yml
+├── cliff.toml                   # git-cliff changelog config
+└── .github/workflows/           # CI: test.yml, publish-to-pypi.yml, release.yml
 ```
 
 ### Code Generation Pipeline
@@ -125,10 +170,26 @@ pipe.deezer.com/api   →   schema.json   →   schema.graphql   →   deezer_py
 3. **SDL conversion**: Uses `graphql-core`'s `build_client_schema` + `print_schema` to produce clean SDL.
 4. **Codegen**: ariadne-codegen reads `schema.graphql` + all `queries/*.graphql` files and generates the typed async client class with Pydantic response models.
 
+### Shared Fragments
+
+`queries/fragments.graphql` defines reusable field sets shared across multiple queries:
+
+| Fragment         | Used by                                                                    | Key fields                                                           |
+| ---------------- | -------------------------------------------------------------------------- | -------------------------------------------------------------------- |
+| `TrackFields`    | flow, flow_config_tracks, smart_tracklist, charts, user_charts, fav_tracks | id, title, ISRC, diskInfo, duration, isExplicit, album, contributors |
+| `ArtistFields`   | charts, user_charts, recommendations, fav_artists                          | id, name, picture, fansCount                                         |
+| `AlbumFields`    | charts, user_charts, recommendations, fav_albums                           | id, displayTitle, type, cover, contributors, releaseDate             |
+| `PlaylistFields` | charts, recommendations, fav_playlists                                     | id, title, picture, estimatedTracksCount, owner                      |
+| `PageInfoFields` | All paginated queries                                                      | hasNextPage, endCursor                                               |
+
+ariadne-codegen generates `fragments.py` with Pydantic base classes (`TrackFields`, `ArtistFields`, etc.). Query model classes inherit from these via multiple inheritance, e.g., `GetChartsChartsCountryTracksEdgesNode(TrackFields)`. This means fragment fields are type-safe and IDE-discoverable on all inheriting models.
+
+To use a fragment in a new query, reference it with `...TrackFields` in the `.graphql` file.
+
 ### Adding a New Query
 
 1. Create a `.graphql` file in `queries/` (e.g., `queries/get_user_favorites.graphql`)
-2. Define the query using types from `schema.graphql`
+2. Define the query using types from `schema.graphql` — reuse existing fragments where applicable
 3. Run `make codegen` (or `make generate` for a fresh schema)
 4. ariadne-codegen produces:
    - A new method on `DeezerGQLClient` (e.g., `get_user_favorites()`)
@@ -243,10 +304,10 @@ Tests are organized into four layers:
 
 | Layer                  | Tests | What's validated                                                                   |
 | ---------------------- | ----- | ---------------------------------------------------------------------------------- |
-| **Client setup**       | 3     | Import, instantiation with ARL, presence of all 6 generated methods                |
+| **Client setup**       | 3     | Import, instantiation with ARL, presence of all 17 generated methods               |
 | **Auth flow** (mocked) | 5     | JWT acquisition, token reuse, refresh on expiry, cookie domain, text/plain parsing |
 | **Error handling**     | 5     | HTTP errors, invalid JSON, missing data key, GraphQL errors, success path          |
-| **Model smoke tests**  | 6     | One per query — fixture parses correctly with key fields accessible                |
+| **Model smoke tests**  | 18    | One per query — fixture parses correctly with key fields accessible                |
 
 ### Auth Flow Tests
 
@@ -302,15 +363,22 @@ Use [Conventional Commits](https://www.conventionalcommits.org/) format:
 
 Common types: `feat`, `fix`, `docs`, `chore`, `refactor`, `test`, `ci`.
 
-Release Drafter uses these prefixes to categorize changelog entries automatically.
+git-cliff uses these prefixes to categorize changelog entries automatically (configured in `cliff.toml`).
 
 ### Workflows
 
-| Workflow              | Trigger                       | Purpose                                                     |
-| --------------------- | ----------------------------- | ----------------------------------------------------------- |
-| `test.yml`            | Push to `main`, PRs to `main` | Lint + type check + test on Python 3.12 & 3.13              |
-| `publish-to-pypi.yml` | GitHub Release published      | Build and publish to PyPI via `pypa/gh-action-pypi-publish` |
-| `release-drafter.yml` | PRs merged to `main`          | Auto-draft release notes                                    |
+| Workflow              | Trigger                          | Purpose                                                        |
+| --------------------- | -------------------------------- | -------------------------------------------------------------- |
+| `test.yml`            | Push to `main`, PRs, or reusable | Lint + type check + test on Python 3.12 & 3.13                 |
+| `release.yml`         | Manual (`workflow_dispatch`)     | Run tests → bump version → generate changelog → GitHub Release |
+| `publish-to-pypi.yml` | GitHub Release published         | Build and publish to PyPI via `pypa/gh-action-pypi-publish`    |
+
+### Release Process
+
+1. Push conventional commits to `main` (directly or via PR)
+2. Go to Actions → Release → Run workflow (optionally force `major`/`minor`/`patch`)
+3. git-cliff auto-detects next version from commit types, generates changelog
+4. GitHub Release is created with tag → triggers PyPI publish automatically
 
 ### Branching
 

@@ -1,0 +1,45 @@
+# Discover available mood and genre Flow configs for the current user.
+# Each FlowConfig can be fetched individually via get_flow_config_tracks.graphql.
+
+query GetFlowConfigs($moodsFirst: Int = 12, $genresFirst: Int = 12) {
+  me {
+    flowConfigs {
+      moods(first: $moodsFirst) {
+        edges {
+          cursor
+          node {
+            id
+            title
+            visuals {
+              hardwareSquareIcon {
+                id
+                urls(uiAssetRequest: { width: 264, height: 264 })
+              }
+            }
+          }
+        }
+        pageInfo {
+          ...PageInfoFields
+        }
+      }
+      genres(first: $genresFirst) {
+        edges {
+          cursor
+          node {
+            id
+            title
+            visuals {
+              hardwareSquareIcon {
+                id
+                urls(uiAssetRequest: { width: 264, height: 264 })
+              }
+            }
+          }
+        }
+        pageInfo {
+          ...PageInfoFields
+        }
+      }
+    }
+  }
+}
