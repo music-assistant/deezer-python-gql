@@ -1,0 +1,100 @@
+# Shared fragments for reuse across multiple queries.
+# ariadne-codegen generates a fragments.py with Pydantic base classes
+# that query response models inherit from via multiple inheritance.
+
+# ---------------------------------------------------------------------------
+# Track — lightweight fields for browse listings and playlist/album contents
+# ---------------------------------------------------------------------------
+fragment TrackFields on Track {
+  id
+  title
+  ISRC
+  diskInfo {
+    diskNumber
+    trackNumber
+  }
+  duration
+  isExplicit
+  album {
+    id
+    displayTitle
+    cover {
+      id
+      urls(pictureRequest: { width: 264, height: 264 })
+    }
+  }
+  contributors(first: 10, roles: [MAIN, FEATURED]) {
+    edges {
+      roles
+      node {
+        ... on Artist {
+          id
+          name
+        }
+      }
+    }
+  }
+}
+
+# ---------------------------------------------------------------------------
+# Artist — lightweight fields for browse listings
+# ---------------------------------------------------------------------------
+fragment ArtistFields on Artist {
+  id
+  name
+  picture {
+    id
+    urls(pictureRequest: { width: 264, height: 264 })
+  }
+  fansCount
+}
+
+# ---------------------------------------------------------------------------
+# Album — lightweight fields for browse listings
+# ---------------------------------------------------------------------------
+fragment AlbumFields on Album {
+  id
+  displayTitle
+  type
+  cover {
+    id
+    urls(pictureRequest: { width: 264, height: 264 })
+  }
+  contributors(first: 5, roles: [MAIN]) {
+    edges {
+      node {
+        ... on Artist {
+          id
+          name
+        }
+      }
+    }
+  }
+  releaseDate
+  isExplicit
+}
+
+# ---------------------------------------------------------------------------
+# Playlist — lightweight fields for browse listings
+# ---------------------------------------------------------------------------
+fragment PlaylistFields on Playlist {
+  id
+  title
+  picture {
+    id
+    urls(pictureRequest: { width: 264, height: 264 })
+  }
+  estimatedTracksCount
+  owner {
+    id
+    name
+  }
+}
+
+# ---------------------------------------------------------------------------
+# PageInfo — standard Relay pagination info
+# ---------------------------------------------------------------------------
+fragment PageInfoFields on PageInfo {
+  hasNextPage
+  endCursor
+}

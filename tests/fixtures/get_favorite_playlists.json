@@ -1,0 +1,35 @@
+{
+  "data": {
+    "me": {
+      "userFavorites": {
+        "playlists": {
+          "edges": [
+            {
+              "cursor": "YXJyYXljb25uZWN0aW9uOjA=",
+              "node": {
+                "__typename": "Playlist",
+                "id": "53362031",
+                "title": "Electronic Hits",
+                "picture": {
+                  "id": "pic_53362031",
+                  "urls": [
+                    "https://cdn-images.deezer.com/images/playlist/53362031/264x264.jpg"
+                  ]
+                },
+                "estimatedTracksCount": 50,
+                "owner": {
+                  "id": "2529",
+                  "name": "Deezer Editor"
+                }
+              }
+            }
+          ],
+          "pageInfo": {
+            "hasNextPage": true,
+            "endCursor": "YXJyYXljb25uZWN0aW9uOjA="
+          }
+        }
+      }
+    }
+  }
+}

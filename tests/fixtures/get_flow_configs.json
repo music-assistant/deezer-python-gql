@@ -1,0 +1,109 @@
+{
+  "data": {
+    "me": {
+      "flowConfigs": {
+        "moods": {
+          "edges": [
+            {
+              "cursor": "YXJyYXljb25uZWN0aW9uOjA=",
+              "node": {
+                "id": "flow_config:chill",
+                "title": "Chill",
+                "visuals": {
+                  "hardwareSquareIcon": {
+                    "id": "asset_chill_sq",
+                    "urls": [
+                      "https://cdn.deezer.com/assets/flow/chill_264x264.png"
+                    ]
+                  }
+                }
+              }
+            },
+            {
+              "cursor": "YXJyYXljb25uZWN0aW9uOjE=",
+              "node": {
+                "id": "flow_config:party",
+                "title": "Party",
+                "visuals": {
+                  "hardwareSquareIcon": {
+                    "id": "asset_party_sq",
+                    "urls": [
+                      "https://cdn.deezer.com/assets/flow/party_264x264.png"
+                    ]
+                  }
+                }
+              }
+            },
+            {
+              "cursor": "YXJyYXljb25uZWN0aW9uOjI=",
+              "node": {
+                "id": "flow_config:motivation",
+                "title": "Motivation",
+                "visuals": {
+                  "hardwareSquareIcon": null
+                }
+              }
+            }
+          ],
+          "pageInfo": {
+            "hasNextPage": true,
+            "endCursor": "YXJyYXljb25uZWN0aW9uOjI="
+          }
+        },
+        "genres": {
+          "edges": [
+            {
+              "cursor": "YXJyYXljb25uZWN0aW9uOjA=",
+              "node": {
+                "id": "flow_config:rock",
+                "title": "Rock",
+                "visuals": {
+                  "hardwareSquareIcon": {
+                    "id": "asset_rock_sq",
+                    "urls": [
+                      "https://cdn.deezer.com/assets/flow/rock_264x264.png"
+                    ]
+                  }
+                }
+              }
+            },
+            {
+              "cursor": "YXJyYXljb25uZWN0aW9uOjE=",
+              "node": {
+                "id": "flow_config:pop",
+                "title": "Pop",
+                "visuals": {
+                  "hardwareSquareIcon": {
+                    "id": "asset_pop_sq",
+                    "urls": [
+                      "https://cdn.deezer.com/assets/flow/pop_264x264.png"
+                    ]
+                  }
+                }
+              }
+            },
+            {
+              "cursor": "YXJyYXljb25uZWN0aW9uOjI=",
+              "node": {
+                "id": "flow_config:electronic",
+                "title": "Electronic",
+                "visuals": {
+                  "hardwareSquareIcon": {
+                    "id": "asset_electronic_sq",
+                    "urls": [
+                      "https://cdn.deezer.com/assets/flow/electronic_264x264.png"
+                    ]
+                  }
+                }
+              }
+            }
+          ],
+          "pageInfo": {
+            "hasNextPage": true,
+            "endCursor": "YXJyYXljb25uZWN0aW9uOjI="
+          }
+        }
+      }
+    }
+  }
+}

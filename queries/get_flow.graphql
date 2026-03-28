@@ -1,0 +1,20 @@
+# Get the user's default Flow — a personalized infinite mix.
+# Each call to flow.tracks returns a fresh batch of tracks.
+
+query GetFlow {
+  me {
+    flow {
+      id
+      title
+      cover {
+        id
+        urls(pictureRequest: { width: 264, height: 264 })
+      }
+      tracks {
+        track {
+          ...TrackFields
+        }
+      }
+    }
+  }
+}

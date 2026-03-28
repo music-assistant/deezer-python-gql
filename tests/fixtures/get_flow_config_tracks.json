@@ -1,0 +1,46 @@
+{
+  "data": {
+    "flowConfig": {
+      "id": "flow_config:chill",
+      "title": "Chill",
+      "tracks": [
+        {
+          "track": {
+            "__typename": "Track",
+            "id": "916424",
+            "title": "Around the World",
+            "ISRC": "GBDUW0000053",
+            "diskInfo": {
+              "diskNumber": 1,
+              "trackNumber": 1
+            },
+            "duration": 428,
+            "isExplicit": false,
+            "album": {
+              "id": "103248",
+              "displayTitle": "Homework",
+              "cover": {
+                "id": "cover_103248",
+                "urls": [
+                  "https://cdn-images.deezer.com/images/cover/103248/264x264.jpg"
+                ]
+              }
+            },
+            "contributors": {
+              "edges": [
+                {
+                  "roles": ["MAIN"],
+                  "node": {
+                    "__typename": "Artist",
+                    "id": "27",
+                    "name": "Daft Punk"
+                  }
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  }
+}

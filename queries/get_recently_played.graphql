@@ -1,0 +1,39 @@
+# Get recently played content — albums, playlists, artists, flows, etc.
+# The node is a union type; we select fields per concrete type.
+
+query GetRecentlyPlayed($first: Int = 20) {
+  me {
+    recentlyPlayed(first: $first) {
+      edges {
+        cursor
+        node {
+          __typename
+          ... on Album {
+            ...AlbumFields
+          }
+          ... on Playlist {
+            ...PlaylistFields
+          }
+          ... on Artist {
+            ...ArtistFields
+          }
+          ... on Flow {
+            id
+            title
+            cover {
+              id
+              urls(pictureRequest: { width: 264, height: 264 })
+            }
+          }
+          ... on FlowConfig {
+            id
+            title
+          }
+        }
+      }
+      pageInfo {
+        ...PageInfoFields
+      }
+    }
+  }
+}

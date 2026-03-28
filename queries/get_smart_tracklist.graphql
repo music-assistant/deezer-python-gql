@@ -1,0 +1,24 @@
+# Get tracks for a SmartTracklist ("Made for me" generated playlist).
+
+query GetSmartTracklist($smartTracklistId: String!, $first: Int = 50) {
+  smartTracklist(smartTracklistId: $smartTracklistId) {
+    id
+    title
+    subTitle
+    cover {
+      id
+      urls(pictureRequest: { width: 264, height: 264 })
+    }
+    tracks(first: $first) {
+      edges {
+        cursor
+        node {
+          ...TrackFields
+        }
+      }
+      pageInfo {
+        ...PageInfoFields
+      }
+    }
+  }
+}

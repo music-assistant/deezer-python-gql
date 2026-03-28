@@ -1,0 +1,91 @@
+{
+  "data": {
+    "search": {
+      "results": {
+        "flowConfigs": {
+          "edges": [
+            {
+              "cursor": "YXJyYXljb25uZWN0aW9uOjA=",
+              "node": {
+                "id": "flow_config:chill",
+                "title": "Chill",
+                "visuals": {
+                  "hardwareSquareIcon": {
+                    "id": "asset_chill_sq",
+                    "urls": [
+                      "https://cdn.deezer.com/assets/flow/chill_264x264.png"
+                    ]
+                  }
+                }
+              }
+            },
+            {
+              "cursor": "YXJyYXljb25uZWN0aW9uOjE=",
+              "node": {
+                "id": "flow_config:party",
+                "title": "Party",
+                "visuals": {
+                  "hardwareSquareIcon": {
+                    "id": "asset_party_sq",
+                    "urls": [
+                      "https://cdn.deezer.com/assets/flow/party_264x264.png"
+                    ]
+                  }
+                }
+              }
+            },
+            {
+              "cursor": "YXJyYXljb25uZWN0aW9uOjI=",
+              "node": {
+                "id": "flow_config:focus",
+                "title": "Focus",
+                "visuals": {
+                  "hardwareSquareIcon": {
+                    "id": "asset_focus_sq",
+                    "urls": [
+                      "https://cdn.deezer.com/assets/flow/focus_264x264.png"
+                    ]
+                  }
+                }
+              }
+            },
+            {
+              "cursor": "YXJyYXljb25uZWN0aW9uOjM=",
+              "node": {
+                "id": "flow_config:genre-rock",
+                "title": "Rock",
+                "visuals": {
+                  "hardwareSquareIcon": {
+                    "id": "asset_rock_sq",
+                    "urls": [
+                      "https://cdn.deezer.com/assets/flow/rock_264x264.png"
+                    ]
+                  }
+                }
+              }
+            },
+            {
+              "cursor": "YXJyYXljb25uZWN0aW9uOjQ=",
+              "node": {
+                "id": "flow_config:genre-pop",
+                "title": "Pop",
+                "visuals": {
+                  "hardwareSquareIcon": {
+                    "id": "asset_pop_sq",
+                    "urls": [
+                      "https://cdn.deezer.com/assets/flow/pop_264x264.png"
+                    ]
+                  }
+                }
+              }
+            }
+          ],
+          "pageInfo": {
+            "hasNextPage": true,
+            "endCursor": "YXJyYXljb25uZWN0aW9uOjQ="
+          }
+        }
+      }
+    }
+  }
+}

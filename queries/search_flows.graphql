@@ -1,0 +1,27 @@
+# Search for all available Deezer FlowConfig entries.
+# Searching for "flow" returns the complete catalog of mood/genre flows.
+
+query SearchFlows($query: String! = "flow", $first: Int = 100, $after: String) {
+  search(query: $query) {
+    results {
+      flowConfigs(first: $first, after: $after) {
+        edges {
+          cursor
+          node {
+            id
+            title
+            visuals {
+              hardwareSquareIcon {
+                id
+                urls(uiAssetRequest: { width: 264, height: 264 })
+              }
+            }
+          }
+        }
+        pageInfo {
+          ...PageInfoFields
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,97 @@
+{
+  "data": {
+    "smartTracklist": {
+      "id": "smart:daily_mix_1",
+      "title": "Your Daily Mix 1",
+      "subTitle": "Daft Punk, Justice, Kavinsky...",
+      "cover": {
+        "id": "cover_smart_1",
+        "urls": [
+          "https://cdn-images.deezer.com/images/misc/smart_1/264x264.jpg"
+        ]
+      },
+      "tracks": {
+        "edges": [
+          {
+            "cursor": "YXJyYXljb25uZWN0aW9uOjA=",
+            "node": {
+              "__typename": "Track",
+              "id": "3135556",
+              "title": "Harder, Better, Faster, Stronger",
+              "ISRC": "GBDUW0000059",
+              "diskInfo": {
+                "diskNumber": 1,
+                "trackNumber": 4
+              },
+              "duration": 226,
+              "isExplicit": false,
+              "album": {
+                "id": "302127",
+                "displayTitle": "Discovery",
+                "cover": {
+                  "id": "cover_302127",
+                  "urls": [
+                    "https://cdn-images.deezer.com/images/cover/302127/264x264.jpg"
+                  ]
+                }
+              },
+              "contributors": {
+                "edges": [
+                  {
+                    "roles": ["MAIN"],
+                    "node": {
+                      "__typename": "Artist",
+                      "id": "27",
+                      "name": "Daft Punk"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "cursor": "YXJyYXljb25uZWN0aW9uOjE=",
+            "node": {
+              "__typename": "Track",
+              "id": "4743530",
+              "title": "D.A.N.C.E.",
+              "ISRC": "FRZ120700036",
+              "diskInfo": {
+                "diskNumber": 1,
+                "trackNumber": 2
+              },
+              "duration": 241,
+              "isExplicit": false,
+              "album": {
+                "id": "464791",
+                "displayTitle": "†",
+                "cover": {
+                  "id": "cover_464791",
+                  "urls": [
+                    "https://cdn-images.deezer.com/images/cover/464791/264x264.jpg"
+                  ]
+                }
+              },
+              "contributors": {
+                "edges": [
+                  {
+                    "roles": ["MAIN"],
+                    "node": {
+                      "__typename": "Artist",
+                      "id": "1146",
+                      "name": "Justice"
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        ],
+        "pageInfo": {
+          "hasNextPage": true,
+          "endCursor": "YXJyYXljb25uZWN0aW9uOjE="
+        }
+      }
+    }
+  }
+}

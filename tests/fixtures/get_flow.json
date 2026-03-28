@@ -1,0 +1,98 @@
+{
+  "data": {
+    "me": {
+      "flow": {
+        "id": "flow:default",
+        "title": "Flow",
+        "cover": {
+          "id": "cover_flow_default",
+          "urls": [
+            "https://cdn-images.deezer.com/images/flow/default/264x264.jpg"
+          ]
+        },
+        "tracks": [
+          {
+            "track": {
+              "__typename": "Track",
+              "id": "3135556",
+              "title": "Harder, Better, Faster, Stronger",
+              "ISRC": "GBDUW0000059",
+              "diskInfo": {
+                "diskNumber": 1,
+                "trackNumber": 4
+              },
+              "duration": 226,
+              "isExplicit": false,
+              "album": {
+                "id": "302127",
+                "displayTitle": "Discovery",
+                "cover": {
+                  "id": "cover_302127",
+                  "urls": [
+                    "https://cdn-images.deezer.com/images/cover/302127/264x264.jpg"
+                  ]
+                }
+              },
+              "contributors": {
+                "edges": [
+                  {
+                    "roles": ["MAIN"],
+                    "node": {
+                      "__typename": "Artist",
+                      "id": "27",
+                      "name": "Daft Punk"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "track": {
+              "__typename": "Track",
+              "id": "67238735",
+              "title": "Get Lucky",
+              "ISRC": "USUG11300962",
+              "diskInfo": {
+                "diskNumber": 1,
+                "trackNumber": 8
+              },
+              "duration": 369,
+              "isExplicit": false,
+              "album": {
+                "id": "6575789",
+                "displayTitle": "Random Access Memories",
+                "cover": {
+                  "id": "cover_6575789",
+                  "urls": [
+                    "https://cdn-images.deezer.com/images/cover/6575789/264x264.jpg"
+                  ]
+                }
+              },
+              "contributors": {
+                "edges": [
+                  {
+                    "roles": ["MAIN"],
+                    "node": {
+                      "__typename": "Artist",
+                      "id": "27",
+                      "name": "Daft Punk"
+                    }
+                  },
+                  {
+                    "roles": ["FEATURED"],
+                    "node": {
+                      "__typename": "Artist",
+                      "id": "293585",
+                      "name": "Pharrell Williams"
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

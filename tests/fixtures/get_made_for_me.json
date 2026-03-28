@@ -1,0 +1,58 @@
+{
+  "data": {
+    "me": {
+      "madeForMe": {
+        "edges": [
+          {
+            "cursor": "YXJyYXljb25uZWN0aW9uOjA=",
+            "node": {
+              "__typename": "SmartTracklist",
+              "id": "smart:daily_mix_1",
+              "title": "Your Daily Mix 1",
+              "subTitle": "Daft Punk, Justice, Kavinsky...",
+              "cover": {
+                "id": "cover_smart_1",
+                "urls": [
+                  "https://cdn-images.deezer.com/images/misc/smart_1/264x264.jpg"
+                ]
+              }
+            }
+          },
+          {
+            "cursor": "YXJyYXljb25uZWN0aW9uOjE=",
+            "node": {
+              "__typename": "SmartTracklist",
+              "id": "smart:daily_mix_2",
+              "title": "Your Daily Mix 2",
+              "subTitle": "Radiohead, Muse, Coldplay...",
+              "cover": {
+                "id": "cover_smart_2",
+                "urls": [
+                  "https://cdn-images.deezer.com/images/misc/smart_2/264x264.jpg"
+                ]
+              }
+            }
+          },
+          {
+            "cursor": "YXJyYXljb25uZWN0aW9uOjI=",
+            "node": {
+              "__typename": "Flow",
+              "id": "flow:default",
+              "title": "Flow",
+              "cover": {
+                "id": "cover_flow",
+                "urls": [
+                  "https://cdn-images.deezer.com/images/flow/default/264x264.jpg"
+                ]
+              }
+            }
+          }
+        ],
+        "pageInfo": {
+          "hasNextPage": false,
+          "endCursor": "YXJyYXljb25uZWN0aW9uOjI="
+        }
+      }
+    }
+  }
+}

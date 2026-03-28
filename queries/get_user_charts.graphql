@@ -1,0 +1,45 @@
+# Get the user's personal charts — most streamed tracks, artists, and albums.
+
+query GetUserCharts(
+  $tracksFirst: Int = 50
+  $artistsFirst: Int = 20
+  $albumsFirst: Int = 20
+) {
+  me {
+    charts {
+      tracks(first: $tracksFirst) {
+        edges {
+          cursor
+          node {
+            ...TrackFields
+          }
+        }
+        pageInfo {
+          ...PageInfoFields
+        }
+      }
+      artists(first: $artistsFirst) {
+        edges {
+          cursor
+          node {
+            ...ArtistFields
+          }
+        }
+        pageInfo {
+          ...PageInfoFields
+        }
+      }
+      albums(first: $albumsFirst) {
+        edges {
+          cursor
+          node {
+            ...AlbumFields
+          }
+        }
+        pageInfo {
+          ...PageInfoFields
+        }
+      }
+    }
+  }
+}

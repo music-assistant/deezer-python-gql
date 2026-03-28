@@ -1,0 +1,14 @@
+# Get tracks for a specific FlowConfig (mood or genre flow).
+# Each call returns a fresh batch of algorithmically generated tracks.
+
+query GetFlowConfigTracks($flowConfigId: String!) {
+  flowConfig(flowConfigId: $flowConfigId) {
+    id
+    title
+    tracks {
+      track {
+        ...TrackFields
+      }
+    }
+  }
+}

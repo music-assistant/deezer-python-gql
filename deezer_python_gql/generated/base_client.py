@@ -5,11 +5,14 @@
 from __future__ import annotations
 
 import json
+import logging
 import time
 from base64 import urlsafe_b64decode
-from typing import Any, cast
+from typing import Any, ClassVar, cast
 
 import httpx
+
+logger = logging.getLogger(__name__)
 
 
 class GraphQLClientError(Exception):
@@ -112,6 +115,7 @@ class DeezerBaseClient:
         :param variables: Optional query variables.
         :param kwargs: Additional keyword arguments passed to httpx.
         """
+        logger.debug("GQL execute: %s (variables=%s)", operation_name or "<unnamed>", variables)
         jwt = await self._ensure_jwt()
 
         headers: dict[str, str] = kwargs.pop("headers", None) or {}
@@ -122,16 +126,29 @@ class DeezerBaseClient:
         if operation_name:
             payload["operationName"] = operation_name
         if variables:
-            payload["variables"] = variables
+            # Filter out UNSET sentinel values that are not JSON-serializable.
+            # Inline import avoids depending on generated code at module level.
+            from deezer_python_gql.generated.base_model import UnsetType  # noqa: PLC0415
+
+            payload["variables"] = {
+                k: v for k, v in variables.items() if not isinstance(v, UnsetType)
+            }
 
         client = self._http_client or httpx.AsyncClient()
         try:
-            return await client.post(
+            resp = await client.post(
                 self.url,
                 json=payload,
                 headers=headers,
                 **kwargs,
             )
+            logger.debug(
+                "GQL response: %s status=%s length=%s",
+                operation_name or "<unnamed>",
+                resp.status_code,
+                len(resp.content),
+            )
+            return resp
         finally:
             if not self._http_client:
                 await client.aclose()
@@ -161,9 +178,51 @@ class DeezerBaseClient:
         errors = response_json.get("errors")
 
         if errors:
-            raise GraphQLClientGraphQLMultiError.from_errors_dicts(errors_dicts=errors, data=data)
+            if data:
+                # Partial success — some items failed (e.g. deleted albums in favorites).
+                # Log the errors but return the valid data.
+                logger.warning(
+                    "GraphQL response contained %d error(s): %s",
+                    len(errors),
+                    [e.get("message", "Unknown error") for e in errors],
+                )
+            else:
+                raise GraphQLClientGraphQLMultiError.from_errors_dicts(
+                    errors_dicts=errors, data=data
+                )
+
+        # The Deezer API omits __typename for single-member union types
+        # (e.g. Contributor = Artist). Pydantic discriminated unions require it,
+        # so we inject the missing field before model validation.
+        self._inject_missing_typenames(data)
 
         return cast("dict[str, Any]", data)
+
+    # Map of parent key → child key → __typename value for single-member unions
+    # where the Deezer API omits the discriminator.
+    _TYPENAME_PATCHES: ClassVar[dict[str, dict[str, str]]] = {
+        "contributors": {"node": "Artist"},
+    }
+
+    @classmethod
+    def _inject_missing_typenames(cls, obj: Any) -> None:
+        """Recursively inject __typename into nodes where the API omits it."""
+        if isinstance(obj, dict):
+            for parent_key, patches in cls._TYPENAME_PATCHES.items():
+                if parent_key in obj:
+                    container = obj[parent_key]
+                    if isinstance(container, dict) and "edges" in container:
+                        for edge in container["edges"]:
+                            if isinstance(edge, dict):
+                                for child_key, typename in patches.items():
+                                    node = edge.get(child_key)
+                                    if isinstance(node, dict) and "__typename" not in node:
+                                        node["__typename"] = typename
+            for value in obj.values():
+                cls._inject_missing_typenames(value)
+        elif isinstance(obj, list):
+            for item in obj:
+                cls._inject_missing_typenames(item)
 
     async def _ensure_jwt(self) -> str:
         """Acquire or refresh the JWT token from ARL cookie.
@@ -176,6 +235,7 @@ class DeezerBaseClient:
         if self._jwt and now < (self._jwt_expires_at - self.JWT_REFRESH_MARGIN_SECONDS):
             return self._jwt
 
+        logger.debug("JWT expired or missing, refreshing from ARL")
         params = {"jo": "p", "rto": "c", "i": "c"}
 
         async with httpx.AsyncClient() as http:
@@ -196,5 +256,6 @@ class DeezerBaseClient:
         padded = payload_segment + "=" * (-len(payload_segment) % 4)
         payload = json.loads(urlsafe_b64decode(padded))
         self._jwt_expires_at = float(payload["exp"])
+        logger.debug("JWT acquired, expires at %s", self._jwt_expires_at)
 
         return self._jwt

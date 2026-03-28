@@ -1,0 +1,53 @@
+{
+  "data": {
+    "me": {
+      "userFavorites": {
+        "tracks": {
+          "edges": [
+            {
+              "cursor": "YXJyYXljb25uZWN0aW9uOjA=",
+              "node": {
+                "__typename": "Track",
+                "id": "3135556",
+                "title": "Harder, Better, Faster, Stronger",
+                "ISRC": "GBDUW0000059",
+                "diskInfo": {
+                  "diskNumber": 1,
+                  "trackNumber": 4
+                },
+                "duration": 226,
+                "isExplicit": false,
+                "album": {
+                  "id": "302127",
+                  "displayTitle": "Discovery",
+                  "cover": {
+                    "id": "cover_302127",
+                    "urls": [
+                      "https://cdn-images.deezer.com/images/cover/302127/264x264.jpg"
+                    ]
+                  }
+                },
+                "contributors": {
+                  "edges": [
+                    {
+                      "roles": ["MAIN"],
+                      "node": {
+                        "__typename": "Artist",
+                        "id": "27",
+                        "name": "Daft Punk"
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          ],
+          "pageInfo": {
+            "hasNextPage": true,
+            "endCursor": "YXJyYXljb25uZWN0aW9uOjA="
+          }
+        }
+      }
+    }
+  }
+}
