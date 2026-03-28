@@ -79,6 +79,7 @@ fragment AlbumFields on Album {
   releaseDate
   isExplicit
   isFavorite
+  fansCount
   label
   copyright
 }
@@ -94,6 +95,7 @@ fragment PlaylistFields on Playlist {
     urls(pictureRequest: { width: 264, height: 264 })
   }
   estimatedTracksCount
+  fansCount
   isFavorite
   description
   owner {

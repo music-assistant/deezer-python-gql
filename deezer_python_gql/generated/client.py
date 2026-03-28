@@ -294,6 +294,7 @@ class DeezerGQLClient(DeezerBaseClient):
                 isExplicit
                 isTakenDown
                 isFavorite
+                fansCount
                 copyright
                 fallback {
                   id
@@ -520,6 +521,7 @@ class DeezerGQLClient(DeezerBaseClient):
               releaseDate
               isExplicit
               isFavorite
+              fansCount
               label
               copyright
             }
@@ -551,6 +553,7 @@ class DeezerGQLClient(DeezerBaseClient):
                 urls(pictureRequest: {width: 264, height: 264})
               }
               estimatedTracksCount
+              fansCount
               isFavorite
               description
               owner {
@@ -652,6 +655,7 @@ class DeezerGQLClient(DeezerBaseClient):
               releaseDate
               isExplicit
               isFavorite
+              fansCount
               label
               copyright
             }
@@ -765,6 +769,7 @@ class DeezerGQLClient(DeezerBaseClient):
                 urls(pictureRequest: {width: 264, height: 264})
               }
               estimatedTracksCount
+              fansCount
               isFavorite
               description
               owner {
@@ -1124,6 +1129,7 @@ class DeezerGQLClient(DeezerBaseClient):
                 isCollaborative
                 estimatedTracksCount
                 estimatedDuration
+                fansCount
                 isFavorite
                 picture {
                   id
@@ -1251,6 +1257,7 @@ class DeezerGQLClient(DeezerBaseClient):
               releaseDate
               isExplicit
               isFavorite
+              fansCount
               label
               copyright
             }
@@ -1282,6 +1289,7 @@ class DeezerGQLClient(DeezerBaseClient):
                 urls(pictureRequest: {width: 264, height: 264})
               }
               estimatedTracksCount
+              fansCount
               isFavorite
               description
               owner {
@@ -1385,6 +1393,7 @@ class DeezerGQLClient(DeezerBaseClient):
               releaseDate
               isExplicit
               isFavorite
+              fansCount
               label
               copyright
             }
@@ -1416,6 +1425,7 @@ class DeezerGQLClient(DeezerBaseClient):
                 urls(pictureRequest: {width: 264, height: 264})
               }
               estimatedTracksCount
+              fansCount
               isFavorite
               description
               owner {
@@ -1703,6 +1713,7 @@ class DeezerGQLClient(DeezerBaseClient):
               releaseDate
               isExplicit
               isFavorite
+              fansCount
               label
               copyright
             }
@@ -1806,6 +1817,7 @@ class DeezerGQLClient(DeezerBaseClient):
                 urls(pictureRequest: {width: 264, height: 264})
               }
               estimatedTracksCount
+              fansCount
               isFavorite
               description
               owner {
@@ -2038,6 +2050,7 @@ class DeezerGQLClient(DeezerBaseClient):
                         releaseDate
                         isExplicit
                         isFavorite
+                        fansCount
                         label
                         copyright
                       }
@@ -2080,6 +2093,7 @@ class DeezerGQLClient(DeezerBaseClient):
                           urls(pictureRequest: {width: 264, height: 264})
                         }
                         estimatedTracksCount
+                        fansCount
                         isFavorite
                         description
                         owner {

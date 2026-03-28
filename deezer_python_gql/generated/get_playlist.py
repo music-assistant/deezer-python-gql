@@ -21,6 +21,7 @@ class GetPlaylistPlaylist(BaseModel):
     is_collaborative: bool = Field(alias="isCollaborative")
     estimated_tracks_count: int = Field(alias="estimatedTracksCount")
     estimated_duration: int = Field(alias="estimatedDuration")
+    fans_count: int = Field(alias="fansCount")
     is_favorite: Optional[bool] = Field(alias="isFavorite")
     picture: Optional["GetPlaylistPlaylistPicture"]
     owner: Optional["GetPlaylistPlaylistOwner"]

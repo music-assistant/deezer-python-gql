@@ -18,6 +18,7 @@ class AlbumFields(BaseModel):
     release_date: Optional[Any] = Field(alias="releaseDate")
     is_explicit: Optional[bool] = Field(alias="isExplicit")
     is_favorite: Optional[bool] = Field(alias="isFavorite")
+    fans_count: int = Field(alias="fansCount")
     label: Optional[str]
     copyright: Optional[str]
 
@@ -71,6 +72,7 @@ class PlaylistFields(BaseModel):
     title: str
     picture: Optional["PlaylistFieldsPicture"]
     estimated_tracks_count: int = Field(alias="estimatedTracksCount")
+    fans_count: int = Field(alias="fansCount")
     is_favorite: Optional[bool] = Field(alias="isFavorite")
     description: Optional[str]
     owner: Optional["PlaylistFieldsOwner"]

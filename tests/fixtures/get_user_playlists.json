@@ -21,7 +21,8 @@
               },
               "__typename": "Playlist",
               "isFavorite": false,
-              "description": null
+              "description": null,
+              "fansCount": 0
             }
           }
         ],

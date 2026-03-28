@@ -27,6 +27,7 @@ class GetAlbumAlbum(BaseModel):
     is_explicit: Optional[bool] = Field(alias="isExplicit")
     is_taken_down: bool = Field(alias="isTakenDown")
     is_favorite: Optional[bool] = Field(alias="isFavorite")
+    fans_count: int = Field(alias="fansCount")
     copyright: Optional[str]
     fallback: Optional["GetAlbumAlbumFallback"]
     tracks: "GetAlbumAlbumTracks"

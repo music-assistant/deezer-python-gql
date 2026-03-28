@@ -22,7 +22,8 @@
                   "name": "Deezer Editor"
                 },
                 "isFavorite": false,
-                "description": null
+                "description": null,
+                "fansCount": 0
               },
               "favoritedAt": "2025-06-15"
             }

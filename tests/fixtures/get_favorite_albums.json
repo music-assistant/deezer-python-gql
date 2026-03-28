@@ -32,7 +32,8 @@
                 "isExplicit": false,
                 "isFavorite": false,
                 "label": null,
-                "copyright": null
+                "copyright": null,
+                "fansCount": 0
               },
               "favoritedAt": "2025-06-15"
             }

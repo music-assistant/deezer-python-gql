@@ -465,7 +465,8 @@
         "webUrl": "https://www.deezer.com/album/302127",
         "__typename": "Url"
       },
-      "copyright": null
+      "copyright": null,
+      "fansCount": 0
     }
   },
   "extensions": {

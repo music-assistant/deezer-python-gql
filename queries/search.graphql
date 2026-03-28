@@ -68,6 +68,7 @@ query Search(
             releaseDate
             isExplicit
             isFavorite
+            fansCount
             label
             copyright
           }
@@ -110,6 +111,7 @@ query Search(
               urls(pictureRequest: { width: 264, height: 264 })
             }
             estimatedTracksCount
+            fansCount
             isFavorite
             description
             owner {

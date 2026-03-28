@@ -22,7 +22,8 @@
                   "name": "Deezer Editor"
                 },
                 "isFavorite": false,
-                "description": null
+                "description": null,
+                "fansCount": 0
               }
             }
           ],
@@ -51,7 +52,8 @@
                   "name": "Deezer Editor"
                 },
                 "isFavorite": false,
-                "description": null
+                "description": null,
+                "fansCount": 0
               }
             },
             {
@@ -72,7 +74,8 @@
                   "name": "Deezer Editor"
                 },
                 "isFavorite": false,
-                "description": null
+                "description": null,
+                "fansCount": 0
               }
             }
           ],
@@ -111,7 +114,8 @@
                 "isExplicit": false,
                 "isFavorite": false,
                 "label": null,
-                "copyright": null
+                "copyright": null,
+                "fansCount": 0
               }
             }
           ],
