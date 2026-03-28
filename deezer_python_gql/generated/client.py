@@ -606,6 +606,7 @@ class DeezerGQLClient(DeezerBaseClient):
                   albums(first: $first, after: $after) {
                     edges {
                       cursor
+                      favoritedAt
                       node {
                         ...AlbumFields
                       }
@@ -668,6 +669,7 @@ class DeezerGQLClient(DeezerBaseClient):
                   artists(first: $first, after: $after) {
                     edges {
                       cursor
+                      favoritedAt
                       node {
                         ...ArtistFields
                       }
@@ -718,6 +720,7 @@ class DeezerGQLClient(DeezerBaseClient):
                   playlists(first: $first, after: $after) {
                     edges {
                       cursor
+                      favoritedAt
                       node {
                         ...PlaylistFields
                       }
@@ -772,6 +775,7 @@ class DeezerGQLClient(DeezerBaseClient):
                   tracks(first: $first, after: $after) {
                     edges {
                       cursor
+                      favoritedAt
                       node {
                         ...TrackFields
                       }

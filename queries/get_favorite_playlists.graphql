@@ -7,6 +7,7 @@ query GetFavoritePlaylists($first: Int = 50, $after: String) {
       playlists(first: $first, after: $after) {
         edges {
           cursor
+          favoritedAt
           node {
             ...PlaylistFields
           }

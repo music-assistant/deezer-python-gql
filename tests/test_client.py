@@ -618,6 +618,7 @@ def test_smoke_get_favorite_artists() -> None:
     artist_node = artists.edges[0].node
     assert artist_node is not None
     assert artist_node.name == "Daft Punk"
+    assert artists.edges[0].favorited_at == "2025-06-15"
     assert artists.page_info.has_next_page is True
 
 
@@ -632,6 +633,7 @@ def test_smoke_get_favorite_albums() -> None:
     album_node = albums.edges[0].node
     assert album_node is not None
     assert album_node.display_title == "Discovery"
+    assert albums.edges[0].favorited_at == "2025-06-15"
     assert albums.page_info.has_next_page is True
 
 
@@ -646,6 +648,7 @@ def test_smoke_get_favorite_tracks() -> None:
     track_node = tracks.edges[0].node
     assert track_node is not None
     assert track_node.title == "Harder, Better, Faster, Stronger"
+    assert tracks.edges[0].favorited_at == "2025-06-15"
     assert tracks.page_info.has_next_page is True
 
 
@@ -660,6 +663,7 @@ def test_smoke_get_favorite_playlists() -> None:
     playlist_node = playlists.edges[0].node
     assert playlist_node is not None
     assert playlist_node.title == "Electronic Hits"
+    assert playlists.edges[0].favorited_at == "2025-06-15"
     assert playlists.page_info.has_next_page is True
 
 

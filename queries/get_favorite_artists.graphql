@@ -6,6 +6,7 @@ query GetFavoriteArtists($first: Int = 50, $after: String) {
       artists(first: $first, after: $after) {
         edges {
           cursor
+          favoritedAt
           node {
             ...ArtistFields
           }

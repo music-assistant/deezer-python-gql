@@ -30,7 +30,9 @@
                 "contributors": {
                   "edges": [
                     {
-                      "roles": ["MAIN"],
+                      "roles": [
+                        "MAIN"
+                      ],
                       "node": {
                         "__typename": "Artist",
                         "id": "27",
@@ -39,7 +41,8 @@
                     }
                   ]
                 }
-              }
+              },
+              "favoritedAt": "2025-06-15"
             }
           ],
           "pageInfo": {
