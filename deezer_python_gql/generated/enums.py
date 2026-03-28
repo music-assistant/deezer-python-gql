@@ -13,11 +13,6 @@ class AlbumType(str, Enum):
     UNKNOWN = "UNKNOWN"
 
 
-class ContributorRoles(str, Enum):
-    MAIN = "MAIN"
-    FEATURED = "FEATURED"
-
-
 class TrackContributorRoles(str, Enum):
     MAIN = "MAIN"
     SECONDARY = "SECONDARY"

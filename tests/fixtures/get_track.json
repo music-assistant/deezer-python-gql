@@ -20,6 +20,15 @@
           "urls": [
             "https://cdn-images.dzcdn.net/images/cover/5718f7c81c27e0b2417e2a4c45224f8a/1000x1000-000000-80-0-0.jpg"
           ]
+        },
+        "isFavorite": null,
+        "fansCount": 0,
+        "label": null,
+        "copyright": null,
+        "isExplicit": false,
+        "releaseDate": null,
+        "contributors": {
+          "edges": []
         }
       },
       "contributors": {

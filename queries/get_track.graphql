@@ -1,36 +1,8 @@
 query GetTrack($trackId: String!) {
   track(trackId: $trackId) {
-    id
-    title
-    ISRC
-    diskInfo {
-      diskNumber
-      trackNumber
-    }
-    duration
-    isExplicit
+    ...TrackFields
     isAtmos
-    popularity
     releaseDate
-    album {
-      id
-      displayTitle
-      cover {
-        id
-        urls(pictureRequest: { width: 1000, height: 1000 })
-      }
-    }
-    contributors(first: 50, roles: [MAIN, FEATURED]) {
-      edges {
-        roles
-        node {
-          ... on Artist {
-            id
-            name
-          }
-        }
-      }
-    }
     media {
       id
       version
@@ -64,6 +36,5 @@ query GetTrack($trackId: String!) {
       copyright
       writers
     }
-    isFavorite
   }
 }

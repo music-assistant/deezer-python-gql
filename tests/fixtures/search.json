@@ -20,6 +20,15 @@
                     "urls": [
                       "https://cdn-images.dzcdn.net/images/cover/5718f7c81c27e0b2417e2a4c45224f8a/264x264-000000-80-0-0.jpg"
                     ]
+                  },
+                  "isFavorite": null,
+                  "fansCount": 0,
+                  "label": null,
+                  "copyright": null,
+                  "isExplicit": false,
+                  "releaseDate": null,
+                  "contributors": {
+                    "edges": []
                   }
                 },
                 "contributors": {
@@ -37,7 +46,8 @@
                   ]
                 },
                 "isFavorite": false,
-                "popularity": null
+                "popularity": null,
+                "diskInfo": null
               }
             },
             {
@@ -56,6 +66,15 @@
                     "urls": [
                       "https://cdn-images.dzcdn.net/images/cover/b870579c8650cd59b1cce656dde2ef17/264x264-000000-80-0-0.jpg"
                     ]
+                  },
+                  "isFavorite": null,
+                  "fansCount": 0,
+                  "label": null,
+                  "copyright": null,
+                  "isExplicit": false,
+                  "releaseDate": null,
+                  "contributors": {
+                    "edges": []
                   }
                 },
                 "contributors": {
@@ -73,7 +92,8 @@
                   ]
                 },
                 "isFavorite": false,
-                "popularity": null
+                "popularity": null,
+                "diskInfo": null
               }
             },
             {
@@ -92,6 +112,15 @@
                     "urls": [
                       "https://cdn-images.dzcdn.net/images/cover/5718f7c81c27e0b2417e2a4c45224f8a/264x264-000000-80-0-0.jpg"
                     ]
+                  },
+                  "isFavorite": null,
+                  "fansCount": 0,
+                  "label": null,
+                  "copyright": null,
+                  "isExplicit": false,
+                  "releaseDate": null,
+                  "contributors": {
+                    "edges": []
                   }
                 },
                 "contributors": {
@@ -109,7 +138,8 @@
                   ]
                 },
                 "isFavorite": false,
-                "popularity": null
+                "popularity": null,
+                "diskInfo": null
               }
             }
           ],

@@ -1,17 +1,6 @@
 query GetArtist($artistId: String!) {
   artist(artistId: $artistId) {
-    id
-    name
-    picture {
-      id
-      urls(pictureRequest: { width: 1000, height: 1000 })
-    }
-    bio {
-      summary
-      full
-    }
-    fansCount
-    isFavorite
+    ...ArtistFields
     url {
       ... on Url {
         webUrl
@@ -21,56 +10,23 @@ query GetArtist($artistId: String!) {
       edges {
         cursor
         node {
-          id
-          title
-          ISRC
-          duration
-          isExplicit
-          album {
-            id
-            displayTitle
-            cover {
-              id
-              urls(pictureRequest: { width: 264, height: 264 })
-            }
-          }
-          contributors(first: 10, roles: [MAIN, FEATURED]) {
-            edges {
-              roles
-              node {
-                ... on Artist {
-                  id
-                  name
-                }
-              }
-            }
-          }
+          ...TrackFields
         }
       }
       pageInfo {
-        hasNextPage
-        endCursor
+        ...PageInfoFields
       }
     }
     albums(types: [ALBUM, SINGLES, EP], order: RELEASE_DATE, first: 25) {
       edges {
         cursor
         node {
-          id
-          displayTitle
-          type
-          cover {
-            id
-            urls(pictureRequest: { width: 264, height: 264 })
-          }
-          releaseDate
+          ...AlbumFields
           tracksCount
-          isExplicit
         }
       }
       pageInfo {
-        hasNextPage
-        endCursor
+        ...PageInfoFields
       }
     }
   }

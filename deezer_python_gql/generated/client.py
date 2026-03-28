@@ -267,35 +267,11 @@ class DeezerGQLClient(DeezerBaseClient):
         query = gql("""
             query GetAlbum($albumId: String!) {
               album(albumId: $albumId) {
-                id
-                displayTitle
-                type
-                cover {
-                  id
-                  urls(pictureRequest: {width: 1000, height: 1000})
-                }
-                label
-                contributors(first: 50, roles: [MAIN, FEATURED]) {
-                  edges {
-                    roles
-                    node {
-                      __typename
-                      ... on Artist {
-                        id
-                        name
-                      }
-                    }
-                  }
-                }
-                releaseDate
+                ...AlbumFields
                 duration
                 tracksCount
                 discsCount
-                isExplicit
                 isTakenDown
-                isFavorite
-                fansCount
-                copyright
                 fallback {
                   id
                   displayTitle
@@ -304,38 +280,81 @@ class DeezerGQLClient(DeezerBaseClient):
                   edges {
                     cursor
                     node {
-                      id
-                      title
-                      ISRC
-                      diskInfo {
-                        diskNumber
-                        trackNumber
-                      }
-                      duration
-                      isExplicit
-                      contributors(first: 10, roles: [MAIN, FEATURED]) {
-                        edges {
-                          roles
-                          node {
-                            __typename
-                            ... on Artist {
-                              id
-                              name
-                            }
-                          }
-                        }
-                      }
+                      ...TrackFields
                     }
                   }
                   pageInfo {
-                    hasNextPage
-                    endCursor
+                    ...PageInfoFields
                   }
                 }
                 url {
                   __typename
                   ... on Url {
                     webUrl
+                  }
+                }
+              }
+            }
+
+            fragment AlbumFields on Album {
+              id
+              displayTitle
+              type
+              cover {
+                id
+                urls(pictureRequest: {width: 264, height: 264})
+              }
+              contributors(first: 5, roles: [MAIN]) {
+                edges {
+                  node {
+                    ... on Artist {
+                      id
+                      name
+                    }
+                  }
+                }
+              }
+              releaseDate
+              isExplicit
+              isFavorite
+              fansCount
+              label
+              copyright
+            }
+
+            fragment PageInfoFields on PageInfo {
+              hasNextPage
+              endCursor
+            }
+
+            fragment TrackFields on Track {
+              id
+              title
+              ISRC
+              diskInfo {
+                diskNumber
+                trackNumber
+              }
+              duration
+              isExplicit
+              isFavorite
+              popularity
+              album {
+                id
+                displayTitle
+                cover {
+                  id
+                  urls(pictureRequest: {width: 264, height: 264})
+                }
+              }
+              contributors(first: 10, roles: [MAIN, FEATURED]) {
+                edges {
+                  roles
+                  node {
+                    ... on Artist {
+                      id
+                      name
+                    }
                   }
                 }
               }
@@ -354,18 +373,7 @@ class DeezerGQLClient(DeezerBaseClient):
         query = gql("""
             query GetArtist($artistId: String!) {
               artist(artistId: $artistId) {
-                id
-                name
-                picture {
-                  id
-                  urls(pictureRequest: {width: 1000, height: 1000})
-                }
-                bio {
-                  summary
-                  full
-                }
-                fansCount
-                isFavorite
+                ...ArtistFields
                 url {
                   __typename
                   ... on Url {
@@ -376,57 +384,102 @@ class DeezerGQLClient(DeezerBaseClient):
                   edges {
                     cursor
                     node {
-                      id
-                      title
-                      ISRC
-                      duration
-                      isExplicit
-                      album {
-                        id
-                        displayTitle
-                        cover {
-                          id
-                          urls(pictureRequest: {width: 264, height: 264})
-                        }
-                      }
-                      contributors(first: 10, roles: [MAIN, FEATURED]) {
-                        edges {
-                          roles
-                          node {
-                            __typename
-                            ... on Artist {
-                              id
-                              name
-                            }
-                          }
-                        }
-                      }
+                      ...TrackFields
                     }
                   }
                   pageInfo {
-                    hasNextPage
-                    endCursor
+                    ...PageInfoFields
                   }
                 }
                 albums(types: [ALBUM, SINGLES, EP], order: RELEASE_DATE, first: 25) {
                   edges {
                     cursor
                     node {
-                      id
-                      displayTitle
-                      type
-                      cover {
-                        id
-                        urls(pictureRequest: {width: 264, height: 264})
-                      }
-                      releaseDate
+                      ...AlbumFields
                       tracksCount
-                      isExplicit
                     }
                   }
                   pageInfo {
-                    hasNextPage
-                    endCursor
+                    ...PageInfoFields
+                  }
+                }
+              }
+            }
+
+            fragment AlbumFields on Album {
+              id
+              displayTitle
+              type
+              cover {
+                id
+                urls(pictureRequest: {width: 264, height: 264})
+              }
+              contributors(first: 5, roles: [MAIN]) {
+                edges {
+                  node {
+                    ... on Artist {
+                      id
+                      name
+                    }
+                  }
+                }
+              }
+              releaseDate
+              isExplicit
+              isFavorite
+              fansCount
+              label
+              copyright
+            }
+
+            fragment ArtistFields on Artist {
+              id
+              name
+              picture {
+                id
+                urls(pictureRequest: {width: 264, height: 264})
+              }
+              fansCount
+              isFavorite
+              bio {
+                summary
+                full
+              }
+            }
+
+            fragment PageInfoFields on PageInfo {
+              hasNextPage
+              endCursor
+            }
+
+            fragment TrackFields on Track {
+              id
+              title
+              ISRC
+              diskInfo {
+                diskNumber
+                trackNumber
+              }
+              duration
+              isExplicit
+              isFavorite
+              popularity
+              album {
+                id
+                displayTitle
+                cover {
+                  id
+                  urls(pictureRequest: {width: 264, height: 264})
+                }
+              }
+              contributors(first: 10, roles: [MAIN, FEATURED]) {
+                edges {
+                  roles
+                  node {
+                    ... on Artist {
+                      id
+                      name
+                    }
                   }
                 }
               }
@@ -537,6 +590,7 @@ class DeezerGQLClient(DeezerBaseClient):
               isFavorite
               bio {
                 summary
+                full
               }
             }
 
@@ -712,6 +766,7 @@ class DeezerGQLClient(DeezerBaseClient):
               isFavorite
               bio {
                 summary
+                full
               }
             }
 
@@ -1122,61 +1177,74 @@ class DeezerGQLClient(DeezerBaseClient):
         query = gql("""
             query GetPlaylist($playlistId: String!) {
               playlist(playlistId: $playlistId) {
-                id
-                title
-                description
+                ...PlaylistFields
                 isPrivate
                 isCollaborative
-                estimatedTracksCount
                 estimatedDuration
-                fansCount
-                isFavorite
-                picture {
-                  id
-                  urls(pictureRequest: {width: 1000, height: 1000})
-                }
-                owner {
-                  id
-                  name
-                }
                 tracks(first: 50) {
                   edges {
                     cursor
                     node {
-                      id
-                      title
-                      ISRC
-                      diskInfo {
-                        diskNumber
-                        trackNumber
-                      }
-                      duration
-                      isExplicit
-                      album {
-                        id
-                        displayTitle
-                        cover {
-                          id
-                          urls(pictureRequest: {width: 264, height: 264})
-                        }
-                      }
-                      contributors(first: 10, roles: [MAIN, FEATURED]) {
-                        edges {
-                          roles
-                          node {
-                            __typename
-                            ... on Artist {
-                              id
-                              name
-                            }
-                          }
-                        }
-                      }
+                      ...TrackFields
                     }
                   }
                   pageInfo {
-                    hasNextPage
-                    endCursor
+                    ...PageInfoFields
+                  }
+                }
+              }
+            }
+
+            fragment PageInfoFields on PageInfo {
+              hasNextPage
+              endCursor
+            }
+
+            fragment PlaylistFields on Playlist {
+              id
+              title
+              picture {
+                id
+                urls(pictureRequest: {width: 264, height: 264})
+              }
+              estimatedTracksCount
+              fansCount
+              isFavorite
+              description
+              owner {
+                id
+                name
+              }
+            }
+
+            fragment TrackFields on Track {
+              id
+              title
+              ISRC
+              diskInfo {
+                diskNumber
+                trackNumber
+              }
+              duration
+              isExplicit
+              isFavorite
+              popularity
+              album {
+                id
+                displayTitle
+                cover {
+                  id
+                  urls(pictureRequest: {width: 264, height: 264})
+                }
+              }
+              contributors(first: 10, roles: [MAIN, FEATURED]) {
+                edges {
+                  roles
+                  node {
+                    ... on Artist {
+                      id
+                      name
+                    }
                   }
                 }
               }
@@ -1273,6 +1341,7 @@ class DeezerGQLClient(DeezerBaseClient):
               isFavorite
               bio {
                 summary
+                full
               }
             }
 
@@ -1409,6 +1478,7 @@ class DeezerGQLClient(DeezerBaseClient):
               isFavorite
               bio {
                 summary
+                full
               }
             }
 
@@ -1568,38 +1638,9 @@ class DeezerGQLClient(DeezerBaseClient):
         query = gql("""
             query GetTrack($trackId: String!) {
               track(trackId: $trackId) {
-                id
-                title
-                ISRC
-                diskInfo {
-                  diskNumber
-                  trackNumber
-                }
-                duration
-                isExplicit
+                ...TrackFields
                 isAtmos
-                popularity
                 releaseDate
-                album {
-                  id
-                  displayTitle
-                  cover {
-                    id
-                    urls(pictureRequest: {width: 1000, height: 1000})
-                  }
-                }
-                contributors(first: 50, roles: [MAIN, FEATURED]) {
-                  edges {
-                    roles
-                    node {
-                      __typename
-                      ... on Artist {
-                        id
-                        name
-                      }
-                    }
-                  }
-                }
                 media {
                   id
                   version
@@ -1633,7 +1674,39 @@ class DeezerGQLClient(DeezerBaseClient):
                   copyright
                   writers
                 }
-                isFavorite
+              }
+            }
+
+            fragment TrackFields on Track {
+              id
+              title
+              ISRC
+              diskInfo {
+                diskNumber
+                trackNumber
+              }
+              duration
+              isExplicit
+              isFavorite
+              popularity
+              album {
+                id
+                displayTitle
+                cover {
+                  id
+                  urls(pictureRequest: {width: 264, height: 264})
+                }
+              }
+              contributors(first: 10, roles: [MAIN, FEATURED]) {
+                edges {
+                  roles
+                  node {
+                    ... on Artist {
+                      id
+                      name
+                    }
+                  }
+                }
               }
             }
             """)
@@ -1729,6 +1802,7 @@ class DeezerGQLClient(DeezerBaseClient):
               isFavorite
               bio {
                 summary
+                full
               }
             }
 
@@ -1991,120 +2065,140 @@ class DeezerGQLClient(DeezerBaseClient):
                     edges {
                       cursor
                       node {
-                        id
-                        title
-                        ISRC
-                        duration
-                        isExplicit
-                        isFavorite
-                        popularity
-                        album {
-                          id
-                          displayTitle
-                          cover {
-                            id
-                            urls(pictureRequest: {width: 264, height: 264})
-                          }
-                        }
-                        contributors(first: 10, roles: [MAIN, FEATURED]) {
-                          edges {
-                            roles
-                            node {
-                              __typename
-                              ... on Artist {
-                                id
-                                name
-                              }
-                            }
-                          }
-                        }
+                        ...TrackFields
                       }
                     }
                     pageInfo {
-                      hasNextPage
-                      endCursor
+                      ...PageInfoFields
                     }
                   }
                   albums(first: $albumsFirst) {
                     edges {
                       cursor
                       node {
-                        id
-                        displayTitle
-                        type
-                        cover {
-                          id
-                          urls(pictureRequest: {width: 264, height: 264})
-                        }
-                        contributors(first: 5, roles: [MAIN]) {
-                          edges {
-                            node {
-                              __typename
-                              ... on Artist {
-                                id
-                                name
-                              }
-                            }
-                          }
-                        }
-                        releaseDate
-                        isExplicit
-                        isFavorite
-                        fansCount
-                        label
-                        copyright
+                        ...AlbumFields
                       }
                     }
                     pageInfo {
-                      hasNextPage
-                      endCursor
+                      ...PageInfoFields
                     }
                   }
                   artists(first: $artistsFirst) {
                     edges {
                       cursor
                       node {
-                        id
-                        name
-                        picture {
-                          id
-                          urls(pictureRequest: {width: 264, height: 264})
-                        }
-                        fansCount
-                        isFavorite
-                        bio {
-                          summary
-                        }
+                        ...ArtistFields
                       }
                     }
                     pageInfo {
-                      hasNextPage
-                      endCursor
+                      ...PageInfoFields
                     }
                   }
                   playlists(first: $playlistsFirst) {
                     edges {
                       cursor
                       node {
-                        id
-                        title
-                        picture {
-                          id
-                          urls(pictureRequest: {width: 264, height: 264})
-                        }
-                        estimatedTracksCount
-                        fansCount
-                        isFavorite
-                        description
-                        owner {
-                          id
-                          name
-                        }
+                        ...PlaylistFields
                       }
                     }
                     pageInfo {
-                      hasNextPage
-                      endCursor
+                      ...PageInfoFields
+                    }
+                  }
+                }
+              }
+            }
+
+            fragment AlbumFields on Album {
+              id
+              displayTitle
+              type
+              cover {
+                id
+                urls(pictureRequest: {width: 264, height: 264})
+              }
+              contributors(first: 5, roles: [MAIN]) {
+                edges {
+                  node {
+                    ... on Artist {
+                      id
+                      name
+                    }
+                  }
+                }
+              }
+              releaseDate
+              isExplicit
+              isFavorite
+              fansCount
+              label
+              copyright
+            }
+
+            fragment ArtistFields on Artist {
+              id
+              name
+              picture {
+                id
+                urls(pictureRequest: {width: 264, height: 264})
+              }
+              fansCount
+              isFavorite
+              bio {
+                summary
+                full
+              }
+            }
+
+            fragment PageInfoFields on PageInfo {
+              hasNextPage
+              endCursor
+            }
+
+            fragment PlaylistFields on Playlist {
+              id
+              title
+              picture {
+                id
+                urls(pictureRequest: {width: 264, height: 264})
+              }
+              estimatedTracksCount
+              fansCount
+              isFavorite
+              description
+              owner {
+                id
+                name
+              }
+            }
+
+            fragment TrackFields on Track {
+              id
+              title
+              ISRC
+              diskInfo {
+                diskNumber
+                trackNumber
+              }
+              duration
+              isExplicit
+              isFavorite
+              popularity
+              album {
+                id
+                displayTitle
+                cover {
+                  id
+                  urls(pictureRequest: {width: 264, height: 264})
+                }
+              }
+              contributors(first: 10, roles: [MAIN, FEATURED]) {
+                edges {
+                  roles
+                  node {
+                    ... on Artist {
+                      id
+                      name
                     }
                   }
                 }

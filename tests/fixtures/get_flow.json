@@ -31,6 +31,15 @@
                   "urls": [
                     "https://cdn-images.deezer.com/images/cover/302127/264x264.jpg"
                   ]
+                },
+                "isFavorite": null,
+                "fansCount": 0,
+                "label": null,
+                "copyright": null,
+                "isExplicit": false,
+                "releaseDate": null,
+                "contributors": {
+                  "edges": []
                 }
               },
               "contributors": {
@@ -71,6 +80,15 @@
                   "urls": [
                     "https://cdn-images.deezer.com/images/cover/6575789/264x264.jpg"
                   ]
+                },
+                "isFavorite": null,
+                "fansCount": 0,
+                "label": null,
+                "copyright": null,
+                "isExplicit": false,
+                "releaseDate": null,
+                "contributors": {
+                  "edges": []
                 }
               },
               "contributors": {
