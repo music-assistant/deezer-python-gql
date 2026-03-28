@@ -3,8 +3,31 @@
 
 from typing import Any, Optional, Union
 
+from .add_album_to_favorite import (
+    AddAlbumToFavorite,
+    AddAlbumToFavoriteAddAlbumToFavorite,
+)
+from .add_artist_to_favorite import (
+    AddArtistToFavorite,
+    AddArtistToFavoriteAddArtistToFavorite,
+)
+from .add_playlist_to_favorite import (
+    AddPlaylistToFavorite,
+    AddPlaylistToFavoriteAddPlaylistToFavorite,
+)
+from .add_track_to_favorite import (
+    AddTrackToFavorite,
+    AddTrackToFavoriteAddTrackToFavorite,
+)
+from .add_tracks_to_playlist import (
+    AddTracksToPlaylist,
+    AddTracksToPlaylistAddTracksToPlaylistPlaylistAddTracksError,
+    AddTracksToPlaylistAddTracksToPlaylistPlaylistAddTracksOutput,
+)
 from .base_client import DeezerBaseClient
 from .base_model import UNSET, UnsetType
+from .create_playlist import CreatePlaylist, CreatePlaylistCreatePlaylist
+from .delete_playlist import DeletePlaylist, DeletePlaylistDeletePlaylist
 from .get_album import GetAlbum, GetAlbumAlbum
 from .get_artist import GetArtist, GetArtistArtist
 from .get_charts import GetCharts, GetChartsCharts
@@ -23,8 +46,30 @@ from .get_recommendations import GetRecommendations, GetRecommendationsMe
 from .get_smart_tracklist import GetSmartTracklist, GetSmartTracklistSmartTracklist
 from .get_track import GetTrack, GetTrackTrack
 from .get_user_charts import GetUserCharts, GetUserChartsMe
+from .get_user_playlists import GetUserPlaylists, GetUserPlaylistsMe
+from .remove_album_from_favorite import (
+    RemoveAlbumFromFavorite,
+    RemoveAlbumFromFavoriteRemoveAlbumFromFavorite,
+)
+from .remove_artist_from_favorite import (
+    RemoveArtistFromFavorite,
+    RemoveArtistFromFavoriteRemoveArtistFromFavorite,
+)
+from .remove_playlist_from_favorite import (
+    RemovePlaylistFromFavorite,
+    RemovePlaylistFromFavoriteRemovePlaylistFromFavorite,
+)
+from .remove_track_from_favorite import (
+    RemoveTrackFromFavorite,
+    RemoveTrackFromFavoriteRemoveTrackFromFavorite,
+)
+from .remove_tracks_from_playlist import (
+    RemoveTracksFromPlaylist,
+    RemoveTracksFromPlaylistRemoveTracksFromPlaylist,
+)
 from .search import Search, SearchSearch
 from .search_flows import SearchFlows, SearchFlowsSearch
+from .update_playlist import UpdatePlaylist, UpdatePlaylistUpdatePlaylist
 
 
 def gql(q: str) -> str:
@@ -32,6 +77,192 @@ def gql(q: str) -> str:
 
 
 class DeezerGQLClient(DeezerBaseClient):
+    async def add_artist_to_favorite(
+        self, artist_id: str, **kwargs: Any
+    ) -> AddArtistToFavoriteAddArtistToFavorite:
+        query = gql("""
+            mutation AddArtistToFavorite($artistId: String!) {
+              addArtistToFavorite(artistId: $artistId) {
+                artist {
+                  id
+                  name
+                }
+              }
+            }
+            """)
+        variables: dict[str, object] = {"artistId": artist_id}
+        response = await self.execute(
+            query=query,
+            operation_name="AddArtistToFavorite",
+            variables=variables,
+            **kwargs
+        )
+        data = self.get_data(response)
+        return AddArtistToFavorite.model_validate(data).add_artist_to_favorite
+
+    async def remove_artist_from_favorite(
+        self, artist_id: str, **kwargs: Any
+    ) -> RemoveArtistFromFavoriteRemoveArtistFromFavorite:
+        query = gql("""
+            mutation RemoveArtistFromFavorite($artistId: String!) {
+              removeArtistFromFavorite(artistId: $artistId) {
+                artist {
+                  id
+                  name
+                }
+              }
+            }
+            """)
+        variables: dict[str, object] = {"artistId": artist_id}
+        response = await self.execute(
+            query=query,
+            operation_name="RemoveArtistFromFavorite",
+            variables=variables,
+            **kwargs
+        )
+        data = self.get_data(response)
+        return RemoveArtistFromFavorite.model_validate(data).remove_artist_from_favorite
+
+    async def add_album_to_favorite(
+        self, album_id: str, **kwargs: Any
+    ) -> AddAlbumToFavoriteAddAlbumToFavorite:
+        query = gql("""
+            mutation AddAlbumToFavorite($albumId: String!) {
+              addAlbumToFavorite(albumId: $albumId) {
+                album {
+                  id
+                  displayTitle
+                }
+              }
+            }
+            """)
+        variables: dict[str, object] = {"albumId": album_id}
+        response = await self.execute(
+            query=query,
+            operation_name="AddAlbumToFavorite",
+            variables=variables,
+            **kwargs
+        )
+        data = self.get_data(response)
+        return AddAlbumToFavorite.model_validate(data).add_album_to_favorite
+
+    async def remove_album_from_favorite(
+        self, album_id: str, **kwargs: Any
+    ) -> RemoveAlbumFromFavoriteRemoveAlbumFromFavorite:
+        query = gql("""
+            mutation RemoveAlbumFromFavorite($albumId: String!) {
+              removeAlbumFromFavorite(albumId: $albumId) {
+                album {
+                  id
+                  displayTitle
+                }
+              }
+            }
+            """)
+        variables: dict[str, object] = {"albumId": album_id}
+        response = await self.execute(
+            query=query,
+            operation_name="RemoveAlbumFromFavorite",
+            variables=variables,
+            **kwargs
+        )
+        data = self.get_data(response)
+        return RemoveAlbumFromFavorite.model_validate(data).remove_album_from_favorite
+
+    async def add_track_to_favorite(
+        self, track_id: str, **kwargs: Any
+    ) -> AddTrackToFavoriteAddTrackToFavorite:
+        query = gql("""
+            mutation AddTrackToFavorite($trackId: String!) {
+              addTrackToFavorite(trackId: $trackId) {
+                track {
+                  id
+                  title
+                }
+              }
+            }
+            """)
+        variables: dict[str, object] = {"trackId": track_id}
+        response = await self.execute(
+            query=query,
+            operation_name="AddTrackToFavorite",
+            variables=variables,
+            **kwargs
+        )
+        data = self.get_data(response)
+        return AddTrackToFavorite.model_validate(data).add_track_to_favorite
+
+    async def remove_track_from_favorite(
+        self, track_id: str, **kwargs: Any
+    ) -> RemoveTrackFromFavoriteRemoveTrackFromFavorite:
+        query = gql("""
+            mutation RemoveTrackFromFavorite($trackId: String!) {
+              removeTrackFromFavorite(trackId: $trackId) {
+                track {
+                  id
+                  title
+                }
+              }
+            }
+            """)
+        variables: dict[str, object] = {"trackId": track_id}
+        response = await self.execute(
+            query=query,
+            operation_name="RemoveTrackFromFavorite",
+            variables=variables,
+            **kwargs
+        )
+        data = self.get_data(response)
+        return RemoveTrackFromFavorite.model_validate(data).remove_track_from_favorite
+
+    async def add_playlist_to_favorite(
+        self, playlist_id: str, **kwargs: Any
+    ) -> AddPlaylistToFavoriteAddPlaylistToFavorite:
+        query = gql("""
+            mutation AddPlaylistToFavorite($playlistId: String!) {
+              addPlaylistToFavorite(playlistId: $playlistId) {
+                playlist {
+                  id
+                  title
+                }
+              }
+            }
+            """)
+        variables: dict[str, object] = {"playlistId": playlist_id}
+        response = await self.execute(
+            query=query,
+            operation_name="AddPlaylistToFavorite",
+            variables=variables,
+            **kwargs
+        )
+        data = self.get_data(response)
+        return AddPlaylistToFavorite.model_validate(data).add_playlist_to_favorite
+
+    async def remove_playlist_from_favorite(
+        self, playlist_id: str, **kwargs: Any
+    ) -> RemovePlaylistFromFavoriteRemovePlaylistFromFavorite:
+        query = gql("""
+            mutation RemovePlaylistFromFavorite($playlistId: String!) {
+              removePlaylistFromFavorite(playlistId: $playlistId) {
+                playlist {
+                  id
+                  title
+                }
+              }
+            }
+            """)
+        variables: dict[str, object] = {"playlistId": playlist_id}
+        response = await self.execute(
+            query=query,
+            operation_name="RemovePlaylistFromFavorite",
+            variables=variables,
+            **kwargs
+        )
+        data = self.get_data(response)
+        return RemovePlaylistFromFavorite.model_validate(
+            data
+        ).remove_playlist_from_favorite
+
     async def get_album(self, album_id: str, **kwargs: Any) -> Optional[GetAlbumAlbum]:
         query = gql("""
             query GetAlbum($albumId: String!) {
@@ -1463,6 +1694,196 @@ class DeezerGQLClient(DeezerBaseClient):
         )
         data = self.get_data(response)
         return GetUserCharts.model_validate(data).me
+
+    async def get_user_playlists(
+        self,
+        first: Union[Optional[int], UnsetType] = UNSET,
+        after: Union[Optional[str], UnsetType] = UNSET,
+        **kwargs: Any
+    ) -> Optional[GetUserPlaylistsMe]:
+        query = gql("""
+            query GetUserPlaylists($first: Int = 50, $after: String) {
+              me {
+                playlists(first: $first, after: $after) {
+                  edges {
+                    cursor
+                    node {
+                      ...PlaylistFields
+                    }
+                  }
+                  pageInfo {
+                    ...PageInfoFields
+                  }
+                }
+              }
+            }
+
+            fragment PageInfoFields on PageInfo {
+              hasNextPage
+              endCursor
+            }
+
+            fragment PlaylistFields on Playlist {
+              id
+              title
+              picture {
+                id
+                urls(pictureRequest: {width: 264, height: 264})
+              }
+              estimatedTracksCount
+              owner {
+                id
+                name
+              }
+            }
+            """)
+        variables: dict[str, object] = {"first": first, "after": after}
+        response = await self.execute(
+            query=query,
+            operation_name="GetUserPlaylists",
+            variables=variables,
+            **kwargs
+        )
+        data = self.get_data(response)
+        return GetUserPlaylists.model_validate(data).me
+
+    async def create_playlist(
+        self,
+        title: str,
+        is_private: bool,
+        is_collaborative: bool,
+        description: Union[Optional[str], UnsetType] = UNSET,
+        **kwargs: Any
+    ) -> CreatePlaylistCreatePlaylist:
+        query = gql("""
+            mutation CreatePlaylist($title: String!, $description: String = "", $isPrivate: Boolean! = false, $isCollaborative: Boolean! = false) {
+              createPlaylist(
+                input: {title: $title, description: $description, isPrivate: $isPrivate, isCollaborative: $isCollaborative}
+              ) {
+                playlist {
+                  id
+                  title
+                }
+              }
+            }
+            """)
+        variables: dict[str, object] = {
+            "title": title,
+            "description": description,
+            "isPrivate": is_private,
+            "isCollaborative": is_collaborative,
+        }
+        response = await self.execute(
+            query=query, operation_name="CreatePlaylist", variables=variables, **kwargs
+        )
+        data = self.get_data(response)
+        return CreatePlaylist.model_validate(data).create_playlist
+
+    async def update_playlist(
+        self,
+        playlist_id: str,
+        title: Union[Optional[str], UnsetType] = UNSET,
+        description: Union[Optional[str], UnsetType] = UNSET,
+        is_private: Union[Optional[bool], UnsetType] = UNSET,
+        is_collaborative: Union[Optional[bool], UnsetType] = UNSET,
+        **kwargs: Any
+    ) -> UpdatePlaylistUpdatePlaylist:
+        query = gql("""
+            mutation UpdatePlaylist($playlistId: String!, $title: String, $description: String, $isPrivate: Boolean, $isCollaborative: Boolean) {
+              updatePlaylist(
+                input: {playlistId: $playlistId, title: $title, description: $description, isPrivate: $isPrivate, isCollaborative: $isCollaborative}
+              ) {
+                playlist {
+                  id
+                  title
+                }
+              }
+            }
+            """)
+        variables: dict[str, object] = {
+            "playlistId": playlist_id,
+            "title": title,
+            "description": description,
+            "isPrivate": is_private,
+            "isCollaborative": is_collaborative,
+        }
+        response = await self.execute(
+            query=query, operation_name="UpdatePlaylist", variables=variables, **kwargs
+        )
+        data = self.get_data(response)
+        return UpdatePlaylist.model_validate(data).update_playlist
+
+    async def delete_playlist(
+        self, playlist_id: str, **kwargs: Any
+    ) -> DeletePlaylistDeletePlaylist:
+        query = gql("""
+            mutation DeletePlaylist($playlistId: String!) {
+              deletePlaylist(input: {playlistId: $playlistId}) {
+                deleteStatus
+              }
+            }
+            """)
+        variables: dict[str, object] = {"playlistId": playlist_id}
+        response = await self.execute(
+            query=query, operation_name="DeletePlaylist", variables=variables, **kwargs
+        )
+        data = self.get_data(response)
+        return DeletePlaylist.model_validate(data).delete_playlist
+
+    async def add_tracks_to_playlist(
+        self, playlist_id: str, track_ids: list[str], **kwargs: Any
+    ) -> Union[
+        AddTracksToPlaylistAddTracksToPlaylistPlaylistAddTracksOutput,
+        AddTracksToPlaylistAddTracksToPlaylistPlaylistAddTracksError,
+    ]:
+        query = gql("""
+            mutation AddTracksToPlaylist($playlistId: String!, $trackIds: [String!]!) {
+              addTracksToPlaylist(input: {playlistId: $playlistId, trackIds: $trackIds}) {
+                __typename
+                ... on PlaylistAddTracksOutput {
+                  addedTrackIds
+                }
+                ... on PlaylistAddTracksError {
+                  isNotAllowed
+                }
+              }
+            }
+            """)
+        variables: dict[str, object] = {
+            "playlistId": playlist_id,
+            "trackIds": track_ids,
+        }
+        response = await self.execute(
+            query=query,
+            operation_name="AddTracksToPlaylist",
+            variables=variables,
+            **kwargs
+        )
+        data = self.get_data(response)
+        return AddTracksToPlaylist.model_validate(data).add_tracks_to_playlist
+
+    async def remove_tracks_from_playlist(
+        self, playlist_id: str, track_ids: list[str], **kwargs: Any
+    ) -> RemoveTracksFromPlaylistRemoveTracksFromPlaylist:
+        query = gql("""
+            mutation RemoveTracksFromPlaylist($playlistId: String!, $trackIds: [String!]!) {
+              removeTracksFromPlaylist(input: {playlistId: $playlistId, trackIds: $trackIds}) {
+                removedTrackIds
+              }
+            }
+            """)
+        variables: dict[str, object] = {
+            "playlistId": playlist_id,
+            "trackIds": track_ids,
+        }
+        response = await self.execute(
+            query=query,
+            operation_name="RemoveTracksFromPlaylist",
+            variables=variables,
+            **kwargs
+        )
+        data = self.get_data(response)
+        return RemoveTracksFromPlaylist.model_validate(data).remove_tracks_from_playlist
 
     async def search(
         self,

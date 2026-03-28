@@ -1,0 +1,87 @@
+# Add an artist to the user's favorites.
+
+mutation AddArtistToFavorite($artistId: String!) {
+  addArtistToFavorite(artistId: $artistId) {
+    artist {
+      id
+      name
+    }
+  }
+}
+
+# Remove an artist from the user's favorites.
+
+mutation RemoveArtistFromFavorite($artistId: String!) {
+  removeArtistFromFavorite(artistId: $artistId) {
+    artist {
+      id
+      name
+    }
+  }
+}
+
+# Add an album to the user's favorites.
+
+mutation AddAlbumToFavorite($albumId: String!) {
+  addAlbumToFavorite(albumId: $albumId) {
+    album {
+      id
+      displayTitle
+    }
+  }
+}
+
+# Remove an album from the user's favorites.
+
+mutation RemoveAlbumFromFavorite($albumId: String!) {
+  removeAlbumFromFavorite(albumId: $albumId) {
+    album {
+      id
+      displayTitle
+    }
+  }
+}
+
+# Add a track to the user's favorites.
+
+mutation AddTrackToFavorite($trackId: String!) {
+  addTrackToFavorite(trackId: $trackId) {
+    track {
+      id
+      title
+    }
+  }
+}
+
+# Remove a track from the user's favorites.
+
+mutation RemoveTrackFromFavorite($trackId: String!) {
+  removeTrackFromFavorite(trackId: $trackId) {
+    track {
+      id
+      title
+    }
+  }
+}
+
+# Add a playlist to the user's favorites.
+
+mutation AddPlaylistToFavorite($playlistId: String!) {
+  addPlaylistToFavorite(playlistId: $playlistId) {
+    playlist {
+      id
+      title
+    }
+  }
+}
+
+# Remove a playlist from the user's favorites.
+
+mutation RemovePlaylistFromFavorite($playlistId: String!) {
+  removePlaylistFromFavorite(playlistId: $playlistId) {
+    playlist {
+      id
+      title
+    }
+  }
+}

@@ -1,0 +1,17 @@
+# Get the current user's owned playlists (paginated).
+
+query GetUserPlaylists($first: Int = 50, $after: String) {
+  me {
+    playlists(first: $first, after: $after) {
+      edges {
+        cursor
+        node {
+          ...PlaylistFields
+        }
+      }
+      pageInfo {
+        ...PageInfoFields
+      }
+    }
+  }
+}

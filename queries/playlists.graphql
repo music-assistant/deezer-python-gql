@@ -1,0 +1,78 @@
+# Create a new playlist.
+
+mutation CreatePlaylist(
+  $title: String!
+  $description: String = ""
+  $isPrivate: Boolean! = false
+  $isCollaborative: Boolean! = false
+) {
+  createPlaylist(
+    input: {
+      title: $title
+      description: $description
+      isPrivate: $isPrivate
+      isCollaborative: $isCollaborative
+    }
+  ) {
+    playlist {
+      id
+      title
+    }
+  }
+}
+
+# Update an existing playlist.
+
+mutation UpdatePlaylist(
+  $playlistId: String!
+  $title: String
+  $description: String
+  $isPrivate: Boolean
+  $isCollaborative: Boolean
+) {
+  updatePlaylist(
+    input: {
+      playlistId: $playlistId
+      title: $title
+      description: $description
+      isPrivate: $isPrivate
+      isCollaborative: $isCollaborative
+    }
+  ) {
+    playlist {
+      id
+      title
+    }
+  }
+}
+
+# Delete a playlist.
+
+mutation DeletePlaylist($playlistId: String!) {
+  deletePlaylist(input: { playlistId: $playlistId }) {
+    deleteStatus
+  }
+}
+
+# Add tracks to a playlist.
+
+mutation AddTracksToPlaylist($playlistId: String!, $trackIds: [String!]!) {
+  addTracksToPlaylist(input: { playlistId: $playlistId, trackIds: $trackIds }) {
+    ... on PlaylistAddTracksOutput {
+      addedTrackIds
+    }
+    ... on PlaylistAddTracksError {
+      isNotAllowed
+    }
+  }
+}
+
+# Remove tracks from a playlist.
+
+mutation RemoveTracksFromPlaylist($playlistId: String!, $trackIds: [String!]!) {
+  removeTracksFromPlaylist(
+    input: { playlistId: $playlistId, trackIds: $trackIds }
+  ) {
+    removedTrackIds
+  }
+}
