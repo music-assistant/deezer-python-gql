@@ -1,14 +1,25 @@
 name: Publish to PyPI
 
 on:
-    release:
-        types: [published]
+    workflow_run:
+        workflows: ["Release"]
+        types: [completed]
 
 jobs:
     build:
         runs-on: ubuntu-latest
+        if: ${{ github.event.workflow_run.conclusion == 'success' }}
         steps:
             - uses: actions/checkout@v6
+              with:
+                  ref: ${{ github.event.workflow_run.head_branch }}
+                  fetch-depth: 0
+            - name: Get latest tag
+              id: tag
+              run: |
+                  TAG=$(git describe --tags --abbrev=0)
+                  echo "tag=$TAG" >> "$GITHUB_OUTPUT"
+                  echo "Using tag: $TAG"
             - name: Set up Python
               uses: actions/setup-python@v6
               with:
@@ -20,7 +31,7 @@ jobs:
                   python3 - <<'EOF'
                   import tomli, tomli_w, os
 
-                  version = os.environ["GITHUB_REF_NAME"].lstrip("v")
+                  version = os.environ["VERSION"].lstrip("v")
 
                   with open("pyproject.toml", "rb") as f:
                       data = tomli.load(f)
@@ -32,6 +43,8 @@ jobs:
 
                   print(f"Set version to {version}")
                   EOF
+              env:
+                  VERSION: ${{ steps.tag.outputs.tag }}
             - name: Build package
               run: python3 -m build
             - uses: actions/upload-artifact@v7
