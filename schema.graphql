@@ -657,6 +657,16 @@ type Mutation {
   """
   Access: This field is restricted to applications granted with specific access.
   """
+  appendPlaylistTracksToPlaylist(input: AppendPlaylistTracksToPlaylistInput!): AppendPlaylistTracksToPlaylistResult!
+
+  """
+  Access: This field is restricted to applications granted with specific access.
+  """
+  appendAlbumTracksToPlaylist(input: AppendAlbumTracksToPlaylistInput!): AppendAlbumTracksToPlaylistResult!
+
+  """
+  Access: This field is restricted to applications granted with specific access.
+  """
   addPlaylistToFavorite(playlistId: String!): PlaylistMutationFavoriteAddOut!
 
   """
@@ -831,7 +841,10 @@ type Mutation {
   Access: This field is restricted to applications granted with specific access.
   """
   blindTestMakeAGuess(
-    """Token of BlindTestSessionState"""
+    """
+    Token of BlindTestSessionState
+    Will be consumed and can't be used for further guesses, a new one must be fetched in the output
+    """
     token: String!
 
     """The id of the guessed response"""
@@ -5672,7 +5685,7 @@ enum AlbumTypeInput {
   EP
   SINGLES
   ALBUM
-  UNKNOWN
+  UNKNOWN @deprecated(reason: "Cannot be used to retrieve albums")
 }
 
 type AlbumsConnection {
@@ -8018,7 +8031,7 @@ type BlindTestSessionQuestion {
   mediaToken: TrackMediaToken!
 
   """
-  Track Full media access when question was answered
+  Track Full media access only exposed when question was answered
   
   Access: This field is restricted to applications granted with specific access.
   """
@@ -8119,6 +8132,7 @@ type BlindTestSessionState {
 
   """
   Token that should be used (consumed) to advance game.
+  A new one is given after each guess is made
   
   Could also be used to retrieve current state of the session
   
@@ -8226,6 +8240,7 @@ type BlindTestStartSessionOutput {
 
   """
   Token that should be used (consumed) to advance game.
+  A new one is given after each guess is made
   
   Could also be used to retrieve current state of the session
   
@@ -9523,6 +9538,42 @@ type ArtistMixTrack {
   track: Track
 }
 
+type SmartTracklistCoverComposition {
+  """
+  Title to display on the background picture
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  title: String
+
+  """
+  Background picture of the smart tracklist
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  backgroundPicture: Picture!
+
+  """
+  Pictures displayed in the foreground of the background picture
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  foregroundPictures: [Picture]!
+
+  """
+  Template to use to compose the cover
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  template: SmartTracklistCoverCompositionTemplate!
+}
+
+enum SmartTracklistCoverCompositionTemplate {
+  THREE_ROUNDED_TILES
+  TWO_OVERLAPPING_CIRCLES
+  THREE_TAPERED_CIRCLES
+}
+
 """
 Flow is mix based on favorite music mixed with fresh recommendations generated for a given user
 """
@@ -9856,6 +9907,14 @@ type SmartTracklist implements MadeForMe & Node {
   Access: This field is restricted to applications granted with specific access.
   """
   mosaicCover: Picture!
+
+  """
+  WARNING!!
+  It returns fake data and should only be used for development at the moment.
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  coverComposition: SmartTracklistCoverComposition
 
   """
   Paginated list of the smarttracklist's tracks
@@ -10348,6 +10407,15 @@ type Favorites {
   rawAlbums: [RawFavorite!]
 
   """
+  The full list of the user's favorite album ids with sort details
+  You may receive one album, or thousands, hence you must fetch this field only when absolutely needed, and only once per query.
+  We defined the cost of the field accordingly.
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  sortableRawAlbums: [UserRawAlbumFavorite!]
+
+  """
   The full list of the user's favorite audiobooks ids.
   You may receive one audiobook, or thousands, hence you must fetch this field only when absolutely needed, and only once per query.
   We defined the cost of the field accordingly.
@@ -10389,6 +10457,18 @@ type Favorites {
   rawArtists: [RawFavorite!]
 
   """
+  WARNING!!
+  It returns fake data and should only be used for development at the moment.
+  
+  The full list of the user's favorite artist ids with sort details.
+  You may receive one artist, or thousands, hence you must fetch this field only when absolutely needed, and only once per query.
+  We defined the cost of the field accordingly.
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  sortableRawArtists: [UserRawArtistFavorite!]
+
+  """
   Estimated number of playlists favorited by the user; use for display only
   
   Access: This field is restricted to applications granted with specific access.
@@ -10412,6 +10492,18 @@ type Favorites {
   rawPlaylists: [RawFavorite!]
 
   """
+  WARNING!!
+  It returns fake data and should only be used for development at the moment.
+  
+  The full list of the user's favorite playlists ids with sort details
+  You may receive one playlists, or thousands, hence you must fetch this field only when absolutely needed, and only once per query.
+  We defined the cost of the field accordingly.
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  sortableRawPlaylists: [UserRawPlaylistFavorite!]
+
+  """
   Estimated number of podcasts favorited by the user; use for display only
   
   Access: This field is restricted to applications granted with specific access.
@@ -10433,6 +10525,15 @@ type Favorites {
   Access: This field is restricted to applications granted with specific access.
   """
   rawPodcasts: [RawFavorite!]
+
+  """
+  The full list of the user's favorite podcast ids with sort details
+  You may receive one podcast, or thousands, hence you must fetch this field only when absolutely needed, and only once per query.
+  We defined the cost of the field accordingly.
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  sortableRawPodcasts: [UserRawPodcastFavorite!]
 
   """
   Estimated number of tracks favorited by the user; use for display only
@@ -10505,6 +10606,75 @@ type FavoritesByArtist {
   Access: This field is restricted to applications granted with specific access.
   """
   estimatedTracksCount: Int!
+}
+
+interface UserRawFavorite {
+  id: ID!
+  favoritedAt: Date!
+}
+
+type UserRawArtistFavorite implements UserRawFavorite {
+  """
+  Access: This field is restricted to applications granted with specific access.
+  """
+  id: ID!
+
+  """
+  Access: This field is restricted to applications granted with specific access.
+  """
+  favoritedAt: Date!
+
+  """
+  WARNING!!
+  It returns fake data and should only be used for development at the moment.
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  name: String
+}
+
+type UserRawAlbumFavorite implements UserRawFavorite {
+  """
+  Access: This field is restricted to applications granted with specific access.
+  """
+  id: ID!
+
+  """
+  Access: This field is restricted to applications granted with specific access.
+  """
+  favoritedAt: Date!
+}
+
+type UserRawPodcastFavorite implements UserRawFavorite {
+  """
+  Access: This field is restricted to applications granted with specific access.
+  """
+  id: ID!
+
+  """
+  Access: This field is restricted to applications granted with specific access.
+  """
+  favoritedAt: Date!
+
+  """
+  WARNING!!
+  It returns fake data and should only be used for development at the moment.
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  name: String
+}
+
+type UserRawPlaylistFavorite implements UserRawFavorite {
+  """
+  Access: This field is restricted to applications granted with specific access.
+  """
+  id: ID!
+
+  """
+  Access: This field is restricted to applications granted with specific access.
+  """
+  favoritedAt: Date!
 }
 
 type FavoriteAlbumEdge {
@@ -10940,6 +11110,13 @@ type RawPlaylist {
   Access: This field is restricted to applications granted with specific access.
   """
   id: ID!
+
+  """
+  Last time the playlist was played by the user, if still in memory
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  playedAt: Date
 }
 
 type PlaylistTracksConnection {
@@ -13702,6 +13879,14 @@ type PrivateUserRawAlbumFavorite implements PrivateUserRawFavorite {
   Access: This field requires one of these scopes: [favorite-all-read,favorites-album-read].
   """
   favoritedAt: Date!
+
+  """
+  WARNING!!
+  It returns fake data and should only be used for development at the moment.
+  
+  Access: This field requires one of these scopes: [favorite-all-read,favorites-album-read].
+  """
+  playedAt: Date
 }
 
 type PrivateUserRawArtistFavorite implements PrivateUserRawFavorite {
@@ -13714,6 +13899,22 @@ type PrivateUserRawArtistFavorite implements PrivateUserRawFavorite {
   Access: This field requires one of these scopes: [favorite-all-read,favorites-artist-read].
   """
   favoritedAt: Date!
+
+  """
+  WARNING!!
+  It returns fake data and should only be used for development at the moment.
+  
+  Access: This field requires one of these scopes: [favorite-all-read,favorites-artist-read].
+  """
+  playedAt: Date
+
+  """
+  WARNING!!
+  It returns fake data and should only be used for development at the moment.
+  
+  Access: This field requires one of these scopes: [favorite-all-read,favorites-artist-read].
+  """
+  name: String
 }
 
 type PrivateUserRawPlaylistFavorite implements PrivateUserRawFavorite {
@@ -13726,6 +13927,14 @@ type PrivateUserRawPlaylistFavorite implements PrivateUserRawFavorite {
   Access: This field requires one of these scopes: [favorite-all-read,favorites-playlist-read].
   """
   favoritedAt: Date!
+
+  """
+  WARNING!!
+  It returns fake data and should only be used for development at the moment.
+  
+  Access: This field requires one of these scopes: [favorite-all-read,favorites-playlist-read].
+  """
+  playedAt: Date
 }
 
 type PrivateUserRawPodcastFavorite implements PrivateUserRawFavorite {
@@ -13738,6 +13947,14 @@ type PrivateUserRawPodcastFavorite implements PrivateUserRawFavorite {
   Access: This field requires one of these scopes: [favorite-all-read,favorites-podcast-read].
   """
   favoritedAt: Date!
+
+  """
+  WARNING!!
+  It returns fake data and should only be used for development at the moment.
+  
+  Access: This field requires one of these scopes: [favorite-all-read,favorites-podcast-read].
+  """
+  playedAt: Date
 }
 
 type PrivateUserRawTrackFavorite implements PrivateUserRawFavorite {
@@ -15823,6 +16040,132 @@ type PlaylistMoveTrackMutationOutput {
   Access: This field is restricted to applications granted with specific access.
   """
   playlist: Playlist
+}
+
+input AppendPlaylistTracksToPlaylistInput {
+  """Playlist from which to take the tracks to add"""
+  sourcePlaylistId: String!
+
+  """Playlist the tracks are added to"""
+  destinationPlaylistId: String!
+}
+
+union AppendPlaylistTracksToPlaylistResult = AppendPlaylistTracksToPlaylistOutput | AppendPlaylistTracksToPlaylistError
+
+type AppendPlaylistTracksToPlaylistOutput {
+  """
+  The track ids that were added
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  addedTrackIds: [String!]!
+
+  """
+  The tracks ids that were not added because already present in the playlist
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  duplicatedTrackIds: [String!]!
+
+  """
+  The tracks ids that were not added because playlist limit was reached
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  beyondLimitTrackIds: [String!]!
+}
+
+type AppendPlaylistTracksToPlaylistError {
+  """
+  Indicates if the user is not allowed to add tracks
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  isNotAllowed: Boolean!
+
+  """
+  Indicates if the source playlist was not found
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  sourcePlaylistNotFound: Boolean!
+
+  """
+  Indicates if the destination playlist was not found
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  destinationPlaylistNotFound: Boolean!
+
+  """
+  Indicates if an unknown error occurred
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  unknownError: Boolean!
+}
+
+input AppendAlbumTracksToPlaylistInput {
+  """Album from which to take the tracks to add"""
+  albumId: String!
+
+  """Playlist the tracks are added to"""
+  destinationPlaylistId: String!
+}
+
+union AppendAlbumTracksToPlaylistResult = AppendAlbumTracksToPlaylistOutput | AppendAlbumTracksToPlaylistError
+
+type AppendAlbumTracksToPlaylistOutput {
+  """
+  The track ids that were added
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  addedTrackIds: [String!]!
+
+  """
+  The tracks ids that were not added because already present in the playlist
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  duplicatedTrackIds: [String!]!
+
+  """
+  The tracks ids that were not added because playlist limit was reached
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  beyondLimitTrackIds: [String!]!
+}
+
+type AppendAlbumTracksToPlaylistError {
+  """
+  Indicates if the album was not found
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  albumNotFound: Boolean!
+
+  """
+  Indicates if the playlist was not found
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  playlistNotFound: Boolean!
+
+  """
+  Indicates if the user is not allowed to add tracks
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  isNotAllowed: Boolean!
+
+  """
+  Indicates if an unknown error occurred
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  unknownError: Boolean!
 }
 
 input ChangeEmailAddressInput {
