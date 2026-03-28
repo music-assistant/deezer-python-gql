@@ -26,6 +26,7 @@ query GetAlbum($albumId: String!) {
     isExplicit
     isTakenDown
     isFavorite
+    copyright
     fallback {
       id
       displayTitle

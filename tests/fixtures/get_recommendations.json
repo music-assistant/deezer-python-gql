@@ -20,7 +20,9 @@
                 "owner": {
                   "id": "2529",
                   "name": "Deezer Editor"
-                }
+                },
+                "isFavorite": false,
+                "description": null
               }
             }
           ],
@@ -47,7 +49,9 @@
                 "owner": {
                   "id": "2529",
                   "name": "Deezer Editor"
-                }
+                },
+                "isFavorite": false,
+                "description": null
               }
             },
             {
@@ -66,7 +70,9 @@
                 "owner": {
                   "id": "2529",
                   "name": "Deezer Editor"
-                }
+                },
+                "isFavorite": false,
+                "description": null
               }
             }
           ],
@@ -102,7 +108,10 @@
                   ]
                 },
                 "releaseDate": "2026-02-20",
-                "isExplicit": false
+                "isExplicit": false,
+                "isFavorite": false,
+                "label": null,
+                "copyright": null
               }
             }
           ],
@@ -125,7 +134,9 @@
                     "https://cdn-images.deezer.com/images/artist/1146/264x264.jpg"
                   ]
                 },
-                "fansCount": 1800000
+                "fansCount": 1800000,
+                "isFavorite": false,
+                "bio": null
               }
             }
           ],
@@ -159,7 +170,9 @@
             "contributors": {
               "edges": [
                 {
-                  "roles": ["MAIN"],
+                  "roles": [
+                    "MAIN"
+                  ],
                   "node": {
                     "__typename": "Artist",
                     "id": "27",
@@ -167,7 +180,9 @@
                   }
                 }
               ]
-            }
+            },
+            "isFavorite": false,
+            "popularity": null
           }
         ]
       }

@@ -25,7 +25,9 @@
                 "contributors": {
                   "edges": [
                     {
-                      "roles": ["MAIN"],
+                      "roles": [
+                        "MAIN"
+                      ],
                       "node": {
                         "id": "27",
                         "name": "Daft Punk",
@@ -33,7 +35,9 @@
                       }
                     }
                   ]
-                }
+                },
+                "isFavorite": false,
+                "popularity": null
               }
             },
             {
@@ -57,7 +61,9 @@
                 "contributors": {
                   "edges": [
                     {
-                      "roles": ["MAIN"],
+                      "roles": [
+                        "MAIN"
+                      ],
                       "node": {
                         "id": "27",
                         "name": "Daft Punk",
@@ -65,7 +71,9 @@
                       }
                     }
                   ]
-                }
+                },
+                "isFavorite": false,
+                "popularity": null
               }
             },
             {
@@ -89,7 +97,9 @@
                 "contributors": {
                   "edges": [
                     {
-                      "roles": ["MAIN"],
+                      "roles": [
+                        "MAIN"
+                      ],
                       "node": {
                         "id": "27",
                         "name": "Daft Punk",
@@ -97,7 +107,9 @@
                       }
                     }
                   ]
-                }
+                },
+                "isFavorite": false,
+                "popularity": null
               }
             }
           ],
@@ -132,7 +144,10 @@
                   ]
                 },
                 "releaseDate": "2013-05-17T00:00:00.000Z",
-                "isExplicit": false
+                "isExplicit": false,
+                "isFavorite": false,
+                "label": null,
+                "copyright": null
               }
             },
             {
@@ -159,7 +174,10 @@
                   ]
                 },
                 "releaseDate": "2001-03-07T00:00:00.000Z",
-                "isExplicit": false
+                "isExplicit": false,
+                "isFavorite": false,
+                "label": null,
+                "copyright": null
               }
             },
             {
@@ -186,7 +204,10 @@
                   ]
                 },
                 "releaseDate": "1997-01-17T00:00:00.000Z",
-                "isExplicit": false
+                "isExplicit": false,
+                "isFavorite": false,
+                "label": null,
+                "copyright": null
               }
             }
           ],
@@ -209,7 +230,9 @@
                   ]
                 },
                 "fansCount": 5114536,
-                "__typename": "Artist"
+                "__typename": "Artist",
+                "isFavorite": false,
+                "bio": null
               }
             },
             {
@@ -224,7 +247,9 @@
                   ]
                 },
                 "fansCount": 8393,
-                "__typename": "Artist"
+                "__typename": "Artist",
+                "isFavorite": false,
+                "bio": null
               }
             },
             {
@@ -239,7 +264,9 @@
                   ]
                 },
                 "fansCount": 49,
-                "__typename": "Artist"
+                "__typename": "Artist",
+                "isFavorite": false,
+                "bio": null
               }
             }
           ],
@@ -265,7 +292,9 @@
                 "owner": {
                   "id": "9876543210",
                   "name": "Deezer Editor"
-                }
+                },
+                "isFavorite": false,
+                "description": null
               }
             },
             {
@@ -283,7 +312,9 @@
                 "owner": {
                   "id": "9876543211",
                   "name": "Deezer User"
-                }
+                },
+                "isFavorite": false,
+                "description": null
               }
             }
           ],

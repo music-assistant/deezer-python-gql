@@ -29,7 +29,9 @@
             "contributors": {
               "edges": [
                 {
-                  "roles": ["MAIN"],
+                  "roles": [
+                    "MAIN"
+                  ],
                   "node": {
                     "__typename": "Artist",
                     "id": "27",
@@ -37,10 +39,20 @@
                   }
                 }
               ]
-            }
+            },
+            "isFavorite": false,
+            "popularity": null
           }
         }
-      ]
+      ],
+      "visuals": {
+        "hardwareSquareIcon": {
+          "id": "flow_config_icon_1",
+          "urls": [
+            "https://e-cdns-images.dzcdn.net/images/flow_config/test/264x264.jpg"
+          ]
+        }
+      }
     }
   }
 }

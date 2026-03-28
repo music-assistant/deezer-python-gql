@@ -30,7 +30,9 @@
                 "contributors": {
                   "edges": [
                     {
-                      "roles": ["MAIN"],
+                      "roles": [
+                        "MAIN"
+                      ],
                       "node": {
                         "__typename": "Artist",
                         "id": "11024061",
@@ -38,7 +40,9 @@
                       }
                     }
                   ]
-                }
+                },
+                "isFavorite": false,
+                "popularity": null
               }
             }
           ],
@@ -74,7 +78,10 @@
                   ]
                 },
                 "releaseDate": "2024-08-23",
-                "isExplicit": true
+                "isExplicit": true,
+                "isFavorite": false,
+                "label": null,
+                "copyright": null
               }
             }
           ],
@@ -97,7 +104,9 @@
                     "https://cdn-images.deezer.com/images/artist/11024061/264x264.jpg"
                   ]
                 },
-                "fansCount": 2500000
+                "fansCount": 2500000,
+                "isFavorite": false,
+                "bio": null
               }
             }
           ],
@@ -124,7 +133,9 @@
                 "owner": {
                   "id": "2529",
                   "name": "Deezer Editor"
-                }
+                },
+                "isFavorite": false,
+                "description": null
               }
             }
           ],

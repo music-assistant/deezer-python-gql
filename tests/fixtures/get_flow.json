@@ -36,7 +36,9 @@
               "contributors": {
                 "edges": [
                   {
-                    "roles": ["MAIN"],
+                    "roles": [
+                      "MAIN"
+                    ],
                     "node": {
                       "__typename": "Artist",
                       "id": "27",
@@ -44,7 +46,9 @@
                     }
                   }
                 ]
-              }
+              },
+              "isFavorite": false,
+              "popularity": null
             }
           },
           {
@@ -72,7 +76,9 @@
               "contributors": {
                 "edges": [
                   {
-                    "roles": ["MAIN"],
+                    "roles": [
+                      "MAIN"
+                    ],
                     "node": {
                       "__typename": "Artist",
                       "id": "27",
@@ -80,7 +86,9 @@
                     }
                   },
                   {
-                    "roles": ["FEATURED"],
+                    "roles": [
+                      "FEATURED"
+                    ],
                     "node": {
                       "__typename": "Artist",
                       "id": "293585",
@@ -88,7 +96,9 @@
                     }
                   }
                 ]
-              }
+              },
+              "isFavorite": false,
+              "popularity": null
             }
           }
         ]

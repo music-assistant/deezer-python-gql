@@ -1,7 +1,10 @@
 {
   "data": {
     "createPlaylist": {
-      "playlist": { "id": "1000000001", "title": "New Playlist" }
+      "playlist": {
+        "id": "1000000001",
+        "title": "New Playlist"
+      }
     }
   }
 }

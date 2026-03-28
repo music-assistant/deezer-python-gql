@@ -29,7 +29,10 @@
                   ]
                 },
                 "releaseDate": "2001-03-12",
-                "isExplicit": false
+                "isExplicit": false,
+                "isFavorite": false,
+                "label": null,
+                "copyright": null
               },
               "favoritedAt": "2025-06-15"
             }

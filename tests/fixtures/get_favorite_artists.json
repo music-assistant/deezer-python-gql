@@ -16,7 +16,9 @@
                     "https://cdn-images.deezer.com/images/artist/27/264x264.jpg"
                   ]
                 },
-                "fansCount": 18000000
+                "fansCount": 18000000,
+                "isFavorite": false,
+                "bio": null
               },
               "favoritedAt": "2025-06-15"
             },
@@ -32,7 +34,9 @@
                     "https://cdn-images.deezer.com/images/artist/1146/264x264.jpg"
                   ]
                 },
-                "fansCount": 1800000
+                "fansCount": 1800000,
+                "isFavorite": false,
+                "bio": null
               },
               "favoritedAt": "2025-06-15"
             }

@@ -1,7 +1,10 @@
 {
   "data": {
     "removeArtistFromFavorite": {
-      "artist": { "id": "100000001", "name": "Test Artist" }
+      "artist": {
+        "id": "100000001",
+        "name": "Test Artist"
+      }
     }
   }
 }

@@ -17,6 +17,9 @@ class AlbumFields(BaseModel):
     contributors: "AlbumFieldsContributors"
     release_date: Optional[Any] = Field(alias="releaseDate")
     is_explicit: Optional[bool] = Field(alias="isExplicit")
+    is_favorite: Optional[bool] = Field(alias="isFavorite")
+    label: Optional[str]
+    copyright: Optional[str]
 
 
 class AlbumFieldsCover(BaseModel):
@@ -45,11 +48,17 @@ class ArtistFields(BaseModel):
     name: str
     picture: Optional["ArtistFieldsPicture"]
     fans_count: int = Field(alias="fansCount")
+    is_favorite: Optional[bool] = Field(alias="isFavorite")
+    bio: Optional["ArtistFieldsBio"]
 
 
 class ArtistFieldsPicture(BaseModel):
     id: str
     urls: list[str]
+
+
+class ArtistFieldsBio(BaseModel):
+    summary: Optional[str]
 
 
 class PageInfoFields(BaseModel):
@@ -62,6 +71,8 @@ class PlaylistFields(BaseModel):
     title: str
     picture: Optional["PlaylistFieldsPicture"]
     estimated_tracks_count: int = Field(alias="estimatedTracksCount")
+    is_favorite: Optional[bool] = Field(alias="isFavorite")
+    description: Optional[str]
     owner: Optional["PlaylistFieldsOwner"]
 
 
@@ -82,6 +93,8 @@ class TrackFields(BaseModel):
     disk_info: Optional["TrackFieldsDiskInfo"] = Field(alias="diskInfo")
     duration: int
     is_explicit: bool = Field(alias="isExplicit")
+    is_favorite: Optional[bool] = Field(alias="isFavorite")
+    popularity: Optional[float]
     album: Optional["TrackFieldsAlbum"]
     contributors: "TrackFieldsContributors"
 

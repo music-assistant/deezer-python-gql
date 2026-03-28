@@ -28,6 +28,12 @@ query GetRecentlyPlayed($first: Int = 20) {
           ... on FlowConfig {
             id
             title
+            visuals {
+              hardwareSquareIcon {
+                id
+                urls(uiAssetRequest: { width: 264, height: 264 })
+              }
+            }
           }
         }
       }

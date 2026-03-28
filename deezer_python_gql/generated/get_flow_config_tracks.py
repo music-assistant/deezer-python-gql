@@ -16,7 +16,19 @@ class GetFlowConfigTracks(BaseModel):
 class GetFlowConfigTracksFlowConfig(BaseModel):
     id: str
     title: str
+    visuals: "GetFlowConfigTracksFlowConfigVisuals"
     tracks: list["GetFlowConfigTracksFlowConfigTracks"]
+
+
+class GetFlowConfigTracksFlowConfigVisuals(BaseModel):
+    hardware_square_icon: Optional[
+        "GetFlowConfigTracksFlowConfigVisualsHardwareSquareIcon"
+    ] = Field(alias="hardwareSquareIcon")
+
+
+class GetFlowConfigTracksFlowConfigVisualsHardwareSquareIcon(BaseModel):
+    id: str
+    urls: list[str]
 
 
 class GetFlowConfigTracksFlowConfigTracks(BaseModel):
@@ -29,4 +41,5 @@ class GetFlowConfigTracksFlowConfigTracksTrack(TrackFields):
 
 GetFlowConfigTracks.model_rebuild()
 GetFlowConfigTracksFlowConfig.model_rebuild()
+GetFlowConfigTracksFlowConfigVisuals.model_rebuild()
 GetFlowConfigTracksFlowConfigTracks.model_rebuild()

@@ -1,7 +1,10 @@
 {
   "data": {
     "addAlbumToFavorite": {
-      "album": { "id": "100000001", "displayTitle": "Test Album" }
+      "album": {
+        "id": "100000001",
+        "displayTitle": "Test Album"
+      }
     }
   }
 }

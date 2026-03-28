@@ -1,7 +1,10 @@
 {
   "data": {
     "removeTracksFromPlaylist": {
-      "removedTrackIds": ["100000001", "100000002"]
+      "removedTrackIds": [
+        "100000001",
+        "100000002"
+      ]
     }
   }
 }

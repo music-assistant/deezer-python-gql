@@ -15,6 +15,8 @@ fragment TrackFields on Track {
   }
   duration
   isExplicit
+  isFavorite
+  popularity
   album {
     id
     displayTitle
@@ -47,6 +49,10 @@ fragment ArtistFields on Artist {
     urls(pictureRequest: { width: 264, height: 264 })
   }
   fansCount
+  isFavorite
+  bio {
+    summary
+  }
 }
 
 # ---------------------------------------------------------------------------
@@ -72,6 +78,9 @@ fragment AlbumFields on Album {
   }
   releaseDate
   isExplicit
+  isFavorite
+  label
+  copyright
 }
 
 # ---------------------------------------------------------------------------
@@ -85,6 +94,8 @@ fragment PlaylistFields on Playlist {
     urls(pictureRequest: { width: 264, height: 264 })
   }
   estimatedTracksCount
+  isFavorite
+  description
   owner {
     id
     name

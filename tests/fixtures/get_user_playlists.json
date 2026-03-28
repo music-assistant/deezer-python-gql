@@ -15,12 +15,20 @@
                 ]
               },
               "estimatedTracksCount": 42,
-              "owner": { "id": "100000001", "name": "TestUser" },
-              "__typename": "Playlist"
+              "owner": {
+                "id": "100000001",
+                "name": "TestUser"
+              },
+              "__typename": "Playlist",
+              "isFavorite": false,
+              "description": null
             }
           }
         ],
-        "pageInfo": { "hasNextPage": false, "endCursor": "abc123" }
+        "pageInfo": {
+          "hasNextPage": false,
+          "endCursor": "abc123"
+        }
       }
     }
   }

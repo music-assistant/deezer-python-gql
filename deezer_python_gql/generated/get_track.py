@@ -21,6 +21,7 @@ class GetTrackTrack(BaseModel):
     duration: int
     is_explicit: bool = Field(alias="isExplicit")
     is_atmos: bool = Field(alias="isAtmos")
+    popularity: Optional[float]
     release_date: Optional[Any] = Field(alias="releaseDate")
     album: Optional["GetTrackTrackAlbum"]
     contributors: "GetTrackTrackContributors"

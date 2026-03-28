@@ -294,6 +294,7 @@ class DeezerGQLClient(DeezerBaseClient):
                 isExplicit
                 isTakenDown
                 isFavorite
+                copyright
                 fallback {
                   id
                   displayTitle
@@ -518,6 +519,9 @@ class DeezerGQLClient(DeezerBaseClient):
               }
               releaseDate
               isExplicit
+              isFavorite
+              label
+              copyright
             }
 
             fragment ArtistFields on Artist {
@@ -528,6 +532,10 @@ class DeezerGQLClient(DeezerBaseClient):
                 urls(pictureRequest: {width: 264, height: 264})
               }
               fansCount
+              isFavorite
+              bio {
+                summary
+              }
             }
 
             fragment PageInfoFields on PageInfo {
@@ -543,6 +551,8 @@ class DeezerGQLClient(DeezerBaseClient):
                 urls(pictureRequest: {width: 264, height: 264})
               }
               estimatedTracksCount
+              isFavorite
+              description
               owner {
                 id
                 name
@@ -559,6 +569,8 @@ class DeezerGQLClient(DeezerBaseClient):
               }
               duration
               isExplicit
+              isFavorite
+              popularity
               album {
                 id
                 displayTitle
@@ -639,6 +651,9 @@ class DeezerGQLClient(DeezerBaseClient):
               }
               releaseDate
               isExplicit
+              isFavorite
+              label
+              copyright
             }
 
             fragment PageInfoFields on PageInfo {
@@ -690,6 +705,10 @@ class DeezerGQLClient(DeezerBaseClient):
                 urls(pictureRequest: {width: 264, height: 264})
               }
               fansCount
+              isFavorite
+              bio {
+                summary
+              }
             }
 
             fragment PageInfoFields on PageInfo {
@@ -746,6 +765,8 @@ class DeezerGQLClient(DeezerBaseClient):
                 urls(pictureRequest: {width: 264, height: 264})
               }
               estimatedTracksCount
+              isFavorite
+              description
               owner {
                 id
                 name
@@ -803,6 +824,8 @@ class DeezerGQLClient(DeezerBaseClient):
               }
               duration
               isExplicit
+              isFavorite
+              popularity
               album {
                 id
                 displayTitle
@@ -864,6 +887,8 @@ class DeezerGQLClient(DeezerBaseClient):
               }
               duration
               isExplicit
+              isFavorite
+              popularity
               album {
                 id
                 displayTitle
@@ -900,6 +925,12 @@ class DeezerGQLClient(DeezerBaseClient):
               flowConfig(flowConfigId: $flowConfigId) {
                 id
                 title
+                visuals {
+                  hardwareSquareIcon {
+                    id
+                    urls(uiAssetRequest: {width: 264, height: 264})
+                  }
+                }
                 tracks {
                   track {
                     ...TrackFields
@@ -918,6 +949,8 @@ class DeezerGQLClient(DeezerBaseClient):
               }
               duration
               isExplicit
+              isFavorite
+              popularity
               album {
                 id
                 displayTitle
@@ -1181,6 +1214,12 @@ class DeezerGQLClient(DeezerBaseClient):
                       ... on FlowConfig {
                         id
                         title
+                        visuals {
+                          hardwareSquareIcon {
+                            id
+                            urls(uiAssetRequest: {width: 264, height: 264})
+                          }
+                        }
                       }
                     }
                   }
@@ -1211,6 +1250,9 @@ class DeezerGQLClient(DeezerBaseClient):
               }
               releaseDate
               isExplicit
+              isFavorite
+              label
+              copyright
             }
 
             fragment ArtistFields on Artist {
@@ -1221,6 +1263,10 @@ class DeezerGQLClient(DeezerBaseClient):
                 urls(pictureRequest: {width: 264, height: 264})
               }
               fansCount
+              isFavorite
+              bio {
+                summary
+              }
             }
 
             fragment PageInfoFields on PageInfo {
@@ -1236,6 +1282,8 @@ class DeezerGQLClient(DeezerBaseClient):
                 urls(pictureRequest: {width: 264, height: 264})
               }
               estimatedTracksCount
+              isFavorite
+              description
               owner {
                 id
                 name
@@ -1336,6 +1384,9 @@ class DeezerGQLClient(DeezerBaseClient):
               }
               releaseDate
               isExplicit
+              isFavorite
+              label
+              copyright
             }
 
             fragment ArtistFields on Artist {
@@ -1346,6 +1397,10 @@ class DeezerGQLClient(DeezerBaseClient):
                 urls(pictureRequest: {width: 264, height: 264})
               }
               fansCount
+              isFavorite
+              bio {
+                summary
+              }
             }
 
             fragment PageInfoFields on PageInfo {
@@ -1361,6 +1416,8 @@ class DeezerGQLClient(DeezerBaseClient):
                 urls(pictureRequest: {width: 264, height: 264})
               }
               estimatedTracksCount
+              isFavorite
+              description
               owner {
                 id
                 name
@@ -1377,6 +1434,8 @@ class DeezerGQLClient(DeezerBaseClient):
               }
               duration
               isExplicit
+              isFavorite
+              popularity
               album {
                 id
                 displayTitle
@@ -1459,6 +1518,8 @@ class DeezerGQLClient(DeezerBaseClient):
               }
               duration
               isExplicit
+              isFavorite
+              popularity
               album {
                 id
                 displayTitle
@@ -1507,6 +1568,7 @@ class DeezerGQLClient(DeezerBaseClient):
                 duration
                 isExplicit
                 isAtmos
+                popularity
                 releaseDate
                 album {
                   id
@@ -1640,6 +1702,9 @@ class DeezerGQLClient(DeezerBaseClient):
               }
               releaseDate
               isExplicit
+              isFavorite
+              label
+              copyright
             }
 
             fragment ArtistFields on Artist {
@@ -1650,6 +1715,10 @@ class DeezerGQLClient(DeezerBaseClient):
                 urls(pictureRequest: {width: 264, height: 264})
               }
               fansCount
+              isFavorite
+              bio {
+                summary
+              }
             }
 
             fragment PageInfoFields on PageInfo {
@@ -1667,6 +1736,8 @@ class DeezerGQLClient(DeezerBaseClient):
               }
               duration
               isExplicit
+              isFavorite
+              popularity
               album {
                 id
                 displayTitle
@@ -1735,6 +1806,8 @@ class DeezerGQLClient(DeezerBaseClient):
                 urls(pictureRequest: {width: 264, height: 264})
               }
               estimatedTracksCount
+              isFavorite
+              description
               owner {
                 id
                 name
@@ -1911,6 +1984,8 @@ class DeezerGQLClient(DeezerBaseClient):
                         ISRC
                         duration
                         isExplicit
+                        isFavorite
+                        popularity
                         album {
                           id
                           displayTitle
@@ -1962,6 +2037,9 @@ class DeezerGQLClient(DeezerBaseClient):
                         }
                         releaseDate
                         isExplicit
+                        isFavorite
+                        label
+                        copyright
                       }
                     }
                     pageInfo {
@@ -1980,6 +2058,10 @@ class DeezerGQLClient(DeezerBaseClient):
                           urls(pictureRequest: {width: 264, height: 264})
                         }
                         fansCount
+                        isFavorite
+                        bio {
+                          summary
+                        }
                       }
                     }
                     pageInfo {
@@ -1998,6 +2080,8 @@ class DeezerGQLClient(DeezerBaseClient):
                           urls(pictureRequest: {width: 264, height: 264})
                         }
                         estimatedTracksCount
+                        isFavorite
+                        description
                         owner {
                           id
                           name

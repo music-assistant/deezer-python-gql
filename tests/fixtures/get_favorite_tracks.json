@@ -40,7 +40,9 @@
                       }
                     }
                   ]
-                }
+                },
+                "isFavorite": false,
+                "popularity": null
               },
               "favoritedAt": "2025-06-15"
             }

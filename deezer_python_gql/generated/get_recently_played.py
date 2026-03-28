@@ -73,6 +73,20 @@ class GetRecentlyPlayedMeRecentlyPlayedEdgesNodeFlowConfig(BaseModel):
     typename__: Literal["FlowConfig"] = Field(alias="__typename")
     id: str
     title: str
+    visuals: "GetRecentlyPlayedMeRecentlyPlayedEdgesNodeFlowConfigVisuals"
+
+
+class GetRecentlyPlayedMeRecentlyPlayedEdgesNodeFlowConfigVisuals(BaseModel):
+    hardware_square_icon: Optional[
+        "GetRecentlyPlayedMeRecentlyPlayedEdgesNodeFlowConfigVisualsHardwareSquareIcon"
+    ] = Field(alias="hardwareSquareIcon")
+
+
+class GetRecentlyPlayedMeRecentlyPlayedEdgesNodeFlowConfigVisualsHardwareSquareIcon(
+    BaseModel
+):
+    id: str
+    urls: list[str]
 
 
 class GetRecentlyPlayedMeRecentlyPlayedEdgesNodeLivestream(BaseModel):
@@ -92,3 +106,5 @@ GetRecentlyPlayedMe.model_rebuild()
 GetRecentlyPlayedMeRecentlyPlayed.model_rebuild()
 GetRecentlyPlayedMeRecentlyPlayedEdges.model_rebuild()
 GetRecentlyPlayedMeRecentlyPlayedEdgesNodeFlow.model_rebuild()
+GetRecentlyPlayedMeRecentlyPlayedEdgesNodeFlowConfig.model_rebuild()
+GetRecentlyPlayedMeRecentlyPlayedEdgesNodeFlowConfigVisuals.model_rebuild()

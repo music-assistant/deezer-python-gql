@@ -20,7 +20,9 @@
                 "owner": {
                   "id": "2529",
                   "name": "Deezer Editor"
-                }
+                },
+                "isFavorite": false,
+                "description": null
               },
               "favoritedAt": "2025-06-15"
             }
