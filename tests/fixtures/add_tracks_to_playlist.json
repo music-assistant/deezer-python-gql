@@ -1,1 +1,8 @@
-{"data": {"addTracksToPlaylist": {"__typename": "PlaylistAddTracksOutput", "addedTrackIds": ["100000001", "100000002"]}}}
+{
+  "data": {
+    "addTracksToPlaylist": {
+      "__typename": "PlaylistAddTracksOutput",
+      "addedTrackIds": ["100000001", "100000002"]
+    }
+  }
+}

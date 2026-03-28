@@ -1,1 +1,7 @@
-{"data": {"updatePlaylist": {"playlist": {"id": "1000000001", "title": "Updated Playlist"}}}}
+{
+  "data": {
+    "updatePlaylist": {
+      "playlist": { "id": "1000000001", "title": "Updated Playlist" }
+    }
+  }
+}

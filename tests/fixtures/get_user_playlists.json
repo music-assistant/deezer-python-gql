@@ -1,1 +1,27 @@
-{"data": {"me": {"playlists": {"edges": [{"cursor": "abc123", "node": {"id": "1000000001", "title": "My Playlist", "picture": {"id": "pic123", "urls": ["https://e-cdns-images.dzcdn.net/images/playlist/pic123/264x264.jpg"]}, "estimatedTracksCount": 42, "owner": {"id": "100000001", "name": "TestUser"}, "__typename": "Playlist"}}], "pageInfo": {"hasNextPage": false, "endCursor": "abc123"}}}}}
+{
+  "data": {
+    "me": {
+      "playlists": {
+        "edges": [
+          {
+            "cursor": "abc123",
+            "node": {
+              "id": "1000000001",
+              "title": "My Playlist",
+              "picture": {
+                "id": "pic123",
+                "urls": [
+                  "https://e-cdns-images.dzcdn.net/images/playlist/pic123/264x264.jpg"
+                ]
+              },
+              "estimatedTracksCount": 42,
+              "owner": { "id": "100000001", "name": "TestUser" },
+              "__typename": "Playlist"
+            }
+          }
+        ],
+        "pageInfo": { "hasNextPage": false, "endCursor": "abc123" }
+      }
+    }
+  }
+}

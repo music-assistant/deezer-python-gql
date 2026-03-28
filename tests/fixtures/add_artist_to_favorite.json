@@ -1,1 +1,7 @@
-{"data": {"addArtistToFavorite": {"artist": {"id": "100000001", "name": "Test Artist"}}}}
+{
+  "data": {
+    "addArtistToFavorite": {
+      "artist": { "id": "100000001", "name": "Test Artist" }
+    }
+  }
+}

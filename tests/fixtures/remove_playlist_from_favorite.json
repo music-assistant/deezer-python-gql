@@ -1,1 +1,7 @@
-{"data": {"removePlaylistFromFavorite": {"playlist": {"id": "1000000001", "title": "Test Playlist"}}}}
+{
+  "data": {
+    "removePlaylistFromFavorite": {
+      "playlist": { "id": "1000000001", "title": "Test Playlist" }
+    }
+  }
+}
