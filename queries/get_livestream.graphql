@@ -1,0 +1,5 @@
+query GetLivestream($livestreamId: String!) {
+  livestream(livestreamId: $livestreamId) {
+    ...LivestreamFields
+  }
+}

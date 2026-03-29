@@ -38,6 +38,7 @@ from .get_favorite_tracks import GetFavoriteTracks, GetFavoriteTracksMe
 from .get_flow import GetFlow, GetFlowMe
 from .get_flow_config_tracks import GetFlowConfigTracks, GetFlowConfigTracksFlowConfig
 from .get_flow_configs import GetFlowConfigs, GetFlowConfigsMe
+from .get_livestream import GetLivestream, GetLivestreamLivestream
 from .get_made_for_me import GetMadeForMe, GetMadeForMeMe
 from .get_me import GetMe, GetMeMe
 from .get_playlist import GetPlaylist, GetPlaylistPlaylist
@@ -1107,6 +1108,43 @@ class DeezerGQLClient(DeezerBaseClient):
         data = self.get_data(response)
         return GetFlowConfigs.model_validate(data).me
 
+    async def get_livestream(
+        self, livestream_id: str, **kwargs: Any
+    ) -> Optional[GetLivestreamLivestream]:
+        query = gql("""
+            query GetLivestream($livestreamId: String!) {
+              livestream(livestreamId: $livestreamId) {
+                ...LivestreamFields
+              }
+            }
+
+            fragment LivestreamFields on Livestream {
+              id
+              name
+              language
+              description
+              isOnStream
+              country
+              cover {
+                id
+                urls(pictureRequest: {width: 264, height: 264})
+              }
+              media {
+                url
+                codec {
+                  type
+                  bitrate
+                }
+              }
+            }
+            """)
+        variables: dict[str, object] = {"livestreamId": livestream_id}
+        response = await self.execute(
+            query=query, operation_name="GetLivestream", variables=variables, **kwargs
+        )
+        data = self.get_data(response)
+        return GetLivestream.model_validate(data).livestream
+
     async def get_made_for_me(
         self, first: Union[Optional[int], UnsetType] = UNSET, **kwargs: Any
     ) -> Optional[GetMadeForMeMe]:
@@ -2055,10 +2093,11 @@ class DeezerGQLClient(DeezerBaseClient):
         albums_first: Union[Optional[int], UnsetType] = UNSET,
         artists_first: Union[Optional[int], UnsetType] = UNSET,
         playlists_first: Union[Optional[int], UnsetType] = UNSET,
+        livestreams_first: Union[Optional[int], UnsetType] = UNSET,
         **kwargs: Any
     ) -> Optional[SearchSearch]:
         _query = gql("""
-            query Search($query: String!, $tracksFirst: Int = 20, $albumsFirst: Int = 20, $artistsFirst: Int = 20, $playlistsFirst: Int = 10) {
+            query Search($query: String!, $tracksFirst: Int = 20, $albumsFirst: Int = 20, $artistsFirst: Int = 20, $playlistsFirst: Int = 10, $livestreamsFirst: Int = 0) {
               search(query: $query) {
                 results {
                   tracks(first: $tracksFirst) {
@@ -2099,6 +2138,17 @@ class DeezerGQLClient(DeezerBaseClient):
                       cursor
                       node {
                         ...PlaylistFields
+                      }
+                    }
+                    pageInfo {
+                      ...PageInfoFields
+                    }
+                  }
+                  livestreams(first: $livestreamsFirst) {
+                    edges {
+                      cursor
+                      node {
+                        ...LivestreamFields
                       }
                     }
                     pageInfo {
@@ -2147,6 +2197,26 @@ class DeezerGQLClient(DeezerBaseClient):
               bio {
                 summary
                 full
+              }
+            }
+
+            fragment LivestreamFields on Livestream {
+              id
+              name
+              language
+              description
+              isOnStream
+              country
+              cover {
+                id
+                urls(pictureRequest: {width: 264, height: 264})
+              }
+              media {
+                url
+                codec {
+                  type
+                  bitrate
+                }
               }
             }
 
@@ -2211,6 +2281,7 @@ class DeezerGQLClient(DeezerBaseClient):
             "albumsFirst": albums_first,
             "artistsFirst": artists_first,
             "playlistsFirst": playlists_first,
+            "livestreamsFirst": livestreams_first,
         }
         response = await self.execute(
             query=_query, operation_name="Search", variables=variables, **kwargs

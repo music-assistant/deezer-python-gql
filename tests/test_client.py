@@ -43,6 +43,7 @@ from deezer_python_gql.generated.get_favorite_tracks import GetFavoriteTracks
 from deezer_python_gql.generated.get_flow import GetFlow
 from deezer_python_gql.generated.get_flow_config_tracks import GetFlowConfigTracks
 from deezer_python_gql.generated.get_flow_configs import GetFlowConfigs
+from deezer_python_gql.generated.get_livestream import GetLivestream
 from deezer_python_gql.generated.get_made_for_me import GetMadeForMe
 from deezer_python_gql.generated.get_me import GetMe
 from deezer_python_gql.generated.get_playlist import GetPlaylist
@@ -145,6 +146,7 @@ def test_client_has_generated_methods() -> None:
         "get_favorite_albums",
         "get_favorite_tracks",
         "get_favorite_playlists",
+        "get_livestream",
         "search_flows",
         "get_user_charts",
         "get_user_playlists",
@@ -468,6 +470,9 @@ def test_smoke_search() -> None:
     assert len(results.albums.edges) > 0
     assert len(results.artists.edges) > 0
     assert len(results.playlists.edges) > 0
+    assert len(results.livestreams.edges) > 0
+    assert results.livestreams.edges[0].node is not None
+    assert results.livestreams.edges[0].node.name == "Deezer Pop"
     assert isinstance(results.tracks.page_info.has_next_page, bool)
 
 
@@ -835,3 +840,21 @@ def test_smoke_remove_tracks_from_playlist() -> None:
     data = _load_fixture("remove_tracks_from_playlist.json")
     result = RemoveTracksFromPlaylist.model_validate(data)
     assert result.remove_tracks_from_playlist.removed_track_ids == ["100000001", "100000002"]
+
+
+def test_smoke_get_livestream() -> None:
+    """Verify GetLivestream fixture parses with fields and media URLs."""
+    data = _load_fixture("get_livestream.json")
+    result = GetLivestream.model_validate(data)
+    ls = result.livestream
+    assert ls is not None
+    assert ls.id == "12345"
+    assert ls.name == "Deezer Pop"
+    assert ls.is_on_stream is True
+    assert ls.country == "FR"
+    assert len(ls.media) == 2
+    assert ls.media[0].url.startswith("https://")
+    assert ls.media[0].codec is not None
+    assert ls.media[0].codec.type_ == "hls"
+    assert ls.cover is not None
+    assert len(ls.cover.urls) == 1

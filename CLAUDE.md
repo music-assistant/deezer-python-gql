@@ -88,6 +88,7 @@ deezer-python-gql/
 │       ├── get_flow.py          # Response models: user's default Flow
 │       ├── get_flow_configs.py  # Response models: mood & genre flow configs
 │       ├── get_flow_config_tracks.py  # Response models: tracks for a flow config
+│       ├── get_livestream.py    # Response models: livestream (radio station) details
 │       ├── get_made_for_me.py   # Response models: SmartTracklist/Flow items
 │       ├── get_smart_tracklist.py  # Response models: smart tracklist with tracks
 │       ├── get_charts.py        # Response models: country charts
@@ -105,6 +106,7 @@ deezer-python-gql/
 │   ├── get_album.graphql        # GetAlbum: album details with paginated tracks
 │   ├── get_artist.graphql       # GetArtist: artist with top tracks and albums
 │   ├── get_playlist.graphql     # GetPlaylist: playlist with paginated tracks
+│   ├── get_livestream.graphql   # GetLivestream: livestream (radio station) details
 │   ├── search.graphql           # Search: unified search across entity types
 │   ├── search_flows.graphql     # SearchFlows: discover all available Deezer flows via search
 │   ├── get_flow.graphql         # GetFlow: user's default Flow with tracks
@@ -138,6 +140,7 @@ deezer-python-gql/
 │       ├── get_flow.json
 │       ├── get_flow_configs.json
 │       ├── get_flow_config_tracks.json
+│       ├── get_livestream.json
 │       ├── get_made_for_me.json
 │       ├── get_smart_tracklist.json
 │       ├── get_charts.json
@@ -174,13 +177,14 @@ pipe.deezer.com/api   →   schema.json   →   schema.graphql   →   deezer_py
 
 `queries/fragments.graphql` defines reusable field sets shared across multiple queries:
 
-| Fragment         | Used by                                                                                               | Key fields                                                                                      |
-| ---------------- | ----------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
-| `TrackFields`    | search, get_track, get_album, get_artist, get_playlist, flow, flow_config_tracks, smart_tracklist, charts, user_charts, fav_tracks | id, title, ISRC, diskInfo, duration, isExplicit, isFavorite, popularity, album, contributors    |
-| `ArtistFields`   | search, get_artist, charts, user_charts, recommendations, fav_artists, recently_played                | id, name, picture, fansCount, isFavorite, bio (summary + full)                                  |
-| `AlbumFields`    | search, get_album, get_artist, charts, user_charts, recommendations, fav_albums, recently_played      | id, displayTitle, type, cover, contributors, releaseDate, isExplicit, isFavorite, fansCount, label, copyright |
-| `PlaylistFields` | search, get_playlist, charts, recommendations, fav_playlists, recently_played                         | id, title, picture, estimatedTracksCount, fansCount, isFavorite, description, owner             |
-| `PageInfoFields` | All paginated queries                                                                                 | hasNextPage, endCursor                                                                          |
+| Fragment           | Used by                                                                                                                            | Key fields                                                                                                    |
+| ------------------ | ---------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| `TrackFields`      | search, get_track, get_album, get_artist, get_playlist, flow, flow_config_tracks, smart_tracklist, charts, user_charts, fav_tracks | id, title, ISRC, diskInfo, duration, isExplicit, isFavorite, popularity, album, contributors                  |
+| `ArtistFields`     | search, get_artist, charts, user_charts, recommendations, fav_artists, recently_played                                             | id, name, picture, fansCount, isFavorite, bio (summary + full)                                                |
+| `AlbumFields`      | search, get_album, get_artist, charts, user_charts, recommendations, fav_albums, recently_played                                   | id, displayTitle, type, cover, contributors, releaseDate, isExplicit, isFavorite, fansCount, label, copyright |
+| `PlaylistFields`   | search, get_playlist, charts, recommendations, fav_playlists, recently_played                                                      | id, title, picture, estimatedTracksCount, fansCount, isFavorite, description, owner                           |
+| `LivestreamFields` | search, get_livestream                                                                                                             | id, name, language, description, isOnStream, country, cover, media (url + codec)                              |
+| `PageInfoFields`   | All paginated queries                                                                                                              | hasNextPage, endCursor                                                                                        |
 
 **All entity queries use shared fragments.** Every query that returns tracks, albums, artists, or playlists uses the corresponding fragment via `...TrackFields` etc. Some queries (e.g., `get_track.graphql`, `get_album.graphql`) extend the fragment with additional fields like `media`, `lyrics`, `url`, or `tracksCount`.
 
@@ -329,7 +333,7 @@ Tests are organized into four layers:
 | **Client setup**       | 3     | Import, instantiation with ARL, presence of all 17 generated methods               |
 | **Auth flow** (mocked) | 5     | JWT acquisition, token reuse, refresh on expiry, cookie domain, text/plain parsing |
 | **Error handling**     | 5     | HTTP errors, invalid JSON, missing data key, GraphQL errors, success path          |
-| **Model smoke tests**  | 18    | One per query — fixture parses correctly with key fields accessible                |
+| **Model smoke tests**  | 19    | One per query — fixture parses correctly with key fields accessible                |
 
 ### Auth Flow Tests
 

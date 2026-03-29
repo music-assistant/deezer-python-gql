@@ -9,6 +9,7 @@ from .base_model import BaseModel
 from .fragments import (
     AlbumFields,
     ArtistFields,
+    LivestreamFields,
     PageInfoFields,
     PlaylistFields,
     TrackFields,
@@ -28,6 +29,7 @@ class SearchSearchResults(BaseModel):
     albums: "SearchSearchResultsAlbums"
     artists: "SearchSearchResultsArtists"
     playlists: "SearchSearchResultsPlaylists"
+    livestreams: "SearchSearchResultsLivestreams"
 
 
 class SearchSearchResultsTracks(BaseModel):
@@ -102,6 +104,24 @@ class SearchSearchResultsPlaylistsPageInfo(PageInfoFields):
     pass
 
 
+class SearchSearchResultsLivestreams(BaseModel):
+    edges: list["SearchSearchResultsLivestreamsEdges"]
+    page_info: "SearchSearchResultsLivestreamsPageInfo" = Field(alias="pageInfo")
+
+
+class SearchSearchResultsLivestreamsEdges(BaseModel):
+    cursor: str
+    node: Optional["SearchSearchResultsLivestreamsEdgesNode"]
+
+
+class SearchSearchResultsLivestreamsEdgesNode(LivestreamFields):
+    pass
+
+
+class SearchSearchResultsLivestreamsPageInfo(PageInfoFields):
+    pass
+
+
 Search.model_rebuild()
 SearchSearch.model_rebuild()
 SearchSearchResults.model_rebuild()
@@ -113,3 +133,5 @@ SearchSearchResultsArtists.model_rebuild()
 SearchSearchResultsArtistsEdges.model_rebuild()
 SearchSearchResultsPlaylists.model_rebuild()
 SearchSearchResultsPlaylistsEdges.model_rebuild()
+SearchSearchResultsLivestreams.model_rebuild()
+SearchSearchResultsLivestreamsEdges.model_rebuild()

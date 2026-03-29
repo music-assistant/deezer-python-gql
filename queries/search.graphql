@@ -4,6 +4,7 @@ query Search(
   $albumsFirst: Int = 20
   $artistsFirst: Int = 20
   $playlistsFirst: Int = 10
+  $livestreamsFirst: Int = 0
 ) {
   search(query: $query) {
     results {
@@ -45,6 +46,17 @@ query Search(
           cursor
           node {
             ...PlaylistFields
+          }
+        }
+        pageInfo {
+          ...PageInfoFields
+        }
+      }
+      livestreams(first: $livestreamsFirst) {
+        edges {
+          cursor
+          node {
+            ...LivestreamFields
           }
         }
         pageInfo {

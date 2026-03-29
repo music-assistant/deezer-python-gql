@@ -34,9 +34,7 @@
                 "contributors": {
                   "edges": [
                     {
-                      "roles": [
-                        "MAIN"
-                      ],
+                      "roles": ["MAIN"],
                       "node": {
                         "id": "27",
                         "name": "Daft Punk",
@@ -80,9 +78,7 @@
                 "contributors": {
                   "edges": [
                     {
-                      "roles": [
-                        "MAIN"
-                      ],
+                      "roles": ["MAIN"],
                       "node": {
                         "id": "27",
                         "name": "Daft Punk",
@@ -126,9 +122,7 @@
                 "contributors": {
                   "edges": [
                     {
-                      "roles": [
-                        "MAIN"
-                      ],
+                      "roles": ["MAIN"],
                       "node": {
                         "id": "27",
                         "name": "Daft Punk",
@@ -356,6 +350,40 @@
           "pageInfo": {
             "hasNextPage": true,
             "endCursor": "14821664523"
+          }
+        },
+        "livestreams": {
+          "edges": [
+            {
+              "cursor": "99001",
+              "node": {
+                "id": "99001",
+                "name": "Deezer Pop",
+                "language": "en",
+                "description": "The best pop hits",
+                "isOnStream": true,
+                "country": "FR",
+                "cover": {
+                  "id": "cover_ls_99001",
+                  "urls": [
+                    "https://e-cdns-images.dzcdn.net/images/misc/livestream_pop/264x264.jpg"
+                  ]
+                },
+                "media": [
+                  {
+                    "url": "https://live-hls-web-aja.deezer.com/livestream-99001.m3u8",
+                    "codec": {
+                      "type": "hls",
+                      "bitrate": 128
+                    }
+                  }
+                ]
+              }
+            }
+          ],
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": "99001"
           }
         }
       }

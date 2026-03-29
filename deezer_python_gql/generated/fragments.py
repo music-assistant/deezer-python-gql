@@ -63,6 +63,32 @@ class ArtistFieldsBio(BaseModel):
     full: str
 
 
+class LivestreamFields(BaseModel):
+    id: str
+    name: str
+    language: Optional[str]
+    description: Optional[str]
+    is_on_stream: bool = Field(alias="isOnStream")
+    country: Optional[str]
+    cover: Optional["LivestreamFieldsCover"]
+    media: list["LivestreamFieldsMedia"]
+
+
+class LivestreamFieldsCover(BaseModel):
+    id: str
+    urls: list[str]
+
+
+class LivestreamFieldsMedia(BaseModel):
+    url: str
+    codec: Optional["LivestreamFieldsMediaCodec"]
+
+
+class LivestreamFieldsMediaCodec(BaseModel):
+    type_: str = Field(alias="type")
+    bitrate: int
+
+
 class PageInfoFields(BaseModel):
     has_next_page: bool = Field(alias="hasNextPage")
     end_cursor: Optional[str] = Field(alias="endCursor")
@@ -137,6 +163,7 @@ class TrackFieldsContributorsEdgesNodeArtist(BaseModel):
 
 AlbumFields.model_rebuild()
 ArtistFields.model_rebuild()
+LivestreamFields.model_rebuild()
 PageInfoFields.model_rebuild()
 PlaylistFields.model_rebuild()
 TrackFields.model_rebuild()

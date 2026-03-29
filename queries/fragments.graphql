@@ -106,6 +106,29 @@ fragment PlaylistFields on Playlist {
 }
 
 # ---------------------------------------------------------------------------
+# Livestream — lightweight fields for radio/livestream listings
+# ---------------------------------------------------------------------------
+fragment LivestreamFields on Livestream {
+  id
+  name
+  language
+  description
+  isOnStream
+  country
+  cover {
+    id
+    urls(pictureRequest: { width: 264, height: 264 })
+  }
+  media {
+    url
+    codec {
+      type
+      bitrate
+    }
+  }
+}
+
+# ---------------------------------------------------------------------------
 # PageInfo — standard Relay pagination info
 # ---------------------------------------------------------------------------
 fragment PageInfoFields on PageInfo {
