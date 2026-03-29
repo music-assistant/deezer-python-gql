@@ -83,14 +83,22 @@ deezer-python-gql/
 │       ├── get_album.py         # Response models for GetAlbum query
 │       ├── get_artist.py        # Response models for GetArtist query
 │       ├── get_playlist.py      # Response models for GetPlaylist query
+│       ├── get_livestream.py    # Response models: livestream (radio station) details
+│       ├── get_podcast.py       # Response models: podcast with episodes and rights
+│       ├── get_podcast_episode.py  # Response models: single podcast episode with media
+│       ├── get_audiobook.py     # Response models: audiobook with paginated chapters
+│       ├── get_audiobook_chapter.py  # Response models: audiobook chapter with media
 │       ├── search.py            # Response models for Search query
 │       ├── search_flows.py      # Response models for SearchFlows query
 │       ├── get_flow.py          # Response models: user's default Flow
+│       ├── get_flow_batch.py    # Response models: 4 batched Flow track sets (aliased)
 │       ├── get_flow_configs.py  # Response models: mood & genre flow configs
 │       ├── get_flow_config_tracks.py  # Response models: tracks for a flow config
-│       ├── get_livestream.py    # Response models: livestream (radio station) details
 │       ├── get_made_for_me.py   # Response models: SmartTracklist/Flow items
 │       ├── get_smart_tracklist.py  # Response models: smart tracklist with tracks
+│       ├── get_similar_tracks.py  # Response models: recommended/similar tracks
+│       ├── get_artist_mix.py    # Response models: artist mix tracks
+│       ├── get_track_mix.py     # Response models: track mix tracks
 │       ├── get_charts.py        # Response models: country charts
 │       ├── get_recommendations.py  # Response models: personalized recommendations
 │       ├── get_user_charts.py   # Response models: personal top tracks/artists/albums
@@ -98,7 +106,30 @@ deezer-python-gql/
 │       ├── get_favorite_artists.py  # Response models: favorite artists
 │       ├── get_favorite_albums.py   # Response models: favorite albums
 │       ├── get_favorite_tracks.py   # Response models: favorite tracks
-│       └── get_favorite_playlists.py  # Response models: favorite playlists
+│       ├── get_favorite_playlists.py  # Response models: favorite playlists
+│       ├── get_favorite_podcasts.py  # Response models: favorite podcasts
+│       ├── get_favorite_audiobooks.py  # Response models: favorite audiobook IDs
+│       ├── get_podcast_episode_bookmarks.py  # Response models: podcast bookmarks
+│       ├── get_music_together_groups.py  # Response models: Music Together groups
+│       ├── get_music_together_group.py  # Response models: single Music Together group
+│       ├── get_music_together_affinity.py  # Response models: Music Together affinity
+│       ├── add_*_to_favorite.py  # Mutation models: add artist/album/track/playlist/podcast/audiobook
+│       ├── remove_*_from_favorite.py  # Mutation models: remove favorites
+│       ├── create_playlist.py   # Mutation model: create playlist
+│       ├── update_playlist.py   # Mutation model: update playlist
+│       ├── delete_playlist.py   # Mutation model: delete playlist
+│       ├── add_tracks_to_playlist.py  # Mutation model: add tracks to playlist
+│       ├── remove_tracks_from_playlist.py  # Mutation model: remove tracks from playlist
+│       ├── bookmark_podcast_episode.py  # Mutation model: bookmark episode
+│       ├── unbookmark_podcast_episode.py  # Mutation model: unbookmark episode
+│       ├── mark_as_played_podcast_episode.py  # Mutation model: mark played
+│       ├── mark_as_not_played_podcast_episode.py  # Mutation model: mark not played
+│       ├── music_together_create_group.py  # Mutation model: create Music Together group
+│       ├── music_together_join_group.py  # Mutation model: join group
+│       ├── music_together_leave_group.py  # Mutation model: leave group
+│       ├── music_together_refresh_suggested_tracklist.py  # Mutation model: refresh tracks
+│       ├── music_together_update_group_settings.py  # Mutation model: update settings
+│       └── music_together_generate_group_name.py  # Mutation model: generate name
 ├── queries/                     # GraphQL query/mutation documents (.graphql files)
 │   ├── fragments.graphql        # Shared fragments (TrackFields, ArtistFields, etc.)
 │   ├── get_me.graphql           # GetMe: current authenticated user
@@ -107,13 +138,21 @@ deezer-python-gql/
 │   ├── get_artist.graphql       # GetArtist: artist with top tracks and albums
 │   ├── get_playlist.graphql     # GetPlaylist: playlist with paginated tracks
 │   ├── get_livestream.graphql   # GetLivestream: livestream (radio station) details
+│   ├── get_podcast.graphql      # GetPodcast: podcast with episodes and rights
+│   ├── get_podcast_episode.graphql  # GetPodcastEpisode: episode with media and podcast ref
+│   ├── get_audiobook.graphql    # GetAudiobook: audiobook with paginated chapters
+│   ├── get_audiobook_chapter.graphql  # GetAudiobookChapter: chapter with media token
 │   ├── search.graphql           # Search: unified search across entity types
 │   ├── search_flows.graphql     # SearchFlows: discover all available Deezer flows via search
 │   ├── get_flow.graphql         # GetFlow: user's default Flow with tracks
+│   ├── get_flow_batch.graphql   # GetFlowBatch: 4 batched Flow track sets using aliases
 │   ├── get_flow_configs.graphql # GetFlowConfigs: mood & genre flow config lists
 │   ├── get_flow_config_tracks.graphql  # GetFlowConfigTracks: tracks for a specific flow config
 │   ├── get_made_for_me.graphql  # GetMadeForMe: SmartTracklist & Flow items
 │   ├── get_smart_tracklist.graphql  # GetSmartTracklist: tracklist with paginated tracks
+│   ├── get_similar_tracks.graphql  # GetSimilarTracks: recommended tracks for a given track
+│   ├── get_artist_mix.graphql   # GetArtistMix: track mix from given artists
+│   ├── get_track_mix.graphql    # GetTrackMix: track mix from given tracks
 │   ├── get_charts.graphql       # GetCharts: country charts (tracks/albums/artists/playlists)
 │   ├── get_recommendations.graphql  # GetRecommendations: personalized recommendations
 │   ├── get_user_charts.graphql  # GetUserCharts: personal top tracks/artists/albums
@@ -121,8 +160,17 @@ deezer-python-gql/
 │   ├── get_favorite_artists.graphql  # GetFavoriteArtists: paginated favorite artists
 │   ├── get_favorite_albums.graphql   # GetFavoriteAlbums: paginated favorite albums
 │   ├── get_favorite_tracks.graphql   # GetFavoriteTracks: paginated favorite tracks
-│   └── get_favorite_playlists.graphql  # GetFavoritePlaylists: paginated favorite playlists
-├── schema.graphql               # Full SDL schema (16,235 lines, ~915 types) — generated
+│   ├── get_favorite_playlists.graphql  # GetFavoritePlaylists: paginated favorite playlists
+│   ├── get_favorite_podcasts.graphql  # GetFavoritePodcasts: paginated favorite podcasts
+│   ├── get_favorite_audiobooks.graphql  # GetFavoriteAudiobooks: favorite audiobook IDs
+│   ├── get_podcast_episode_bookmarks.graphql  # GetPodcastEpisodeBookmarks: bookmarked episodes
+│   ├── get_music_together_groups.graphql  # GetMusicTogetherGroups: user's Music Together groups
+│   ├── get_music_together_group.graphql  # GetMusicTogetherGroup: single group with tracks
+│   ├── get_music_together_affinity.graphql  # GetMusicTogetherAffinity: group member affinity
+│   ├── favorites.graphql        # Mutations: add/remove favorites (all entity types)
+│   ├── playlists.graphql        # Mutations: create/update/delete/add/remove playlist tracks
+│   └── music_together.graphql   # Mutations: create/join/leave/refresh/update/generate groups
+├── schema.graphql               # Full SDL schema (16,668 lines, ~915 types) — generated
 ├── schema.json                  # Raw introspection JSON — generated
 ├── scripts/
 │   ├── convert_schema.py        # Fetch introspection + fix broken types + convert to SDL
@@ -135,22 +183,52 @@ deezer-python-gql/
 │       ├── get_album.json
 │       ├── get_artist.json
 │       ├── get_playlist.json
+│       ├── get_livestream.json
+│       ├── get_podcast.json
+│       ├── get_podcast_episode.json
+│       ├── get_audiobook.json
+│       ├── get_audiobook_chapter.json
 │       ├── search.json
 │       ├── search_flows.json
 │       ├── get_flow.json
+│       ├── get_flow_batch.json
 │       ├── get_flow_configs.json
 │       ├── get_flow_config_tracks.json
-│       ├── get_livestream.json
+│       ├── get_similar_tracks.json
+│       ├── get_artist_mix.json
+│       ├── get_track_mix.json
 │       ├── get_made_for_me.json
 │       ├── get_smart_tracklist.json
 │       ├── get_charts.json
 │       ├── get_recommendations.json
 │       ├── get_user_charts.json
+│       ├── get_user_playlists.json
 │       ├── get_recently_played.json
 │       ├── get_favorite_artists.json
 │       ├── get_favorite_albums.json
 │       ├── get_favorite_tracks.json
-│       └── get_favorite_playlists.json
+│       ├── get_favorite_playlists.json
+│       ├── get_favorite_podcasts.json
+│       ├── get_favorite_audiobooks.json
+│       ├── get_podcast_episode_bookmarks.json
+│       ├── get_music_together_groups.json
+│       ├── get_music_together_group.json
+│       ├── get_music_together_affinity.json
+│       ├── add_*_to_favorite.json  # One per entity type (artist, album, track, etc.)
+│       ├── remove_*_from_favorite.json  # One per entity type
+│       ├── create_playlist.json
+│       ├── update_playlist.json
+│       ├── delete_playlist.json
+│       ├── add_tracks_to_playlist.json
+│       ├── remove_tracks_from_playlist.json
+│       ├── bookmark_podcast_episode.json
+│       ├── unbookmark_podcast_episode.json
+│       ├── mark_as_played_podcast_episode.json
+│       ├── mark_as_not_played_podcast_episode.json
+│       ├── music_together_create_group.json
+│       ├── music_together_join_group.json
+│       ├── music_together_leave_group.json
+│       └── music_together_generate_group_name.json
 ├── pyproject.toml               # Project config (dependencies, ruff, mypy, pytest, codegen)
 ├── Makefile                     # Dev commands
 ├── .pre-commit-config.yaml      # Local hooks (no remote repos)
@@ -177,14 +255,18 @@ pipe.deezer.com/api   →   schema.json   →   schema.graphql   →   deezer_py
 
 `queries/fragments.graphql` defines reusable field sets shared across multiple queries:
 
-| Fragment           | Used by                                                                                                                            | Key fields                                                                                                    |
-| ------------------ | ---------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
-| `TrackFields`      | search, get_track, get_album, get_artist, get_playlist, flow, flow_config_tracks, smart_tracklist, charts, user_charts, fav_tracks | id, title, ISRC, diskInfo, duration, isExplicit, isFavorite, popularity, album, contributors                  |
-| `ArtistFields`     | search, get_artist, charts, user_charts, recommendations, fav_artists, recently_played                                             | id, name, picture, fansCount, isFavorite, bio (summary + full)                                                |
-| `AlbumFields`      | search, get_album, get_artist, charts, user_charts, recommendations, fav_albums, recently_played                                   | id, displayTitle, type, cover, contributors, releaseDate, isExplicit, isFavorite, fansCount, label, copyright |
-| `PlaylistFields`   | search, get_playlist, charts, recommendations, fav_playlists, recently_played                                                      | id, title, picture, estimatedTracksCount, fansCount, isFavorite, description, owner                           |
-| `LivestreamFields` | search, get_livestream                                                                                                             | id, name, language, description, isOnStream, country, cover, media (url + codec)                              |
-| `PageInfoFields`   | All paginated queries                                                                                                              | hasNextPage, endCursor                                                                                        |
+| Fragment                | Used by                                                                                                                                               | Key fields                                                                                                    |
+| ----------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| `TrackFields`           | search, get_track, get_album, get_artist, get_playlist, flow, flow_batch, flow_config_tracks, smart_tracklist, charts, user_charts, fav_tracks, similar_tracks, artist_mix, track_mix, music_together | id, title, ISRC, diskInfo, duration, isExplicit, isFavorite, popularity, album, contributors                  |
+| `ArtistFields`          | search, get_artist, charts, user_charts, recommendations, fav_artists, recently_played                                                                | id, name, picture, fansCount, isFavorite, bio (summary + full)                                                |
+| `AlbumFields`           | search, get_album, get_artist, charts, user_charts, recommendations, fav_albums, recently_played                                                      | id, displayTitle, type, cover, contributors, releaseDate, isExplicit, isFavorite, fansCount, label, copyright |
+| `PlaylistFields`        | search, get_playlist, charts, recommendations, fav_playlists, recently_played                                                                         | id, title, picture, estimatedTracksCount, fansCount, isFavorite, description, owner                           |
+| `LivestreamFields`      | search, get_livestream                                                                                                                                | id, name, language, description, isOnStream, country, cover, media (url + codec)                              |
+| `PodcastFields`         | search, get_podcast, fav_podcasts                                                                                                                     | id, displayTitle, cover, description, isExplicit, isFavorite, type                                            |
+| `PodcastEpisodeFields`  | search, get_podcast, get_podcast_episode, podcast_episode_bookmarks                                                                                   | id, title, description, duration, cover, publicationDate, media (url + codec)                                 |
+| `AudiobookFields`       | get_audiobook                                                                                                                                         | id, displayTitle, cover, description, duration, releaseDate, fansCount, isExplicit, isFavorite, chaptersCount, discsCount, producerLine, publisher, contributors |
+| `AudiobookChapterFields`| get_audiobook, get_audiobook_chapter                                                                                                                  | id, isrc, displayTitle, diskInfo, duration, isExplicit, isFavorite                                            |
+| `PageInfoFields`        | All paginated queries                                                                                                                                 | hasNextPage, endCursor                                                                                        |
 
 **All entity queries use shared fragments.** Every query that returns tracks, albums, artists, or playlists uses the corresponding fragment via `...TrackFields` etc. Some queries (e.g., `get_track.graphql`, `get_album.graphql`) extend the fragment with additional fields like `media`, `lyrics`, `url`, or `tracksCount`.
 
@@ -330,10 +412,10 @@ Tests are organized into four layers:
 
 | Layer                  | Tests | What's validated                                                                   |
 | ---------------------- | ----- | ---------------------------------------------------------------------------------- |
-| **Client setup**       | 3     | Import, instantiation with ARL, presence of all 17 generated methods               |
+| **Client setup**       | 3     | Import, instantiation with ARL, presence of all generated methods                  |
 | **Auth flow** (mocked) | 5     | JWT acquisition, token reuse, refresh on expiry, cookie domain, text/plain parsing |
 | **Error handling**     | 5     | HTTP errors, invalid JSON, missing data key, GraphQL errors, success path          |
-| **Model smoke tests**  | 19    | One per query — fixture parses correctly with key fields accessible                |
+| **Model smoke tests**  | 61    | One per query/mutation — fixture parses correctly with key fields accessible        |
 
 ### Auth Flow Tests
 
@@ -416,30 +498,38 @@ git-cliff uses these prefixes to categorize changelog entries automatically (con
 ### Key Facts
 
 - **Endpoint**: `https://pipe.deezer.com/api` (POST, standard GraphQL)
-- **Introspection**: Enabled without auth (~915 types, 16,235 lines SDL)
+- **Introspection**: Enabled without auth (~915 types, 16,668 lines SDL)
 - **Auth**: ARL → JWT Bearer token (6 min TTL, auto-refresh)
 - **Rate limiting**: Not documented; GraphQL naturally batches, reducing request volume
 - **Schema stability**: Undocumented, unofficial API — may change without notice
 
 ### Commonly Used Types
 
-| Type          | Key Fields                                                                                                                                                            |
-| ------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `Track`       | `id`, `title`, `ISRC`, `diskInfo`, `duration`, `album`, `contributors`, `lyrics`, `media` (token + sizes), `isFavorite`, `recommendedTracks`, `isAtmos`, `isExplicit` |
-| `Album`       | `id`, `displayTitle`, `type`, `cover`, `label`, `contributors`, `releaseDate`, `tracks`, `isFavorite`, `fallback`                                                     |
-| `Artist`      | `id`, `name`, `bio`, `picture`, `albums(types, roles)`, `topTracks`, `relatedArtist`, `isFavorite`                                                                    |
-| `Playlist`    | `id`, `title`, `description`, `picture`, `tracks(first, after, order)`, `rawTracks`, `owner`, `isFavorite`                                                            |
-| `Livestream`  | `id`, `name`, `language`, `description`, `cover`, `country`, `media: [ExternalMedia!]!`                                                                               |
-| `Lyrics`      | `synchronizedLines`, `synchronizedWordByWordLines`, `text`, `copyright`, `writers`                                                                                    |
-| `FlowConfig`  | `id`, `title`, `visuals`, `tracks: [FlowConfigTrack!]!`                                                                                                               |
-| `TrackMedia`  | `id`, `version`, `token`, `estimatedSizes`, `rights: MediaRights!`                                                                                                    |
-| `Search`      | `results.{tracks, artists, albums, playlists, podcasts, livestreams}`, `topResult`, `mixedResults`                                                                    |
-| `PrivateUser` | `id`, `playlists`, `userFavorites`, `flow`, `flowConfigs`, `recommendations`, `madeForMe`, `recentlyPlayed`, `charts`                                                 |
+| Type               | Key Fields                                                                                                                                                            |
+| ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `Track`            | `id`, `title`, `ISRC`, `diskInfo`, `duration`, `album`, `contributors`, `lyrics`, `media` (token + sizes), `isFavorite`, `recommendedTracks`, `isAtmos`, `isExplicit` |
+| `Album`            | `id`, `displayTitle`, `type`, `cover`, `label`, `contributors`, `releaseDate`, `tracks`, `isFavorite`, `fallback`                                                     |
+| `Artist`           | `id`, `name`, `bio`, `picture`, `albums(types, roles)`, `topTracks`, `relatedArtist`, `isFavorite`                                                                    |
+| `Playlist`         | `id`, `title`, `description`, `picture`, `tracks(first, after, order)`, `rawTracks`, `owner`, `isFavorite`                                                            |
+| `Livestream`       | `id`, `name`, `language`, `description`, `cover`, `country`, `media: [ExternalMedia!]!`                                                                               |
+| `Podcast`          | `id`, `displayTitle`, `description`, `cover`, `type`, `isExplicit`, `isFavorite`, `episodes(first, after)`, `hasRights`                                               |
+| `PodcastEpisode`   | `id`, `title`, `description`, `duration`, `cover`, `publicationDate`, `media` (url + codec), `url`, `podcast`                                                         |
+| `Audiobook`        | `id`, `displayTitle`, `cover`, `description`, `duration`, `releaseDate`, `chaptersCount`, `discsCount`, `publisher`, `contributors`, `chapters(first, after)`          |
+| `AudiobookChapter` | `id`, `isrc`, `displayTitle`, `diskInfo`, `duration`, `gain`, `media` (token + sizes + rights), `audiobook`                                                           |
+| `Lyrics`           | `synchronizedLines`, `synchronizedWordByWordLines`, `text`, `copyright`, `writers`                                                                                    |
+| `Flow`             | `id`, `title`, `cover`, `tracks: [FlowTrack!]!` (each call returns fresh batch)                                                                                       |
+| `FlowConfig`       | `id`, `title`, `visuals`, `tracks: [FlowConfigTrack!]!`                                                                                                               |
+| `TrackMedia`       | `id`, `version`, `token`, `estimatedSizes`, `rights: MediaRights!`                                                                                                    |
+| `Search`           | `results.{tracks, artists, albums, playlists, podcasts, podcastEpisodes, livestreams}`, `topResult`, `mixedResults`                                                    |
+| `PrivateUser`      | `id`, `playlists`, `userFavorites`, `favorites` (deprecated, used for audiobooks), `flow`, `flowConfigs`, `recommendations`, `madeForMe`, `recentlyPlayed`, `charts`, `musicTogetherGroups`, `podcastEpisodeBookmarks` |
+| `MusicTogetherGroup` | `id`, `name`, `isReady`, `isFamily`, `members`, `suggestedTracklist(mood)`, `curatedTracklist`, `estimatedMembersCount`                                             |
 
 ### Key Mutations
 
-- **Favorites**: `add/remove{Album,Artist,Track,Playlist,Podcast}ToFavorite`/`FromFavorite`
+- **Favorites**: `add/remove{Album,Artist,Track,Playlist,Podcast,Audiobook}ToFavorite`/`FromFavorite` (audiobook mutations deprecated but functional)
 - **Playlists**: `createPlaylist`, `updatePlaylist`, `deletePlaylist`, `addTracksToPlaylist`, `removeTracksFromPlaylist`
+- **Podcasts**: `bookmarkPodcastEpisode`, `unbookmarkPodcastEpisode`, `markAsPlayedPodcastEpisode`, `markAsNotPlayedPodcastEpisode`
+- **Music Together**: `musicTogetherCreateGroup`, `musicTogetherJoinGroup`, `musicTogetherLeaveGroup`, `musicTogetherRefreshSuggestedTracklist`, `musicTogetherUpdateGroupSettings`, `musicTogetherGenerateGroupName`
 - **Not available**: No listen logging mutation (`log.listen` only exists in GW API)
 
 ### Auth Gotchas
