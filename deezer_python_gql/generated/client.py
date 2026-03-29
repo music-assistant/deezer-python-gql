@@ -84,6 +84,7 @@ from .get_podcast_episode_bookmarks import (
 )
 from .get_recently_played import GetRecentlyPlayed, GetRecentlyPlayedMe
 from .get_recommendations import GetRecommendations, GetRecommendationsMe
+from .get_similar_tracks import GetSimilarTracks, GetSimilarTracksTrack
 from .get_smart_tracklist import GetSmartTracklist, GetSmartTracklistSmartTracklist
 from .get_track import GetTrack, GetTrackTrack
 from .get_track_mix import GetTrackMix, GetTrackMixTrackMix
@@ -2733,6 +2734,61 @@ class DeezerGQLClient(DeezerBaseClient):
         )
         data = self.get_data(response)
         return GetRecommendations.model_validate(data).me
+
+    async def get_similar_tracks(
+        self, track_id: str, nb: Union[Optional[int], UnsetType] = UNSET, **kwargs: Any
+    ) -> Optional[GetSimilarTracksTrack]:
+        query = gql("""
+            query GetSimilarTracks($trackId: String!, $nb: Int = 25) {
+              track(trackId: $trackId) {
+                recommendedTracks(nb: $nb) {
+                  ...TrackFields
+                }
+              }
+            }
+
+            fragment TrackFields on Track {
+              id
+              title
+              ISRC
+              diskInfo {
+                diskNumber
+                trackNumber
+              }
+              duration
+              isExplicit
+              isFavorite
+              popularity
+              album {
+                id
+                displayTitle
+                cover {
+                  id
+                  urls(pictureRequest: {width: 264, height: 264})
+                }
+              }
+              contributors(first: 10, roles: [MAIN, FEATURED]) {
+                edges {
+                  roles
+                  node {
+                    ... on Artist {
+                      id
+                      name
+                    }
+                  }
+                }
+              }
+            }
+            """)
+        variables: dict[str, object] = {"trackId": track_id, "nb": nb}
+        response = await self.execute(
+            query=query,
+            operation_name="GetSimilarTracks",
+            variables=variables,
+            **kwargs
+        )
+        data = self.get_data(response)
+        return GetSimilarTracks.model_validate(data).track
 
     async def get_smart_tracklist(
         self,

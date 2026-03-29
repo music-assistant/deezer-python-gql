@@ -391,6 +391,11 @@ from .get_recommendations import (
     GetRecommendationsMeRecommendationsPlaylistsEdgesNode,
     GetRecommendationsMeRecommendationsPlaylistsPageInfo,
 )
+from .get_similar_tracks import (
+    GetSimilarTracks,
+    GetSimilarTracksTrack,
+    GetSimilarTracksTrackRecommendedTracks,
+)
 from .get_smart_tracklist import (
     GetSmartTracklist,
     GetSmartTracklistSmartTracklist,
@@ -872,6 +877,9 @@ __all__ = [
     "GetRecommendationsMeRecommendationsPlaylistsEdges",
     "GetRecommendationsMeRecommendationsPlaylistsEdgesNode",
     "GetRecommendationsMeRecommendationsPlaylistsPageInfo",
+    "GetSimilarTracks",
+    "GetSimilarTracksTrack",
+    "GetSimilarTracksTrackRecommendedTracks",
     "GetSmartTracklist",
     "GetSmartTracklistSmartTracklist",
     "GetSmartTracklistSmartTracklistCover",

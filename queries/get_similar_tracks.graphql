@@ -1,0 +1,9 @@
+# Get tracks recommended based on a given track (similar tracks).
+
+query GetSimilarTracks($trackId: String!, $nb: Int = 25) {
+  track(trackId: $trackId) {
+    recommendedTracks(nb: $nb) {
+      ...TrackFields
+    }
+  }
+}

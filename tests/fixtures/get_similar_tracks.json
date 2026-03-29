@@ -1,0 +1,110 @@
+{
+  "data": {
+    "track": {
+      "recommendedTracks": [
+        {
+          "__typename": "Track",
+          "id": "901",
+          "title": "Similar Song One",
+          "ISRC": "USRC19901001",
+          "diskInfo": {
+            "diskNumber": 1,
+            "trackNumber": 1
+          },
+          "duration": 245,
+          "isExplicit": false,
+          "isFavorite": false,
+          "popularity": 750000,
+          "album": {
+            "id": "al_901",
+            "displayTitle": "Similar Album",
+            "cover": {
+              "id": "cover_901",
+              "urls": ["https://cdn.deezer.com/cover/901/264x264.jpg"]
+            }
+          },
+          "contributors": {
+            "edges": [
+              {
+                "roles": ["MAIN"],
+                "node": {
+                  "__typename": "Artist",
+                  "id": "art_901",
+                  "name": "Similar Artist"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "__typename": "Track",
+          "id": "902",
+          "title": "Similar Song Two",
+          "ISRC": "USRC19901002",
+          "diskInfo": {
+            "diskNumber": 1,
+            "trackNumber": 3
+          },
+          "duration": 198,
+          "isExplicit": true,
+          "isFavorite": true,
+          "popularity": 500000,
+          "album": {
+            "id": "al_902",
+            "displayTitle": "Another Album",
+            "cover": {
+              "id": "cover_902",
+              "urls": ["https://cdn.deezer.com/cover/902/264x264.jpg"]
+            }
+          },
+          "contributors": {
+            "edges": [
+              {
+                "roles": ["MAIN"],
+                "node": {
+                  "__typename": "Artist",
+                  "id": "art_902",
+                  "name": "Another Artist"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "__typename": "Track",
+          "id": "903",
+          "title": "Similar Song Three",
+          "ISRC": "USRC19901003",
+          "diskInfo": {
+            "diskNumber": 1,
+            "trackNumber": 5
+          },
+          "duration": 312,
+          "isExplicit": false,
+          "isFavorite": false,
+          "popularity": 300000,
+          "album": {
+            "id": "al_903",
+            "displayTitle": "Third Album",
+            "cover": {
+              "id": "cover_903",
+              "urls": ["https://cdn.deezer.com/cover/903/264x264.jpg"]
+            }
+          },
+          "contributors": {
+            "edges": [
+              {
+                "roles": ["MAIN"],
+                "node": {
+                  "__typename": "Artist",
+                  "id": "art_903",
+                  "name": "Third Artist"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

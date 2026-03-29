@@ -68,6 +68,7 @@ from deezer_python_gql.generated.get_podcast_episode_bookmarks import (
 )
 from deezer_python_gql.generated.get_recently_played import GetRecentlyPlayed
 from deezer_python_gql.generated.get_recommendations import GetRecommendations
+from deezer_python_gql.generated.get_similar_tracks import GetSimilarTracks
 from deezer_python_gql.generated.get_smart_tracklist import GetSmartTracklist
 from deezer_python_gql.generated.get_track import GetTrack
 from deezer_python_gql.generated.get_track_mix import GetTrackMix
@@ -216,6 +217,7 @@ def test_client_has_generated_methods() -> None:
         "mark_as_not_played_podcast_episode",
         "get_artist_mix",
         "get_track_mix",
+        "get_similar_tracks",
         "get_audiobook",
         "get_audiobook_chapter",
         "get_favorite_audiobooks",
@@ -1132,6 +1134,20 @@ def test_smoke_get_audiobook_chapter() -> None:
     assert chapter.media.token.payload
     assert chapter.media.rights.ads is not None
     assert chapter.media.rights.ads.available is True
+
+
+def test_smoke_get_similar_tracks() -> None:
+    """Verify GetSimilarTracks fixture parses with TrackFields."""
+    data = _load_fixture("get_similar_tracks.json")
+    track = GetSimilarTracks.model_validate(data).track
+    assert track is not None
+    recs = [t for t in track.recommended_tracks if t is not None]
+    assert len(recs) == 3
+    assert recs[0].id == "901"
+    assert recs[0].title == "Similar Song One"
+    assert recs[0].duration == 245
+    assert recs[1].is_explicit is True
+    assert recs[2].contributors.edges[0].node.name == "Third Artist"
 
 
 def test_smoke_get_favorite_audiobooks() -> None:
