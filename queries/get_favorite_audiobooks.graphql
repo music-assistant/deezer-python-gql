@@ -1,0 +1,13 @@
+# Get the current user's favorite audiobook IDs (deprecated but functional).
+# Returns raw IDs + favoritedAt dates; resolve each via audiobook() query.
+
+query GetFavoriteAudiobooks {
+  me {
+    favorites {
+      rawAudiobooks {
+        id
+        favoritedAt
+      }
+    }
+  }
+}

@@ -158,3 +158,20 @@ mutation MarkAsNotPlayedPodcastEpisode($episodeId: String!) {
     }
   }
 }
+
+# Add an audiobook to the user's favorites (deprecated but functional).
+
+mutation AddAudiobookToFavorite($audiobookId: String!) {
+  addAudiobookToFavorite(audiobookId: $audiobookId) {
+    id
+    favoritedAt
+  }
+}
+
+# Remove an audiobook from the user's favorites (deprecated but functional).
+
+mutation RemoveAudiobookFromFavorite($audiobookId: String!) {
+  removeAudiobookFromFavorite(audiobookId: $audiobookId) {
+    id
+  }
+}

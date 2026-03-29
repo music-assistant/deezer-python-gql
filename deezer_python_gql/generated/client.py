@@ -11,6 +11,10 @@ from .add_artist_to_favorite import (
     AddArtistToFavorite,
     AddArtistToFavoriteAddArtistToFavorite,
 )
+from .add_audiobook_to_favorite import (
+    AddAudiobookToFavorite,
+    AddAudiobookToFavoriteAddAudiobookToFavorite,
+)
 from .add_playlist_to_favorite import (
     AddPlaylistToFavorite,
     AddPlaylistToFavoriteAddPlaylistToFavorite,
@@ -52,6 +56,7 @@ from .get_audiobook_chapter import (
 from .get_charts import GetCharts, GetChartsCharts
 from .get_favorite_albums import GetFavoriteAlbums, GetFavoriteAlbumsMe
 from .get_favorite_artists import GetFavoriteArtists, GetFavoriteArtistsMe
+from .get_favorite_audiobooks import GetFavoriteAudiobooks, GetFavoriteAudiobooksMe
 from .get_favorite_playlists import GetFavoritePlaylists, GetFavoritePlaylistsMe
 from .get_favorite_podcasts import GetFavoritePodcasts, GetFavoritePodcastsMe
 from .get_favorite_tracks import GetFavoriteTracks, GetFavoriteTracksMe
@@ -128,6 +133,10 @@ from .remove_album_from_favorite import (
 from .remove_artist_from_favorite import (
     RemoveArtistFromFavorite,
     RemoveArtistFromFavoriteRemoveArtistFromFavorite,
+)
+from .remove_audiobook_from_favorite import (
+    RemoveAudiobookFromFavorite,
+    RemoveAudiobookFromFavoriteRemoveAudiobookFromFavorite,
 )
 from .remove_playlist_from_favorite import (
     RemovePlaylistFromFavorite,
@@ -495,6 +504,49 @@ class DeezerGQLClient(DeezerBaseClient):
         return MarkAsNotPlayedPodcastEpisode.model_validate(
             data
         ).mark_as_not_played_podcast_episode
+
+    async def add_audiobook_to_favorite(
+        self, audiobook_id: str, **kwargs: Any
+    ) -> AddAudiobookToFavoriteAddAudiobookToFavorite:
+        query = gql("""
+            mutation AddAudiobookToFavorite($audiobookId: String!) {
+              addAudiobookToFavorite(audiobookId: $audiobookId) {
+                id
+                favoritedAt
+              }
+            }
+            """)
+        variables: dict[str, object] = {"audiobookId": audiobook_id}
+        response = await self.execute(
+            query=query,
+            operation_name="AddAudiobookToFavorite",
+            variables=variables,
+            **kwargs
+        )
+        data = self.get_data(response)
+        return AddAudiobookToFavorite.model_validate(data).add_audiobook_to_favorite
+
+    async def remove_audiobook_from_favorite(
+        self, audiobook_id: str, **kwargs: Any
+    ) -> RemoveAudiobookFromFavoriteRemoveAudiobookFromFavorite:
+        query = gql("""
+            mutation RemoveAudiobookFromFavorite($audiobookId: String!) {
+              removeAudiobookFromFavorite(audiobookId: $audiobookId) {
+                id
+              }
+            }
+            """)
+        variables: dict[str, object] = {"audiobookId": audiobook_id}
+        response = await self.execute(
+            query=query,
+            operation_name="RemoveAudiobookFromFavorite",
+            variables=variables,
+            **kwargs
+        )
+        data = self.get_data(response)
+        return RemoveAudiobookFromFavorite.model_validate(
+            data
+        ).remove_audiobook_from_favorite
 
     async def get_album(self, album_id: str, **kwargs: Any) -> Optional[GetAlbumAlbum]:
         query = gql("""
@@ -1255,6 +1307,31 @@ class DeezerGQLClient(DeezerBaseClient):
         )
         data = self.get_data(response)
         return GetFavoriteArtists.model_validate(data).me
+
+    async def get_favorite_audiobooks(
+        self, **kwargs: Any
+    ) -> Optional[GetFavoriteAudiobooksMe]:
+        query = gql("""
+            query GetFavoriteAudiobooks {
+              me {
+                favorites {
+                  rawAudiobooks {
+                    id
+                    favoritedAt
+                  }
+                }
+              }
+            }
+            """)
+        variables: dict[str, object] = {}
+        response = await self.execute(
+            query=query,
+            operation_name="GetFavoriteAudiobooks",
+            variables=variables,
+            **kwargs
+        )
+        data = self.get_data(response)
+        return GetFavoriteAudiobooks.model_validate(data).me
 
     async def get_favorite_playlists(
         self,

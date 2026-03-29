@@ -1,0 +1,22 @@
+{
+  "data": {
+    "me": {
+      "favorites": {
+        "rawAudiobooks": [
+          {
+            "id": "ab_1001",
+            "favoritedAt": "2025-11-15T10:30:00Z"
+          },
+          {
+            "id": "ab_1002",
+            "favoritedAt": "2025-12-01T14:00:00Z"
+          },
+          {
+            "id": "ab_1003",
+            "favoritedAt": "2026-01-10T08:45:00Z"
+          }
+        ]
+      }
+    }
+  }
+}

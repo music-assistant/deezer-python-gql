@@ -10,6 +10,10 @@ from .add_artist_to_favorite import (
     AddArtistToFavoriteAddArtistToFavorite,
     AddArtistToFavoriteAddArtistToFavoriteArtist,
 )
+from .add_audiobook_to_favorite import (
+    AddAudiobookToFavorite,
+    AddAudiobookToFavoriteAddAudiobookToFavorite,
+)
 from .add_playlist_to_favorite import (
     AddPlaylistToFavorite,
     AddPlaylistToFavoriteAddPlaylistToFavorite,
@@ -182,6 +186,12 @@ from .get_favorite_artists import (
     GetFavoriteArtistsMeUserFavoritesArtistsEdges,
     GetFavoriteArtistsMeUserFavoritesArtistsEdgesNode,
     GetFavoriteArtistsMeUserFavoritesArtistsPageInfo,
+)
+from .get_favorite_audiobooks import (
+    GetFavoriteAudiobooks,
+    GetFavoriteAudiobooksMe,
+    GetFavoriteAudiobooksMeFavorites,
+    GetFavoriteAudiobooksMeFavoritesRawAudiobooks,
 )
 from .get_favorite_playlists import (
     GetFavoritePlaylists,
@@ -487,6 +497,10 @@ from .remove_artist_from_favorite import (
     RemoveArtistFromFavoriteRemoveArtistFromFavorite,
     RemoveArtistFromFavoriteRemoveArtistFromFavoriteArtist,
 )
+from .remove_audiobook_from_favorite import (
+    RemoveAudiobookFromFavorite,
+    RemoveAudiobookFromFavoriteRemoveAudiobookFromFavorite,
+)
 from .remove_playlist_from_favorite import (
     RemovePlaylistFromFavorite,
     RemovePlaylistFromFavoriteRemovePlaylistFromFavorite,
@@ -568,6 +582,8 @@ __all__ = [
     "AddArtistToFavorite",
     "AddArtistToFavoriteAddArtistToFavorite",
     "AddArtistToFavoriteAddArtistToFavoriteArtist",
+    "AddAudiobookToFavorite",
+    "AddAudiobookToFavoriteAddAudiobookToFavorite",
     "AddPlaylistToFavorite",
     "AddPlaylistToFavoriteAddPlaylistToFavorite",
     "AddPlaylistToFavoriteAddPlaylistToFavoritePlaylist",
@@ -684,6 +700,10 @@ __all__ = [
     "GetFavoriteArtistsMeUserFavoritesArtistsEdges",
     "GetFavoriteArtistsMeUserFavoritesArtistsEdgesNode",
     "GetFavoriteArtistsMeUserFavoritesArtistsPageInfo",
+    "GetFavoriteAudiobooks",
+    "GetFavoriteAudiobooksMe",
+    "GetFavoriteAudiobooksMeFavorites",
+    "GetFavoriteAudiobooksMeFavoritesRawAudiobooks",
     "GetFavoritePlaylists",
     "GetFavoritePlaylistsMe",
     "GetFavoritePlaylistsMeUserFavorites",
@@ -946,6 +966,8 @@ __all__ = [
     "RemoveArtistFromFavorite",
     "RemoveArtistFromFavoriteRemoveArtistFromFavorite",
     "RemoveArtistFromFavoriteRemoveArtistFromFavoriteArtist",
+    "RemoveAudiobookFromFavorite",
+    "RemoveAudiobookFromFavoriteRemoveAudiobookFromFavorite",
     "RemovePlaylistFromFavorite",
     "RemovePlaylistFromFavoriteRemovePlaylistFromFavorite",
     "RemovePlaylistFromFavoriteRemovePlaylistFromFavoritePlaylist",

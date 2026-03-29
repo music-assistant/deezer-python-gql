@@ -28,6 +28,7 @@ from deezer_python_gql.base_client import (
 )
 from deezer_python_gql.generated.add_album_to_favorite import AddAlbumToFavorite
 from deezer_python_gql.generated.add_artist_to_favorite import AddArtistToFavorite
+from deezer_python_gql.generated.add_audiobook_to_favorite import AddAudiobookToFavorite
 from deezer_python_gql.generated.add_playlist_to_favorite import AddPlaylistToFavorite
 from deezer_python_gql.generated.add_podcast_to_favorite import AddPodcastToFavorite
 from deezer_python_gql.generated.add_track_to_favorite import AddTrackToFavorite
@@ -44,6 +45,7 @@ from deezer_python_gql.generated.get_audiobook_chapter import GetAudiobookChapte
 from deezer_python_gql.generated.get_charts import GetCharts
 from deezer_python_gql.generated.get_favorite_albums import GetFavoriteAlbums
 from deezer_python_gql.generated.get_favorite_artists import GetFavoriteArtists
+from deezer_python_gql.generated.get_favorite_audiobooks import GetFavoriteAudiobooks
 from deezer_python_gql.generated.get_favorite_playlists import GetFavoritePlaylists
 from deezer_python_gql.generated.get_favorite_podcasts import GetFavoritePodcasts
 from deezer_python_gql.generated.get_favorite_tracks import GetFavoriteTracks
@@ -87,6 +89,9 @@ from deezer_python_gql.generated.music_together_join_group import MusicTogetherJ
 from deezer_python_gql.generated.music_together_leave_group import MusicTogetherLeaveGroup
 from deezer_python_gql.generated.remove_album_from_favorite import RemoveAlbumFromFavorite
 from deezer_python_gql.generated.remove_artist_from_favorite import RemoveArtistFromFavorite
+from deezer_python_gql.generated.remove_audiobook_from_favorite import (
+    RemoveAudiobookFromFavorite,
+)
 from deezer_python_gql.generated.remove_playlist_from_favorite import (
     RemovePlaylistFromFavorite,
 )
@@ -213,6 +218,9 @@ def test_client_has_generated_methods() -> None:
         "get_track_mix",
         "get_audiobook",
         "get_audiobook_chapter",
+        "get_favorite_audiobooks",
+        "add_audiobook_to_favorite",
+        "remove_audiobook_from_favorite",
         "get_music_together_groups",
         "get_music_together_group",
         "get_music_together_affinity",
@@ -1124,6 +1132,34 @@ def test_smoke_get_audiobook_chapter() -> None:
     assert chapter.media.token.payload
     assert chapter.media.rights.ads is not None
     assert chapter.media.rights.ads.available is True
+
+
+def test_smoke_get_favorite_audiobooks() -> None:
+    """Verify GetFavoriteAudiobooks fixture parses with raw audiobook IDs."""
+    data = _load_fixture("get_favorite_audiobooks.json")
+    me = GetFavoriteAudiobooks.model_validate(data).me
+    assert me is not None
+    raw = me.favorites.raw_audiobooks
+    assert raw is not None
+    assert len(raw) == 3
+    assert raw[0].id == "ab_1001"
+    assert raw[0].favorited_at == "2025-11-15T10:30:00Z"
+    assert raw[2].id == "ab_1003"
+
+
+def test_smoke_add_audiobook_to_favorite() -> None:
+    """Verify AddAudiobookToFavorite fixture parses."""
+    data = _load_fixture("add_audiobook_to_favorite.json")
+    result = AddAudiobookToFavorite.model_validate(data)
+    assert result.add_audiobook_to_favorite.id == "ab_1001"
+    assert result.add_audiobook_to_favorite.favorited_at
+
+
+def test_smoke_remove_audiobook_from_favorite() -> None:
+    """Verify RemoveAudiobookFromFavorite fixture parses."""
+    data = _load_fixture("remove_audiobook_from_favorite.json")
+    result = RemoveAudiobookFromFavorite.model_validate(data)
+    assert result.remove_audiobook_from_favorite.id == "ab_1001"
 
 
 # ---------------------------------------------------------------------------
