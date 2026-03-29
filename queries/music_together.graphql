@@ -83,10 +83,7 @@ mutation MusicTogetherRefreshSuggestedTracklist(
 
 # Update a Music Together group's settings (e.g., name).
 
-mutation MusicTogetherUpdateGroupSettings(
-  $groupId: String!
-  $name: String
-) {
+mutation MusicTogetherUpdateGroupSettings($groupId: String!, $name: String) {
   musicTogetherUpdateGroupSettings(
     input: { musicTogetherGroupId: $groupId, name: $name }
   ) {

@@ -6,7 +6,9 @@
         "title": "Flow",
         "cover": {
           "id": "cover_flow_default",
-          "urls": ["https://cdn-images.deezer.com/images/flow/default/264x264.jpg"]
+          "urls": [
+            "https://cdn-images.deezer.com/images/flow/default/264x264.jpg"
+          ]
         },
         "batch1": [
           {
@@ -23,10 +25,22 @@
               "album": {
                 "id": "al_101",
                 "displayTitle": "Album One",
-                "cover": { "id": "c101", "urls": ["https://cdn.deezer.com/cover/101.jpg"] }
+                "cover": {
+                  "id": "c101",
+                  "urls": ["https://cdn.deezer.com/cover/101.jpg"]
+                }
               },
               "contributors": {
-                "edges": [{ "roles": ["MAIN"], "node": { "__typename": "Artist", "id": "a1", "name": "Artist One" } }]
+                "edges": [
+                  {
+                    "roles": ["MAIN"],
+                    "node": {
+                      "__typename": "Artist",
+                      "id": "a1",
+                      "name": "Artist One"
+                    }
+                  }
+                ]
               }
             }
           }
@@ -46,10 +60,22 @@
               "album": {
                 "id": "al_201",
                 "displayTitle": "Album Two",
-                "cover": { "id": "c201", "urls": ["https://cdn.deezer.com/cover/201.jpg"] }
+                "cover": {
+                  "id": "c201",
+                  "urls": ["https://cdn.deezer.com/cover/201.jpg"]
+                }
               },
               "contributors": {
-                "edges": [{ "roles": ["MAIN"], "node": { "__typename": "Artist", "id": "a2", "name": "Artist Two" } }]
+                "edges": [
+                  {
+                    "roles": ["MAIN"],
+                    "node": {
+                      "__typename": "Artist",
+                      "id": "a2",
+                      "name": "Artist Two"
+                    }
+                  }
+                ]
               }
             }
           }
@@ -69,10 +95,22 @@
               "album": {
                 "id": "al_301",
                 "displayTitle": "Album Three",
-                "cover": { "id": "c301", "urls": ["https://cdn.deezer.com/cover/301.jpg"] }
+                "cover": {
+                  "id": "c301",
+                  "urls": ["https://cdn.deezer.com/cover/301.jpg"]
+                }
               },
               "contributors": {
-                "edges": [{ "roles": ["MAIN"], "node": { "__typename": "Artist", "id": "a3", "name": "Artist Three" } }]
+                "edges": [
+                  {
+                    "roles": ["MAIN"],
+                    "node": {
+                      "__typename": "Artist",
+                      "id": "a3",
+                      "name": "Artist Three"
+                    }
+                  }
+                ]
               }
             }
           }
@@ -92,10 +130,22 @@
               "album": {
                 "id": "al_401",
                 "displayTitle": "Album Four",
-                "cover": { "id": "c401", "urls": ["https://cdn.deezer.com/cover/401.jpg"] }
+                "cover": {
+                  "id": "c401",
+                  "urls": ["https://cdn.deezer.com/cover/401.jpg"]
+                }
               },
               "contributors": {
-                "edges": [{ "roles": ["MAIN"], "node": { "__typename": "Artist", "id": "a4", "name": "Artist Four" } }]
+                "edges": [
+                  {
+                    "roles": ["MAIN"],
+                    "node": {
+                      "__typename": "Artist",
+                      "id": "a4",
+                      "name": "Artist Four"
+                    }
+                  }
+                ]
               }
             }
           }

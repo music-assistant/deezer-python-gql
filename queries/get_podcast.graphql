@@ -16,7 +16,11 @@ query GetPodcast(
         available
       }
     }
-    episodes(first: $episodesFirst, after: $episodesAfter, order: $episodeOrder) {
+    episodes(
+      first: $episodesFirst
+      after: $episodesAfter
+      order: $episodeOrder
+    ) {
       edges {
         cursor
         node {

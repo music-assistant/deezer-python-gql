@@ -7,10 +7,7 @@ query GetMusicTogetherAffinity(
   $discoveryTracksFirst: Int = 20
   $discoveryArtistsFirst: Int = 20
 ) {
-  musicTogetherAffinity(
-    musicTogetherGroupId: $groupId
-    memberId: $memberId
-  ) {
+  musicTogetherAffinity(musicTogetherGroupId: $groupId, memberId: $memberId) {
     compatibilityScore
     member {
       id
