@@ -174,15 +174,17 @@ pipe.deezer.com/api   →   schema.json   →   schema.graphql   →   deezer_py
 
 `queries/fragments.graphql` defines reusable field sets shared across multiple queries:
 
-| Fragment         | Used by                                                                    | Key fields                                                           |
-| ---------------- | -------------------------------------------------------------------------- | -------------------------------------------------------------------- |
-| `TrackFields`    | flow, flow_config_tracks, smart_tracklist, charts, user_charts, fav_tracks | id, title, ISRC, diskInfo, duration, isExplicit, album, contributors |
-| `ArtistFields`   | charts, user_charts, recommendations, fav_artists                          | id, name, picture, fansCount                                         |
-| `AlbumFields`    | charts, user_charts, recommendations, fav_albums                           | id, displayTitle, type, cover, contributors, releaseDate             |
-| `PlaylistFields` | charts, recommendations, fav_playlists                                     | id, title, picture, estimatedTracksCount, owner                      |
-| `PageInfoFields` | All paginated queries                                                      | hasNextPage, endCursor                                               |
+| Fragment         | Used by                                                                                               | Key fields                                                                                      |
+| ---------------- | ----------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
+| `TrackFields`    | search, get_track, get_album, get_artist, get_playlist, flow, flow_config_tracks, smart_tracklist, charts, user_charts, fav_tracks | id, title, ISRC, diskInfo, duration, isExplicit, isFavorite, popularity, album, contributors    |
+| `ArtistFields`   | search, get_artist, charts, user_charts, recommendations, fav_artists, recently_played                | id, name, picture, fansCount, isFavorite, bio (summary + full)                                  |
+| `AlbumFields`    | search, get_album, get_artist, charts, user_charts, recommendations, fav_albums, recently_played      | id, displayTitle, type, cover, contributors, releaseDate, isExplicit, isFavorite, fansCount, label, copyright |
+| `PlaylistFields` | search, get_playlist, charts, recommendations, fav_playlists, recently_played                         | id, title, picture, estimatedTracksCount, fansCount, isFavorite, description, owner             |
+| `PageInfoFields` | All paginated queries                                                                                 | hasNextPage, endCursor                                                                          |
 
-ariadne-codegen generates `fragments.py` with Pydantic base classes (`TrackFields`, `ArtistFields`, etc.). Query model classes inherit from these via multiple inheritance, e.g., `GetChartsChartsCountryTracksEdgesNode(TrackFields)`. This means fragment fields are type-safe and IDE-discoverable on all inheriting models.
+**All entity queries use shared fragments.** Every query that returns tracks, albums, artists, or playlists uses the corresponding fragment via `...TrackFields` etc. Some queries (e.g., `get_track.graphql`, `get_album.graphql`) extend the fragment with additional fields like `media`, `lyrics`, `url`, or `tracksCount`.
+
+ariadne-codegen generates `fragments.py` with Pydantic base classes (`TrackFields`, `ArtistFields`, etc.). Query model classes inherit from these via multiple inheritance, e.g., `GetChartsChartsCountryTracksEdgesNode(TrackFields)`. This means fragment fields are type-safe and IDE-discoverable on all inheriting models. Consumers can type method parameters as `TrackFields` and accept any query-specific track model.
 
 To use a fragment in a new query, reference it with `...TrackFields` in the `.graphql` file.
 
@@ -215,6 +217,26 @@ ARL cookie → POST auth.deezer.com/login/arl?jo=p&rto=c&i=c → JWT (6 min TTL)
 - Response is `Content-Type: text/plain` containing JSON — parse with `json.loads(resp.text)`, not `resp.json()`
 - JWT expiration is decoded from the token payload (base64url-encoded second segment)
 - Auto-refresh triggers 30 seconds before expiry
+
+### Response Handling
+
+The `DeezerBaseClient.get_data()` method handles two important edge cases:
+
+1. **Partial errors**: When the GraphQL response contains both `data` and `errors` (e.g., deleted albums in a favorites list), the errors are logged but valid data is returned. Only responses with errors and no data raise `GraphQLClientGraphQLMultiError`.
+
+2. **Missing `__typename` injection**: The Deezer API omits `__typename` for single-member union types (e.g., `Contributor` is always `Artist`). Since Pydantic discriminated unions require this field, `_inject_missing_typenames()` recursively patches it into the response before model validation. The mapping is defined in `_TYPENAME_PATCHES`.
+
+### Connection Pooling
+
+For production use, pass an `httpx.AsyncClient` to avoid creating a new connection for every request:
+
+```python
+async with httpx.AsyncClient() as http:
+    client = DeezerGQLClient(arl="your_arl", http_client=http)
+    # All requests reuse the same connection pool
+```
+
+If no `http_client` is provided, the base client creates (and closes) a throwaway `httpx.AsyncClient` per request. This works but is inefficient for high-volume usage like library syncs.
 
 ## Key Configuration
 
