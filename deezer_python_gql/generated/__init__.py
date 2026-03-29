@@ -101,6 +101,12 @@ from .get_artist import (
     GetArtistArtistUrlDeezerUrl,
     GetArtistArtistUrlUrl,
 )
+from .get_artist_mix import (
+    GetArtistMix,
+    GetArtistMixArtistMix,
+    GetArtistMixArtistMixTracks,
+    GetArtistMixArtistMixTracksTrack,
+)
 from .get_charts import (
     GetCharts,
     GetChartsCharts,
@@ -311,6 +317,12 @@ from .get_track import (
     GetTrackTrackMediaRightsSub,
     GetTrackTrackMediaToken,
 )
+from .get_track_mix import (
+    GetTrackMix,
+    GetTrackMixTrackMix,
+    GetTrackMixTrackMixTracks,
+    GetTrackMixTrackMixTracksTrack,
+)
 from .get_user_charts import (
     GetUserCharts,
     GetUserChartsMe,
@@ -490,6 +502,10 @@ __all__ = [
     "GetArtistArtistTopTracksPageInfo",
     "GetArtistArtistUrlDeezerUrl",
     "GetArtistArtistUrlUrl",
+    "GetArtistMix",
+    "GetArtistMixArtistMix",
+    "GetArtistMixArtistMixTracks",
+    "GetArtistMixArtistMixTracksTrack",
     "GetCharts",
     "GetChartsCharts",
     "GetChartsChartsCountry",
@@ -657,6 +673,10 @@ __all__ = [
     "GetSmartTracklistSmartTracklistTracksEdgesNode",
     "GetSmartTracklistSmartTracklistTracksPageInfo",
     "GetTrack",
+    "GetTrackMix",
+    "GetTrackMixTrackMix",
+    "GetTrackMixTrackMixTracks",
+    "GetTrackMixTrackMixTracksTrack",
     "GetTrackTrack",
     "GetTrackTrackLyrics",
     "GetTrackTrackLyricsSynchronizedLines",

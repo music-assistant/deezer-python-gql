@@ -38,6 +38,7 @@ from deezer_python_gql.generated.delete_playlist import DeletePlaylist
 from deezer_python_gql.generated.enums import PodcastType
 from deezer_python_gql.generated.get_album import GetAlbum
 from deezer_python_gql.generated.get_artist import GetArtist
+from deezer_python_gql.generated.get_artist_mix import GetArtistMix
 from deezer_python_gql.generated.get_charts import GetCharts
 from deezer_python_gql.generated.get_favorite_albums import GetFavoriteAlbums
 from deezer_python_gql.generated.get_favorite_artists import GetFavoriteArtists
@@ -60,6 +61,7 @@ from deezer_python_gql.generated.get_recently_played import GetRecentlyPlayed
 from deezer_python_gql.generated.get_recommendations import GetRecommendations
 from deezer_python_gql.generated.get_smart_tracklist import GetSmartTracklist
 from deezer_python_gql.generated.get_track import GetTrack
+from deezer_python_gql.generated.get_track_mix import GetTrackMix
 from deezer_python_gql.generated.get_user_charts import GetUserCharts
 from deezer_python_gql.generated.get_user_playlists import GetUserPlaylists
 from deezer_python_gql.generated.mark_as_not_played_podcast_episode import (
@@ -192,6 +194,8 @@ def test_client_has_generated_methods() -> None:
         "unbookmark_podcast_episode",
         "mark_as_played_podcast_episode",
         "mark_as_not_played_podcast_episode",
+        "get_artist_mix",
+        "get_track_mix",
     ]
     for method in expected_methods:
         assert hasattr(client, method), f"Missing method: {method}"
@@ -1015,3 +1019,35 @@ def test_smoke_mark_as_not_played_podcast_episode() -> None:
     result = MarkAsNotPlayedPodcastEpisode.model_validate(data)
     assert result.mark_as_not_played_podcast_episode.status is True
     assert result.mark_as_not_played_podcast_episode.episode.id == "ep_100"
+
+
+# ---------------------------------------------------------------------------
+# 11. Mix (Shaker) smoke tests
+# ---------------------------------------------------------------------------
+
+
+def test_smoke_get_artist_mix() -> None:
+    """Verify GetArtistMix fixture parses with track results."""
+    data = _load_fixture("get_artist_mix.json")
+    mix = GetArtistMix.model_validate(data).artist_mix
+    assert mix is not None
+    assert len(mix.tracks) == 2
+    track = mix.tracks[0].track
+    assert track is not None
+    assert track.id == "3135556"
+    assert track.title == "Harder, Better, Faster, Stronger"
+    assert track.duration == 226
+    assert len(track.contributors.edges) == 1
+
+
+def test_smoke_get_track_mix() -> None:
+    """Verify GetTrackMix fixture parses with track results."""
+    data = _load_fixture("get_track_mix.json")
+    mix = GetTrackMix.model_validate(data).track_mix
+    assert mix is not None
+    assert len(mix.tracks) == 2
+    track = mix.tracks[1].track
+    assert track is not None
+    assert track.id == "999001"
+    assert track.title == "Get Lucky"
+    assert len(track.contributors.edges) == 2

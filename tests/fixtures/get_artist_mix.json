@@ -1,0 +1,72 @@
+{
+  "data": {
+    "artistMix": {
+      "tracks": [
+        {
+          "track": {
+            "id": "3135556",
+            "title": "Harder, Better, Faster, Stronger",
+            "ISRC": "GBDUW0000059",
+            "diskInfo": { "diskNumber": 1, "trackNumber": 4 },
+            "duration": 226,
+            "isExplicit": false,
+            "isFavorite": true,
+            "popularity": 850000,
+            "album": {
+              "id": "302127",
+              "displayTitle": "Discovery",
+              "cover": {
+                "id": "cover_302127",
+                "urls": ["https://cdn.example.com/cover/264x264.jpg"]
+              }
+            },
+            "contributors": {
+              "edges": [
+                {
+                  "roles": ["MAIN"],
+                  "node": {
+                    "id": "27",
+                    "name": "Daft Punk",
+                    "__typename": "Artist"
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          "track": {
+            "id": "3129775",
+            "title": "Around the World",
+            "ISRC": "GBDUW0600009",
+            "diskInfo": { "diskNumber": 1, "trackNumber": 1 },
+            "duration": 429,
+            "isExplicit": false,
+            "isFavorite": false,
+            "popularity": 720000,
+            "album": {
+              "id": "301775",
+              "displayTitle": "Homework",
+              "cover": {
+                "id": "cover_301775",
+                "urls": ["https://cdn.example.com/cover2/264x264.jpg"]
+              }
+            },
+            "contributors": {
+              "edges": [
+                {
+                  "roles": ["MAIN"],
+                  "node": {
+                    "id": "27",
+                    "name": "Daft Punk",
+                    "__typename": "Artist"
+                  }
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  }
+}

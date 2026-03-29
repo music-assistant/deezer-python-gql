@@ -39,6 +39,7 @@ from .delete_playlist import DeletePlaylist, DeletePlaylistDeletePlaylist
 from .enums import PodcastEpisodeOrder
 from .get_album import GetAlbum, GetAlbumAlbum
 from .get_artist import GetArtist, GetArtistArtist
+from .get_artist_mix import GetArtistMix, GetArtistMixArtistMix
 from .get_charts import GetCharts, GetChartsCharts
 from .get_favorite_albums import GetFavoriteAlbums, GetFavoriteAlbumsMe
 from .get_favorite_artists import GetFavoriteArtists, GetFavoriteArtistsMe
@@ -62,6 +63,7 @@ from .get_recently_played import GetRecentlyPlayed, GetRecentlyPlayedMe
 from .get_recommendations import GetRecommendations, GetRecommendationsMe
 from .get_smart_tracklist import GetSmartTracklist, GetSmartTracklistSmartTracklist
 from .get_track import GetTrack, GetTrackTrack
+from .get_track_mix import GetTrackMix, GetTrackMixTrackMix
 from .get_user_charts import GetUserCharts, GetUserChartsMe
 from .get_user_playlists import GetUserPlaylists, GetUserPlaylistsMe
 from .mark_as_not_played_podcast_episode import (
@@ -675,6 +677,60 @@ class DeezerGQLClient(DeezerBaseClient):
         )
         data = self.get_data(response)
         return GetArtist.model_validate(data).artist
+
+    async def get_artist_mix(
+        self, artist_ids: list[str], limit: int, **kwargs: Any
+    ) -> GetArtistMixArtistMix:
+        query = gql("""
+            query GetArtistMix($artistIds: [String!]!, $limit: Int! = 40) {
+              artistMix(artistIds: $artistIds, limit: $limit) {
+                tracks {
+                  track {
+                    ...TrackFields
+                  }
+                }
+              }
+            }
+
+            fragment TrackFields on Track {
+              id
+              title
+              ISRC
+              diskInfo {
+                diskNumber
+                trackNumber
+              }
+              duration
+              isExplicit
+              isFavorite
+              popularity
+              album {
+                id
+                displayTitle
+                cover {
+                  id
+                  urls(pictureRequest: {width: 264, height: 264})
+                }
+              }
+              contributors(first: 10, roles: [MAIN, FEATURED]) {
+                edges {
+                  roles
+                  node {
+                    ... on Artist {
+                      id
+                      name
+                    }
+                  }
+                }
+              }
+            }
+            """)
+        variables: dict[str, object] = {"artistIds": artist_ids, "limit": limit}
+        response = await self.execute(
+            query=query, operation_name="GetArtistMix", variables=variables, **kwargs
+        )
+        data = self.get_data(response)
+        return GetArtistMix.model_validate(data).artist_mix
 
     async def get_charts(
         self,
@@ -2215,6 +2271,72 @@ class DeezerGQLClient(DeezerBaseClient):
         )
         data = self.get_data(response)
         return GetTrack.model_validate(data).track
+
+    async def get_track_mix(
+        self,
+        track_ids: list[str],
+        limit: int,
+        start_with_input_track: bool,
+        **kwargs: Any
+    ) -> GetTrackMixTrackMix:
+        query = gql("""
+            query GetTrackMix($trackIds: [String!]!, $limit: Int! = 40, $startWithInputTrack: Boolean! = true) {
+              trackMix(
+                trackIds: $trackIds
+                limit: $limit
+                startWithInputTrack: $startWithInputTrack
+              ) {
+                tracks {
+                  track {
+                    ...TrackFields
+                  }
+                }
+              }
+            }
+
+            fragment TrackFields on Track {
+              id
+              title
+              ISRC
+              diskInfo {
+                diskNumber
+                trackNumber
+              }
+              duration
+              isExplicit
+              isFavorite
+              popularity
+              album {
+                id
+                displayTitle
+                cover {
+                  id
+                  urls(pictureRequest: {width: 264, height: 264})
+                }
+              }
+              contributors(first: 10, roles: [MAIN, FEATURED]) {
+                edges {
+                  roles
+                  node {
+                    ... on Artist {
+                      id
+                      name
+                    }
+                  }
+                }
+              }
+            }
+            """)
+        variables: dict[str, object] = {
+            "trackIds": track_ids,
+            "limit": limit,
+            "startWithInputTrack": start_with_input_track,
+        }
+        response = await self.execute(
+            query=query, operation_name="GetTrackMix", variables=variables, **kwargs
+        )
+        data = self.get_data(response)
+        return GetTrackMix.model_validate(data).track_mix
 
     async def get_user_charts(
         self,

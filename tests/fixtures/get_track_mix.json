@@ -1,0 +1,80 @@
+{
+  "data": {
+    "trackMix": {
+      "tracks": [
+        {
+          "track": {
+            "id": "3135556",
+            "title": "Harder, Better, Faster, Stronger",
+            "ISRC": "GBDUW0000059",
+            "diskInfo": { "diskNumber": 1, "trackNumber": 4 },
+            "duration": 226,
+            "isExplicit": false,
+            "isFavorite": true,
+            "popularity": 850000,
+            "album": {
+              "id": "302127",
+              "displayTitle": "Discovery",
+              "cover": {
+                "id": "cover_302127",
+                "urls": ["https://cdn.example.com/cover/264x264.jpg"]
+              }
+            },
+            "contributors": {
+              "edges": [
+                {
+                  "roles": ["MAIN"],
+                  "node": {
+                    "id": "27",
+                    "name": "Daft Punk",
+                    "__typename": "Artist"
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          "track": {
+            "id": "999001",
+            "title": "Get Lucky",
+            "ISRC": "USQX91300110",
+            "diskInfo": { "diskNumber": 1, "trackNumber": 8 },
+            "duration": 369,
+            "isExplicit": false,
+            "isFavorite": false,
+            "popularity": 950000,
+            "album": {
+              "id": "6575789",
+              "displayTitle": "Random Access Memories",
+              "cover": {
+                "id": "cover_6575789",
+                "urls": ["https://cdn.example.com/cover3/264x264.jpg"]
+              }
+            },
+            "contributors": {
+              "edges": [
+                {
+                  "roles": ["MAIN"],
+                  "node": {
+                    "id": "27",
+                    "name": "Daft Punk",
+                    "__typename": "Artist"
+                  }
+                },
+                {
+                  "roles": ["FEATURED"],
+                  "node": {
+                    "id": "293585",
+                    "name": "Pharrell Williams",
+                    "__typename": "Artist"
+                  }
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,20 @@
+# Get a track mix — fresh track recommendations based on given track IDs.
+# Each call returns fresh results. Can optionally start with input tracks.
+
+query GetTrackMix(
+  $trackIds: [String!]!
+  $limit: Int! = 40
+  $startWithInputTrack: Boolean! = true
+) {
+  trackMix(
+    trackIds: $trackIds
+    limit: $limit
+    startWithInputTrack: $startWithInputTrack
+  ) {
+    tracks {
+      track {
+        ...TrackFields
+      }
+    }
+  }
+}

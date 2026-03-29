@@ -1,0 +1,12 @@
+# Get an artist mix — fresh track recommendations based on given artist IDs.
+# Each call returns fresh results. The tracks use TrackFields fragment.
+
+query GetArtistMix($artistIds: [String!]!, $limit: Int! = 40) {
+  artistMix(artistIds: $artistIds, limit: $limit) {
+    tracks {
+      track {
+        ...TrackFields
+      }
+    }
+  }
+}
