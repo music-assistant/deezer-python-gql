@@ -85,3 +85,76 @@ mutation RemovePlaylistFromFavorite($playlistId: String!) {
     }
   }
 }
+
+# Add a podcast to the user's favorites.
+
+mutation AddPodcastToFavorite($podcastId: String!) {
+  addPodcastToFavorite(podcastId: $podcastId) {
+    podcast {
+      id
+      displayTitle
+    }
+    favoritedAt
+  }
+}
+
+# Remove a podcast from the user's favorites.
+
+mutation RemovePodcastFromFavorite($podcastId: String!) {
+  removePodcastFromFavorite(podcastId: $podcastId) {
+    podcast {
+      id
+      displayTitle
+    }
+  }
+}
+
+# Bookmark a podcast episode with playback offset (in seconds).
+
+mutation BookmarkPodcastEpisode($episodeId: String!, $offset: Int!) {
+  bookmarkPodcastEpisode(episodeId: $episodeId, offset: $offset) {
+    status
+    bookmark {
+      position
+      isPlayed
+      bookmarkedAt
+    }
+  }
+}
+
+# Remove bookmark from a podcast episode.
+
+mutation UnbookmarkPodcastEpisode($episodeId: String!) {
+  unbookmarkPodcastEpisode(episodeId: $episodeId) {
+    status
+    episode {
+      id
+      title
+    }
+  }
+}
+
+# Mark a podcast episode as played.
+
+mutation MarkAsPlayedPodcastEpisode($episodeId: String!) {
+  markAsPlayedPodcastEpisode(episodeId: $episodeId) {
+    status
+    bookmark {
+      position
+      isPlayed
+      bookmarkedAt
+    }
+  }
+}
+
+# Mark a podcast episode as not played.
+
+mutation MarkAsNotPlayedPodcastEpisode($episodeId: String!) {
+  markAsNotPlayedPodcastEpisode(episodeId: $episodeId) {
+    status
+    episode {
+      id
+      title
+    }
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "data": {
+    "me": {
+      "__typename": "PrivateUser",
+      "userFavorites": {
+        "podcasts": {
+          "edges": [
+            {
+              "cursor": "fav_pod_cursor_1",
+              "favoritedAt": "2025-07-01",
+              "node": {
+                "__typename": "Podcast",
+                "id": "1234",
+                "displayTitle": "Tech Weekly",
+                "cover": {
+                  "id": "cover:1234",
+                  "urls": ["https://cdn.example.com/cover/264x264.jpg"]
+                },
+                "description": "Weekly discussions on the latest in tech.",
+                "isExplicit": false,
+                "isFavorite": true,
+                "type": "EPISODIC"
+              }
+            }
+          ],
+          "pageInfo": {
+            "hasNextPage": true,
+            "endCursor": "fav_pod_cursor_1"
+          }
+        }
+      }
+    }
+  }
+}

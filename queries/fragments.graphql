@@ -129,6 +129,44 @@ fragment LivestreamFields on Livestream {
 }
 
 # ---------------------------------------------------------------------------
+# Podcast — lightweight fields for podcast browse listings
+# ---------------------------------------------------------------------------
+fragment PodcastFields on Podcast {
+  id
+  displayTitle
+  cover {
+    id
+    urls(pictureRequest: { width: 264, height: 264 })
+  }
+  description
+  isExplicit
+  isFavorite
+  type
+}
+
+# ---------------------------------------------------------------------------
+# PodcastEpisode — lightweight fields for episode listings
+# ---------------------------------------------------------------------------
+fragment PodcastEpisodeFields on PodcastEpisode {
+  id
+  title
+  description
+  duration
+  cover {
+    id
+    urls(pictureRequest: { width: 264, height: 264 })
+  }
+  publicationDate
+  media {
+    url
+    codec {
+      type
+      bitrate
+    }
+  }
+}
+
+# ---------------------------------------------------------------------------
 # PageInfo — standard Relay pagination info
 # ---------------------------------------------------------------------------
 fragment PageInfoFields on PageInfo {

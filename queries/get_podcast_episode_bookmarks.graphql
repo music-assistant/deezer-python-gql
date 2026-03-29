@@ -1,0 +1,26 @@
+# Get the current user's podcast episode bookmarks (paginated).
+# Bookmarks track listening position and play state for episodes.
+
+query GetPodcastEpisodeBookmarks($first: Int = 50, $after: String) {
+  me {
+    podcastEpisodeBookmarks(first: $first, after: $after) {
+      edges {
+        cursor
+        node {
+          episode {
+            ...PodcastEpisodeFields
+            podcast {
+              ...PodcastFields
+            }
+          }
+          position
+          isPlayed
+          bookmarkedAt
+        }
+      }
+      pageInfo {
+        ...PageInfoFields
+      }
+    }
+  }
+}

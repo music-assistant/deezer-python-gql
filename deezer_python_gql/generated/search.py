@@ -12,6 +12,8 @@ from .fragments import (
     LivestreamFields,
     PageInfoFields,
     PlaylistFields,
+    PodcastEpisodeFields,
+    PodcastFields,
     TrackFields,
 )
 
@@ -30,6 +32,10 @@ class SearchSearchResults(BaseModel):
     artists: "SearchSearchResultsArtists"
     playlists: "SearchSearchResultsPlaylists"
     livestreams: "SearchSearchResultsLivestreams"
+    podcasts: "SearchSearchResultsPodcasts"
+    podcast_episodes: "SearchSearchResultsPodcastEpisodes" = Field(
+        alias="podcastEpisodes"
+    )
 
 
 class SearchSearchResultsTracks(BaseModel):
@@ -122,6 +128,42 @@ class SearchSearchResultsLivestreamsPageInfo(PageInfoFields):
     pass
 
 
+class SearchSearchResultsPodcasts(BaseModel):
+    edges: list["SearchSearchResultsPodcastsEdges"]
+    page_info: "SearchSearchResultsPodcastsPageInfo" = Field(alias="pageInfo")
+
+
+class SearchSearchResultsPodcastsEdges(BaseModel):
+    cursor: str
+    node: Optional["SearchSearchResultsPodcastsEdgesNode"]
+
+
+class SearchSearchResultsPodcastsEdgesNode(PodcastFields):
+    pass
+
+
+class SearchSearchResultsPodcastsPageInfo(PageInfoFields):
+    pass
+
+
+class SearchSearchResultsPodcastEpisodes(BaseModel):
+    edges: list["SearchSearchResultsPodcastEpisodesEdges"]
+    page_info: "SearchSearchResultsPodcastEpisodesPageInfo" = Field(alias="pageInfo")
+
+
+class SearchSearchResultsPodcastEpisodesEdges(BaseModel):
+    cursor: str
+    node: Optional["SearchSearchResultsPodcastEpisodesEdgesNode"]
+
+
+class SearchSearchResultsPodcastEpisodesEdgesNode(PodcastEpisodeFields):
+    pass
+
+
+class SearchSearchResultsPodcastEpisodesPageInfo(PageInfoFields):
+    pass
+
+
 Search.model_rebuild()
 SearchSearch.model_rebuild()
 SearchSearchResults.model_rebuild()
@@ -135,3 +177,7 @@ SearchSearchResultsPlaylists.model_rebuild()
 SearchSearchResultsPlaylistsEdges.model_rebuild()
 SearchSearchResultsLivestreams.model_rebuild()
 SearchSearchResultsLivestreamsEdges.model_rebuild()
+SearchSearchResultsPodcasts.model_rebuild()
+SearchSearchResultsPodcastsEdges.model_rebuild()
+SearchSearchResultsPodcastEpisodes.model_rebuild()
+SearchSearchResultsPodcastEpisodesEdges.model_rebuild()

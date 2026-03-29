@@ -29,16 +29,20 @@ from deezer_python_gql.base_client import (
 from deezer_python_gql.generated.add_album_to_favorite import AddAlbumToFavorite
 from deezer_python_gql.generated.add_artist_to_favorite import AddArtistToFavorite
 from deezer_python_gql.generated.add_playlist_to_favorite import AddPlaylistToFavorite
+from deezer_python_gql.generated.add_podcast_to_favorite import AddPodcastToFavorite
 from deezer_python_gql.generated.add_track_to_favorite import AddTrackToFavorite
 from deezer_python_gql.generated.add_tracks_to_playlist import AddTracksToPlaylist
+from deezer_python_gql.generated.bookmark_podcast_episode import BookmarkPodcastEpisode
 from deezer_python_gql.generated.create_playlist import CreatePlaylist
 from deezer_python_gql.generated.delete_playlist import DeletePlaylist
+from deezer_python_gql.generated.enums import PodcastType
 from deezer_python_gql.generated.get_album import GetAlbum
 from deezer_python_gql.generated.get_artist import GetArtist
 from deezer_python_gql.generated.get_charts import GetCharts
 from deezer_python_gql.generated.get_favorite_albums import GetFavoriteAlbums
 from deezer_python_gql.generated.get_favorite_artists import GetFavoriteArtists
 from deezer_python_gql.generated.get_favorite_playlists import GetFavoritePlaylists
+from deezer_python_gql.generated.get_favorite_podcasts import GetFavoritePodcasts
 from deezer_python_gql.generated.get_favorite_tracks import GetFavoriteTracks
 from deezer_python_gql.generated.get_flow import GetFlow
 from deezer_python_gql.generated.get_flow_config_tracks import GetFlowConfigTracks
@@ -47,21 +51,36 @@ from deezer_python_gql.generated.get_livestream import GetLivestream
 from deezer_python_gql.generated.get_made_for_me import GetMadeForMe
 from deezer_python_gql.generated.get_me import GetMe
 from deezer_python_gql.generated.get_playlist import GetPlaylist
+from deezer_python_gql.generated.get_podcast import GetPodcast
+from deezer_python_gql.generated.get_podcast_episode import GetPodcastEpisode
+from deezer_python_gql.generated.get_podcast_episode_bookmarks import (
+    GetPodcastEpisodeBookmarks,
+)
 from deezer_python_gql.generated.get_recently_played import GetRecentlyPlayed
 from deezer_python_gql.generated.get_recommendations import GetRecommendations
 from deezer_python_gql.generated.get_smart_tracklist import GetSmartTracklist
 from deezer_python_gql.generated.get_track import GetTrack
 from deezer_python_gql.generated.get_user_charts import GetUserCharts
 from deezer_python_gql.generated.get_user_playlists import GetUserPlaylists
+from deezer_python_gql.generated.mark_as_not_played_podcast_episode import (
+    MarkAsNotPlayedPodcastEpisode,
+)
+from deezer_python_gql.generated.mark_as_played_podcast_episode import (
+    MarkAsPlayedPodcastEpisode,
+)
 from deezer_python_gql.generated.remove_album_from_favorite import RemoveAlbumFromFavorite
 from deezer_python_gql.generated.remove_artist_from_favorite import RemoveArtistFromFavorite
 from deezer_python_gql.generated.remove_playlist_from_favorite import (
     RemovePlaylistFromFavorite,
 )
+from deezer_python_gql.generated.remove_podcast_from_favorite import (
+    RemovePodcastFromFavorite,
+)
 from deezer_python_gql.generated.remove_track_from_favorite import RemoveTrackFromFavorite
 from deezer_python_gql.generated.remove_tracks_from_playlist import RemoveTracksFromPlaylist
 from deezer_python_gql.generated.search import Search
 from deezer_python_gql.generated.search_flows import SearchFlows
+from deezer_python_gql.generated.unbookmark_podcast_episode import UnbookmarkPodcastEpisode
 from deezer_python_gql.generated.update_playlist import UpdatePlaylist
 
 FIXTURES = Path(__file__).parent / "fixtures"
@@ -163,6 +182,16 @@ def test_client_has_generated_methods() -> None:
         "delete_playlist",
         "add_tracks_to_playlist",
         "remove_tracks_from_playlist",
+        "get_podcast",
+        "get_podcast_episode",
+        "get_favorite_podcasts",
+        "get_podcast_episode_bookmarks",
+        "add_podcast_to_favorite",
+        "remove_podcast_from_favorite",
+        "bookmark_podcast_episode",
+        "unbookmark_podcast_episode",
+        "mark_as_played_podcast_episode",
+        "mark_as_not_played_podcast_episode",
     ]
     for method in expected_methods:
         assert hasattr(client, method), f"Missing method: {method}"
@@ -858,3 +887,131 @@ def test_smoke_get_livestream() -> None:
     assert ls.media[0].codec.type_ == "hls"
     assert ls.cover is not None
     assert len(ls.cover.urls) == 1
+
+
+# ---------------------------------------------------------------------------
+# 9. Podcast query smoke tests
+# ---------------------------------------------------------------------------
+
+
+def test_smoke_get_podcast() -> None:
+    """Verify GetPodcast fixture parses with episodes and rights."""
+    data = _load_fixture("get_podcast.json")
+    podcast = GetPodcast.model_validate(data).podcast
+    assert podcast is not None
+    assert podcast.id == "1234"
+    assert podcast.display_title == "Tech Weekly"
+    assert podcast.is_favorite is True
+    assert podcast.type_ == PodcastType.EPISODIC
+    assert podcast.is_advertising_allowed is True
+    assert podcast.is_download_allowed is True
+    assert podcast.rights.ads.available is True
+    assert podcast.rights.sub.available is True
+    assert len(podcast.episodes.edges) == 2
+    ep = podcast.episodes.edges[0].node
+    assert ep is not None
+    assert ep.id == "ep_100"
+    assert ep.title == "Episode 100: AI Revolution"
+    assert ep.duration == 2400
+    assert ep.media.url.startswith("https://")
+    assert podcast.episodes.page_info.has_next_page is True
+
+
+def test_smoke_get_podcast_episode() -> None:
+    """Verify GetPodcastEpisode fixture parses with podcast and URL."""
+    data = _load_fixture("get_podcast_episode.json")
+    ep = GetPodcastEpisode.model_validate(data).podcast_episode
+    assert ep is not None
+    assert ep.id == "ep_100"
+    assert ep.title == "Episode 100: AI Revolution"
+    assert ep.duration == 2400
+    assert ep.publication_date == "2025-07-10"
+    assert ep.media.url.startswith("https://")
+    assert ep.podcast.id == "1234"
+    assert ep.podcast.display_title == "Tech Weekly"
+
+
+def test_smoke_get_favorite_podcasts() -> None:
+    """Verify GetFavoritePodcasts fixture parses with pagination."""
+    data = _load_fixture("get_favorite_podcasts.json")
+    me = GetFavoritePodcasts.model_validate(data).me
+    assert me is not None
+    podcasts = me.user_favorites.podcasts
+    assert podcasts is not None
+    assert len(podcasts.edges) == 1
+    node = podcasts.edges[0].node
+    assert node is not None
+    assert node.display_title == "Tech Weekly"
+    assert podcasts.edges[0].favorited_at == "2025-07-01"
+    assert podcasts.page_info.has_next_page is True
+
+
+def test_smoke_get_podcast_episode_bookmarks() -> None:
+    """Verify GetPodcastEpisodeBookmarks fixture parses with bookmark state."""
+    data = _load_fixture("get_podcast_episode_bookmarks.json")
+    me = GetPodcastEpisodeBookmarks.model_validate(data).me
+    assert me is not None
+    bookmarks = me.podcast_episode_bookmarks
+    assert len(bookmarks.edges) == 1
+    bm = bookmarks.edges[0].node
+    assert bm is not None
+    assert bm.position == 1200
+    assert bm.is_played is False
+    assert bm.episode.id == "ep_100"
+    assert bm.episode.podcast.display_title == "Tech Weekly"
+
+
+# ---------------------------------------------------------------------------
+# 10. Podcast mutation smoke tests
+# ---------------------------------------------------------------------------
+
+
+def test_smoke_add_podcast_to_favorite() -> None:
+    """Verify AddPodcastToFavorite fixture parses with returned podcast."""
+    data = _load_fixture("add_podcast_to_favorite.json")
+    result = AddPodcastToFavorite.model_validate(data)
+    assert result.add_podcast_to_favorite.podcast.id == "1234"
+    assert result.add_podcast_to_favorite.podcast.display_title == "Tech Weekly"
+    assert result.add_podcast_to_favorite.favorited_at == "2025-07-10"
+
+
+def test_smoke_remove_podcast_from_favorite() -> None:
+    """Verify RemovePodcastFromFavorite fixture parses with returned podcast."""
+    data = _load_fixture("remove_podcast_from_favorite.json")
+    result = RemovePodcastFromFavorite.model_validate(data)
+    assert result.remove_podcast_from_favorite.podcast is not None
+    assert result.remove_podcast_from_favorite.podcast.id == "1234"
+
+
+def test_smoke_bookmark_podcast_episode() -> None:
+    """Verify BookmarkPodcastEpisode fixture parses with bookmark state."""
+    data = _load_fixture("bookmark_podcast_episode.json")
+    result = BookmarkPodcastEpisode.model_validate(data)
+    assert result.bookmark_podcast_episode.status is True
+    assert result.bookmark_podcast_episode.bookmark is not None
+    assert result.bookmark_podcast_episode.bookmark.position == 600
+
+
+def test_smoke_unbookmark_podcast_episode() -> None:
+    """Verify UnbookmarkPodcastEpisode fixture parses with episode."""
+    data = _load_fixture("unbookmark_podcast_episode.json")
+    result = UnbookmarkPodcastEpisode.model_validate(data)
+    assert result.unbookmark_podcast_episode.status is True
+    assert result.unbookmark_podcast_episode.episode.id == "ep_100"
+
+
+def test_smoke_mark_as_played_podcast_episode() -> None:
+    """Verify MarkAsPlayedPodcastEpisode fixture parses with bookmark state."""
+    data = _load_fixture("mark_as_played_podcast_episode.json")
+    result = MarkAsPlayedPodcastEpisode.model_validate(data)
+    assert result.mark_as_played_podcast_episode.status is True
+    assert result.mark_as_played_podcast_episode.bookmark is not None
+    assert result.mark_as_played_podcast_episode.bookmark.is_played is True
+
+
+def test_smoke_mark_as_not_played_podcast_episode() -> None:
+    """Verify MarkAsNotPlayedPodcastEpisode fixture parses with episode."""
+    data = _load_fixture("mark_as_not_played_podcast_episode.json")
+    result = MarkAsNotPlayedPodcastEpisode.model_validate(data)
+    assert result.mark_as_not_played_podcast_episode.status is True
+    assert result.mark_as_not_played_podcast_episode.episode.id == "ep_100"

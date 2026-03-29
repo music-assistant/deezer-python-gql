@@ -1,0 +1,12 @@
+{
+  "data": {
+    "addPodcastToFavorite": {
+      "podcast": {
+        "__typename": "Podcast",
+        "id": "1234",
+        "displayTitle": "Tech Weekly"
+      },
+      "favoritedAt": "2025-07-10"
+    }
+  }
+}

@@ -1,0 +1,13 @@
+query GetPodcastEpisode($podcastEpisodeId: String!) {
+  podcastEpisode(podcastEpisodeId: $podcastEpisodeId) {
+    ...PodcastEpisodeFields
+    url {
+      ... on Url {
+        webUrl
+      }
+    }
+    podcast {
+      ...PodcastFields
+    }
+  }
+}

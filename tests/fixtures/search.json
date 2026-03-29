@@ -385,6 +385,20 @@
             "hasNextPage": false,
             "endCursor": "99001"
           }
+        },
+        "podcasts": {
+          "edges": [],
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": null
+          }
+        },
+        "podcastEpisodes": {
+          "edges": [],
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": null
+          }
         }
       }
     }

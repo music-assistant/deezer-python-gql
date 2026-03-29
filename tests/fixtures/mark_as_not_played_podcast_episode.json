@@ -1,0 +1,12 @@
+{
+  "data": {
+    "markAsNotPlayedPodcastEpisode": {
+      "status": true,
+      "episode": {
+        "__typename": "PodcastEpisode",
+        "id": "ep_100",
+        "title": "Episode 100: AI Revolution"
+      }
+    }
+  }
+}

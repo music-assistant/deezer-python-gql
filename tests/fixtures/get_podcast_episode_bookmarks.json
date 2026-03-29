@@ -1,0 +1,55 @@
+{
+  "data": {
+    "me": {
+      "__typename": "PrivateUser",
+      "podcastEpisodeBookmarks": {
+        "edges": [
+          {
+            "cursor": "bm_cursor_1",
+            "node": {
+              "episode": {
+                "__typename": "PodcastEpisode",
+                "id": "ep_100",
+                "title": "Episode 100: AI Revolution",
+                "description": "Exploring the latest AI trends.",
+                "duration": 2400,
+                "cover": {
+                  "id": "cover:ep_100",
+                  "urls": ["https://cdn.example.com/ep/264x264.jpg"]
+                },
+                "publicationDate": "2025-07-10",
+                "media": {
+                  "url": "https://cdn.example.com/ep/100.mp3",
+                  "codec": {
+                    "type": "mp3",
+                    "bitrate": 128
+                  }
+                },
+                "podcast": {
+                  "__typename": "Podcast",
+                  "id": "1234",
+                  "displayTitle": "Tech Weekly",
+                  "cover": {
+                    "id": "cover:1234",
+                    "urls": ["https://cdn.example.com/cover/264x264.jpg"]
+                  },
+                  "description": "Weekly discussions on the latest in tech.",
+                  "isExplicit": false,
+                  "isFavorite": true,
+                  "type": "EPISODIC"
+                }
+              },
+              "position": 1200,
+              "isPlayed": false,
+              "bookmarkedAt": "2025-07-10"
+            }
+          }
+        ],
+        "pageInfo": {
+          "hasNextPage": false,
+          "endCursor": "bm_cursor_1"
+        }
+      }
+    }
+  }
+}

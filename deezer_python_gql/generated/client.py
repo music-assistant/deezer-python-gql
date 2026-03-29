@@ -15,6 +15,10 @@ from .add_playlist_to_favorite import (
     AddPlaylistToFavorite,
     AddPlaylistToFavoriteAddPlaylistToFavorite,
 )
+from .add_podcast_to_favorite import (
+    AddPodcastToFavorite,
+    AddPodcastToFavoriteAddPodcastToFavorite,
+)
 from .add_track_to_favorite import (
     AddTrackToFavorite,
     AddTrackToFavoriteAddTrackToFavorite,
@@ -26,14 +30,20 @@ from .add_tracks_to_playlist import (
 )
 from .base_client import DeezerBaseClient
 from .base_model import UNSET, UnsetType
+from .bookmark_podcast_episode import (
+    BookmarkPodcastEpisode,
+    BookmarkPodcastEpisodeBookmarkPodcastEpisode,
+)
 from .create_playlist import CreatePlaylist, CreatePlaylistCreatePlaylist
 from .delete_playlist import DeletePlaylist, DeletePlaylistDeletePlaylist
+from .enums import PodcastEpisodeOrder
 from .get_album import GetAlbum, GetAlbumAlbum
 from .get_artist import GetArtist, GetArtistArtist
 from .get_charts import GetCharts, GetChartsCharts
 from .get_favorite_albums import GetFavoriteAlbums, GetFavoriteAlbumsMe
 from .get_favorite_artists import GetFavoriteArtists, GetFavoriteArtistsMe
 from .get_favorite_playlists import GetFavoritePlaylists, GetFavoritePlaylistsMe
+from .get_favorite_podcasts import GetFavoritePodcasts, GetFavoritePodcastsMe
 from .get_favorite_tracks import GetFavoriteTracks, GetFavoriteTracksMe
 from .get_flow import GetFlow, GetFlowMe
 from .get_flow_config_tracks import GetFlowConfigTracks, GetFlowConfigTracksFlowConfig
@@ -42,12 +52,26 @@ from .get_livestream import GetLivestream, GetLivestreamLivestream
 from .get_made_for_me import GetMadeForMe, GetMadeForMeMe
 from .get_me import GetMe, GetMeMe
 from .get_playlist import GetPlaylist, GetPlaylistPlaylist
+from .get_podcast import GetPodcast, GetPodcastPodcast
+from .get_podcast_episode import GetPodcastEpisode, GetPodcastEpisodePodcastEpisode
+from .get_podcast_episode_bookmarks import (
+    GetPodcastEpisodeBookmarks,
+    GetPodcastEpisodeBookmarksMe,
+)
 from .get_recently_played import GetRecentlyPlayed, GetRecentlyPlayedMe
 from .get_recommendations import GetRecommendations, GetRecommendationsMe
 from .get_smart_tracklist import GetSmartTracklist, GetSmartTracklistSmartTracklist
 from .get_track import GetTrack, GetTrackTrack
 from .get_user_charts import GetUserCharts, GetUserChartsMe
 from .get_user_playlists import GetUserPlaylists, GetUserPlaylistsMe
+from .mark_as_not_played_podcast_episode import (
+    MarkAsNotPlayedPodcastEpisode,
+    MarkAsNotPlayedPodcastEpisodeMarkAsNotPlayedPodcastEpisode,
+)
+from .mark_as_played_podcast_episode import (
+    MarkAsPlayedPodcastEpisode,
+    MarkAsPlayedPodcastEpisodeMarkAsPlayedPodcastEpisode,
+)
 from .remove_album_from_favorite import (
     RemoveAlbumFromFavorite,
     RemoveAlbumFromFavoriteRemoveAlbumFromFavorite,
@@ -60,6 +84,10 @@ from .remove_playlist_from_favorite import (
     RemovePlaylistFromFavorite,
     RemovePlaylistFromFavoriteRemovePlaylistFromFavorite,
 )
+from .remove_podcast_from_favorite import (
+    RemovePodcastFromFavorite,
+    RemovePodcastFromFavoriteRemovePodcastFromFavorite,
+)
 from .remove_track_from_favorite import (
     RemoveTrackFromFavorite,
     RemoveTrackFromFavoriteRemoveTrackFromFavorite,
@@ -70,6 +98,10 @@ from .remove_tracks_from_playlist import (
 )
 from .search import Search, SearchSearch
 from .search_flows import SearchFlows, SearchFlowsSearch
+from .unbookmark_podcast_episode import (
+    UnbookmarkPodcastEpisode,
+    UnbookmarkPodcastEpisodeUnbookmarkPodcastEpisode,
+)
 from .update_playlist import UpdatePlaylist, UpdatePlaylistUpdatePlaylist
 
 
@@ -263,6 +295,157 @@ class DeezerGQLClient(DeezerBaseClient):
         return RemovePlaylistFromFavorite.model_validate(
             data
         ).remove_playlist_from_favorite
+
+    async def add_podcast_to_favorite(
+        self, podcast_id: str, **kwargs: Any
+    ) -> AddPodcastToFavoriteAddPodcastToFavorite:
+        query = gql("""
+            mutation AddPodcastToFavorite($podcastId: String!) {
+              addPodcastToFavorite(podcastId: $podcastId) {
+                podcast {
+                  id
+                  displayTitle
+                }
+                favoritedAt
+              }
+            }
+            """)
+        variables: dict[str, object] = {"podcastId": podcast_id}
+        response = await self.execute(
+            query=query,
+            operation_name="AddPodcastToFavorite",
+            variables=variables,
+            **kwargs
+        )
+        data = self.get_data(response)
+        return AddPodcastToFavorite.model_validate(data).add_podcast_to_favorite
+
+    async def remove_podcast_from_favorite(
+        self, podcast_id: str, **kwargs: Any
+    ) -> RemovePodcastFromFavoriteRemovePodcastFromFavorite:
+        query = gql("""
+            mutation RemovePodcastFromFavorite($podcastId: String!) {
+              removePodcastFromFavorite(podcastId: $podcastId) {
+                podcast {
+                  id
+                  displayTitle
+                }
+              }
+            }
+            """)
+        variables: dict[str, object] = {"podcastId": podcast_id}
+        response = await self.execute(
+            query=query,
+            operation_name="RemovePodcastFromFavorite",
+            variables=variables,
+            **kwargs
+        )
+        data = self.get_data(response)
+        return RemovePodcastFromFavorite.model_validate(
+            data
+        ).remove_podcast_from_favorite
+
+    async def bookmark_podcast_episode(
+        self, episode_id: str, offset: int, **kwargs: Any
+    ) -> BookmarkPodcastEpisodeBookmarkPodcastEpisode:
+        query = gql("""
+            mutation BookmarkPodcastEpisode($episodeId: String!, $offset: Int!) {
+              bookmarkPodcastEpisode(episodeId: $episodeId, offset: $offset) {
+                status
+                bookmark {
+                  position
+                  isPlayed
+                  bookmarkedAt
+                }
+              }
+            }
+            """)
+        variables: dict[str, object] = {"episodeId": episode_id, "offset": offset}
+        response = await self.execute(
+            query=query,
+            operation_name="BookmarkPodcastEpisode",
+            variables=variables,
+            **kwargs
+        )
+        data = self.get_data(response)
+        return BookmarkPodcastEpisode.model_validate(data).bookmark_podcast_episode
+
+    async def unbookmark_podcast_episode(
+        self, episode_id: str, **kwargs: Any
+    ) -> UnbookmarkPodcastEpisodeUnbookmarkPodcastEpisode:
+        query = gql("""
+            mutation UnbookmarkPodcastEpisode($episodeId: String!) {
+              unbookmarkPodcastEpisode(episodeId: $episodeId) {
+                status
+                episode {
+                  id
+                  title
+                }
+              }
+            }
+            """)
+        variables: dict[str, object] = {"episodeId": episode_id}
+        response = await self.execute(
+            query=query,
+            operation_name="UnbookmarkPodcastEpisode",
+            variables=variables,
+            **kwargs
+        )
+        data = self.get_data(response)
+        return UnbookmarkPodcastEpisode.model_validate(data).unbookmark_podcast_episode
+
+    async def mark_as_played_podcast_episode(
+        self, episode_id: str, **kwargs: Any
+    ) -> MarkAsPlayedPodcastEpisodeMarkAsPlayedPodcastEpisode:
+        query = gql("""
+            mutation MarkAsPlayedPodcastEpisode($episodeId: String!) {
+              markAsPlayedPodcastEpisode(episodeId: $episodeId) {
+                status
+                bookmark {
+                  position
+                  isPlayed
+                  bookmarkedAt
+                }
+              }
+            }
+            """)
+        variables: dict[str, object] = {"episodeId": episode_id}
+        response = await self.execute(
+            query=query,
+            operation_name="MarkAsPlayedPodcastEpisode",
+            variables=variables,
+            **kwargs
+        )
+        data = self.get_data(response)
+        return MarkAsPlayedPodcastEpisode.model_validate(
+            data
+        ).mark_as_played_podcast_episode
+
+    async def mark_as_not_played_podcast_episode(
+        self, episode_id: str, **kwargs: Any
+    ) -> MarkAsNotPlayedPodcastEpisodeMarkAsNotPlayedPodcastEpisode:
+        query = gql("""
+            mutation MarkAsNotPlayedPodcastEpisode($episodeId: String!) {
+              markAsNotPlayedPodcastEpisode(episodeId: $episodeId) {
+                status
+                episode {
+                  id
+                  title
+                }
+              }
+            }
+            """)
+        variables: dict[str, object] = {"episodeId": episode_id}
+        response = await self.execute(
+            query=query,
+            operation_name="MarkAsNotPlayedPodcastEpisode",
+            variables=variables,
+            **kwargs
+        )
+        data = self.get_data(response)
+        return MarkAsNotPlayedPodcastEpisode.model_validate(
+            data
+        ).mark_as_not_played_podcast_episode
 
     async def get_album(self, album_id: str, **kwargs: Any) -> Optional[GetAlbumAlbum]:
         query = gql("""
@@ -844,6 +1027,60 @@ class DeezerGQLClient(DeezerBaseClient):
         data = self.get_data(response)
         return GetFavoritePlaylists.model_validate(data).me
 
+    async def get_favorite_podcasts(
+        self,
+        first: Union[Optional[int], UnsetType] = UNSET,
+        after: Union[Optional[str], UnsetType] = UNSET,
+        **kwargs: Any
+    ) -> Optional[GetFavoritePodcastsMe]:
+        query = gql("""
+            query GetFavoritePodcasts($first: Int = 50, $after: String) {
+              me {
+                userFavorites {
+                  podcasts(first: $first, after: $after) {
+                    edges {
+                      cursor
+                      favoritedAt
+                      node {
+                        ...PodcastFields
+                      }
+                    }
+                    pageInfo {
+                      ...PageInfoFields
+                    }
+                  }
+                }
+              }
+            }
+
+            fragment PageInfoFields on PageInfo {
+              hasNextPage
+              endCursor
+            }
+
+            fragment PodcastFields on Podcast {
+              id
+              displayTitle
+              cover {
+                id
+                urls(pictureRequest: {width: 264, height: 264})
+              }
+              description
+              isExplicit
+              isFavorite
+              type
+            }
+            """)
+        variables: dict[str, object] = {"first": first, "after": after}
+        response = await self.execute(
+            query=query,
+            operation_name="GetFavoritePodcasts",
+            variables=variables,
+            **kwargs
+        )
+        data = self.get_data(response)
+        return GetFavoritePodcasts.model_validate(data).me
+
     async def get_favorite_tracks(
         self,
         first: Union[Optional[int], UnsetType] = UNSET,
@@ -1294,6 +1531,230 @@ class DeezerGQLClient(DeezerBaseClient):
         )
         data = self.get_data(response)
         return GetPlaylist.model_validate(data).playlist
+
+    async def get_podcast(
+        self,
+        podcast_id: str,
+        episodes_first: Union[Optional[int], UnsetType] = UNSET,
+        episodes_after: Union[Optional[str], UnsetType] = UNSET,
+        episode_order: Union[Optional[PodcastEpisodeOrder], UnsetType] = UNSET,
+        **kwargs: Any
+    ) -> Optional[GetPodcastPodcast]:
+        query = gql("""
+            query GetPodcast($podcastId: String!, $episodesFirst: Int = 50, $episodesAfter: String, $episodeOrder: PodcastEpisodeOrder = LATEST) {
+              podcast(podcastId: $podcastId) {
+                ...PodcastFields
+                isAdvertisingAllowed
+                isDownloadAllowed
+                rights {
+                  ads {
+                    available
+                  }
+                  sub {
+                    available
+                  }
+                }
+                episodes(first: $episodesFirst, after: $episodesAfter, order: $episodeOrder) {
+                  edges {
+                    cursor
+                    node {
+                      ...PodcastEpisodeFields
+                    }
+                  }
+                  pageInfo {
+                    ...PageInfoFields
+                  }
+                }
+              }
+            }
+
+            fragment PageInfoFields on PageInfo {
+              hasNextPage
+              endCursor
+            }
+
+            fragment PodcastEpisodeFields on PodcastEpisode {
+              id
+              title
+              description
+              duration
+              cover {
+                id
+                urls(pictureRequest: {width: 264, height: 264})
+              }
+              publicationDate
+              media {
+                url
+                codec {
+                  type
+                  bitrate
+                }
+              }
+            }
+
+            fragment PodcastFields on Podcast {
+              id
+              displayTitle
+              cover {
+                id
+                urls(pictureRequest: {width: 264, height: 264})
+              }
+              description
+              isExplicit
+              isFavorite
+              type
+            }
+            """)
+        variables: dict[str, object] = {
+            "podcastId": podcast_id,
+            "episodesFirst": episodes_first,
+            "episodesAfter": episodes_after,
+            "episodeOrder": episode_order,
+        }
+        response = await self.execute(
+            query=query, operation_name="GetPodcast", variables=variables, **kwargs
+        )
+        data = self.get_data(response)
+        return GetPodcast.model_validate(data).podcast
+
+    async def get_podcast_episode(
+        self, podcast_episode_id: str, **kwargs: Any
+    ) -> Optional[GetPodcastEpisodePodcastEpisode]:
+        query = gql("""
+            query GetPodcastEpisode($podcastEpisodeId: String!) {
+              podcastEpisode(podcastEpisodeId: $podcastEpisodeId) {
+                ...PodcastEpisodeFields
+                url {
+                  __typename
+                  ... on Url {
+                    webUrl
+                  }
+                }
+                podcast {
+                  ...PodcastFields
+                }
+              }
+            }
+
+            fragment PodcastEpisodeFields on PodcastEpisode {
+              id
+              title
+              description
+              duration
+              cover {
+                id
+                urls(pictureRequest: {width: 264, height: 264})
+              }
+              publicationDate
+              media {
+                url
+                codec {
+                  type
+                  bitrate
+                }
+              }
+            }
+
+            fragment PodcastFields on Podcast {
+              id
+              displayTitle
+              cover {
+                id
+                urls(pictureRequest: {width: 264, height: 264})
+              }
+              description
+              isExplicit
+              isFavorite
+              type
+            }
+            """)
+        variables: dict[str, object] = {"podcastEpisodeId": podcast_episode_id}
+        response = await self.execute(
+            query=query,
+            operation_name="GetPodcastEpisode",
+            variables=variables,
+            **kwargs
+        )
+        data = self.get_data(response)
+        return GetPodcastEpisode.model_validate(data).podcast_episode
+
+    async def get_podcast_episode_bookmarks(
+        self,
+        first: Union[Optional[int], UnsetType] = UNSET,
+        after: Union[Optional[str], UnsetType] = UNSET,
+        **kwargs: Any
+    ) -> Optional[GetPodcastEpisodeBookmarksMe]:
+        query = gql("""
+            query GetPodcastEpisodeBookmarks($first: Int = 50, $after: String) {
+              me {
+                podcastEpisodeBookmarks(first: $first, after: $after) {
+                  edges {
+                    cursor
+                    node {
+                      episode {
+                        ...PodcastEpisodeFields
+                        podcast {
+                          ...PodcastFields
+                        }
+                      }
+                      position
+                      isPlayed
+                      bookmarkedAt
+                    }
+                  }
+                  pageInfo {
+                    ...PageInfoFields
+                  }
+                }
+              }
+            }
+
+            fragment PageInfoFields on PageInfo {
+              hasNextPage
+              endCursor
+            }
+
+            fragment PodcastEpisodeFields on PodcastEpisode {
+              id
+              title
+              description
+              duration
+              cover {
+                id
+                urls(pictureRequest: {width: 264, height: 264})
+              }
+              publicationDate
+              media {
+                url
+                codec {
+                  type
+                  bitrate
+                }
+              }
+            }
+
+            fragment PodcastFields on Podcast {
+              id
+              displayTitle
+              cover {
+                id
+                urls(pictureRequest: {width: 264, height: 264})
+              }
+              description
+              isExplicit
+              isFavorite
+              type
+            }
+            """)
+        variables: dict[str, object] = {"first": first, "after": after}
+        response = await self.execute(
+            query=query,
+            operation_name="GetPodcastEpisodeBookmarks",
+            variables=variables,
+            **kwargs
+        )
+        data = self.get_data(response)
+        return GetPodcastEpisodeBookmarks.model_validate(data).me
 
     async def get_recently_played(
         self, first: Union[Optional[int], UnsetType] = UNSET, **kwargs: Any
@@ -2094,10 +2555,12 @@ class DeezerGQLClient(DeezerBaseClient):
         artists_first: Union[Optional[int], UnsetType] = UNSET,
         playlists_first: Union[Optional[int], UnsetType] = UNSET,
         livestreams_first: Union[Optional[int], UnsetType] = UNSET,
+        podcasts_first: Union[Optional[int], UnsetType] = UNSET,
+        podcast_episodes_first: Union[Optional[int], UnsetType] = UNSET,
         **kwargs: Any
     ) -> Optional[SearchSearch]:
         _query = gql("""
-            query Search($query: String!, $tracksFirst: Int = 20, $albumsFirst: Int = 20, $artistsFirst: Int = 20, $playlistsFirst: Int = 10, $livestreamsFirst: Int = 0) {
+            query Search($query: String!, $tracksFirst: Int = 20, $albumsFirst: Int = 20, $artistsFirst: Int = 20, $playlistsFirst: Int = 10, $livestreamsFirst: Int = 0, $podcastsFirst: Int = 0, $podcastEpisodesFirst: Int = 0) {
               search(query: $query) {
                 results {
                   tracks(first: $tracksFirst) {
@@ -2149,6 +2612,28 @@ class DeezerGQLClient(DeezerBaseClient):
                       cursor
                       node {
                         ...LivestreamFields
+                      }
+                    }
+                    pageInfo {
+                      ...PageInfoFields
+                    }
+                  }
+                  podcasts(first: $podcastsFirst) {
+                    edges {
+                      cursor
+                      node {
+                        ...PodcastFields
+                      }
+                    }
+                    pageInfo {
+                      ...PageInfoFields
+                    }
+                  }
+                  podcastEpisodes(first: $podcastEpisodesFirst) {
+                    edges {
+                      cursor
+                      node {
+                        ...PodcastEpisodeFields
                       }
                     }
                     pageInfo {
@@ -2242,6 +2727,38 @@ class DeezerGQLClient(DeezerBaseClient):
               }
             }
 
+            fragment PodcastEpisodeFields on PodcastEpisode {
+              id
+              title
+              description
+              duration
+              cover {
+                id
+                urls(pictureRequest: {width: 264, height: 264})
+              }
+              publicationDate
+              media {
+                url
+                codec {
+                  type
+                  bitrate
+                }
+              }
+            }
+
+            fragment PodcastFields on Podcast {
+              id
+              displayTitle
+              cover {
+                id
+                urls(pictureRequest: {width: 264, height: 264})
+              }
+              description
+              isExplicit
+              isFavorite
+              type
+            }
+
             fragment TrackFields on Track {
               id
               title
@@ -2282,6 +2799,8 @@ class DeezerGQLClient(DeezerBaseClient):
             "artistsFirst": artists_first,
             "playlistsFirst": playlists_first,
             "livestreamsFirst": livestreams_first,
+            "podcastsFirst": podcasts_first,
+            "podcastEpisodesFirst": podcast_episodes_first,
         }
         response = await self.execute(
             query=_query, operation_name="Search", variables=variables, **kwargs

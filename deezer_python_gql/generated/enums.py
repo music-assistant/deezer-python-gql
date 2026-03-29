@@ -21,3 +21,13 @@ class TrackContributorRoles(str, Enum):
     COMPOSER = "COMPOSER"
     CONDUCTOR = "CONDUCTOR"
     ORCHESTRA = "ORCHESTRA"
+
+
+class PodcastType(str, Enum):
+    EPISODIC = "EPISODIC"
+    SERIAL = "SERIAL"
+
+
+class PodcastEpisodeOrder(str, Enum):
+    NONE = "NONE"
+    LATEST = "LATEST"

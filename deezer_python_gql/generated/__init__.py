@@ -15,6 +15,11 @@ from .add_playlist_to_favorite import (
     AddPlaylistToFavoriteAddPlaylistToFavorite,
     AddPlaylistToFavoriteAddPlaylistToFavoritePlaylist,
 )
+from .add_podcast_to_favorite import (
+    AddPodcastToFavorite,
+    AddPodcastToFavoriteAddPodcastToFavorite,
+    AddPodcastToFavoriteAddPodcastToFavoritePodcast,
+)
 from .add_track_to_favorite import (
     AddTrackToFavorite,
     AddTrackToFavoriteAddTrackToFavorite,
@@ -27,6 +32,11 @@ from .add_tracks_to_playlist import (
 )
 from .base_client import DeezerBaseClient
 from .base_model import BaseModel, Upload
+from .bookmark_podcast_episode import (
+    BookmarkPodcastEpisode,
+    BookmarkPodcastEpisodeBookmarkPodcastEpisode,
+    BookmarkPodcastEpisodeBookmarkPodcastEpisodeBookmark,
+)
 from .client import DeezerGQLClient
 from .create_playlist import (
     CreatePlaylist,
@@ -34,7 +44,7 @@ from .create_playlist import (
     CreatePlaylistCreatePlaylistPlaylist,
 )
 from .delete_playlist import DeletePlaylist, DeletePlaylistDeletePlaylist
-from .enums import AlbumType, TrackContributorRoles
+from .enums import AlbumType, PodcastEpisodeOrder, PodcastType, TrackContributorRoles
 from .fragments import (
     AlbumFields,
     AlbumFieldsContributors,
@@ -52,6 +62,12 @@ from .fragments import (
     PlaylistFields,
     PlaylistFieldsOwner,
     PlaylistFieldsPicture,
+    PodcastEpisodeFields,
+    PodcastEpisodeFieldsCover,
+    PodcastEpisodeFieldsMedia,
+    PodcastEpisodeFieldsMediaCodec,
+    PodcastFields,
+    PodcastFieldsCover,
     TrackFields,
     TrackFieldsAlbum,
     TrackFieldsAlbumCover,
@@ -133,6 +149,15 @@ from .get_favorite_playlists import (
     GetFavoritePlaylistsMeUserFavoritesPlaylistsEdgesNode,
     GetFavoritePlaylistsMeUserFavoritesPlaylistsPageInfo,
 )
+from .get_favorite_podcasts import (
+    GetFavoritePodcasts,
+    GetFavoritePodcastsMe,
+    GetFavoritePodcastsMeUserFavorites,
+    GetFavoritePodcastsMeUserFavoritesPodcasts,
+    GetFavoritePodcastsMeUserFavoritesPodcastsEdges,
+    GetFavoritePodcastsMeUserFavoritesPodcastsEdgesNode,
+    GetFavoritePodcastsMeUserFavoritesPodcastsPageInfo,
+)
 from .get_favorite_tracks import (
     GetFavoriteTracks,
     GetFavoriteTracksMe,
@@ -196,6 +221,34 @@ from .get_playlist import (
     GetPlaylistPlaylistTracksEdges,
     GetPlaylistPlaylistTracksEdgesNode,
     GetPlaylistPlaylistTracksPageInfo,
+)
+from .get_podcast import (
+    GetPodcast,
+    GetPodcastPodcast,
+    GetPodcastPodcastEpisodes,
+    GetPodcastPodcastEpisodesEdges,
+    GetPodcastPodcastEpisodesEdgesNode,
+    GetPodcastPodcastEpisodesPageInfo,
+    GetPodcastPodcastRights,
+    GetPodcastPodcastRightsAds,
+    GetPodcastPodcastRightsSub,
+)
+from .get_podcast_episode import (
+    GetPodcastEpisode,
+    GetPodcastEpisodePodcastEpisode,
+    GetPodcastEpisodePodcastEpisodePodcast,
+    GetPodcastEpisodePodcastEpisodeUrlDeezerUrl,
+    GetPodcastEpisodePodcastEpisodeUrlUrl,
+)
+from .get_podcast_episode_bookmarks import (
+    GetPodcastEpisodeBookmarks,
+    GetPodcastEpisodeBookmarksMe,
+    GetPodcastEpisodeBookmarksMePodcastEpisodeBookmarks,
+    GetPodcastEpisodeBookmarksMePodcastEpisodeBookmarksEdges,
+    GetPodcastEpisodeBookmarksMePodcastEpisodeBookmarksEdgesNode,
+    GetPodcastEpisodeBookmarksMePodcastEpisodeBookmarksEdgesNodeEpisode,
+    GetPodcastEpisodeBookmarksMePodcastEpisodeBookmarksEdgesNodeEpisodePodcast,
+    GetPodcastEpisodeBookmarksMePodcastEpisodeBookmarksPageInfo,
 )
 from .get_recently_played import (
     GetRecentlyPlayed,
@@ -283,6 +336,16 @@ from .get_user_playlists import (
     GetUserPlaylistsMePlaylistsEdgesNode,
     GetUserPlaylistsMePlaylistsPageInfo,
 )
+from .mark_as_not_played_podcast_episode import (
+    MarkAsNotPlayedPodcastEpisode,
+    MarkAsNotPlayedPodcastEpisodeMarkAsNotPlayedPodcastEpisode,
+    MarkAsNotPlayedPodcastEpisodeMarkAsNotPlayedPodcastEpisodeEpisode,
+)
+from .mark_as_played_podcast_episode import (
+    MarkAsPlayedPodcastEpisode,
+    MarkAsPlayedPodcastEpisodeMarkAsPlayedPodcastEpisode,
+    MarkAsPlayedPodcastEpisodeMarkAsPlayedPodcastEpisodeBookmark,
+)
 from .remove_album_from_favorite import (
     RemoveAlbumFromFavorite,
     RemoveAlbumFromFavoriteRemoveAlbumFromFavorite,
@@ -297,6 +360,11 @@ from .remove_playlist_from_favorite import (
     RemovePlaylistFromFavorite,
     RemovePlaylistFromFavoriteRemovePlaylistFromFavorite,
     RemovePlaylistFromFavoriteRemovePlaylistFromFavoritePlaylist,
+)
+from .remove_podcast_from_favorite import (
+    RemovePodcastFromFavorite,
+    RemovePodcastFromFavoriteRemovePodcastFromFavorite,
+    RemovePodcastFromFavoriteRemovePodcastFromFavoritePodcast,
 )
 from .remove_track_from_favorite import (
     RemoveTrackFromFavorite,
@@ -327,6 +395,14 @@ from .search import (
     SearchSearchResultsPlaylistsEdges,
     SearchSearchResultsPlaylistsEdgesNode,
     SearchSearchResultsPlaylistsPageInfo,
+    SearchSearchResultsPodcastEpisodes,
+    SearchSearchResultsPodcastEpisodesEdges,
+    SearchSearchResultsPodcastEpisodesEdgesNode,
+    SearchSearchResultsPodcastEpisodesPageInfo,
+    SearchSearchResultsPodcasts,
+    SearchSearchResultsPodcastsEdges,
+    SearchSearchResultsPodcastsEdgesNode,
+    SearchSearchResultsPodcastsPageInfo,
     SearchSearchResultsTracks,
     SearchSearchResultsTracksEdges,
     SearchSearchResultsTracksEdgesNode,
@@ -342,6 +418,11 @@ from .search_flows import (
     SearchFlowsSearchResultsFlowConfigsEdgesNodeVisuals,
     SearchFlowsSearchResultsFlowConfigsEdgesNodeVisualsHardwareSquareIcon,
     SearchFlowsSearchResultsFlowConfigsPageInfo,
+)
+from .unbookmark_podcast_episode import (
+    UnbookmarkPodcastEpisode,
+    UnbookmarkPodcastEpisodeUnbookmarkPodcastEpisode,
+    UnbookmarkPodcastEpisodeUnbookmarkPodcastEpisodeEpisode,
 )
 from .update_playlist import (
     UpdatePlaylist,
@@ -359,6 +440,9 @@ __all__ = [
     "AddPlaylistToFavorite",
     "AddPlaylistToFavoriteAddPlaylistToFavorite",
     "AddPlaylistToFavoriteAddPlaylistToFavoritePlaylist",
+    "AddPodcastToFavorite",
+    "AddPodcastToFavoriteAddPodcastToFavorite",
+    "AddPodcastToFavoriteAddPodcastToFavoritePodcast",
     "AddTrackToFavorite",
     "AddTrackToFavoriteAddTrackToFavorite",
     "AddTrackToFavoriteAddTrackToFavoriteTrack",
@@ -375,6 +459,9 @@ __all__ = [
     "ArtistFieldsBio",
     "ArtistFieldsPicture",
     "BaseModel",
+    "BookmarkPodcastEpisode",
+    "BookmarkPodcastEpisodeBookmarkPodcastEpisode",
+    "BookmarkPodcastEpisodeBookmarkPodcastEpisodeBookmark",
     "CreatePlaylist",
     "CreatePlaylistCreatePlaylist",
     "CreatePlaylistCreatePlaylistPlaylist",
@@ -443,6 +530,13 @@ __all__ = [
     "GetFavoritePlaylistsMeUserFavoritesPlaylistsEdges",
     "GetFavoritePlaylistsMeUserFavoritesPlaylistsEdgesNode",
     "GetFavoritePlaylistsMeUserFavoritesPlaylistsPageInfo",
+    "GetFavoritePodcasts",
+    "GetFavoritePodcastsMe",
+    "GetFavoritePodcastsMeUserFavorites",
+    "GetFavoritePodcastsMeUserFavoritesPodcasts",
+    "GetFavoritePodcastsMeUserFavoritesPodcastsEdges",
+    "GetFavoritePodcastsMeUserFavoritesPodcastsEdgesNode",
+    "GetFavoritePodcastsMeUserFavoritesPodcastsPageInfo",
     "GetFavoriteTracks",
     "GetFavoriteTracksMe",
     "GetFavoriteTracksMeUserFavorites",
@@ -497,6 +591,28 @@ __all__ = [
     "GetPlaylistPlaylistTracksEdges",
     "GetPlaylistPlaylistTracksEdgesNode",
     "GetPlaylistPlaylistTracksPageInfo",
+    "GetPodcast",
+    "GetPodcastEpisode",
+    "GetPodcastEpisodeBookmarks",
+    "GetPodcastEpisodeBookmarksMe",
+    "GetPodcastEpisodeBookmarksMePodcastEpisodeBookmarks",
+    "GetPodcastEpisodeBookmarksMePodcastEpisodeBookmarksEdges",
+    "GetPodcastEpisodeBookmarksMePodcastEpisodeBookmarksEdgesNode",
+    "GetPodcastEpisodeBookmarksMePodcastEpisodeBookmarksEdgesNodeEpisode",
+    "GetPodcastEpisodeBookmarksMePodcastEpisodeBookmarksEdgesNodeEpisodePodcast",
+    "GetPodcastEpisodeBookmarksMePodcastEpisodeBookmarksPageInfo",
+    "GetPodcastEpisodePodcastEpisode",
+    "GetPodcastEpisodePodcastEpisodePodcast",
+    "GetPodcastEpisodePodcastEpisodeUrlDeezerUrl",
+    "GetPodcastEpisodePodcastEpisodeUrlUrl",
+    "GetPodcastPodcast",
+    "GetPodcastPodcastEpisodes",
+    "GetPodcastPodcastEpisodesEdges",
+    "GetPodcastPodcastEpisodesEdgesNode",
+    "GetPodcastPodcastEpisodesPageInfo",
+    "GetPodcastPodcastRights",
+    "GetPodcastPodcastRightsAds",
+    "GetPodcastPodcastRightsSub",
     "GetRecentlyPlayed",
     "GetRecentlyPlayedMe",
     "GetRecentlyPlayedMeRecentlyPlayed",
@@ -575,10 +691,24 @@ __all__ = [
     "LivestreamFieldsCover",
     "LivestreamFieldsMedia",
     "LivestreamFieldsMediaCodec",
+    "MarkAsNotPlayedPodcastEpisode",
+    "MarkAsNotPlayedPodcastEpisodeMarkAsNotPlayedPodcastEpisode",
+    "MarkAsNotPlayedPodcastEpisodeMarkAsNotPlayedPodcastEpisodeEpisode",
+    "MarkAsPlayedPodcastEpisode",
+    "MarkAsPlayedPodcastEpisodeMarkAsPlayedPodcastEpisode",
+    "MarkAsPlayedPodcastEpisodeMarkAsPlayedPodcastEpisodeBookmark",
     "PageInfoFields",
     "PlaylistFields",
     "PlaylistFieldsOwner",
     "PlaylistFieldsPicture",
+    "PodcastEpisodeFields",
+    "PodcastEpisodeFieldsCover",
+    "PodcastEpisodeFieldsMedia",
+    "PodcastEpisodeFieldsMediaCodec",
+    "PodcastEpisodeOrder",
+    "PodcastFields",
+    "PodcastFieldsCover",
+    "PodcastType",
     "RemoveAlbumFromFavorite",
     "RemoveAlbumFromFavoriteRemoveAlbumFromFavorite",
     "RemoveAlbumFromFavoriteRemoveAlbumFromFavoriteAlbum",
@@ -588,6 +718,9 @@ __all__ = [
     "RemovePlaylistFromFavorite",
     "RemovePlaylistFromFavoriteRemovePlaylistFromFavorite",
     "RemovePlaylistFromFavoriteRemovePlaylistFromFavoritePlaylist",
+    "RemovePodcastFromFavorite",
+    "RemovePodcastFromFavoriteRemovePodcastFromFavorite",
+    "RemovePodcastFromFavoriteRemovePodcastFromFavoritePodcast",
     "RemoveTrackFromFavorite",
     "RemoveTrackFromFavoriteRemoveTrackFromFavorite",
     "RemoveTrackFromFavoriteRemoveTrackFromFavoriteTrack",
@@ -621,6 +754,14 @@ __all__ = [
     "SearchSearchResultsPlaylistsEdges",
     "SearchSearchResultsPlaylistsEdgesNode",
     "SearchSearchResultsPlaylistsPageInfo",
+    "SearchSearchResultsPodcastEpisodes",
+    "SearchSearchResultsPodcastEpisodesEdges",
+    "SearchSearchResultsPodcastEpisodesEdgesNode",
+    "SearchSearchResultsPodcastEpisodesPageInfo",
+    "SearchSearchResultsPodcasts",
+    "SearchSearchResultsPodcastsEdges",
+    "SearchSearchResultsPodcastsEdgesNode",
+    "SearchSearchResultsPodcastsPageInfo",
     "SearchSearchResultsTracks",
     "SearchSearchResultsTracksEdges",
     "SearchSearchResultsTracksEdgesNode",
@@ -633,6 +774,9 @@ __all__ = [
     "TrackFieldsContributorsEdges",
     "TrackFieldsContributorsEdgesNodeArtist",
     "TrackFieldsDiskInfo",
+    "UnbookmarkPodcastEpisode",
+    "UnbookmarkPodcastEpisodeUnbookmarkPodcastEpisode",
+    "UnbookmarkPodcastEpisodeUnbookmarkPodcastEpisodeEpisode",
     "UpdatePlaylist",
     "UpdatePlaylistUpdatePlaylist",
     "UpdatePlaylistUpdatePlaylistPlaylist",

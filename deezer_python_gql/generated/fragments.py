@@ -6,7 +6,7 @@ from typing import Any, Literal, Optional, Union
 from pydantic import Field
 
 from .base_model import BaseModel
-from .enums import AlbumType, TrackContributorRoles
+from .enums import AlbumType, PodcastType, TrackContributorRoles
 
 
 class AlbumFields(BaseModel):
@@ -115,6 +115,46 @@ class PlaylistFieldsOwner(BaseModel):
     name: str
 
 
+class PodcastEpisodeFields(BaseModel):
+    id: str
+    title: str
+    description: Optional[str]
+    duration: int
+    cover: Optional["PodcastEpisodeFieldsCover"]
+    publication_date: Optional[Any] = Field(alias="publicationDate")
+    media: "PodcastEpisodeFieldsMedia"
+
+
+class PodcastEpisodeFieldsCover(BaseModel):
+    id: str
+    urls: list[str]
+
+
+class PodcastEpisodeFieldsMedia(BaseModel):
+    url: str
+    codec: Optional["PodcastEpisodeFieldsMediaCodec"]
+
+
+class PodcastEpisodeFieldsMediaCodec(BaseModel):
+    type_: str = Field(alias="type")
+    bitrate: int
+
+
+class PodcastFields(BaseModel):
+    id: str
+    display_title: str = Field(alias="displayTitle")
+    cover: Optional["PodcastFieldsCover"]
+    description: Optional[str]
+    is_explicit: bool = Field(alias="isExplicit")
+    is_favorite: bool = Field(alias="isFavorite")
+    type_: PodcastType = Field(alias="type")
+
+
+class PodcastFieldsCover(BaseModel):
+    id: str
+    urls: list[str]
+
+
 class TrackFields(BaseModel):
     id: str
     title: str
@@ -166,4 +206,6 @@ ArtistFields.model_rebuild()
 LivestreamFields.model_rebuild()
 PageInfoFields.model_rebuild()
 PlaylistFields.model_rebuild()
+PodcastEpisodeFields.model_rebuild()
+PodcastFields.model_rebuild()
 TrackFields.model_rebuild()

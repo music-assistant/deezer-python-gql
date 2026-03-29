@@ -5,6 +5,8 @@ query Search(
   $artistsFirst: Int = 20
   $playlistsFirst: Int = 10
   $livestreamsFirst: Int = 0
+  $podcastsFirst: Int = 0
+  $podcastEpisodesFirst: Int = 0
 ) {
   search(query: $query) {
     results {
@@ -57,6 +59,28 @@ query Search(
           cursor
           node {
             ...LivestreamFields
+          }
+        }
+        pageInfo {
+          ...PageInfoFields
+        }
+      }
+      podcasts(first: $podcastsFirst) {
+        edges {
+          cursor
+          node {
+            ...PodcastFields
+          }
+        }
+        pageInfo {
+          ...PageInfoFields
+        }
+      }
+      podcastEpisodes(first: $podcastEpisodesFirst) {
+        edges {
+          cursor
+          node {
+            ...PodcastEpisodeFields
           }
         }
         pageInfo {

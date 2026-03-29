@@ -1,0 +1,20 @@
+# Get the current user's favorite podcasts (paginated).
+
+query GetFavoritePodcasts($first: Int = 50, $after: String) {
+  me {
+    userFavorites {
+      podcasts(first: $first, after: $after) {
+        edges {
+          cursor
+          favoritedAt
+          node {
+            ...PodcastFields
+          }
+        }
+        pageInfo {
+          ...PageInfoFields
+        }
+      }
+    }
+  }
+}
