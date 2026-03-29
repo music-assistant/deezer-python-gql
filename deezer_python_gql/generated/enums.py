@@ -4,6 +4,13 @@
 from enum import Enum
 
 
+class MusicTogetherSuggestedTracklistMoodInput(str, Enum):
+    NONE = "NONE"
+    CHILL = "CHILL"
+    FOCUS = "FOCUS"
+    PARTY = "PARTY"
+
+
 class AlbumType(str, Enum):
     EP = "EP"
     SINGLES = "SINGLES"
@@ -37,3 +44,10 @@ class PodcastType(str, Enum):
 class PodcastEpisodeOrder(str, Enum):
     NONE = "NONE"
     LATEST = "LATEST"
+
+
+class MusicTogetherRefreshSuggestedTracklistMoodInput(str, Enum):
+    NONE = "NONE"
+    CHILL = "CHILL"
+    FOCUS = "FOCUS"
+    PARTY = "PARTY"

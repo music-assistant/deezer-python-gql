@@ -36,7 +36,11 @@ from .bookmark_podcast_episode import (
 )
 from .create_playlist import CreatePlaylist, CreatePlaylistCreatePlaylist
 from .delete_playlist import DeletePlaylist, DeletePlaylistDeletePlaylist
-from .enums import PodcastEpisodeOrder
+from .enums import (
+    MusicTogetherRefreshSuggestedTracklistMoodInput,
+    MusicTogetherSuggestedTracklistMoodInput,
+    PodcastEpisodeOrder,
+)
 from .get_album import GetAlbum, GetAlbumAlbum
 from .get_artist import GetArtist, GetArtistArtist
 from .get_artist_mix import GetArtistMix, GetArtistMixArtistMix
@@ -57,6 +61,15 @@ from .get_flow_configs import GetFlowConfigs, GetFlowConfigsMe
 from .get_livestream import GetLivestream, GetLivestreamLivestream
 from .get_made_for_me import GetMadeForMe, GetMadeForMeMe
 from .get_me import GetMe, GetMeMe
+from .get_music_together_affinity import (
+    GetMusicTogetherAffinity,
+    GetMusicTogetherAffinityMusicTogetherAffinity,
+)
+from .get_music_together_group import (
+    GetMusicTogetherGroup,
+    GetMusicTogetherGroupMusicTogetherGroup,
+)
+from .get_music_together_groups import GetMusicTogetherGroups, GetMusicTogetherGroupsMe
 from .get_playlist import GetPlaylist, GetPlaylistPlaylist
 from .get_podcast import GetPodcast, GetPodcastPodcast
 from .get_podcast_episode import GetPodcastEpisode, GetPodcastEpisodePodcastEpisode
@@ -78,6 +91,35 @@ from .mark_as_not_played_podcast_episode import (
 from .mark_as_played_podcast_episode import (
     MarkAsPlayedPodcastEpisode,
     MarkAsPlayedPodcastEpisodeMarkAsPlayedPodcastEpisode,
+)
+from .music_together_create_group import (
+    MusicTogetherCreateGroup,
+    MusicTogetherCreateGroupMusicTogetherCreateGroupMusicTogetherCreateGroupError,
+    MusicTogetherCreateGroupMusicTogetherCreateGroupMusicTogetherCreateGroupOutput,
+)
+from .music_together_generate_group_name import (
+    MusicTogetherGenerateGroupName,
+    MusicTogetherGenerateGroupNameMusicTogetherGenerateGroupName,
+)
+from .music_together_join_group import (
+    MusicTogetherJoinGroup,
+    MusicTogetherJoinGroupMusicTogetherJoinGroupMusicTogetherJoinGroupError,
+    MusicTogetherJoinGroupMusicTogetherJoinGroupMusicTogetherJoinGroupOutput,
+)
+from .music_together_leave_group import (
+    MusicTogetherLeaveGroup,
+    MusicTogetherLeaveGroupMusicTogetherLeaveGroupMusicTogetherLeaveGroupError,
+    MusicTogetherLeaveGroupMusicTogetherLeaveGroupMusicTogetherLeaveGroupOutput,
+)
+from .music_together_refresh_suggested_tracklist import (
+    MusicTogetherRefreshSuggestedTracklist,
+    MusicTogetherRefreshSuggestedTracklistMusicTogetherRefreshSuggestedTracklistMusicTogetherRefreshSuggestedTracklistError,
+    MusicTogetherRefreshSuggestedTracklistMusicTogetherRefreshSuggestedTracklistMusicTogetherRefreshSuggestedTracklistOutput,
+)
+from .music_together_update_group_settings import (
+    MusicTogetherUpdateGroupSettings,
+    MusicTogetherUpdateGroupSettingsMusicTogetherUpdateGroupSettingsMusicTogetherUpdateGroupSettingsError,
+    MusicTogetherUpdateGroupSettingsMusicTogetherUpdateGroupSettingsMusicTogetherUpdateGroupSettingsOutput,
 )
 from .remove_album_from_favorite import (
     RemoveAlbumFromFavorite,
@@ -1691,6 +1733,324 @@ class DeezerGQLClient(DeezerBaseClient):
         data = self.get_data(response)
         return GetMe.model_validate(data).me
 
+    async def get_music_together_affinity(
+        self,
+        group_id: str,
+        member_id: str,
+        discovery_tracks_first: Union[Optional[int], UnsetType] = UNSET,
+        discovery_artists_first: Union[Optional[int], UnsetType] = UNSET,
+        **kwargs: Any
+    ) -> Optional[GetMusicTogetherAffinityMusicTogetherAffinity]:
+        query = gql("""
+            query GetMusicTogetherAffinity($groupId: ID!, $memberId: ID!, $discoveryTracksFirst: Int = 20, $discoveryArtistsFirst: Int = 20) {
+              musicTogetherAffinity(musicTogetherGroupId: $groupId, memberId: $memberId) {
+                compatibilityScore
+                member {
+                  id
+                  name
+                  picture {
+                    id
+                    urls(pictureRequest: {width: 264, height: 264})
+                  }
+                }
+                discoveryTracks(first: $discoveryTracksFirst) {
+                  edges {
+                    cursor
+                    node {
+                      ...TrackFields
+                    }
+                  }
+                  pageInfo {
+                    ...PageInfoFields
+                  }
+                }
+                discoveryArtists(first: $discoveryArtistsFirst) {
+                  edges {
+                    cursor
+                    node {
+                      ...ArtistFields
+                    }
+                  }
+                  pageInfo {
+                    ...PageInfoFields
+                  }
+                }
+              }
+            }
+
+            fragment ArtistFields on Artist {
+              id
+              name
+              picture {
+                id
+                urls(pictureRequest: {width: 264, height: 264})
+              }
+              fansCount
+              isFavorite
+              bio {
+                summary
+                full
+              }
+            }
+
+            fragment PageInfoFields on PageInfo {
+              hasNextPage
+              endCursor
+            }
+
+            fragment TrackFields on Track {
+              id
+              title
+              ISRC
+              diskInfo {
+                diskNumber
+                trackNumber
+              }
+              duration
+              isExplicit
+              isFavorite
+              popularity
+              album {
+                id
+                displayTitle
+                cover {
+                  id
+                  urls(pictureRequest: {width: 264, height: 264})
+                }
+              }
+              contributors(first: 10, roles: [MAIN, FEATURED]) {
+                edges {
+                  roles
+                  node {
+                    ... on Artist {
+                      id
+                      name
+                    }
+                  }
+                }
+              }
+            }
+            """)
+        variables: dict[str, object] = {
+            "groupId": group_id,
+            "memberId": member_id,
+            "discoveryTracksFirst": discovery_tracks_first,
+            "discoveryArtistsFirst": discovery_artists_first,
+        }
+        response = await self.execute(
+            query=query,
+            operation_name="GetMusicTogetherAffinity",
+            variables=variables,
+            **kwargs
+        )
+        data = self.get_data(response)
+        return GetMusicTogetherAffinity.model_validate(data).music_together_affinity
+
+    async def get_music_together_group(
+        self,
+        group_id: str,
+        mood: MusicTogetherSuggestedTracklistMoodInput,
+        tracks_first: Union[Optional[int], UnsetType] = UNSET,
+        tracks_after: Union[Optional[str], UnsetType] = UNSET,
+        **kwargs: Any
+    ) -> Optional[GetMusicTogetherGroupMusicTogetherGroup]:
+        query = gql("""
+            query GetMusicTogetherGroup($groupId: ID!, $mood: MusicTogetherSuggestedTracklistMoodInput! = NONE, $tracksFirst: Int = 40, $tracksAfter: String) {
+              musicTogetherGroup(musicTogetherGroupId: $groupId) {
+                id
+                name
+                isReady
+                isFamily
+                estimatedMembersCount
+                createdAt
+                updatedAt
+                members(first: 15) {
+                  edges {
+                    cursor
+                    joinedAt
+                    node {
+                      id
+                      name
+                      picture {
+                        id
+                        urls(pictureRequest: {width: 264, height: 264})
+                      }
+                    }
+                    affinity {
+                      compatibilityScore
+                    }
+                  }
+                  pageInfo {
+                    ...PageInfoFields
+                  }
+                }
+                suggestedTracklist(mood: $mood) {
+                  isRefreshing
+                  tracklist {
+                    id
+                    size
+                    tracks(first: $tracksFirst, after: $tracksAfter) {
+                      edges {
+                        cursor
+                        node {
+                          ...TrackFields
+                        }
+                        metadata {
+                          musicTogether {
+                            trackOrigin {
+                              pickedFromFavoriteTracks
+                              member {
+                                id
+                                name
+                              }
+                            }
+                          }
+                        }
+                      }
+                      pageInfo {
+                        ...PageInfoFields
+                      }
+                    }
+                  }
+                }
+                curatedTracklist {
+                  ...PlaylistFields
+                }
+              }
+            }
+
+            fragment PageInfoFields on PageInfo {
+              hasNextPage
+              endCursor
+            }
+
+            fragment PlaylistFields on Playlist {
+              id
+              title
+              picture {
+                id
+                urls(pictureRequest: {width: 264, height: 264})
+              }
+              estimatedTracksCount
+              fansCount
+              isFavorite
+              description
+              owner {
+                id
+                name
+              }
+            }
+
+            fragment TrackFields on Track {
+              id
+              title
+              ISRC
+              diskInfo {
+                diskNumber
+                trackNumber
+              }
+              duration
+              isExplicit
+              isFavorite
+              popularity
+              album {
+                id
+                displayTitle
+                cover {
+                  id
+                  urls(pictureRequest: {width: 264, height: 264})
+                }
+              }
+              contributors(first: 10, roles: [MAIN, FEATURED]) {
+                edges {
+                  roles
+                  node {
+                    ... on Artist {
+                      id
+                      name
+                    }
+                  }
+                }
+              }
+            }
+            """)
+        variables: dict[str, object] = {
+            "groupId": group_id,
+            "mood": mood,
+            "tracksFirst": tracks_first,
+            "tracksAfter": tracks_after,
+        }
+        response = await self.execute(
+            query=query,
+            operation_name="GetMusicTogetherGroup",
+            variables=variables,
+            **kwargs
+        )
+        data = self.get_data(response)
+        return GetMusicTogetherGroup.model_validate(data).music_together_group
+
+    async def get_music_together_groups(
+        self,
+        first: Union[Optional[int], UnsetType] = UNSET,
+        after: Union[Optional[str], UnsetType] = UNSET,
+        **kwargs: Any
+    ) -> Optional[GetMusicTogetherGroupsMe]:
+        query = gql("""
+            query GetMusicTogetherGroups($first: Int = 12, $after: String) {
+              me {
+                musicTogetherGroupCount
+                musicTogetherGroups(first: $first, after: $after) {
+                  edges {
+                    cursor
+                    node {
+                      id
+                      name
+                      isReady
+                      isFamily
+                      estimatedMembersCount
+                      createdAt
+                      updatedAt
+                      members(first: 15) {
+                        edges {
+                          cursor
+                          joinedAt
+                          node {
+                            id
+                            name
+                            picture {
+                              id
+                              urls(pictureRequest: {width: 264, height: 264})
+                            }
+                          }
+                        }
+                        pageInfo {
+                          ...PageInfoFields
+                        }
+                      }
+                    }
+                  }
+                  pageInfo {
+                    ...PageInfoFields
+                  }
+                }
+              }
+            }
+
+            fragment PageInfoFields on PageInfo {
+              hasNextPage
+              endCursor
+            }
+            """)
+        variables: dict[str, object] = {"first": first, "after": after}
+        response = await self.execute(
+            query=query,
+            operation_name="GetMusicTogetherGroups",
+            variables=variables,
+            **kwargs
+        )
+        data = self.get_data(response)
+        return GetMusicTogetherGroups.model_validate(data).me
+
     async def get_playlist(
         self, playlist_id: str, **kwargs: Any
     ) -> Optional[GetPlaylistPlaylist]:
@@ -2719,6 +3079,210 @@ class DeezerGQLClient(DeezerBaseClient):
         )
         data = self.get_data(response)
         return GetUserPlaylists.model_validate(data).me
+
+    async def music_together_create_group(self, name: str, **kwargs: Any) -> Union[
+        MusicTogetherCreateGroupMusicTogetherCreateGroupMusicTogetherCreateGroupOutput,
+        MusicTogetherCreateGroupMusicTogetherCreateGroupMusicTogetherCreateGroupError,
+    ]:
+        query = gql("""
+            mutation MusicTogetherCreateGroup($name: String!) {
+              musicTogetherCreateGroup(input: {name: $name}) {
+                __typename
+                ... on MusicTogetherCreateGroupOutput {
+                  group {
+                    id
+                    name
+                    isReady
+                    isFamily
+                    estimatedMembersCount
+                    createdAt
+                  }
+                }
+                ... on MusicTogetherCreateGroupError {
+                  hasReachedGroupsLimit
+                  isInvalidGroupName
+                }
+              }
+            }
+            """)
+        variables: dict[str, object] = {"name": name}
+        response = await self.execute(
+            query=query,
+            operation_name="MusicTogetherCreateGroup",
+            variables=variables,
+            **kwargs
+        )
+        data = self.get_data(response)
+        return MusicTogetherCreateGroup.model_validate(data).music_together_create_group
+
+    async def music_together_join_group(
+        self, group_id: str, do_refresh_suggested_tracklist: bool, **kwargs: Any
+    ) -> Union[
+        MusicTogetherJoinGroupMusicTogetherJoinGroupMusicTogetherJoinGroupOutput,
+        MusicTogetherJoinGroupMusicTogetherJoinGroupMusicTogetherJoinGroupError,
+    ]:
+        query = gql("""
+            mutation MusicTogetherJoinGroup($groupId: String!, $doRefreshSuggestedTracklist: Boolean! = true) {
+              musicTogetherJoinGroup(
+                input: {musicTogetherGroupId: $groupId, doRefreshSuggestedTracklist: $doRefreshSuggestedTracklist}
+              ) {
+                __typename
+                ... on MusicTogetherJoinGroupOutput {
+                  group {
+                    id
+                    name
+                    estimatedMembersCount
+                  }
+                }
+                ... on MusicTogetherJoinGroupError {
+                  isGroupFull
+                }
+              }
+            }
+            """)
+        variables: dict[str, object] = {
+            "groupId": group_id,
+            "doRefreshSuggestedTracklist": do_refresh_suggested_tracklist,
+        }
+        response = await self.execute(
+            query=query,
+            operation_name="MusicTogetherJoinGroup",
+            variables=variables,
+            **kwargs
+        )
+        data = self.get_data(response)
+        return MusicTogetherJoinGroup.model_validate(data).music_together_join_group
+
+    async def music_together_leave_group(self, group_id: str, **kwargs: Any) -> Union[
+        MusicTogetherLeaveGroupMusicTogetherLeaveGroupMusicTogetherLeaveGroupOutput,
+        MusicTogetherLeaveGroupMusicTogetherLeaveGroupMusicTogetherLeaveGroupError,
+    ]:
+        query = gql("""
+            mutation MusicTogetherLeaveGroup($groupId: String!) {
+              musicTogetherLeaveGroup(input: {musicTogetherGroupId: $groupId}) {
+                __typename
+                ... on MusicTogetherLeaveGroupOutput {
+                  group {
+                    id
+                    name
+                  }
+                }
+                ... on MusicTogetherLeaveGroupError {
+                  userNotInGroup
+                }
+              }
+            }
+            """)
+        variables: dict[str, object] = {"groupId": group_id}
+        response = await self.execute(
+            query=query,
+            operation_name="MusicTogetherLeaveGroup",
+            variables=variables,
+            **kwargs
+        )
+        data = self.get_data(response)
+        return MusicTogetherLeaveGroup.model_validate(data).music_together_leave_group
+
+    async def music_together_refresh_suggested_tracklist(
+        self,
+        group_id: str,
+        mood: MusicTogetherRefreshSuggestedTracklistMoodInput,
+        **kwargs: Any
+    ) -> Union[
+        MusicTogetherRefreshSuggestedTracklistMusicTogetherRefreshSuggestedTracklistMusicTogetherRefreshSuggestedTracklistOutput,
+        MusicTogetherRefreshSuggestedTracklistMusicTogetherRefreshSuggestedTracklistMusicTogetherRefreshSuggestedTracklistError,
+    ]:
+        query = gql("""
+            mutation MusicTogetherRefreshSuggestedTracklist($groupId: String!, $mood: MusicTogetherRefreshSuggestedTracklistMoodInput! = NONE) {
+              musicTogetherRefreshSuggestedTracklist(
+                input: {musicTogetherGroupId: $groupId, mood: $mood}
+              ) {
+                __typename
+                ... on MusicTogetherRefreshSuggestedTracklistOutput {
+                  group {
+                    id
+                    name
+                  }
+                }
+                ... on MusicTogetherRefreshSuggestedTracklistError {
+                  userNotInGroup
+                }
+              }
+            }
+            """)
+        variables: dict[str, object] = {"groupId": group_id, "mood": mood}
+        response = await self.execute(
+            query=query,
+            operation_name="MusicTogetherRefreshSuggestedTracklist",
+            variables=variables,
+            **kwargs
+        )
+        data = self.get_data(response)
+        return MusicTogetherRefreshSuggestedTracklist.model_validate(
+            data
+        ).music_together_refresh_suggested_tracklist
+
+    async def music_together_update_group_settings(
+        self,
+        group_id: str,
+        name: Union[Optional[str], UnsetType] = UNSET,
+        **kwargs: Any
+    ) -> Union[
+        MusicTogetherUpdateGroupSettingsMusicTogetherUpdateGroupSettingsMusicTogetherUpdateGroupSettingsOutput,
+        MusicTogetherUpdateGroupSettingsMusicTogetherUpdateGroupSettingsMusicTogetherUpdateGroupSettingsError,
+    ]:
+        query = gql("""
+            mutation MusicTogetherUpdateGroupSettings($groupId: String!, $name: String) {
+              musicTogetherUpdateGroupSettings(
+                input: {musicTogetherGroupId: $groupId, name: $name}
+              ) {
+                __typename
+                ... on MusicTogetherUpdateGroupSettingsOutput {
+                  group {
+                    id
+                    name
+                  }
+                }
+                ... on MusicTogetherUpdateGroupSettingsError {
+                  userNotInGroup
+                  isInvalidGroupName
+                }
+              }
+            }
+            """)
+        variables: dict[str, object] = {"groupId": group_id, "name": name}
+        response = await self.execute(
+            query=query,
+            operation_name="MusicTogetherUpdateGroupSettings",
+            variables=variables,
+            **kwargs
+        )
+        data = self.get_data(response)
+        return MusicTogetherUpdateGroupSettings.model_validate(
+            data
+        ).music_together_update_group_settings
+
+    async def music_together_generate_group_name(
+        self, **kwargs: Any
+    ) -> MusicTogetherGenerateGroupNameMusicTogetherGenerateGroupName:
+        query = gql("""
+            mutation MusicTogetherGenerateGroupName {
+              musicTogetherGenerateGroupName {
+                name
+              }
+            }
+            """)
+        variables: dict[str, object] = {}
+        response = await self.execute(
+            query=query,
+            operation_name="MusicTogetherGenerateGroupName",
+            variables=variables,
+            **kwargs
+        )
+        data = self.get_data(response)
+        return MusicTogetherGenerateGroupName.model_validate(
+            data
+        ).music_together_generate_group_name
 
     async def create_playlist(
         self,

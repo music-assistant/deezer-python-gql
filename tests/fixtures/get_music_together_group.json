@@ -1,0 +1,113 @@
+{
+  "data": {
+    "musicTogetherGroup": {
+      "id": "mt_group_001",
+      "name": "Road Trip Vibes",
+      "isReady": true,
+      "isFamily": false,
+      "estimatedMembersCount": 3,
+      "createdAt": "2025-06-01",
+      "updatedAt": "2025-07-10",
+      "members": {
+        "edges": [
+          {
+            "cursor": "mbr_cursor_1",
+            "joinedAt": "2025-06-01",
+            "node": {
+              "id": "user_100",
+              "name": "Alice",
+              "picture": {
+                "id": "pic_100",
+                "urls": ["https://cdn.example.com/user/100/264x264.jpg"]
+              }
+            },
+            "affinity": {
+              "compatibilityScore": 85
+            }
+          }
+        ],
+        "pageInfo": {
+          "hasNextPage": false,
+          "endCursor": "mbr_cursor_1"
+        }
+      },
+      "suggestedTracklist": {
+        "isRefreshing": false,
+        "tracklist": {
+          "id": "queue_001",
+          "size": 40,
+          "tracks": {
+            "edges": [
+              {
+                "cursor": "qt_cursor_1",
+                "node": {
+                  "id": "3135556",
+                  "title": "Harder, Better, Faster, Stronger",
+                  "ISRC": "GBDUW0000059",
+                  "diskInfo": { "diskNumber": 1, "trackNumber": 4 },
+                  "duration": 226,
+                  "isExplicit": false,
+                  "isFavorite": true,
+                  "popularity": 850000,
+                  "album": {
+                    "id": "302127",
+                    "displayTitle": "Discovery",
+                    "cover": {
+                      "id": "cover_302127",
+                      "urls": ["https://cdn.example.com/cover/264x264.jpg"]
+                    }
+                  },
+                  "contributors": {
+                    "edges": [
+                      {
+                        "roles": ["MAIN"],
+                        "node": {
+                          "id": "27",
+                          "name": "Daft Punk",
+                          "__typename": "Artist"
+                        }
+                      }
+                    ]
+                  }
+                },
+                "metadata": {
+                  "musicTogether": {
+                    "trackOrigin": [
+                      {
+                        "pickedFromFavoriteTracks": true,
+                        "member": {
+                          "id": "user_100",
+                          "name": "Alice"
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            ],
+            "pageInfo": {
+              "hasNextPage": true,
+              "endCursor": "qt_cursor_1"
+            }
+          }
+        }
+      },
+      "curatedTracklist": {
+        "id": "playlist_curated_001",
+        "title": "Road Trip Vibes - Curated",
+        "picture": {
+          "id": "pic_curated",
+          "urls": ["https://cdn.example.com/playlist/264x264.jpg"]
+        },
+        "estimatedTracksCount": 25,
+        "fansCount": 0,
+        "isFavorite": false,
+        "description": "Our hand-picked road trip songs",
+        "owner": {
+          "id": "user_100",
+          "name": "Alice"
+        }
+      }
+    }
+  }
+}

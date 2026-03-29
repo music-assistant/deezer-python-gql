@@ -1,0 +1,41 @@
+# Get the current user's Music Together (Shaker) groups (paginated).
+
+query GetMusicTogetherGroups($first: Int = 12, $after: String) {
+  me {
+    musicTogetherGroupCount
+    musicTogetherGroups(first: $first, after: $after) {
+      edges {
+        cursor
+        node {
+          id
+          name
+          isReady
+          isFamily
+          estimatedMembersCount
+          createdAt
+          updatedAt
+          members(first: 15) {
+            edges {
+              cursor
+              joinedAt
+              node {
+                id
+                name
+                picture {
+                  id
+                  urls(pictureRequest: { width: 264, height: 264 })
+                }
+              }
+            }
+            pageInfo {
+              ...PageInfoFields
+            }
+          }
+        }
+      }
+      pageInfo {
+        ...PageInfoFields
+      }
+    }
+  }
+}

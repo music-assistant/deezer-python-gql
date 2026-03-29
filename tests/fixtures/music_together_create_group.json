@@ -1,0 +1,15 @@
+{
+  "data": {
+    "musicTogetherCreateGroup": {
+      "__typename": "MusicTogetherCreateGroupOutput",
+      "group": {
+        "id": "mt_group_new",
+        "name": "Weekend Jams",
+        "isReady": true,
+        "isFamily": false,
+        "estimatedMembersCount": 1,
+        "createdAt": "2025-07-10"
+      }
+    }
+  }
+}

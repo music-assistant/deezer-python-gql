@@ -1,0 +1,81 @@
+{
+  "data": {
+    "musicTogetherAffinity": {
+      "compatibilityScore": 85,
+      "member": {
+        "id": "user_200",
+        "name": "Bob",
+        "picture": {
+          "id": "pic_200",
+          "urls": ["https://cdn.example.com/user/200/264x264.jpg"]
+        }
+      },
+      "discoveryTracks": {
+        "edges": [
+          {
+            "cursor": "dt_cursor_1",
+            "node": {
+              "id": "3135556",
+              "title": "Harder, Better, Faster, Stronger",
+              "ISRC": "GBDUW0000059",
+              "diskInfo": { "diskNumber": 1, "trackNumber": 4 },
+              "duration": 226,
+              "isExplicit": false,
+              "isFavorite": true,
+              "popularity": 850000,
+              "album": {
+                "id": "302127",
+                "displayTitle": "Discovery",
+                "cover": {
+                  "id": "cover_302127",
+                  "urls": ["https://cdn.example.com/cover/264x264.jpg"]
+                }
+              },
+              "contributors": {
+                "edges": [
+                  {
+                    "roles": ["MAIN"],
+                    "node": {
+                      "id": "27",
+                      "name": "Daft Punk",
+                      "__typename": "Artist"
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        ],
+        "pageInfo": {
+          "hasNextPage": false,
+          "endCursor": "dt_cursor_1"
+        }
+      },
+      "discoveryArtists": {
+        "edges": [
+          {
+            "cursor": "da_cursor_1",
+            "node": {
+              "id": "27",
+              "name": "Daft Punk",
+              "picture": {
+                "id": "pic_27",
+                "urls": ["https://cdn.example.com/artist/27/264x264.jpg"]
+              },
+              "fansCount": 5000000,
+              "isFavorite": true,
+              "bio": {
+                "summary": "French electronic music duo.",
+                "full": "Daft Punk was a French electronic music duo..."
+              }
+            }
+          }
+        ],
+        "pageInfo": {
+          "hasNextPage": false,
+          "endCursor": "da_cursor_1"
+        }
+      }
+    }
+  }
+}

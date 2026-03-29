@@ -53,6 +53,11 @@ from deezer_python_gql.generated.get_flow_configs import GetFlowConfigs
 from deezer_python_gql.generated.get_livestream import GetLivestream
 from deezer_python_gql.generated.get_made_for_me import GetMadeForMe
 from deezer_python_gql.generated.get_me import GetMe
+from deezer_python_gql.generated.get_music_together_affinity import (
+    GetMusicTogetherAffinity,
+)
+from deezer_python_gql.generated.get_music_together_group import GetMusicTogetherGroup
+from deezer_python_gql.generated.get_music_together_groups import GetMusicTogetherGroups
 from deezer_python_gql.generated.get_playlist import GetPlaylist
 from deezer_python_gql.generated.get_podcast import GetPodcast
 from deezer_python_gql.generated.get_podcast_episode import GetPodcastEpisode
@@ -72,6 +77,14 @@ from deezer_python_gql.generated.mark_as_not_played_podcast_episode import (
 from deezer_python_gql.generated.mark_as_played_podcast_episode import (
     MarkAsPlayedPodcastEpisode,
 )
+from deezer_python_gql.generated.music_together_create_group import (
+    MusicTogetherCreateGroup,
+)
+from deezer_python_gql.generated.music_together_generate_group_name import (
+    MusicTogetherGenerateGroupName,
+)
+from deezer_python_gql.generated.music_together_join_group import MusicTogetherJoinGroup
+from deezer_python_gql.generated.music_together_leave_group import MusicTogetherLeaveGroup
 from deezer_python_gql.generated.remove_album_from_favorite import RemoveAlbumFromFavorite
 from deezer_python_gql.generated.remove_artist_from_favorite import RemoveArtistFromFavorite
 from deezer_python_gql.generated.remove_playlist_from_favorite import (
@@ -200,6 +213,15 @@ def test_client_has_generated_methods() -> None:
         "get_track_mix",
         "get_audiobook",
         "get_audiobook_chapter",
+        "get_music_together_groups",
+        "get_music_together_group",
+        "get_music_together_affinity",
+        "music_together_create_group",
+        "music_together_join_group",
+        "music_together_leave_group",
+        "music_together_refresh_suggested_tracklist",
+        "music_together_update_group_settings",
+        "music_together_generate_group_name",
     ]
     for method in expected_methods:
         assert hasattr(client, method), f"Missing method: {method}"
@@ -1102,3 +1124,113 @@ def test_smoke_get_audiobook_chapter() -> None:
     assert chapter.media.token.payload
     assert chapter.media.rights.ads is not None
     assert chapter.media.rights.ads.available is True
+
+
+# ---------------------------------------------------------------------------
+# 13. Music Together (Shaker) smoke tests
+# ---------------------------------------------------------------------------
+
+
+def test_smoke_get_music_together_groups() -> None:
+    """Verify GetMusicTogetherGroups fixture parses with group list."""
+    data = _load_fixture("get_music_together_groups.json")
+    me = GetMusicTogetherGroups.model_validate(data).me
+    assert me is not None
+    assert me.music_together_group_count == 2
+    groups = me.music_together_groups
+    assert len(groups.edges) == 1
+    group = groups.edges[0].node
+    assert group is not None
+    assert group.id == "mt_group_001"
+    assert group.name == "Road Trip Vibes"
+    assert group.is_ready is True
+    assert group.is_family is False
+    assert group.estimated_members_count == 3
+    assert len(group.members.edges) == 2
+    assert group.members.edges[0].node is not None
+    assert group.members.edges[0].node.name == "Alice"
+    assert groups.page_info.has_next_page is True
+
+
+def test_smoke_get_music_together_group() -> None:
+    """Verify GetMusicTogetherGroup fixture parses with members and tracklists."""
+    data = _load_fixture("get_music_together_group.json")
+    group = GetMusicTogetherGroup.model_validate(data).music_together_group
+    assert group is not None
+    assert group.id == "mt_group_001"
+    assert group.name == "Road Trip Vibes"
+    # Members with affinity
+    assert len(group.members.edges) == 1
+    assert group.members.edges[0].affinity is not None
+    assert group.members.edges[0].affinity.compatibility_score == 85
+    # Suggested tracklist
+    st = group.suggested_tracklist
+    assert st is not None
+    assert st.is_refreshing is False
+    assert st.tracklist is not None
+    tracks = st.tracklist.tracks
+    assert len(tracks.edges) == 1
+    assert tracks.edges[0].node is not None
+    assert tracks.edges[0].node.title == "Harder, Better, Faster, Stronger"
+    assert tracks.edges[0].metadata is not None
+    assert tracks.edges[0].metadata.music_together is not None
+    origin = tracks.edges[0].metadata.music_together.track_origin
+    assert origin is not None
+    assert len(origin) > 0
+    assert origin[0] is not None
+    assert origin[0].member.name == "Alice"
+    # Curated tracklist (Playlist)
+    curated = group.curated_tracklist
+    assert curated is not None
+    assert curated.title == "Road Trip Vibes - Curated"
+
+
+def test_smoke_get_music_together_affinity() -> None:
+    """Verify GetMusicTogetherAffinity fixture parses with discovery content."""
+    data = _load_fixture("get_music_together_affinity.json")
+    affinity = GetMusicTogetherAffinity.model_validate(data).music_together_affinity
+    assert affinity is not None
+    assert affinity.compatibility_score == 85
+    assert affinity.member.name == "Bob"
+    assert len(affinity.discovery_tracks.edges) == 1
+    assert affinity.discovery_tracks.edges[0].node is not None
+    assert affinity.discovery_tracks.edges[0].node.title == "Harder, Better, Faster, Stronger"
+    assert len(affinity.discovery_artists.edges) == 1
+    assert affinity.discovery_artists.edges[0].node is not None
+    assert affinity.discovery_artists.edges[0].node.name == "Daft Punk"
+
+
+def test_smoke_music_together_create_group() -> None:
+    """Verify MusicTogetherCreateGroup fixture parses the success variant."""
+    data = _load_fixture("music_together_create_group.json")
+    result = MusicTogetherCreateGroup.model_validate(data)
+    output = result.music_together_create_group
+    assert output.typename__ == "MusicTogetherCreateGroupOutput"
+    assert output.group.id == "mt_group_new"
+    assert output.group.name == "Weekend Jams"
+
+
+def test_smoke_music_together_join_group() -> None:
+    """Verify MusicTogetherJoinGroup fixture parses the success variant."""
+    data = _load_fixture("music_together_join_group.json")
+    result = MusicTogetherJoinGroup.model_validate(data)
+    output = result.music_together_join_group
+    assert output.typename__ == "MusicTogetherJoinGroupOutput"
+    assert output.group.estimated_members_count == 4
+
+
+def test_smoke_music_together_leave_group() -> None:
+    """Verify MusicTogetherLeaveGroup fixture parses the success variant."""
+    data = _load_fixture("music_together_leave_group.json")
+    result = MusicTogetherLeaveGroup.model_validate(data)
+    output = result.music_together_leave_group
+    assert output.typename__ == "MusicTogetherLeaveGroupOutput"
+    assert output.group is not None
+    assert output.group.id == "mt_group_001"
+
+
+def test_smoke_music_together_generate_group_name() -> None:
+    """Verify MusicTogetherGenerateGroupName fixture parses."""
+    data = _load_fixture("music_together_generate_group_name.json")
+    result = MusicTogetherGenerateGroupName.model_validate(data)
+    assert result.music_together_generate_group_name.name == "Sunset Harmonies"

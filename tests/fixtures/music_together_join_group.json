@@ -1,0 +1,12 @@
+{
+  "data": {
+    "musicTogetherJoinGroup": {
+      "__typename": "MusicTogetherJoinGroupOutput",
+      "group": {
+        "id": "mt_group_001",
+        "name": "Road Trip Vibes",
+        "estimatedMembersCount": 4
+      }
+    }
+  }
+}

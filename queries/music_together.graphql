@@ -1,0 +1,112 @@
+# Create a new Music Together (Shaker) group.
+
+mutation MusicTogetherCreateGroup($name: String!) {
+  musicTogetherCreateGroup(input: { name: $name }) {
+    ... on MusicTogetherCreateGroupOutput {
+      group {
+        id
+        name
+        isReady
+        isFamily
+        estimatedMembersCount
+        createdAt
+      }
+    }
+    ... on MusicTogetherCreateGroupError {
+      hasReachedGroupsLimit
+      isInvalidGroupName
+    }
+  }
+}
+
+# Join an existing Music Together group.
+
+mutation MusicTogetherJoinGroup(
+  $groupId: String!
+  $doRefreshSuggestedTracklist: Boolean! = true
+) {
+  musicTogetherJoinGroup(
+    input: {
+      musicTogetherGroupId: $groupId
+      doRefreshSuggestedTracklist: $doRefreshSuggestedTracklist
+    }
+  ) {
+    ... on MusicTogetherJoinGroupOutput {
+      group {
+        id
+        name
+        estimatedMembersCount
+      }
+    }
+    ... on MusicTogetherJoinGroupError {
+      isGroupFull
+    }
+  }
+}
+
+# Leave a Music Together group.
+
+mutation MusicTogetherLeaveGroup($groupId: String!) {
+  musicTogetherLeaveGroup(input: { musicTogetherGroupId: $groupId }) {
+    ... on MusicTogetherLeaveGroupOutput {
+      group {
+        id
+        name
+      }
+    }
+    ... on MusicTogetherLeaveGroupError {
+      userNotInGroup
+    }
+  }
+}
+
+# Refresh the suggested tracklist for a group with an optional mood.
+
+mutation MusicTogetherRefreshSuggestedTracklist(
+  $groupId: String!
+  $mood: MusicTogetherRefreshSuggestedTracklistMoodInput! = NONE
+) {
+  musicTogetherRefreshSuggestedTracklist(
+    input: { musicTogetherGroupId: $groupId, mood: $mood }
+  ) {
+    ... on MusicTogetherRefreshSuggestedTracklistOutput {
+      group {
+        id
+        name
+      }
+    }
+    ... on MusicTogetherRefreshSuggestedTracklistError {
+      userNotInGroup
+    }
+  }
+}
+
+# Update a Music Together group's settings (e.g., name).
+
+mutation MusicTogetherUpdateGroupSettings(
+  $groupId: String!
+  $name: String
+) {
+  musicTogetherUpdateGroupSettings(
+    input: { musicTogetherGroupId: $groupId, name: $name }
+  ) {
+    ... on MusicTogetherUpdateGroupSettingsOutput {
+      group {
+        id
+        name
+      }
+    }
+    ... on MusicTogetherUpdateGroupSettingsError {
+      userNotInGroup
+      isInvalidGroupName
+    }
+  }
+}
+
+# Generate a random name suggestion for a new group.
+
+mutation MusicTogetherGenerateGroupName {
+  musicTogetherGenerateGroupName {
+    name
+  }
+}

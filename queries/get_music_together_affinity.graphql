@@ -1,0 +1,46 @@
+# Get the music affinity between two members of a Music Together group.
+# Returns compatibility score and discovery tracks/artists.
+
+query GetMusicTogetherAffinity(
+  $groupId: ID!
+  $memberId: ID!
+  $discoveryTracksFirst: Int = 20
+  $discoveryArtistsFirst: Int = 20
+) {
+  musicTogetherAffinity(
+    musicTogetherGroupId: $groupId
+    memberId: $memberId
+  ) {
+    compatibilityScore
+    member {
+      id
+      name
+      picture {
+        id
+        urls(pictureRequest: { width: 264, height: 264 })
+      }
+    }
+    discoveryTracks(first: $discoveryTracksFirst) {
+      edges {
+        cursor
+        node {
+          ...TrackFields
+        }
+      }
+      pageInfo {
+        ...PageInfoFields
+      }
+    }
+    discoveryArtists(first: $discoveryArtistsFirst) {
+      edges {
+        cursor
+        node {
+          ...ArtistFields
+        }
+      }
+      pageInfo {
+        ...PageInfoFields
+      }
+    }
+  }
+}

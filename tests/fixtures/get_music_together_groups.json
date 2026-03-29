@@ -1,0 +1,57 @@
+{
+  "data": {
+    "me": {
+      "__typename": "PrivateUser",
+      "musicTogetherGroupCount": 2,
+      "musicTogetherGroups": {
+        "edges": [
+          {
+            "cursor": "grp_cursor_1",
+            "node": {
+              "id": "mt_group_001",
+              "name": "Road Trip Vibes",
+              "isReady": true,
+              "isFamily": false,
+              "estimatedMembersCount": 3,
+              "createdAt": "2025-06-01",
+              "updatedAt": "2025-07-10",
+              "members": {
+                "edges": [
+                  {
+                    "cursor": "mbr_cursor_1",
+                    "joinedAt": "2025-06-01",
+                    "node": {
+                      "id": "user_100",
+                      "name": "Alice",
+                      "picture": {
+                        "id": "pic_100",
+                        "urls": ["https://cdn.example.com/user/100/264x264.jpg"]
+                      }
+                    }
+                  },
+                  {
+                    "cursor": "mbr_cursor_2",
+                    "joinedAt": "2025-06-02",
+                    "node": {
+                      "id": "user_200",
+                      "name": "Bob",
+                      "picture": null
+                    }
+                  }
+                ],
+                "pageInfo": {
+                  "hasNextPage": false,
+                  "endCursor": "mbr_cursor_2"
+                }
+              }
+            }
+          }
+        ],
+        "pageInfo": {
+          "hasNextPage": true,
+          "endCursor": "grp_cursor_1"
+        }
+      }
+    }
+  }
+}

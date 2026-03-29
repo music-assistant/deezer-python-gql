@@ -1,0 +1,11 @@
+{
+  "data": {
+    "musicTogetherLeaveGroup": {
+      "__typename": "MusicTogetherLeaveGroupOutput",
+      "group": {
+        "id": "mt_group_001",
+        "name": "Road Trip Vibes"
+      }
+    }
+  }
+}

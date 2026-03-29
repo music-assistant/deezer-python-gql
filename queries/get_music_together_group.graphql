@@ -1,0 +1,71 @@
+# Get a single Music Together (Shaker) group with full details.
+# Includes members, suggested tracklist (with mood), and curated playlist.
+
+query GetMusicTogetherGroup(
+  $groupId: ID!
+  $mood: MusicTogetherSuggestedTracklistMoodInput! = NONE
+  $tracksFirst: Int = 40
+  $tracksAfter: String
+) {
+  musicTogetherGroup(musicTogetherGroupId: $groupId) {
+    id
+    name
+    isReady
+    isFamily
+    estimatedMembersCount
+    createdAt
+    updatedAt
+    members(first: 15) {
+      edges {
+        cursor
+        joinedAt
+        node {
+          id
+          name
+          picture {
+            id
+            urls(pictureRequest: { width: 264, height: 264 })
+          }
+        }
+        affinity {
+          compatibilityScore
+        }
+      }
+      pageInfo {
+        ...PageInfoFields
+      }
+    }
+    suggestedTracklist(mood: $mood) {
+      isRefreshing
+      tracklist {
+        id
+        size
+        tracks(first: $tracksFirst, after: $tracksAfter) {
+          edges {
+            cursor
+            node {
+              ...TrackFields
+            }
+            metadata {
+              musicTogether {
+                trackOrigin {
+                  pickedFromFavoriteTracks
+                  member {
+                    id
+                    name
+                  }
+                }
+              }
+            }
+          }
+          pageInfo {
+            ...PageInfoFields
+          }
+        }
+      }
+    }
+    curatedTracklist {
+      ...PlaylistFields
+    }
+  }
+}
