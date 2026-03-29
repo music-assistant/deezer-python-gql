@@ -23,6 +23,12 @@ class TrackContributorRoles(str, Enum):
     ORCHESTRA = "ORCHESTRA"
 
 
+class AudiobookContributorRoles(str, Enum):
+    AUTHOR = "AUTHOR"
+    NARRATOR = "NARRATOR"
+    OTHER = "OTHER"
+
+
 class PodcastType(str, Enum):
     EPISODIC = "EPISODIC"
     SERIAL = "SERIAL"

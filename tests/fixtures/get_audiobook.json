@@ -1,0 +1,89 @@
+{
+  "data": {
+    "audiobook": {
+      "__typename": "Audiobook",
+      "id": "ab_1001",
+      "displayTitle": "The Art of War",
+      "cover": {
+        "id": "cover:ab_1001",
+        "urls": ["https://cdn.example.com/audiobook/264x264.jpg"]
+      },
+      "description": "The classic treatise on military strategy.",
+      "duration": 5400,
+      "releaseDate": "2020-03-15",
+      "fansCount": 12500,
+      "isExplicit": false,
+      "isFavorite": true,
+      "chaptersCount": 13,
+      "discsCount": 1,
+      "producerLine": "Classic Audiobooks",
+      "publisher": "Penguin Audio",
+      "contributors": {
+        "edges": [
+          {
+            "roles": ["AUTHOR"],
+            "node": {
+              "id": "auth_001",
+              "name": "Sun Tzu",
+              "__typename": "Artist"
+            }
+          },
+          {
+            "roles": ["NARRATOR"],
+            "node": {
+              "id": "narr_001",
+              "name": "Aidan Gillen",
+              "__typename": "Artist"
+            }
+          }
+        ]
+      },
+      "isTakenDown": false,
+      "fallback": null,
+      "url": {
+        "__typename": "Url",
+        "webUrl": "https://www.deezer.com/audiobook/ab_1001"
+      },
+      "chapters": {
+        "edges": [
+          {
+            "cursor": "ch_cursor_1",
+            "node": {
+              "__typename": "AudiobookChapter",
+              "id": "ch_001",
+              "isrc": "USAB01900001",
+              "displayTitle": "Chapter 1: Laying Plans",
+              "diskInfo": {
+                "diskNumber": 1,
+                "chapterPosition": 1
+              },
+              "duration": 420,
+              "isExplicit": false,
+              "isFavorite": false
+            }
+          },
+          {
+            "cursor": "ch_cursor_2",
+            "node": {
+              "__typename": "AudiobookChapter",
+              "id": "ch_002",
+              "isrc": "USAB01900002",
+              "displayTitle": "Chapter 2: Waging War",
+              "diskInfo": {
+                "diskNumber": 1,
+                "chapterPosition": 2
+              },
+              "duration": 380,
+              "isExplicit": false,
+              "isFavorite": false
+            }
+          }
+        ],
+        "pageInfo": {
+          "hasNextPage": true,
+          "endCursor": "ch_cursor_2"
+        }
+      }
+    }
+  }
+}

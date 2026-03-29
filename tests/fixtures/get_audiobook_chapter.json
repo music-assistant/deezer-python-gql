@@ -1,0 +1,67 @@
+{
+  "data": {
+    "audiobookChapter": {
+      "__typename": "AudiobookChapter",
+      "id": "ch_001",
+      "isrc": "USAB01900001",
+      "displayTitle": "Chapter 1: Laying Plans",
+      "diskInfo": {
+        "diskNumber": 1,
+        "chapterPosition": 1
+      },
+      "duration": 420,
+      "isExplicit": false,
+      "isFavorite": false,
+      "gain": -6.5,
+      "audiobook": {
+        "__typename": "Audiobook",
+        "id": "ab_1001",
+        "displayTitle": "The Art of War",
+        "cover": {
+          "id": "cover:ab_1001",
+          "urls": ["https://cdn.example.com/audiobook/264x264.jpg"]
+        },
+        "description": "The classic treatise on military strategy.",
+        "duration": 5400,
+        "releaseDate": "2020-03-15",
+        "fansCount": 12500,
+        "isExplicit": false,
+        "isFavorite": true,
+        "chaptersCount": 13,
+        "discsCount": 1,
+        "producerLine": "Classic Audiobooks",
+        "publisher": "Penguin Audio",
+        "contributors": {
+          "edges": [
+            {
+              "roles": ["AUTHOR"],
+              "node": {
+                "id": "auth_001",
+                "name": "Sun Tzu",
+                "__typename": "Artist"
+              }
+            }
+          ]
+        }
+      },
+      "media": {
+        "id": "media_ch_001",
+        "version": "1",
+        "token": {
+          "payload": "eyJhbGciOiJFUzI1NiJ9.test_token_payload",
+          "expiresAt": "2099-12-31T23:59:59Z"
+        },
+        "estimatedSizes": {
+          "MP3_MISC": 5000000,
+          "MP3_128": 3360000,
+          "MP3_320": 8400000,
+          "FLAC": 25200000
+        },
+        "rights": {
+          "ads": { "available": true },
+          "sub": { "available": true }
+        }
+      }
+    }
+  }
+}

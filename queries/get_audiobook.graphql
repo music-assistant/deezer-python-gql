@@ -1,0 +1,30 @@
+query GetAudiobook(
+  $audiobookId: String!
+  $chaptersFirst: Int = 50
+  $chaptersAfter: String
+) {
+  audiobook(audiobookId: $audiobookId) {
+    ...AudiobookFields
+    isTakenDown
+    fallback {
+      id
+      displayTitle
+    }
+    url {
+      ... on Url {
+        webUrl
+      }
+    }
+    chapters(first: $chaptersFirst, after: $chaptersAfter) {
+      edges {
+        cursor
+        node {
+          ...AudiobookChapterFields
+        }
+      }
+      pageInfo {
+        ...PageInfoFields
+      }
+    }
+  }
+}

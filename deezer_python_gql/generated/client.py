@@ -40,6 +40,11 @@ from .enums import PodcastEpisodeOrder
 from .get_album import GetAlbum, GetAlbumAlbum
 from .get_artist import GetArtist, GetArtistArtist
 from .get_artist_mix import GetArtistMix, GetArtistMixArtistMix
+from .get_audiobook import GetAudiobook, GetAudiobookAudiobook
+from .get_audiobook_chapter import (
+    GetAudiobookChapter,
+    GetAudiobookChapterAudiobookChapter,
+)
 from .get_charts import GetCharts, GetChartsCharts
 from .get_favorite_albums import GetFavoriteAlbums, GetFavoriteAlbumsMe
 from .get_favorite_artists import GetFavoriteArtists, GetFavoriteArtistsMe
@@ -731,6 +736,190 @@ class DeezerGQLClient(DeezerBaseClient):
         )
         data = self.get_data(response)
         return GetArtistMix.model_validate(data).artist_mix
+
+    async def get_audiobook(
+        self,
+        audiobook_id: str,
+        chapters_first: Union[Optional[int], UnsetType] = UNSET,
+        chapters_after: Union[Optional[str], UnsetType] = UNSET,
+        **kwargs: Any
+    ) -> Optional[GetAudiobookAudiobook]:
+        query = gql("""
+            query GetAudiobook($audiobookId: String!, $chaptersFirst: Int = 50, $chaptersAfter: String) {
+              audiobook(audiobookId: $audiobookId) {
+                ...AudiobookFields
+                isTakenDown
+                fallback {
+                  id
+                  displayTitle
+                }
+                url {
+                  __typename
+                  ... on Url {
+                    webUrl
+                  }
+                }
+                chapters(first: $chaptersFirst, after: $chaptersAfter) {
+                  edges {
+                    cursor
+                    node {
+                      ...AudiobookChapterFields
+                    }
+                  }
+                  pageInfo {
+                    ...PageInfoFields
+                  }
+                }
+              }
+            }
+
+            fragment AudiobookChapterFields on AudiobookChapter {
+              id
+              isrc
+              displayTitle
+              diskInfo {
+                diskNumber
+                chapterPosition
+              }
+              duration
+              isExplicit
+              isFavorite
+            }
+
+            fragment AudiobookFields on Audiobook {
+              id
+              displayTitle
+              cover(pictureRequest: {width: 264, height: 264}) {
+                id
+                urls(pictureRequest: {width: 264, height: 264})
+              }
+              description
+              duration
+              releaseDate
+              fansCount
+              isExplicit
+              isFavorite
+              chaptersCount
+              discsCount
+              producerLine
+              publisher
+              contributors(first: 5, roles: [AUTHOR, NARRATOR]) {
+                edges {
+                  roles
+                  node {
+                    ... on Artist {
+                      id
+                      name
+                    }
+                  }
+                }
+              }
+            }
+
+            fragment PageInfoFields on PageInfo {
+              hasNextPage
+              endCursor
+            }
+            """)
+        variables: dict[str, object] = {
+            "audiobookId": audiobook_id,
+            "chaptersFirst": chapters_first,
+            "chaptersAfter": chapters_after,
+        }
+        response = await self.execute(
+            query=query, operation_name="GetAudiobook", variables=variables, **kwargs
+        )
+        data = self.get_data(response)
+        return GetAudiobook.model_validate(data).audiobook
+
+    async def get_audiobook_chapter(
+        self, audiobook_chapter_id: str, **kwargs: Any
+    ) -> Optional[GetAudiobookChapterAudiobookChapter]:
+        query = gql("""
+            query GetAudiobookChapter($audiobookChapterId: String!) {
+              audiobookChapter(audiobookChapterId: $audiobookChapterId) {
+                ...AudiobookChapterFields
+                gain
+                audiobook {
+                  ...AudiobookFields
+                }
+                media {
+                  id
+                  version
+                  token {
+                    payload
+                    expiresAt
+                  }
+                  estimatedSizes {
+                    MP3_MISC
+                    MP3_128
+                    MP3_320
+                    FLAC
+                  }
+                  rights {
+                    ads {
+                      available
+                    }
+                    sub {
+                      available
+                    }
+                  }
+                }
+              }
+            }
+
+            fragment AudiobookChapterFields on AudiobookChapter {
+              id
+              isrc
+              displayTitle
+              diskInfo {
+                diskNumber
+                chapterPosition
+              }
+              duration
+              isExplicit
+              isFavorite
+            }
+
+            fragment AudiobookFields on Audiobook {
+              id
+              displayTitle
+              cover(pictureRequest: {width: 264, height: 264}) {
+                id
+                urls(pictureRequest: {width: 264, height: 264})
+              }
+              description
+              duration
+              releaseDate
+              fansCount
+              isExplicit
+              isFavorite
+              chaptersCount
+              discsCount
+              producerLine
+              publisher
+              contributors(first: 5, roles: [AUTHOR, NARRATOR]) {
+                edges {
+                  roles
+                  node {
+                    ... on Artist {
+                      id
+                      name
+                    }
+                  }
+                }
+              }
+            }
+            """)
+        variables: dict[str, object] = {"audiobookChapterId": audiobook_chapter_id}
+        response = await self.execute(
+            query=query,
+            operation_name="GetAudiobookChapter",
+            variables=variables,
+            **kwargs
+        )
+        data = self.get_data(response)
+        return GetAudiobookChapter.model_validate(data).audiobook_chapter
 
     async def get_charts(
         self,

@@ -167,6 +167,55 @@ fragment PodcastEpisodeFields on PodcastEpisode {
 }
 
 # ---------------------------------------------------------------------------
+# Audiobook — lightweight fields for audiobook browse listings
+# ---------------------------------------------------------------------------
+fragment AudiobookFields on Audiobook {
+  id
+  displayTitle
+  cover(pictureRequest: { width: 264, height: 264 }) {
+    id
+    urls(pictureRequest: { width: 264, height: 264 })
+  }
+  description
+  duration
+  releaseDate
+  fansCount
+  isExplicit
+  isFavorite
+  chaptersCount
+  discsCount
+  producerLine
+  publisher
+  contributors(first: 5, roles: [AUTHOR, NARRATOR]) {
+    edges {
+      roles
+      node {
+        ... on Artist {
+          id
+          name
+        }
+      }
+    }
+  }
+}
+
+# ---------------------------------------------------------------------------
+# AudiobookChapter — lightweight fields for chapter listings
+# ---------------------------------------------------------------------------
+fragment AudiobookChapterFields on AudiobookChapter {
+  id
+  isrc
+  displayTitle
+  diskInfo {
+    diskNumber
+    chapterPosition
+  }
+  duration
+  isExplicit
+  isFavorite
+}
+
+# ---------------------------------------------------------------------------
 # PageInfo — standard Relay pagination info
 # ---------------------------------------------------------------------------
 fragment PageInfoFields on PageInfo {

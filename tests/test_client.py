@@ -39,6 +39,8 @@ from deezer_python_gql.generated.enums import PodcastType
 from deezer_python_gql.generated.get_album import GetAlbum
 from deezer_python_gql.generated.get_artist import GetArtist
 from deezer_python_gql.generated.get_artist_mix import GetArtistMix
+from deezer_python_gql.generated.get_audiobook import GetAudiobook
+from deezer_python_gql.generated.get_audiobook_chapter import GetAudiobookChapter
 from deezer_python_gql.generated.get_charts import GetCharts
 from deezer_python_gql.generated.get_favorite_albums import GetFavoriteAlbums
 from deezer_python_gql.generated.get_favorite_artists import GetFavoriteArtists
@@ -196,6 +198,8 @@ def test_client_has_generated_methods() -> None:
         "mark_as_not_played_podcast_episode",
         "get_artist_mix",
         "get_track_mix",
+        "get_audiobook",
+        "get_audiobook_chapter",
     ]
     for method in expected_methods:
         assert hasattr(client, method), f"Missing method: {method}"
@@ -1051,3 +1055,50 @@ def test_smoke_get_track_mix() -> None:
     assert track.id == "999001"
     assert track.title == "Get Lucky"
     assert len(track.contributors.edges) == 2
+
+
+# ---------------------------------------------------------------------------
+# 12. Audiobook smoke tests
+# ---------------------------------------------------------------------------
+
+
+def test_smoke_get_audiobook() -> None:
+    """Verify GetAudiobook fixture parses with chapters and contributors."""
+    data = _load_fixture("get_audiobook.json")
+    audiobook = GetAudiobook.model_validate(data).audiobook
+    assert audiobook is not None
+    assert audiobook.id == "ab_1001"
+    assert audiobook.display_title == "The Art of War"
+    assert audiobook.is_favorite is True
+    assert audiobook.chapters_count == 13
+    assert audiobook.discs_count == 1
+    assert audiobook.publisher == "Penguin Audio"
+    assert audiobook.is_taken_down is False
+    assert len(audiobook.contributors.edges) == 2
+    assert audiobook.contributors.edges[0].roles == ["AUTHOR"]
+    assert audiobook.contributors.edges[0].node.name == "Sun Tzu"
+    assert len(audiobook.chapters.edges) == 2
+    ch = audiobook.chapters.edges[0].node
+    assert ch is not None
+    assert ch.id == "ch_001"
+    assert ch.display_title == "Chapter 1: Laying Plans"
+    assert ch.disk_info is not None
+    assert ch.disk_info.chapter_position == 1
+    assert audiobook.chapters.page_info.has_next_page is True
+
+
+def test_smoke_get_audiobook_chapter() -> None:
+    """Verify GetAudiobookChapter fixture parses with media and audiobook."""
+    data = _load_fixture("get_audiobook_chapter.json")
+    chapter = GetAudiobookChapter.model_validate(data).audiobook_chapter
+    assert chapter is not None
+    assert chapter.id == "ch_001"
+    assert chapter.display_title == "Chapter 1: Laying Plans"
+    assert chapter.duration == 420
+    assert chapter.gain == -6.5
+    assert chapter.audiobook.id == "ab_1001"
+    assert chapter.audiobook.display_title == "The Art of War"
+    assert chapter.media is not None
+    assert chapter.media.token.payload
+    assert chapter.media.rights.ads is not None
+    assert chapter.media.rights.ads.available is True

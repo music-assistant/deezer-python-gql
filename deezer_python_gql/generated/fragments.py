@@ -6,7 +6,12 @@ from typing import Any, Literal, Optional, Union
 from pydantic import Field
 
 from .base_model import BaseModel
-from .enums import AlbumType, PodcastType, TrackContributorRoles
+from .enums import (
+    AlbumType,
+    AudiobookContributorRoles,
+    PodcastType,
+    TrackContributorRoles,
+)
 
 
 class AlbumFields(BaseModel):
@@ -61,6 +66,60 @@ class ArtistFieldsPicture(BaseModel):
 class ArtistFieldsBio(BaseModel):
     summary: Optional[str]
     full: str
+
+
+class AudiobookChapterFields(BaseModel):
+    id: str
+    isrc: str
+    display_title: str = Field(alias="displayTitle")
+    disk_info: Optional["AudiobookChapterFieldsDiskInfo"] = Field(alias="diskInfo")
+    duration: int
+    is_explicit: bool = Field(alias="isExplicit")
+    is_favorite: Optional[bool] = Field(alias="isFavorite")
+
+
+class AudiobookChapterFieldsDiskInfo(BaseModel):
+    disk_number: Optional[int] = Field(alias="diskNumber")
+    chapter_position: Optional[int] = Field(alias="chapterPosition")
+
+
+class AudiobookFields(BaseModel):
+    id: str
+    display_title: Optional[str] = Field(alias="displayTitle")
+    cover: Optional["AudiobookFieldsCover"]
+    description: Optional[str]
+    duration: int
+    release_date: Optional[Any] = Field(alias="releaseDate")
+    fans_count: int = Field(alias="fansCount")
+    is_explicit: bool = Field(alias="isExplicit")
+    is_favorite: Optional[bool] = Field(alias="isFavorite")
+    chapters_count: int = Field(alias="chaptersCount")
+    discs_count: int = Field(alias="discsCount")
+    producer_line: Optional[str] = Field(alias="producerLine")
+    publisher: Optional[str]
+    contributors: "AudiobookFieldsContributors"
+
+
+class AudiobookFieldsCover(BaseModel):
+    id: str
+    urls: list[str]
+
+
+class AudiobookFieldsContributors(BaseModel):
+    edges: list["AudiobookFieldsContributorsEdges"]
+
+
+class AudiobookFieldsContributorsEdges(BaseModel):
+    roles: list[AudiobookContributorRoles]
+    node: Union["AudiobookFieldsContributorsEdgesNodeArtist",] = Field(
+        discriminator="typename__"
+    )
+
+
+class AudiobookFieldsContributorsEdgesNodeArtist(BaseModel):
+    typename__: Literal["Artist"] = Field(alias="__typename")
+    id: str
+    name: str
 
 
 class LivestreamFields(BaseModel):
@@ -203,6 +262,8 @@ class TrackFieldsContributorsEdgesNodeArtist(BaseModel):
 
 AlbumFields.model_rebuild()
 ArtistFields.model_rebuild()
+AudiobookChapterFields.model_rebuild()
+AudiobookFields.model_rebuild()
 LivestreamFields.model_rebuild()
 PageInfoFields.model_rebuild()
 PlaylistFields.model_rebuild()

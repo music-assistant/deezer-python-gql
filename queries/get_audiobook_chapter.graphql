@@ -1,0 +1,31 @@
+query GetAudiobookChapter($audiobookChapterId: String!) {
+  audiobookChapter(audiobookChapterId: $audiobookChapterId) {
+    ...AudiobookChapterFields
+    gain
+    audiobook {
+      ...AudiobookFields
+    }
+    media {
+      id
+      version
+      token {
+        payload
+        expiresAt
+      }
+      estimatedSizes {
+        MP3_MISC
+        MP3_128
+        MP3_320
+        FLAC
+      }
+      rights {
+        ads {
+          available
+        }
+        sub {
+          available
+        }
+      }
+    }
+  }
+}
