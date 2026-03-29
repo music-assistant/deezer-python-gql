@@ -61,6 +61,7 @@ from .get_favorite_playlists import GetFavoritePlaylists, GetFavoritePlaylistsMe
 from .get_favorite_podcasts import GetFavoritePodcasts, GetFavoritePodcastsMe
 from .get_favorite_tracks import GetFavoriteTracks, GetFavoriteTracksMe
 from .get_flow import GetFlow, GetFlowMe
+from .get_flow_batch import GetFlowBatch, GetFlowBatchMe
 from .get_flow_config_tracks import GetFlowConfigTracks, GetFlowConfigTracksFlowConfig
 from .get_flow_configs import GetFlowConfigs, GetFlowConfigsMe
 from .get_livestream import GetLivestream, GetLivestreamLivestream
@@ -1579,6 +1580,81 @@ class DeezerGQLClient(DeezerBaseClient):
         )
         data = self.get_data(response)
         return GetFlow.model_validate(data).me
+
+    async def get_flow_batch(self, **kwargs: Any) -> Optional[GetFlowBatchMe]:
+        query = gql("""
+            query GetFlowBatch {
+              me {
+                flow {
+                  id
+                  title
+                  cover {
+                    id
+                    urls(pictureRequest: {width: 264, height: 264})
+                  }
+                  batch1: tracks {
+                    track {
+                      ...TrackFields
+                    }
+                  }
+                  batch2: tracks {
+                    track {
+                      ...TrackFields
+                    }
+                  }
+                  batch3: tracks {
+                    track {
+                      ...TrackFields
+                    }
+                  }
+                  batch4: tracks {
+                    track {
+                      ...TrackFields
+                    }
+                  }
+                }
+              }
+            }
+
+            fragment TrackFields on Track {
+              id
+              title
+              ISRC
+              diskInfo {
+                diskNumber
+                trackNumber
+              }
+              duration
+              isExplicit
+              isFavorite
+              popularity
+              album {
+                id
+                displayTitle
+                cover {
+                  id
+                  urls(pictureRequest: {width: 264, height: 264})
+                }
+              }
+              contributors(first: 10, roles: [MAIN, FEATURED]) {
+                edges {
+                  roles
+                  node {
+                    ... on Artist {
+                      id
+                      name
+                    }
+                  }
+                }
+              }
+            }
+            """)
+        variables: dict[str, object] = {}
+        response = await self.execute(
+            query=query, operation_name="GetFlowBatch", variables=variables, **kwargs
+        )
+        data = self.get_data(response)
+        return GetFlowBatch.model_validate(data).me
 
     async def get_flow_config_tracks(
         self, flow_config_id: str, **kwargs: Any

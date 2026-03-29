@@ -1,0 +1,35 @@
+# Get 4 batches of Flow tracks in a single request using aliases.
+# Each alias resolves independently, returning a fresh batch of tracks.
+
+query GetFlowBatch {
+  me {
+    flow {
+      id
+      title
+      cover {
+        id
+        urls(pictureRequest: { width: 264, height: 264 })
+      }
+      batch1: tracks {
+        track {
+          ...TrackFields
+        }
+      }
+      batch2: tracks {
+        track {
+          ...TrackFields
+        }
+      }
+      batch3: tracks {
+        track {
+          ...TrackFields
+        }
+      }
+      batch4: tracks {
+        track {
+          ...TrackFields
+        }
+      }
+    }
+  }
+}

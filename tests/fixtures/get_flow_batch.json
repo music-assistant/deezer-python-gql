@@ -1,0 +1,106 @@
+{
+  "data": {
+    "me": {
+      "flow": {
+        "id": "flow:default",
+        "title": "Flow",
+        "cover": {
+          "id": "cover_flow_default",
+          "urls": ["https://cdn-images.deezer.com/images/flow/default/264x264.jpg"]
+        },
+        "batch1": [
+          {
+            "track": {
+              "__typename": "Track",
+              "id": "101",
+              "title": "Batch One Track",
+              "ISRC": "USRC10000001",
+              "diskInfo": { "diskNumber": 1, "trackNumber": 1 },
+              "duration": 200,
+              "isExplicit": false,
+              "isFavorite": false,
+              "popularity": 800000,
+              "album": {
+                "id": "al_101",
+                "displayTitle": "Album One",
+                "cover": { "id": "c101", "urls": ["https://cdn.deezer.com/cover/101.jpg"] }
+              },
+              "contributors": {
+                "edges": [{ "roles": ["MAIN"], "node": { "__typename": "Artist", "id": "a1", "name": "Artist One" } }]
+              }
+            }
+          }
+        ],
+        "batch2": [
+          {
+            "track": {
+              "__typename": "Track",
+              "id": "201",
+              "title": "Batch Two Track",
+              "ISRC": "USRC10000002",
+              "diskInfo": { "diskNumber": 1, "trackNumber": 2 },
+              "duration": 180,
+              "isExplicit": false,
+              "isFavorite": true,
+              "popularity": 600000,
+              "album": {
+                "id": "al_201",
+                "displayTitle": "Album Two",
+                "cover": { "id": "c201", "urls": ["https://cdn.deezer.com/cover/201.jpg"] }
+              },
+              "contributors": {
+                "edges": [{ "roles": ["MAIN"], "node": { "__typename": "Artist", "id": "a2", "name": "Artist Two" } }]
+              }
+            }
+          }
+        ],
+        "batch3": [
+          {
+            "track": {
+              "__typename": "Track",
+              "id": "301",
+              "title": "Batch Three Track",
+              "ISRC": "USRC10000003",
+              "diskInfo": { "diskNumber": 1, "trackNumber": 3 },
+              "duration": 250,
+              "isExplicit": true,
+              "isFavorite": false,
+              "popularity": 400000,
+              "album": {
+                "id": "al_301",
+                "displayTitle": "Album Three",
+                "cover": { "id": "c301", "urls": ["https://cdn.deezer.com/cover/301.jpg"] }
+              },
+              "contributors": {
+                "edges": [{ "roles": ["MAIN"], "node": { "__typename": "Artist", "id": "a3", "name": "Artist Three" } }]
+              }
+            }
+          }
+        ],
+        "batch4": [
+          {
+            "track": {
+              "__typename": "Track",
+              "id": "401",
+              "title": "Batch Four Track",
+              "ISRC": "USRC10000004",
+              "diskInfo": { "diskNumber": 1, "trackNumber": 4 },
+              "duration": 310,
+              "isExplicit": false,
+              "isFavorite": false,
+              "popularity": 200000,
+              "album": {
+                "id": "al_401",
+                "displayTitle": "Album Four",
+                "cover": { "id": "c401", "urls": ["https://cdn.deezer.com/cover/401.jpg"] }
+              },
+              "contributors": {
+                "edges": [{ "roles": ["MAIN"], "node": { "__typename": "Artist", "id": "a4", "name": "Artist Four" } }]
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

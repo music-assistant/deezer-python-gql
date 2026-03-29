@@ -50,6 +50,7 @@ from deezer_python_gql.generated.get_favorite_playlists import GetFavoritePlayli
 from deezer_python_gql.generated.get_favorite_podcasts import GetFavoritePodcasts
 from deezer_python_gql.generated.get_favorite_tracks import GetFavoriteTracks
 from deezer_python_gql.generated.get_flow import GetFlow
+from deezer_python_gql.generated.get_flow_batch import GetFlowBatch
 from deezer_python_gql.generated.get_flow_config_tracks import GetFlowConfigTracks
 from deezer_python_gql.generated.get_flow_configs import GetFlowConfigs
 from deezer_python_gql.generated.get_livestream import GetLivestream
@@ -177,6 +178,7 @@ def test_client_has_generated_methods() -> None:
         "get_playlist",
         "search",
         "get_flow",
+        "get_flow_batch",
         "get_flow_configs",
         "get_flow_config_tracks",
         "get_made_for_me",
@@ -561,6 +563,28 @@ def test_smoke_get_flow() -> None:
     assert len(me.flow.tracks) == 2
     assert me.flow.tracks[0].track is not None
     assert me.flow.tracks[0].track.title == "Harder, Better, Faster, Stronger"
+
+
+def test_smoke_get_flow_batch() -> None:
+    """Verify GetFlowBatch fixture parses 4 aliased track batches."""
+    data = _load_fixture("get_flow_batch.json")
+    me = GetFlowBatch.model_validate(data).me
+    assert me is not None
+    flow = me.flow
+    assert flow is not None
+    assert flow.id == "flow:default"
+    assert len(flow.batch_1) == 1
+    assert len(flow.batch_2) == 1
+    assert len(flow.batch_3) == 1
+    assert len(flow.batch_4) == 1
+    assert flow.batch_1[0].track is not None
+    assert flow.batch_1[0].track.title == "Batch One Track"
+    assert flow.batch_2[0].track is not None
+    assert flow.batch_2[0].track.title == "Batch Two Track"
+    assert flow.batch_3[0].track is not None
+    assert flow.batch_3[0].track.is_explicit is True
+    assert flow.batch_4[0].track is not None
+    assert flow.batch_4[0].track.id == "401"
 
 
 def test_smoke_get_flow_configs() -> None:
