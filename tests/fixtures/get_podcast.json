@@ -12,6 +12,7 @@
       "isExplicit": false,
       "isFavorite": true,
       "type": "EPISODIC",
+      "rawEpisodes": ["ep_001", "ep_002", "ep_003"],
       "isAdvertisingAllowed": true,
       "isDownloadAllowed": true,
       "rights": {

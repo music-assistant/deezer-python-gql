@@ -106,6 +106,47 @@
         "owner": {
           "id": "user_100",
           "name": "Alice"
+        },
+        "tracks": {
+          "edges": [
+            {
+              "cursor": "ct_cursor_1",
+              "node": {
+                "id": "9876543",
+                "title": "Unicorns",
+                "ISRC": "DEZC62590302",
+                "diskInfo": { "diskNumber": 1, "trackNumber": 1 },
+                "duration": 195,
+                "isExplicit": true,
+                "isFavorite": false,
+                "popularity": 420000,
+                "album": {
+                  "id": "747622201",
+                  "displayTitle": "Freundschaft Plus",
+                  "cover": {
+                    "id": "cover_747622201",
+                    "urls": ["https://cdn.example.com/cover/fp/264x264.jpg"]
+                  }
+                },
+                "contributors": {
+                  "edges": [
+                    {
+                      "roles": ["MAIN"],
+                      "node": {
+                        "id": "999",
+                        "name": "257ers",
+                        "__typename": "Artist"
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          ],
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": "ct_cursor_1"
+          }
         }
       }
     }

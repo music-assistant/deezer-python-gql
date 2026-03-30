@@ -1,0 +1,45 @@
+{
+  "data": {
+    "podcastEpisodesByIds": [
+      {
+        "__typename": "PodcastEpisode",
+        "id": "ep_100",
+        "title": "Episode 100: AI Revolution",
+        "description": "Exploring the latest AI trends.",
+        "duration": 2400,
+        "cover": {
+          "id": "cover:ep_100",
+          "urls": ["https://cdn.example.com/ep/264x264.jpg"]
+        },
+        "publicationDate": "2025-07-10",
+        "media": {
+          "url": "https://cdn.example.com/ep/100.mp3",
+          "codec": {
+            "type": "mp3",
+            "bitrate": 128
+          }
+        }
+      },
+      {
+        "__typename": "PodcastEpisode",
+        "id": "ep_099",
+        "title": "Episode 99: Quantum Computing",
+        "description": "A deep dive into quantum computing.",
+        "duration": 1800,
+        "cover": {
+          "id": "cover:ep_099",
+          "urls": ["https://cdn.example.com/ep/264x264.jpg"]
+        },
+        "publicationDate": "2025-07-03",
+        "media": {
+          "url": "https://cdn.example.com/ep/099.mp3",
+          "codec": {
+            "type": "mp3",
+            "bitrate": 128
+          }
+        }
+      },
+      null
+    ]
+  }
+}

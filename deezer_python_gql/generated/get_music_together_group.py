@@ -148,6 +148,32 @@ class GetMusicTogetherGroupMusicTogetherGroupSuggestedTracklistTracklistTracksPa
 
 
 class GetMusicTogetherGroupMusicTogetherGroupCuratedTracklist(PlaylistFields):
+    tracks: "GetMusicTogetherGroupMusicTogetherGroupCuratedTracklistTracks"
+
+
+class GetMusicTogetherGroupMusicTogetherGroupCuratedTracklistTracks(BaseModel):
+    edges: list["GetMusicTogetherGroupMusicTogetherGroupCuratedTracklistTracksEdges"]
+    page_info: (
+        "GetMusicTogetherGroupMusicTogetherGroupCuratedTracklistTracksPageInfo"
+    ) = Field(alias="pageInfo")
+
+
+class GetMusicTogetherGroupMusicTogetherGroupCuratedTracklistTracksEdges(BaseModel):
+    cursor: str
+    node: Optional[
+        "GetMusicTogetherGroupMusicTogetherGroupCuratedTracklistTracksEdgesNode"
+    ]
+
+
+class GetMusicTogetherGroupMusicTogetherGroupCuratedTracklistTracksEdgesNode(
+    TrackFields
+):
+    pass
+
+
+class GetMusicTogetherGroupMusicTogetherGroupCuratedTracklistTracksPageInfo(
+    PageInfoFields
+):
     pass
 
 
@@ -163,3 +189,6 @@ GetMusicTogetherGroupMusicTogetherGroupSuggestedTracklistTracklistTracksEdges.mo
 GetMusicTogetherGroupMusicTogetherGroupSuggestedTracklistTracklistTracksEdgesMetadata.model_rebuild()
 GetMusicTogetherGroupMusicTogetherGroupSuggestedTracklistTracklistTracksEdgesMetadataMusicTogether.model_rebuild()
 GetMusicTogetherGroupMusicTogetherGroupSuggestedTracklistTracklistTracksEdgesMetadataMusicTogetherTrackOrigin.model_rebuild()
+GetMusicTogetherGroupMusicTogetherGroupCuratedTracklist.model_rebuild()
+GetMusicTogetherGroupMusicTogetherGroupCuratedTracklistTracks.model_rebuild()
+GetMusicTogetherGroupMusicTogetherGroupCuratedTracklistTracksEdges.model_rebuild()

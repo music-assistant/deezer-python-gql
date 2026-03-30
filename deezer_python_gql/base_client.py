@@ -257,3 +257,35 @@ class DeezerBaseClient:
         logger.debug("JWT acquired, expires at %s", self._jwt_expires_at)
 
         return self._jwt
+
+    async def check_audiobook_ids(self, album_ids: list[str]) -> set[str]:
+        """Check which album IDs are also valid audiobooks on Deezer.
+
+        Uses GraphQL aliases to batch-check many IDs in a single request.
+        Returns the subset of IDs that are audiobooks (i.e., the audiobook
+        query returns non-null for them).
+
+        :param album_ids: List of Deezer album/audiobook IDs to check.
+        """
+        if not album_ids:
+            return set()
+
+        # Query displayTitle alongside id — querying only { id } echoes back the
+        # input without validating that the ID is actually an audiobook.
+        parts = [
+            f'a{i}: audiobook(audiobookId: "{aid}") {{ id displayTitle }}'
+            for i, aid in enumerate(album_ids)
+        ]
+        query = "{ " + " ".join(parts) + " }"
+
+        resp = await self.execute(query)
+        data = self.get_data(resp)
+
+        audiobook_ids: set[str] = set()
+        for i, aid in enumerate(album_ids):
+            node = data.get(f"a{i}")
+            # The API echoes back {id} for any valid album, so we must check
+            # a real audiobook field like displayTitle to distinguish.
+            if node is not None and node.get("displayTitle") is not None:
+                audiobook_ids.add(aid)
+        return audiobook_ids

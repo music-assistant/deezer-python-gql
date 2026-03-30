@@ -66,6 +66,17 @@ query GetMusicTogetherGroup(
     }
     curatedTracklist {
       ...PlaylistFields
+      tracks(first: $tracksFirst, after: $tracksAfter) {
+        edges {
+          cursor
+          node {
+            ...TrackFields
+          }
+        }
+        pageInfo {
+          ...PageInfoFields
+        }
+      }
     }
   }
 }

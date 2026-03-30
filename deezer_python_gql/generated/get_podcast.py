@@ -14,6 +14,7 @@ class GetPodcast(BaseModel):
 
 
 class GetPodcastPodcast(PodcastFields):
+    raw_episodes: list[str] = Field(alias="rawEpisodes")
     is_advertising_allowed: bool = Field(alias="isAdvertisingAllowed")
     is_download_allowed: bool = Field(alias="isDownloadAllowed")
     rights: "GetPodcastPodcastRights"

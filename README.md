@@ -156,6 +156,12 @@ asyncio.run(main())
 | `music_together_update_group_settings(...)`       | Update group settings (name, family mode)   |
 | `music_together_generate_group_name()`            | Generate a random group name                |
 
+### Utilities
+
+| Method                           | Description                                                      |
+| -------------------------------- | ---------------------------------------------------------------- |
+| `check_audiobook_ids(album_ids)` | Batch-check which album IDs are audiobooks (single GraphQL call) |
+
 All methods return fully-typed Pydantic models generated from the GraphQL schema.
 
 ## Development

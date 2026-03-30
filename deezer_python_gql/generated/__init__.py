@@ -299,6 +299,10 @@ from .get_music_together_group import (
     GetMusicTogetherGroup,
     GetMusicTogetherGroupMusicTogetherGroup,
     GetMusicTogetherGroupMusicTogetherGroupCuratedTracklist,
+    GetMusicTogetherGroupMusicTogetherGroupCuratedTracklistTracks,
+    GetMusicTogetherGroupMusicTogetherGroupCuratedTracklistTracksEdges,
+    GetMusicTogetherGroupMusicTogetherGroupCuratedTracklistTracksEdgesNode,
+    GetMusicTogetherGroupMusicTogetherGroupCuratedTracklistTracksPageInfo,
     GetMusicTogetherGroupMusicTogetherGroupMembers,
     GetMusicTogetherGroupMusicTogetherGroupMembersEdges,
     GetMusicTogetherGroupMusicTogetherGroupMembersEdgesAffinity,
@@ -364,6 +368,10 @@ from .get_podcast_episode_bookmarks import (
     GetPodcastEpisodeBookmarksMePodcastEpisodeBookmarksEdgesNodeEpisode,
     GetPodcastEpisodeBookmarksMePodcastEpisodeBookmarksEdgesNodeEpisodePodcast,
     GetPodcastEpisodeBookmarksMePodcastEpisodeBookmarksPageInfo,
+)
+from .get_podcast_episodes_by_ids import (
+    GetPodcastEpisodesByIds,
+    GetPodcastEpisodesByIdsPodcastEpisodesByIds,
 )
 from .get_recently_played import (
     GetRecentlyPlayed,
@@ -812,6 +820,10 @@ __all__ = [
     "GetMusicTogetherGroup",
     "GetMusicTogetherGroupMusicTogetherGroup",
     "GetMusicTogetherGroupMusicTogetherGroupCuratedTracklist",
+    "GetMusicTogetherGroupMusicTogetherGroupCuratedTracklistTracks",
+    "GetMusicTogetherGroupMusicTogetherGroupCuratedTracklistTracksEdges",
+    "GetMusicTogetherGroupMusicTogetherGroupCuratedTracklistTracksEdgesNode",
+    "GetMusicTogetherGroupMusicTogetherGroupCuratedTracklistTracksPageInfo",
     "GetMusicTogetherGroupMusicTogetherGroupMembers",
     "GetMusicTogetherGroupMusicTogetherGroupMembersEdges",
     "GetMusicTogetherGroupMusicTogetherGroupMembersEdgesAffinity",
@@ -859,6 +871,8 @@ __all__ = [
     "GetPodcastEpisodePodcastEpisodePodcast",
     "GetPodcastEpisodePodcastEpisodeUrlDeezerUrl",
     "GetPodcastEpisodePodcastEpisodeUrlUrl",
+    "GetPodcastEpisodesByIds",
+    "GetPodcastEpisodesByIdsPodcastEpisodesByIds",
     "GetPodcastPodcast",
     "GetPodcastPodcastEpisodes",
     "GetPodcastPodcastEpisodesEdges",

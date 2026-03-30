@@ -67,6 +67,9 @@ from deezer_python_gql.generated.get_podcast_episode import GetPodcastEpisode
 from deezer_python_gql.generated.get_podcast_episode_bookmarks import (
     GetPodcastEpisodeBookmarks,
 )
+from deezer_python_gql.generated.get_podcast_episodes_by_ids import (
+    GetPodcastEpisodesByIds,
+)
 from deezer_python_gql.generated.get_recently_played import GetRecentlyPlayed
 from deezer_python_gql.generated.get_recommendations import GetRecommendations
 from deezer_python_gql.generated.get_similar_tracks import GetSimilarTracks
@@ -209,6 +212,7 @@ def test_client_has_generated_methods() -> None:
         "remove_tracks_from_playlist",
         "get_podcast",
         "get_podcast_episode",
+        "get_podcast_episodes_by_ids",
         "get_favorite_podcasts",
         "get_podcast_episode_bookmarks",
         "add_podcast_to_favorite",
@@ -467,7 +471,51 @@ def test_get_data_returns_data_on_success() -> None:
 
 
 # ---------------------------------------------------------------------------
-# 4. Model smoke tests (one per query — fixture-based)
+# 4a. check_audiobook_ids tests
+# ---------------------------------------------------------------------------
+
+
+@pytest.mark.asyncio
+async def test_check_audiobook_ids_returns_matching() -> None:
+    """Verify check_audiobook_ids returns IDs that are valid audiobooks."""
+    client = DeezerBaseClient(arl="test_arl")
+    client._jwt = _make_jwt(exp=time.time() + 600)  # noqa: SLF001
+    client._jwt_expires_at = time.time() + 600  # noqa: SLF001
+
+    # a0 is an audiobook (has displayTitle), a1 is not (displayTitle is null)
+    gql_response = httpx.Response(
+        200,
+        json={
+            "data": {
+                "a0": {"id": "111", "displayTitle": "Test Book"},
+                "a1": {"id": "222", "displayTitle": None},
+            }
+        },
+        request=httpx.Request("POST", DeezerBaseClient.PIPE_URL),
+    )
+
+    with patch("deezer_python_gql.base_client.httpx.AsyncClient") as mock_client_cls:
+        mock_instance = AsyncMock()
+        mock_instance.post = AsyncMock(return_value=gql_response)
+        mock_instance.__aenter__ = AsyncMock(return_value=mock_instance)
+        mock_instance.__aexit__ = AsyncMock(return_value=False)
+        mock_client_cls.return_value = mock_instance
+
+        result = await client.check_audiobook_ids(["111", "222"])
+
+    assert result == {"111"}
+
+
+@pytest.mark.asyncio
+async def test_check_audiobook_ids_empty_input() -> None:
+    """Verify check_audiobook_ids returns empty set for empty input."""
+    client = DeezerBaseClient(arl="test_arl")
+    result = await client.check_audiobook_ids([])
+    assert result == set()
+
+
+# ---------------------------------------------------------------------------
+# 5. Model smoke tests (one per query — fixture-based)
 # ---------------------------------------------------------------------------
 
 
@@ -993,6 +1041,20 @@ def test_smoke_get_podcast_episode() -> None:
     assert ep.media.url.startswith("https://")
     assert ep.podcast.id == "1234"
     assert ep.podcast.display_title == "Tech Weekly"
+
+
+def test_smoke_get_podcast_episodes_by_ids() -> None:
+    """Verify GetPodcastEpisodesByIds fixture parses with nullable entries."""
+    data = _load_fixture("get_podcast_episodes_by_ids.json")
+    episodes = GetPodcastEpisodesByIds.model_validate(data).podcast_episodes_by_ids
+    assert len(episodes) == 3
+    assert episodes[0] is not None
+    assert episodes[0].id == "ep_100"
+    assert episodes[0].title == "Episode 100: AI Revolution"
+    assert episodes[0].duration == 2400
+    assert episodes[1] is not None
+    assert episodes[1].id == "ep_099"
+    assert episodes[2] is None
 
 
 def test_smoke_get_favorite_podcasts() -> None:

@@ -83,6 +83,10 @@ from .get_podcast_episode_bookmarks import (
     GetPodcastEpisodeBookmarks,
     GetPodcastEpisodeBookmarksMe,
 )
+from .get_podcast_episodes_by_ids import (
+    GetPodcastEpisodesByIds,
+    GetPodcastEpisodesByIdsPodcastEpisodesByIds,
+)
 from .get_recently_played import GetRecentlyPlayed, GetRecentlyPlayedMe
 from .get_recommendations import GetRecommendations, GetRecommendationsMe
 from .get_similar_tracks import GetSimilarTracks, GetSimilarTracksTrack
@@ -2069,6 +2073,17 @@ class DeezerGQLClient(DeezerBaseClient):
                 }
                 curatedTracklist {
                   ...PlaylistFields
+                  tracks(first: $tracksFirst, after: $tracksAfter) {
+                    edges {
+                      cursor
+                      node {
+                        ...TrackFields
+                      }
+                    }
+                    pageInfo {
+                      ...PageInfoFields
+                    }
+                  }
                 }
               }
             }
@@ -2303,6 +2318,7 @@ class DeezerGQLClient(DeezerBaseClient):
             query GetPodcast($podcastId: String!, $episodesFirst: Int = 50, $episodesAfter: String, $episodeOrder: PodcastEpisodeOrder = LATEST) {
               podcast(podcastId: $podcastId) {
                 ...PodcastFields
+                rawEpisodes
                 isAdvertisingAllowed
                 isDownloadAllowed
                 rights {
@@ -2514,6 +2530,45 @@ class DeezerGQLClient(DeezerBaseClient):
         )
         data = self.get_data(response)
         return GetPodcastEpisodeBookmarks.model_validate(data).me
+
+    async def get_podcast_episodes_by_ids(
+        self, ids: list[str], **kwargs: Any
+    ) -> list[Optional[GetPodcastEpisodesByIdsPodcastEpisodesByIds]]:
+        query = gql("""
+            query GetPodcastEpisodesByIds($ids: [String!]!) {
+              podcastEpisodesByIds(ids: $ids) {
+                ...PodcastEpisodeFields
+              }
+            }
+
+            fragment PodcastEpisodeFields on PodcastEpisode {
+              id
+              title
+              description
+              duration
+              cover {
+                id
+                urls(pictureRequest: {width: 264, height: 264})
+              }
+              publicationDate
+              media {
+                url
+                codec {
+                  type
+                  bitrate
+                }
+              }
+            }
+            """)
+        variables: dict[str, object] = {"ids": ids}
+        response = await self.execute(
+            query=query,
+            operation_name="GetPodcastEpisodesByIds",
+            variables=variables,
+            **kwargs
+        )
+        data = self.get_data(response)
+        return GetPodcastEpisodesByIds.model_validate(data).podcast_episodes_by_ids
 
     async def get_recently_played(
         self, first: Union[Optional[int], UnsetType] = UNSET, **kwargs: Any
