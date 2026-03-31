@@ -314,15 +314,22 @@ The `DeezerBaseClient.get_data()` method handles two important edge cases:
 
 ### Connection Pooling
 
-For production use, pass an `httpx.AsyncClient` to avoid creating a new connection for every request:
+`DeezerBaseClient` self-manages its own `httpx.AsyncClient`, created lazily on first request. No external setup needed:
 
 ```python
-async with httpx.AsyncClient() as http:
-    client = DeezerGQLClient(arl="your_arl", http_client=http)
-    # All requests reuse the same connection pool
+# Recommended: use as async context manager
+async with DeezerGQLClient(arl="your_arl") as client:
+    me = await client.get_me()
+
+# Or manage lifecycle manually
+client = DeezerGQLClient(arl="your_arl")
+try:
+    me = await client.get_me()
+finally:
+    await client.close()
 ```
 
-If no `http_client` is provided, the base client creates (and closes) a throwaway `httpx.AsyncClient` per request. This works but is inefficient for high-volume usage like library syncs.
+An external `http_client` can still be passed for advanced use cases (e.g., sharing a pool across multiple clients), but the caller is then responsible for closing it.
 
 ### Audiobook ID Checking
 
@@ -418,15 +425,16 @@ Use comments only to explain "why", not "what". Reserve inline comments for comp
 
 ### Test Structure
 
-Tests are organized into four layers:
+Tests are organized into five layers:
 
 | Layer                     | Tests | What's validated                                                                   |
 | ------------------------- | ----- | ---------------------------------------------------------------------------------- |
 | **Client setup**          | 3     | Import, instantiation with ARL, presence of all generated methods                  |
+| **Lifecycle**             | 3     | close() on internal client, skip close on external client, context manager         |
 | **Auth flow** (mocked)    | 5     | JWT acquisition, token reuse, refresh on expiry, cookie domain, text/plain parsing |
 | **Error handling**        | 5     | HTTP errors, invalid JSON, missing data key, GraphQL errors, success path          |
-| **Model smoke tests**     | 62    | One per query/mutation — fixture parses correctly with key fields accessible       |
 | **Audiobook ID checking** | 2     | Batch alias query returns correct subset; empty input returns empty set            |
+| **Model smoke tests**     | 62    | One per query/mutation — fixture parses correctly with key fields accessible       |
 
 ### Auth Flow Tests
 
