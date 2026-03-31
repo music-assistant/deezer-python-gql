@@ -35,7 +35,7 @@ dev = [
 
 [tool.setuptools]
 include-package-data = true
-packages = ["deezer_python_gql"]
+packages = ["deezer_python_gql", "deezer_python_gql.generated"]
 platforms = ["any"]
 zip-safe = false
 
