@@ -245,7 +245,55 @@ def test_client_has_generated_methods() -> None:
 
 
 # ---------------------------------------------------------------------------
-# 2. Auth flow (mocked HTTP)
+# 2. Lifecycle (connection pool management)
+# ---------------------------------------------------------------------------
+
+
+@pytest.mark.asyncio
+async def test_close_shuts_down_internal_client() -> None:
+    """Verify close() calls aclose() on the internally-created httpx client."""
+    client = DeezerBaseClient(arl="test")
+
+    with patch("deezer_python_gql.base_client.httpx.AsyncClient") as mock_cls:
+        mock_instance = AsyncMock()
+        mock_cls.return_value = mock_instance
+
+        # Trigger lazy creation
+        client._get_http_client()  # noqa: SLF001
+        assert client._http_client is mock_instance  # noqa: SLF001
+
+        await client.close()
+
+    mock_instance.aclose.assert_awaited_once()
+    assert client._http_client is None  # noqa: SLF001
+
+
+@pytest.mark.asyncio
+async def test_close_skips_external_client() -> None:
+    """Verify close() does NOT close an externally-provided httpx client."""
+    external = AsyncMock(spec=httpx.AsyncClient)
+    client = DeezerBaseClient(arl="test", http_client=external)
+
+    await client.close()
+
+    external.aclose.assert_not_awaited()
+
+
+@pytest.mark.asyncio
+async def test_context_manager_calls_close() -> None:
+    """Verify the async context manager closes the client on exit."""
+    with patch("deezer_python_gql.base_client.httpx.AsyncClient") as mock_cls:
+        mock_instance = AsyncMock()
+        mock_cls.return_value = mock_instance
+
+        async with DeezerBaseClient(arl="test") as client:
+            client._get_http_client()  # noqa: SLF001
+
+    mock_instance.aclose.assert_awaited_once()
+
+
+# ---------------------------------------------------------------------------
+# 3. Auth flow (mocked HTTP)
 # ---------------------------------------------------------------------------
 
 
@@ -255,27 +303,19 @@ async def test_auth_acquires_jwt_on_first_request() -> None:
     jwt = _make_jwt()
     client = DeezerBaseClient(arl="test_arl")
 
-    mock_auth = AsyncMock(return_value=_mock_auth_response(jwt))
-    mock_gql = AsyncMock(
-        return_value=httpx.Response(
-            200,
-            json={"data": {"me": {"id": "1"}}},
-            request=httpx.Request("POST", DeezerBaseClient.PIPE_URL),
-        ),
+    gql_response = httpx.Response(
+        200,
+        json={"data": {"me": {"id": "1"}}},
+        request=httpx.Request("POST", DeezerBaseClient.PIPE_URL),
     )
 
     with patch("deezer_python_gql.base_client.httpx.AsyncClient") as mock_client_cls:
         mock_instance = AsyncMock()
-        mock_instance.post = mock_auth
-        mock_instance.__aenter__ = AsyncMock(return_value=mock_instance)
-        mock_instance.__aexit__ = AsyncMock(return_value=False)
+        mock_instance.post = AsyncMock(
+            side_effect=[_mock_auth_response(jwt), gql_response],
+        )
         mock_client_cls.return_value = mock_instance
 
-        # First call: should trigger auth, then make GQL request
-        # Override post to return auth first, then GQL response
-        mock_instance.post = AsyncMock(
-            side_effect=[_mock_auth_response(jwt), mock_gql.return_value],
-        )
         resp = await client.execute(query="{ me { id } }")
 
     assert resp.status_code == 200
@@ -299,8 +339,6 @@ async def test_auth_reuses_valid_jwt() -> None:
     with patch("deezer_python_gql.base_client.httpx.AsyncClient") as mock_client_cls:
         mock_instance = AsyncMock()
         mock_instance.post = AsyncMock(return_value=gql_response)
-        mock_instance.__aenter__ = AsyncMock(return_value=mock_instance)
-        mock_instance.__aexit__ = AsyncMock(return_value=False)
         mock_client_cls.return_value = mock_instance
 
         await client.execute(query="{ me { id } }")
@@ -321,9 +359,6 @@ async def test_auth_refreshes_expiring_jwt() -> None:
 
     with patch("deezer_python_gql.base_client.httpx.AsyncClient") as mock_client_cls:
         mock_instance = AsyncMock()
-        mock_instance.__aenter__ = AsyncMock(return_value=mock_instance)
-        mock_instance.__aexit__ = AsyncMock(return_value=False)
-        # Auth response, then GQL response
         mock_instance.post = AsyncMock(
             side_effect=[
                 _mock_auth_response(new_jwt),
@@ -348,8 +383,6 @@ async def test_auth_sends_arl_cookie_to_correct_domain() -> None:
 
     with patch("deezer_python_gql.base_client.httpx.AsyncClient") as mock_client_cls:
         mock_instance = AsyncMock()
-        mock_instance.__aenter__ = AsyncMock(return_value=mock_instance)
-        mock_instance.__aexit__ = AsyncMock(return_value=False)
         mock_instance.post = AsyncMock(
             side_effect=[
                 _mock_auth_response(),
@@ -379,8 +412,6 @@ async def test_auth_parses_text_plain_response() -> None:
     # Verify _ensure_jwt correctly parses the text/plain body
     with patch("deezer_python_gql.base_client.httpx.AsyncClient") as mock_client_cls:
         mock_instance = AsyncMock()
-        mock_instance.__aenter__ = AsyncMock(return_value=mock_instance)
-        mock_instance.__aexit__ = AsyncMock(return_value=False)
         mock_instance.post = AsyncMock(return_value=_mock_auth_response(jwt))
         mock_client_cls.return_value = mock_instance
 
@@ -391,7 +422,7 @@ async def test_auth_parses_text_plain_response() -> None:
 
 
 # ---------------------------------------------------------------------------
-# 3. Error handling (mocked HTTP)
+# 4. Error handling (mocked HTTP)
 # ---------------------------------------------------------------------------
 
 
@@ -471,7 +502,7 @@ def test_get_data_returns_data_on_success() -> None:
 
 
 # ---------------------------------------------------------------------------
-# 4a. check_audiobook_ids tests
+# 5. check_audiobook_ids tests
 # ---------------------------------------------------------------------------
 
 
@@ -497,8 +528,6 @@ async def test_check_audiobook_ids_returns_matching() -> None:
     with patch("deezer_python_gql.base_client.httpx.AsyncClient") as mock_client_cls:
         mock_instance = AsyncMock()
         mock_instance.post = AsyncMock(return_value=gql_response)
-        mock_instance.__aenter__ = AsyncMock(return_value=mock_instance)
-        mock_instance.__aexit__ = AsyncMock(return_value=False)
         mock_client_cls.return_value = mock_instance
 
         result = await client.check_audiobook_ids(["111", "222"])
@@ -515,7 +544,7 @@ async def test_check_audiobook_ids_empty_input() -> None:
 
 
 # ---------------------------------------------------------------------------
-# 5. Model smoke tests (one per query — fixture-based)
+# 6. Model smoke tests (one per query — fixture-based)
 # ---------------------------------------------------------------------------
 
 
@@ -596,7 +625,7 @@ def test_smoke_search() -> None:
 
 
 # ---------------------------------------------------------------------------
-# 5. Browse-related model smoke tests (new queries)
+# 6. Browse-related model smoke tests (new queries)
 # ---------------------------------------------------------------------------
 
 
