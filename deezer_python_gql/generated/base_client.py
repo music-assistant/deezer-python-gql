@@ -8,7 +8,7 @@ import json
 import logging
 import time
 from base64 import urlsafe_b64decode
-from typing import Any, ClassVar, cast
+from typing import Any, ClassVar, Self, cast
 
 import httpx
 
@@ -78,9 +78,13 @@ class DeezerBaseClient:
     Handles the ARL cookie → JWT token exchange and automatic refresh.
     This class is used as the base client for ariadne-codegen's generated client.
 
+    Manages its own httpx connection pool by default. Pass an external
+    ``http_client`` only if you need to share a pool across multiple clients.
+
     :param arl: Deezer ARL cookie value for authentication.
     :param url: GraphQL endpoint URL (defaults to Pipe API).
     :param http_client: Optional pre-configured httpx.AsyncClient.
+        If provided, the caller is responsible for closing it.
     """
 
     PIPE_URL = "https://pipe.deezer.com/api"
@@ -96,8 +100,34 @@ class DeezerBaseClient:
         self.url = url
         self._arl = arl
         self._http_client = http_client
+        self._owns_http_client = http_client is None
         self._jwt: str | None = None
         self._jwt_expires_at: float = 0
+
+    def _get_http_client(self) -> httpx.AsyncClient:
+        """Return the HTTP client, creating an internal one if needed."""
+        if self._http_client is None:
+            self._http_client = httpx.AsyncClient()
+            self._owns_http_client = True
+        return self._http_client
+
+    async def close(self) -> None:
+        """Close the internal HTTP client if we own it.
+
+        Safe to call multiple times. Does nothing if an external
+        ``http_client`` was provided at construction time.
+        """
+        if self._owns_http_client and self._http_client is not None:
+            await self._http_client.aclose()
+            self._http_client = None
+
+    async def __aenter__(self) -> Self:
+        """Enter the async context manager."""
+        return self
+
+    async def __aexit__(self, *args: object) -> None:
+        """Exit the async context manager, closing internal resources."""
+        await self.close()
 
     async def execute(
         self,
@@ -134,24 +164,20 @@ class DeezerBaseClient:
                 k: v for k, v in variables.items() if not isinstance(v, UnsetType)
             }
 
-        client = self._http_client or httpx.AsyncClient()
-        try:
-            resp = await client.post(
-                self.url,
-                json=payload,
-                headers=headers,
-                **kwargs,
-            )
-            logger.debug(
-                "GQL response: %s status=%s length=%s",
-                operation_name or "<unnamed>",
-                resp.status_code,
-                len(resp.content),
-            )
-            return resp
-        finally:
-            if not self._http_client:
-                await client.aclose()
+        client = self._get_http_client()
+        resp = await client.post(
+            self.url,
+            json=payload,
+            headers=headers,
+            **kwargs,
+        )
+        logger.debug(
+            "GQL response: %s status=%s length=%s",
+            operation_name or "<unnamed>",
+            resp.status_code,
+            len(resp.content),
+        )
+        return resp
 
     def get_data(self, response: httpx.Response) -> dict[str, Any]:
         """Parse a GraphQL response and return the data dict.
@@ -238,13 +264,13 @@ class DeezerBaseClient:
         logger.debug("JWT expired or missing, refreshing from ARL")
         params = {"jo": "p", "rto": "c", "i": "c"}
 
-        async with httpx.AsyncClient() as http:
-            resp = await http.post(
-                self.AUTH_URL,
-                params=params,
-                cookies={"arl": self._arl},
-            )
-            resp.raise_for_status()
+        client = self._get_http_client()
+        resp = await client.post(
+            self.AUTH_URL,
+            params=params,
+            cookies={"arl": self._arl},
+        )
+        resp.raise_for_status()
 
         # Response body is text/plain containing JSON
         data = json.loads(resp.text)
