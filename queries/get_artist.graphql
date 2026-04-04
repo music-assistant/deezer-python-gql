@@ -1,4 +1,10 @@
-query GetArtist($artistId: String!) {
+query GetArtist(
+  $artistId: String!
+  $topTracksFirst: Int = 50
+  $topTracksAfter: String
+  $albumsFirst: Int = 25
+  $albumsAfter: String
+) {
   artist(artistId: $artistId) {
     ...ArtistFields
     url {
@@ -6,7 +12,7 @@ query GetArtist($artistId: String!) {
         webUrl
       }
     }
-    topTracks(first: 50) {
+    topTracks(first: $topTracksFirst, after: $topTracksAfter) {
       edges {
         cursor
         node {
@@ -17,7 +23,7 @@ query GetArtist($artistId: String!) {
         ...PageInfoFields
       }
     }
-    albums(types: [ALBUM, SINGLES, EP], order: RELEASE_DATE, first: 25) {
+    albums(types: [ALBUM, SINGLES, EP], order: RELEASE_DATE, first: $albumsFirst, after: $albumsAfter) {
       edges {
         cursor
         node {

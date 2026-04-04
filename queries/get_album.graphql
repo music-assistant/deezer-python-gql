@@ -1,4 +1,4 @@
-query GetAlbum($albumId: String!) {
+query GetAlbum($albumId: String!, $tracksFirst: Int = 50, $tracksAfter: String) {
   album(albumId: $albumId) {
     ...AlbumFields
     duration
@@ -9,7 +9,7 @@ query GetAlbum($albumId: String!) {
       id
       displayTitle
     }
-    tracks(first: 50) {
+    tracks(first: $tracksFirst, after: $tracksAfter) {
       edges {
         cursor
         node {

@@ -1,10 +1,10 @@
-query GetPlaylist($playlistId: String!) {
+query GetPlaylist($playlistId: String!, $tracksFirst: Int = 50, $tracksAfter: String) {
   playlist(playlistId: $playlistId) {
     ...PlaylistFields
     isPrivate
     isCollaborative
     estimatedDuration
-    tracks(first: 50) {
+    tracks(first: $tracksFirst, after: $tracksAfter) {
       edges {
         cursor
         node {

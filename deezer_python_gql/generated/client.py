@@ -554,9 +554,15 @@ class DeezerGQLClient(DeezerBaseClient):
             data
         ).remove_audiobook_from_favorite
 
-    async def get_album(self, album_id: str, **kwargs: Any) -> Optional[GetAlbumAlbum]:
+    async def get_album(
+        self,
+        album_id: str,
+        tracks_first: Union[Optional[int], UnsetType] = UNSET,
+        tracks_after: Union[Optional[str], UnsetType] = UNSET,
+        **kwargs: Any
+    ) -> Optional[GetAlbumAlbum]:
         query = gql("""
-            query GetAlbum($albumId: String!) {
+            query GetAlbum($albumId: String!, $tracksFirst: Int = 50, $tracksAfter: String) {
               album(albumId: $albumId) {
                 ...AlbumFields
                 duration
@@ -567,7 +573,7 @@ class DeezerGQLClient(DeezerBaseClient):
                   id
                   displayTitle
                 }
-                tracks(first: 50) {
+                tracks(first: $tracksFirst, after: $tracksAfter) {
                   edges {
                     cursor
                     node {
@@ -651,7 +657,11 @@ class DeezerGQLClient(DeezerBaseClient):
               }
             }
             """)
-        variables: dict[str, object] = {"albumId": album_id}
+        variables: dict[str, object] = {
+            "albumId": album_id,
+            "tracksFirst": tracks_first,
+            "tracksAfter": tracks_after,
+        }
         response = await self.execute(
             query=query, operation_name="GetAlbum", variables=variables, **kwargs
         )
@@ -659,10 +669,16 @@ class DeezerGQLClient(DeezerBaseClient):
         return GetAlbum.model_validate(data).album
 
     async def get_artist(
-        self, artist_id: str, **kwargs: Any
+        self,
+        artist_id: str,
+        top_tracks_first: Union[Optional[int], UnsetType] = UNSET,
+        top_tracks_after: Union[Optional[str], UnsetType] = UNSET,
+        albums_first: Union[Optional[int], UnsetType] = UNSET,
+        albums_after: Union[Optional[str], UnsetType] = UNSET,
+        **kwargs: Any
     ) -> Optional[GetArtistArtist]:
         query = gql("""
-            query GetArtist($artistId: String!) {
+            query GetArtist($artistId: String!, $topTracksFirst: Int = 50, $topTracksAfter: String, $albumsFirst: Int = 25, $albumsAfter: String) {
               artist(artistId: $artistId) {
                 ...ArtistFields
                 url {
@@ -671,7 +687,7 @@ class DeezerGQLClient(DeezerBaseClient):
                     webUrl
                   }
                 }
-                topTracks(first: 50) {
+                topTracks(first: $topTracksFirst, after: $topTracksAfter) {
                   edges {
                     cursor
                     node {
@@ -682,7 +698,12 @@ class DeezerGQLClient(DeezerBaseClient):
                     ...PageInfoFields
                   }
                 }
-                albums(types: [ALBUM, SINGLES, EP], order: RELEASE_DATE, first: 25) {
+                albums(
+                  types: [ALBUM, SINGLES, EP]
+                  order: RELEASE_DATE
+                  first: $albumsFirst
+                  after: $albumsAfter
+                ) {
                   edges {
                     cursor
                     node {
@@ -776,7 +797,13 @@ class DeezerGQLClient(DeezerBaseClient):
               }
             }
             """)
-        variables: dict[str, object] = {"artistId": artist_id}
+        variables: dict[str, object] = {
+            "artistId": artist_id,
+            "topTracksFirst": top_tracks_first,
+            "topTracksAfter": top_tracks_after,
+            "albumsFirst": albums_first,
+            "albumsAfter": albums_after,
+        }
         response = await self.execute(
             query=query, operation_name="GetArtist", variables=variables, **kwargs
         )
@@ -2221,16 +2248,20 @@ class DeezerGQLClient(DeezerBaseClient):
         return GetMusicTogetherGroups.model_validate(data).me
 
     async def get_playlist(
-        self, playlist_id: str, **kwargs: Any
+        self,
+        playlist_id: str,
+        tracks_first: Union[Optional[int], UnsetType] = UNSET,
+        tracks_after: Union[Optional[str], UnsetType] = UNSET,
+        **kwargs: Any
     ) -> Optional[GetPlaylistPlaylist]:
         query = gql("""
-            query GetPlaylist($playlistId: String!) {
+            query GetPlaylist($playlistId: String!, $tracksFirst: Int = 50, $tracksAfter: String) {
               playlist(playlistId: $playlistId) {
                 ...PlaylistFields
                 isPrivate
                 isCollaborative
                 estimatedDuration
-                tracks(first: 50) {
+                tracks(first: $tracksFirst, after: $tracksAfter) {
                   edges {
                     cursor
                     node {
@@ -2299,7 +2330,11 @@ class DeezerGQLClient(DeezerBaseClient):
               }
             }
             """)
-        variables: dict[str, object] = {"playlistId": playlist_id}
+        variables: dict[str, object] = {
+            "playlistId": playlist_id,
+            "tracksFirst": tracks_first,
+            "tracksAfter": tracks_after,
+        }
         response = await self.execute(
             query=query, operation_name="GetPlaylist", variables=variables, **kwargs
         )
