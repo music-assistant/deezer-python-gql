@@ -98,6 +98,7 @@ asyncio.run(main())
 | `get_favorite_audiobooks()`                   | Favorite audiobook IDs with dates (via deprecated endpoint) |
 | `get_podcast_episode_bookmarks(first, after)` | Bookmarked podcast episodes with playback position          |
 | `get_user_playlists(first, after)`            | User's own playlists (not just favorites)                   |
+| `get_personal_tracks(first, after)`           | User's uploaded/personal tracks (restricted access)         |
 
 ### Music Together (Collaborative Playlists)
 
