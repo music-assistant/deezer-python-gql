@@ -21,9 +21,9 @@ class GetMusicTogetherAffinityMusicTogetherAffinity(BaseModel):
     discovery_tracks: "GetMusicTogetherAffinityMusicTogetherAffinityDiscoveryTracks" = (
         Field(alias="discoveryTracks")
     )
-    discovery_artists: (
-        "GetMusicTogetherAffinityMusicTogetherAffinityDiscoveryArtists"
-    ) = Field(alias="discoveryArtists")
+    discovery_artists: "GetMusicTogetherAffinityMusicTogetherAffinityDiscoveryArtists" = Field(
+        alias="discoveryArtists"
+    )
 
 
 class GetMusicTogetherAffinityMusicTogetherAffinityMember(BaseModel):
@@ -39,9 +39,9 @@ class GetMusicTogetherAffinityMusicTogetherAffinityMemberPicture(BaseModel):
 
 class GetMusicTogetherAffinityMusicTogetherAffinityDiscoveryTracks(BaseModel):
     edges: list["GetMusicTogetherAffinityMusicTogetherAffinityDiscoveryTracksEdges"]
-    page_info: (
-        "GetMusicTogetherAffinityMusicTogetherAffinityDiscoveryTracksPageInfo"
-    ) = Field(alias="pageInfo")
+    page_info: "GetMusicTogetherAffinityMusicTogetherAffinityDiscoveryTracksPageInfo" = Field(
+        alias="pageInfo"
+    )
 
 
 class GetMusicTogetherAffinityMusicTogetherAffinityDiscoveryTracksEdges(BaseModel):
@@ -65,9 +65,9 @@ class GetMusicTogetherAffinityMusicTogetherAffinityDiscoveryTracksPageInfo(
 
 class GetMusicTogetherAffinityMusicTogetherAffinityDiscoveryArtists(BaseModel):
     edges: list["GetMusicTogetherAffinityMusicTogetherAffinityDiscoveryArtistsEdges"]
-    page_info: (
-        "GetMusicTogetherAffinityMusicTogetherAffinityDiscoveryArtistsPageInfo"
-    ) = Field(alias="pageInfo")
+    page_info: "GetMusicTogetherAffinityMusicTogetherAffinityDiscoveryArtistsPageInfo" = Field(
+        alias="pageInfo"
+    )
 
 
 class GetMusicTogetherAffinityMusicTogetherAffinityDiscoveryArtistsEdges(BaseModel):

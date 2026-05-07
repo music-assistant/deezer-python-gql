@@ -7,9 +7,9 @@ from .base_model import BaseModel
 
 
 class MarkAsNotPlayedPodcastEpisode(BaseModel):
-    mark_as_not_played_podcast_episode: (
-        "MarkAsNotPlayedPodcastEpisodeMarkAsNotPlayedPodcastEpisode"
-    ) = Field(alias="markAsNotPlayedPodcastEpisode")
+    mark_as_not_played_podcast_episode: "MarkAsNotPlayedPodcastEpisodeMarkAsNotPlayedPodcastEpisode" = Field(
+        alias="markAsNotPlayedPodcastEpisode"
+    )
 
 
 class MarkAsNotPlayedPodcastEpisodeMarkAsNotPlayedPodcastEpisode(BaseModel):

@@ -23,7 +23,12 @@ query GetArtist(
         ...PageInfoFields
       }
     }
-    albums(types: [ALBUM, SINGLES, EP], order: RELEASE_DATE, first: $albumsFirst, after: $albumsAfter) {
+    albums(
+      types: [ALBUM, SINGLES, EP]
+      order: RELEASE_DATE
+      first: $albumsFirst
+      after: $albumsAfter
+    ) {
       edges {
         cursor
         node {

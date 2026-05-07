@@ -35,6 +35,15 @@ query GetRecentlyPlayed($first: Int = 20) {
               }
             }
           }
+          ... on SmartTracklist {
+            id
+            title
+            subTitle
+            cover {
+              id
+              urls(pictureRequest: { width: 264, height: 264 })
+            }
+          }
         }
       }
       pageInfo {

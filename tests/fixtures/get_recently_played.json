@@ -87,6 +87,21 @@
                 ]
               }
             }
+          },
+          {
+            "cursor": "YXJyYXljb25uZWN0aW9uOjQ=",
+            "node": {
+              "__typename": "SmartTracklist",
+              "id": "smart:12345",
+              "title": "Your Daily Mix",
+              "subTitle": "Based on your listening",
+              "cover": {
+                "id": "cover_smart_12345",
+                "urls": [
+                  "https://cdn-images.deezer.com/images/smart/12345/264x264.jpg"
+                ]
+              }
+            }
           }
         ],
         "pageInfo": {

@@ -1,4 +1,8 @@
-query GetPlaylist($playlistId: String!, $tracksFirst: Int = 50, $tracksAfter: String) {
+query GetPlaylist(
+  $playlistId: String!
+  $tracksFirst: Int = 50
+  $tracksAfter: String
+) {
   playlist(playlistId: $playlistId) {
     ...PlaylistFields
     isPrivate
