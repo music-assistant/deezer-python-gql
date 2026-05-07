@@ -7,9 +7,9 @@ from .base_model import BaseModel
 
 
 class MusicTogetherGenerateGroupName(BaseModel):
-    music_together_generate_group_name: (
-        "MusicTogetherGenerateGroupNameMusicTogetherGenerateGroupName"
-    ) = Field(alias="musicTogetherGenerateGroupName")
+    music_together_generate_group_name: "MusicTogetherGenerateGroupNameMusicTogetherGenerateGroupName" = Field(
+        alias="musicTogetherGenerateGroupName"
+    )
 
 
 class MusicTogetherGenerateGroupNameMusicTogetherGenerateGroupName(BaseModel):

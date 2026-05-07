@@ -76,6 +76,7 @@ from .get_music_together_group import (
     GetMusicTogetherGroupMusicTogetherGroup,
 )
 from .get_music_together_groups import GetMusicTogetherGroups, GetMusicTogetherGroupsMe
+from .get_personal_tracks import GetPersonalTracks, GetPersonalTracksMe
 from .get_playlist import GetPlaylist, GetPlaylistPlaylist
 from .get_podcast import GetPodcast, GetPodcastPodcast
 from .get_podcast_episode import GetPodcastEpisode, GetPodcastEpisodePodcastEpisode
@@ -192,7 +193,7 @@ class DeezerGQLClient(DeezerBaseClient):
             query=query,
             operation_name="AddArtistToFavorite",
             variables=variables,
-            **kwargs
+            **kwargs,
         )
         data = self.get_data(response)
         return AddArtistToFavorite.model_validate(data).add_artist_to_favorite
@@ -215,7 +216,7 @@ class DeezerGQLClient(DeezerBaseClient):
             query=query,
             operation_name="RemoveArtistFromFavorite",
             variables=variables,
-            **kwargs
+            **kwargs,
         )
         data = self.get_data(response)
         return RemoveArtistFromFavorite.model_validate(data).remove_artist_from_favorite
@@ -238,7 +239,7 @@ class DeezerGQLClient(DeezerBaseClient):
             query=query,
             operation_name="AddAlbumToFavorite",
             variables=variables,
-            **kwargs
+            **kwargs,
         )
         data = self.get_data(response)
         return AddAlbumToFavorite.model_validate(data).add_album_to_favorite
@@ -261,7 +262,7 @@ class DeezerGQLClient(DeezerBaseClient):
             query=query,
             operation_name="RemoveAlbumFromFavorite",
             variables=variables,
-            **kwargs
+            **kwargs,
         )
         data = self.get_data(response)
         return RemoveAlbumFromFavorite.model_validate(data).remove_album_from_favorite
@@ -284,7 +285,7 @@ class DeezerGQLClient(DeezerBaseClient):
             query=query,
             operation_name="AddTrackToFavorite",
             variables=variables,
-            **kwargs
+            **kwargs,
         )
         data = self.get_data(response)
         return AddTrackToFavorite.model_validate(data).add_track_to_favorite
@@ -307,7 +308,7 @@ class DeezerGQLClient(DeezerBaseClient):
             query=query,
             operation_name="RemoveTrackFromFavorite",
             variables=variables,
-            **kwargs
+            **kwargs,
         )
         data = self.get_data(response)
         return RemoveTrackFromFavorite.model_validate(data).remove_track_from_favorite
@@ -330,7 +331,7 @@ class DeezerGQLClient(DeezerBaseClient):
             query=query,
             operation_name="AddPlaylistToFavorite",
             variables=variables,
-            **kwargs
+            **kwargs,
         )
         data = self.get_data(response)
         return AddPlaylistToFavorite.model_validate(data).add_playlist_to_favorite
@@ -353,7 +354,7 @@ class DeezerGQLClient(DeezerBaseClient):
             query=query,
             operation_name="RemovePlaylistFromFavorite",
             variables=variables,
-            **kwargs
+            **kwargs,
         )
         data = self.get_data(response)
         return RemovePlaylistFromFavorite.model_validate(
@@ -379,7 +380,7 @@ class DeezerGQLClient(DeezerBaseClient):
             query=query,
             operation_name="AddPodcastToFavorite",
             variables=variables,
-            **kwargs
+            **kwargs,
         )
         data = self.get_data(response)
         return AddPodcastToFavorite.model_validate(data).add_podcast_to_favorite
@@ -402,7 +403,7 @@ class DeezerGQLClient(DeezerBaseClient):
             query=query,
             operation_name="RemovePodcastFromFavorite",
             variables=variables,
-            **kwargs
+            **kwargs,
         )
         data = self.get_data(response)
         return RemovePodcastFromFavorite.model_validate(
@@ -429,7 +430,7 @@ class DeezerGQLClient(DeezerBaseClient):
             query=query,
             operation_name="BookmarkPodcastEpisode",
             variables=variables,
-            **kwargs
+            **kwargs,
         )
         data = self.get_data(response)
         return BookmarkPodcastEpisode.model_validate(data).bookmark_podcast_episode
@@ -453,7 +454,7 @@ class DeezerGQLClient(DeezerBaseClient):
             query=query,
             operation_name="UnbookmarkPodcastEpisode",
             variables=variables,
-            **kwargs
+            **kwargs,
         )
         data = self.get_data(response)
         return UnbookmarkPodcastEpisode.model_validate(data).unbookmark_podcast_episode
@@ -478,7 +479,7 @@ class DeezerGQLClient(DeezerBaseClient):
             query=query,
             operation_name="MarkAsPlayedPodcastEpisode",
             variables=variables,
-            **kwargs
+            **kwargs,
         )
         data = self.get_data(response)
         return MarkAsPlayedPodcastEpisode.model_validate(
@@ -504,7 +505,7 @@ class DeezerGQLClient(DeezerBaseClient):
             query=query,
             operation_name="MarkAsNotPlayedPodcastEpisode",
             variables=variables,
-            **kwargs
+            **kwargs,
         )
         data = self.get_data(response)
         return MarkAsNotPlayedPodcastEpisode.model_validate(
@@ -527,7 +528,7 @@ class DeezerGQLClient(DeezerBaseClient):
             query=query,
             operation_name="AddAudiobookToFavorite",
             variables=variables,
-            **kwargs
+            **kwargs,
         )
         data = self.get_data(response)
         return AddAudiobookToFavorite.model_validate(data).add_audiobook_to_favorite
@@ -547,7 +548,7 @@ class DeezerGQLClient(DeezerBaseClient):
             query=query,
             operation_name="RemoveAudiobookFromFavorite",
             variables=variables,
-            **kwargs
+            **kwargs,
         )
         data = self.get_data(response)
         return RemoveAudiobookFromFavorite.model_validate(
@@ -559,7 +560,7 @@ class DeezerGQLClient(DeezerBaseClient):
         album_id: str,
         tracks_first: Union[Optional[int], UnsetType] = UNSET,
         tracks_after: Union[Optional[str], UnsetType] = UNSET,
-        **kwargs: Any
+        **kwargs: Any,
     ) -> Optional[GetAlbumAlbum]:
         query = gql("""
             query GetAlbum($albumId: String!, $tracksFirst: Int = 50, $tracksAfter: String) {
@@ -675,7 +676,7 @@ class DeezerGQLClient(DeezerBaseClient):
         top_tracks_after: Union[Optional[str], UnsetType] = UNSET,
         albums_first: Union[Optional[int], UnsetType] = UNSET,
         albums_after: Union[Optional[str], UnsetType] = UNSET,
-        **kwargs: Any
+        **kwargs: Any,
     ) -> Optional[GetArtistArtist]:
         query = gql("""
             query GetArtist($artistId: String!, $topTracksFirst: Int = 50, $topTracksAfter: String, $albumsFirst: Int = 25, $albumsAfter: String) {
@@ -869,7 +870,7 @@ class DeezerGQLClient(DeezerBaseClient):
         audiobook_id: str,
         chapters_first: Union[Optional[int], UnsetType] = UNSET,
         chapters_after: Union[Optional[str], UnsetType] = UNSET,
-        **kwargs: Any
+        **kwargs: Any,
     ) -> Optional[GetAudiobookAudiobook]:
         query = gql("""
             query GetAudiobook($audiobookId: String!, $chaptersFirst: Int = 50, $chaptersAfter: String) {
@@ -1043,7 +1044,7 @@ class DeezerGQLClient(DeezerBaseClient):
             query=query,
             operation_name="GetAudiobookChapter",
             variables=variables,
-            **kwargs
+            **kwargs,
         )
         data = self.get_data(response)
         return GetAudiobookChapter.model_validate(data).audiobook_chapter
@@ -1055,7 +1056,7 @@ class DeezerGQLClient(DeezerBaseClient):
         albums_first: Union[Optional[int], UnsetType] = UNSET,
         artists_first: Union[Optional[int], UnsetType] = UNSET,
         playlists_first: Union[Optional[int], UnsetType] = UNSET,
-        **kwargs: Any
+        **kwargs: Any,
     ) -> Optional[GetChartsCharts]:
         query = gql("""
             query GetCharts($countryCode: String, $tracksFirst: Int = 100, $albumsFirst: Int = 50, $artistsFirst: Int = 50, $playlistsFirst: Int = 50) {
@@ -1222,7 +1223,7 @@ class DeezerGQLClient(DeezerBaseClient):
         self,
         first: Union[Optional[int], UnsetType] = UNSET,
         after: Union[Optional[str], UnsetType] = UNSET,
-        **kwargs: Any
+        **kwargs: Any,
     ) -> Optional[GetFavoriteAlbumsMe]:
         query = gql("""
             query GetFavoriteAlbums($first: Int = 50, $after: String) {
@@ -1280,7 +1281,7 @@ class DeezerGQLClient(DeezerBaseClient):
             query=query,
             operation_name="GetFavoriteAlbums",
             variables=variables,
-            **kwargs
+            **kwargs,
         )
         data = self.get_data(response)
         return GetFavoriteAlbums.model_validate(data).me
@@ -1289,7 +1290,7 @@ class DeezerGQLClient(DeezerBaseClient):
         self,
         first: Union[Optional[int], UnsetType] = UNSET,
         after: Union[Optional[str], UnsetType] = UNSET,
-        **kwargs: Any
+        **kwargs: Any,
     ) -> Optional[GetFavoriteArtistsMe]:
         query = gql("""
             query GetFavoriteArtists($first: Int = 50, $after: String) {
@@ -1336,7 +1337,7 @@ class DeezerGQLClient(DeezerBaseClient):
             query=query,
             operation_name="GetFavoriteArtists",
             variables=variables,
-            **kwargs
+            **kwargs,
         )
         data = self.get_data(response)
         return GetFavoriteArtists.model_validate(data).me
@@ -1361,7 +1362,7 @@ class DeezerGQLClient(DeezerBaseClient):
             query=query,
             operation_name="GetFavoriteAudiobooks",
             variables=variables,
-            **kwargs
+            **kwargs,
         )
         data = self.get_data(response)
         return GetFavoriteAudiobooks.model_validate(data).me
@@ -1370,7 +1371,7 @@ class DeezerGQLClient(DeezerBaseClient):
         self,
         first: Union[Optional[int], UnsetType] = UNSET,
         after: Union[Optional[str], UnsetType] = UNSET,
-        **kwargs: Any
+        **kwargs: Any,
     ) -> Optional[GetFavoritePlaylistsMe]:
         query = gql("""
             query GetFavoritePlaylists($first: Int = 50, $after: String) {
@@ -1419,7 +1420,7 @@ class DeezerGQLClient(DeezerBaseClient):
             query=query,
             operation_name="GetFavoritePlaylists",
             variables=variables,
-            **kwargs
+            **kwargs,
         )
         data = self.get_data(response)
         return GetFavoritePlaylists.model_validate(data).me
@@ -1428,7 +1429,7 @@ class DeezerGQLClient(DeezerBaseClient):
         self,
         first: Union[Optional[int], UnsetType] = UNSET,
         after: Union[Optional[str], UnsetType] = UNSET,
-        **kwargs: Any
+        **kwargs: Any,
     ) -> Optional[GetFavoritePodcastsMe]:
         query = gql("""
             query GetFavoritePodcasts($first: Int = 50, $after: String) {
@@ -1473,7 +1474,7 @@ class DeezerGQLClient(DeezerBaseClient):
             query=query,
             operation_name="GetFavoritePodcasts",
             variables=variables,
-            **kwargs
+            **kwargs,
         )
         data = self.get_data(response)
         return GetFavoritePodcasts.model_validate(data).me
@@ -1482,7 +1483,7 @@ class DeezerGQLClient(DeezerBaseClient):
         self,
         first: Union[Optional[int], UnsetType] = UNSET,
         after: Union[Optional[str], UnsetType] = UNSET,
-        **kwargs: Any
+        **kwargs: Any,
     ) -> Optional[GetFavoriteTracksMe]:
         query = gql("""
             query GetFavoriteTracks($first: Int = 50, $after: String) {
@@ -1547,7 +1548,7 @@ class DeezerGQLClient(DeezerBaseClient):
             query=query,
             operation_name="GetFavoriteTracks",
             variables=variables,
-            **kwargs
+            **kwargs,
         )
         data = self.get_data(response)
         return GetFavoriteTracks.model_validate(data).me
@@ -1747,7 +1748,7 @@ class DeezerGQLClient(DeezerBaseClient):
             query=query,
             operation_name="GetFlowConfigTracks",
             variables=variables,
-            **kwargs
+            **kwargs,
         )
         data = self.get_data(response)
         return GetFlowConfigTracks.model_validate(data).flow_config
@@ -1756,7 +1757,7 @@ class DeezerGQLClient(DeezerBaseClient):
         self,
         moods_first: Union[Optional[int], UnsetType] = UNSET,
         genres_first: Union[Optional[int], UnsetType] = UNSET,
-        **kwargs: Any
+        **kwargs: Any,
     ) -> Optional[GetFlowConfigsMe]:
         query = gql("""
             query GetFlowConfigs($moodsFirst: Int = 12, $genresFirst: Int = 12) {
@@ -1924,7 +1925,7 @@ class DeezerGQLClient(DeezerBaseClient):
         member_id: str,
         discovery_tracks_first: Union[Optional[int], UnsetType] = UNSET,
         discovery_artists_first: Union[Optional[int], UnsetType] = UNSET,
-        **kwargs: Any
+        **kwargs: Any,
     ) -> Optional[GetMusicTogetherAffinityMusicTogetherAffinity]:
         query = gql("""
             query GetMusicTogetherAffinity($groupId: ID!, $memberId: ID!, $discoveryTracksFirst: Int = 20, $discoveryArtistsFirst: Int = 20) {
@@ -2026,7 +2027,7 @@ class DeezerGQLClient(DeezerBaseClient):
             query=query,
             operation_name="GetMusicTogetherAffinity",
             variables=variables,
-            **kwargs
+            **kwargs,
         )
         data = self.get_data(response)
         return GetMusicTogetherAffinity.model_validate(data).music_together_affinity
@@ -2037,7 +2038,7 @@ class DeezerGQLClient(DeezerBaseClient):
         mood: MusicTogetherSuggestedTracklistMoodInput,
         tracks_first: Union[Optional[int], UnsetType] = UNSET,
         tracks_after: Union[Optional[str], UnsetType] = UNSET,
-        **kwargs: Any
+        **kwargs: Any,
     ) -> Optional[GetMusicTogetherGroupMusicTogetherGroup]:
         query = gql("""
             query GetMusicTogetherGroup($groupId: ID!, $mood: MusicTogetherSuggestedTracklistMoodInput! = NONE, $tracksFirst: Int = 40, $tracksAfter: String) {
@@ -2180,7 +2181,7 @@ class DeezerGQLClient(DeezerBaseClient):
             query=query,
             operation_name="GetMusicTogetherGroup",
             variables=variables,
-            **kwargs
+            **kwargs,
         )
         data = self.get_data(response)
         return GetMusicTogetherGroup.model_validate(data).music_together_group
@@ -2189,7 +2190,7 @@ class DeezerGQLClient(DeezerBaseClient):
         self,
         first: Union[Optional[int], UnsetType] = UNSET,
         after: Union[Optional[str], UnsetType] = UNSET,
-        **kwargs: Any
+        **kwargs: Any,
     ) -> Optional[GetMusicTogetherGroupsMe]:
         query = gql("""
             query GetMusicTogetherGroups($first: Int = 12, $after: String) {
@@ -2242,17 +2243,88 @@ class DeezerGQLClient(DeezerBaseClient):
             query=query,
             operation_name="GetMusicTogetherGroups",
             variables=variables,
-            **kwargs
+            **kwargs,
         )
         data = self.get_data(response)
         return GetMusicTogetherGroups.model_validate(data).me
+
+    async def get_personal_tracks(
+        self,
+        first: Union[Optional[int], UnsetType] = UNSET,
+        after: Union[Optional[str], UnsetType] = UNSET,
+        **kwargs: Any,
+    ) -> Optional[GetPersonalTracksMe]:
+        query = gql("""
+            query GetPersonalTracks($first: Int = 25, $after: String) {
+              me {
+                personalTracks(first: $first, after: $after) {
+                  edges {
+                    cursor
+                    node {
+                      ...TrackFields
+                    }
+                  }
+                  pageInfo {
+                    ...PageInfoFields
+                  }
+                }
+              }
+            }
+
+            fragment PageInfoFields on PageInfo {
+              hasNextPage
+              endCursor
+            }
+
+            fragment TrackFields on Track {
+              id
+              title
+              ISRC
+              diskInfo {
+                diskNumber
+                trackNumber
+              }
+              duration
+              isExplicit
+              isFavorite
+              popularity
+              album {
+                id
+                displayTitle
+                cover {
+                  id
+                  urls(pictureRequest: {width: 264, height: 264})
+                }
+              }
+              contributors(first: 10, roles: [MAIN, FEATURED]) {
+                edges {
+                  roles
+                  node {
+                    ... on Artist {
+                      id
+                      name
+                    }
+                  }
+                }
+              }
+            }
+            """)
+        variables: dict[str, object] = {"first": first, "after": after}
+        response = await self.execute(
+            query=query,
+            operation_name="GetPersonalTracks",
+            variables=variables,
+            **kwargs,
+        )
+        data = self.get_data(response)
+        return GetPersonalTracks.model_validate(data).me
 
     async def get_playlist(
         self,
         playlist_id: str,
         tracks_first: Union[Optional[int], UnsetType] = UNSET,
         tracks_after: Union[Optional[str], UnsetType] = UNSET,
-        **kwargs: Any
+        **kwargs: Any,
     ) -> Optional[GetPlaylistPlaylist]:
         query = gql("""
             query GetPlaylist($playlistId: String!, $tracksFirst: Int = 50, $tracksAfter: String) {
@@ -2347,7 +2419,7 @@ class DeezerGQLClient(DeezerBaseClient):
         episodes_first: Union[Optional[int], UnsetType] = UNSET,
         episodes_after: Union[Optional[str], UnsetType] = UNSET,
         episode_order: Union[Optional[PodcastEpisodeOrder], UnsetType] = UNSET,
-        **kwargs: Any
+        **kwargs: Any,
     ) -> Optional[GetPodcastPodcast]:
         query = gql("""
             query GetPodcast($podcastId: String!, $episodesFirst: Int = 50, $episodesAfter: String, $episodeOrder: PodcastEpisodeOrder = LATEST) {
@@ -2483,7 +2555,7 @@ class DeezerGQLClient(DeezerBaseClient):
             query=query,
             operation_name="GetPodcastEpisode",
             variables=variables,
-            **kwargs
+            **kwargs,
         )
         data = self.get_data(response)
         return GetPodcastEpisode.model_validate(data).podcast_episode
@@ -2492,7 +2564,7 @@ class DeezerGQLClient(DeezerBaseClient):
         self,
         first: Union[Optional[int], UnsetType] = UNSET,
         after: Union[Optional[str], UnsetType] = UNSET,
-        **kwargs: Any
+        **kwargs: Any,
     ) -> Optional[GetPodcastEpisodeBookmarksMe]:
         query = gql("""
             query GetPodcastEpisodeBookmarks($first: Int = 50, $after: String) {
@@ -2561,7 +2633,7 @@ class DeezerGQLClient(DeezerBaseClient):
             query=query,
             operation_name="GetPodcastEpisodeBookmarks",
             variables=variables,
-            **kwargs
+            **kwargs,
         )
         data = self.get_data(response)
         return GetPodcastEpisodeBookmarks.model_validate(data).me
@@ -2600,7 +2672,7 @@ class DeezerGQLClient(DeezerBaseClient):
             query=query,
             operation_name="GetPodcastEpisodesByIds",
             variables=variables,
-            **kwargs
+            **kwargs,
         )
         data = self.get_data(response)
         return GetPodcastEpisodesByIds.model_validate(data).podcast_episodes_by_ids
@@ -2641,6 +2713,15 @@ class DeezerGQLClient(DeezerBaseClient):
                             id
                             urls(uiAssetRequest: {width: 264, height: 264})
                           }
+                        }
+                      }
+                      ... on SmartTracklist {
+                        id
+                        title
+                        subTitle
+                        cover {
+                          id
+                          urls(pictureRequest: {width: 264, height: 264})
                         }
                       }
                     }
@@ -2720,7 +2801,7 @@ class DeezerGQLClient(DeezerBaseClient):
             query=query,
             operation_name="GetRecentlyPlayed",
             variables=variables,
-            **kwargs
+            **kwargs,
         )
         data = self.get_data(response)
         return GetRecentlyPlayed.model_validate(data).me
@@ -2732,7 +2813,7 @@ class DeezerGQLClient(DeezerBaseClient):
         new_releases_first: Union[Optional[int], UnsetType] = UNSET,
         artists_first: Union[Optional[int], UnsetType] = UNSET,
         hot_tracks_limit: Union[Optional[int], UnsetType] = UNSET,
-        **kwargs: Any
+        **kwargs: Any,
     ) -> Optional[GetRecommendationsMe]:
         query = gql("""
             query GetRecommendations($playlistsFirst: Int = 20, $artistPlaylistsFirst: Int = 20, $newReleasesFirst: Int = 20, $artistsFirst: Int = 20, $hotTracksLimit: Int = 50) {
@@ -2896,7 +2977,7 @@ class DeezerGQLClient(DeezerBaseClient):
             query=query,
             operation_name="GetRecommendations",
             variables=variables,
-            **kwargs
+            **kwargs,
         )
         data = self.get_data(response)
         return GetRecommendations.model_validate(data).me
@@ -2951,7 +3032,7 @@ class DeezerGQLClient(DeezerBaseClient):
             query=query,
             operation_name="GetSimilarTracks",
             variables=variables,
-            **kwargs
+            **kwargs,
         )
         data = self.get_data(response)
         return GetSimilarTracks.model_validate(data).track
@@ -2960,7 +3041,7 @@ class DeezerGQLClient(DeezerBaseClient):
         self,
         smart_tracklist_id: str,
         first: Union[Optional[int], UnsetType] = UNSET,
-        **kwargs: Any
+        **kwargs: Any,
     ) -> Optional[GetSmartTracklistSmartTracklist]:
         query = gql("""
             query GetSmartTracklist($smartTracklistId: String!, $first: Int = 50) {
@@ -3032,7 +3113,7 @@ class DeezerGQLClient(DeezerBaseClient):
             query=query,
             operation_name="GetSmartTracklist",
             variables=variables,
-            **kwargs
+            **kwargs,
         )
         data = self.get_data(response)
         return GetSmartTracklist.model_validate(data).smart_tracklist
@@ -3125,7 +3206,7 @@ class DeezerGQLClient(DeezerBaseClient):
         track_ids: list[str],
         limit: int,
         start_with_input_track: bool,
-        **kwargs: Any
+        **kwargs: Any,
     ) -> GetTrackMixTrackMix:
         query = gql("""
             query GetTrackMix($trackIds: [String!]!, $limit: Int! = 40, $startWithInputTrack: Boolean! = true) {
@@ -3191,7 +3272,7 @@ class DeezerGQLClient(DeezerBaseClient):
         tracks_first: Union[Optional[int], UnsetType] = UNSET,
         artists_first: Union[Optional[int], UnsetType] = UNSET,
         albums_first: Union[Optional[int], UnsetType] = UNSET,
-        **kwargs: Any
+        **kwargs: Any,
     ) -> Optional[GetUserChartsMe]:
         query = gql("""
             query GetUserCharts($tracksFirst: Int = 50, $artistsFirst: Int = 20, $albumsFirst: Int = 20) {
@@ -3328,7 +3409,7 @@ class DeezerGQLClient(DeezerBaseClient):
         self,
         first: Union[Optional[int], UnsetType] = UNSET,
         after: Union[Optional[str], UnsetType] = UNSET,
-        **kwargs: Any
+        **kwargs: Any,
     ) -> Optional[GetUserPlaylistsMe]:
         query = gql("""
             query GetUserPlaylists($first: Int = 50, $after: String) {
@@ -3374,12 +3455,14 @@ class DeezerGQLClient(DeezerBaseClient):
             query=query,
             operation_name="GetUserPlaylists",
             variables=variables,
-            **kwargs
+            **kwargs,
         )
         data = self.get_data(response)
         return GetUserPlaylists.model_validate(data).me
 
-    async def music_together_create_group(self, name: str, **kwargs: Any) -> Union[
+    async def music_together_create_group(
+        self, name: str, **kwargs: Any
+    ) -> Union[
         MusicTogetherCreateGroupMusicTogetherCreateGroupMusicTogetherCreateGroupOutput,
         MusicTogetherCreateGroupMusicTogetherCreateGroupMusicTogetherCreateGroupError,
     ]:
@@ -3409,7 +3492,7 @@ class DeezerGQLClient(DeezerBaseClient):
             query=query,
             operation_name="MusicTogetherCreateGroup",
             variables=variables,
-            **kwargs
+            **kwargs,
         )
         data = self.get_data(response)
         return MusicTogetherCreateGroup.model_validate(data).music_together_create_group
@@ -3447,12 +3530,14 @@ class DeezerGQLClient(DeezerBaseClient):
             query=query,
             operation_name="MusicTogetherJoinGroup",
             variables=variables,
-            **kwargs
+            **kwargs,
         )
         data = self.get_data(response)
         return MusicTogetherJoinGroup.model_validate(data).music_together_join_group
 
-    async def music_together_leave_group(self, group_id: str, **kwargs: Any) -> Union[
+    async def music_together_leave_group(
+        self, group_id: str, **kwargs: Any
+    ) -> Union[
         MusicTogetherLeaveGroupMusicTogetherLeaveGroupMusicTogetherLeaveGroupOutput,
         MusicTogetherLeaveGroupMusicTogetherLeaveGroupMusicTogetherLeaveGroupError,
     ]:
@@ -3477,7 +3562,7 @@ class DeezerGQLClient(DeezerBaseClient):
             query=query,
             operation_name="MusicTogetherLeaveGroup",
             variables=variables,
-            **kwargs
+            **kwargs,
         )
         data = self.get_data(response)
         return MusicTogetherLeaveGroup.model_validate(data).music_together_leave_group
@@ -3486,7 +3571,7 @@ class DeezerGQLClient(DeezerBaseClient):
         self,
         group_id: str,
         mood: MusicTogetherRefreshSuggestedTracklistMoodInput,
-        **kwargs: Any
+        **kwargs: Any,
     ) -> Union[
         MusicTogetherRefreshSuggestedTracklistMusicTogetherRefreshSuggestedTracklistMusicTogetherRefreshSuggestedTracklistOutput,
         MusicTogetherRefreshSuggestedTracklistMusicTogetherRefreshSuggestedTracklistMusicTogetherRefreshSuggestedTracklistError,
@@ -3514,7 +3599,7 @@ class DeezerGQLClient(DeezerBaseClient):
             query=query,
             operation_name="MusicTogetherRefreshSuggestedTracklist",
             variables=variables,
-            **kwargs
+            **kwargs,
         )
         data = self.get_data(response)
         return MusicTogetherRefreshSuggestedTracklist.model_validate(
@@ -3525,7 +3610,7 @@ class DeezerGQLClient(DeezerBaseClient):
         self,
         group_id: str,
         name: Union[Optional[str], UnsetType] = UNSET,
-        **kwargs: Any
+        **kwargs: Any,
     ) -> Union[
         MusicTogetherUpdateGroupSettingsMusicTogetherUpdateGroupSettingsMusicTogetherUpdateGroupSettingsOutput,
         MusicTogetherUpdateGroupSettingsMusicTogetherUpdateGroupSettingsMusicTogetherUpdateGroupSettingsError,
@@ -3554,7 +3639,7 @@ class DeezerGQLClient(DeezerBaseClient):
             query=query,
             operation_name="MusicTogetherUpdateGroupSettings",
             variables=variables,
-            **kwargs
+            **kwargs,
         )
         data = self.get_data(response)
         return MusicTogetherUpdateGroupSettings.model_validate(
@@ -3576,7 +3661,7 @@ class DeezerGQLClient(DeezerBaseClient):
             query=query,
             operation_name="MusicTogetherGenerateGroupName",
             variables=variables,
-            **kwargs
+            **kwargs,
         )
         data = self.get_data(response)
         return MusicTogetherGenerateGroupName.model_validate(
@@ -3589,7 +3674,7 @@ class DeezerGQLClient(DeezerBaseClient):
         is_private: bool,
         is_collaborative: bool,
         description: Union[Optional[str], UnsetType] = UNSET,
-        **kwargs: Any
+        **kwargs: Any,
     ) -> CreatePlaylistCreatePlaylist:
         query = gql("""
             mutation CreatePlaylist($title: String!, $description: String = "", $isPrivate: Boolean! = false, $isCollaborative: Boolean! = false) {
@@ -3622,7 +3707,7 @@ class DeezerGQLClient(DeezerBaseClient):
         description: Union[Optional[str], UnsetType] = UNSET,
         is_private: Union[Optional[bool], UnsetType] = UNSET,
         is_collaborative: Union[Optional[bool], UnsetType] = UNSET,
-        **kwargs: Any
+        **kwargs: Any,
     ) -> UpdatePlaylistUpdatePlaylist:
         query = gql("""
             mutation UpdatePlaylist($playlistId: String!, $title: String, $description: String, $isPrivate: Boolean, $isCollaborative: Boolean) {
@@ -3693,7 +3778,7 @@ class DeezerGQLClient(DeezerBaseClient):
             query=query,
             operation_name="AddTracksToPlaylist",
             variables=variables,
-            **kwargs
+            **kwargs,
         )
         data = self.get_data(response)
         return AddTracksToPlaylist.model_validate(data).add_tracks_to_playlist
@@ -3716,7 +3801,7 @@ class DeezerGQLClient(DeezerBaseClient):
             query=query,
             operation_name="RemoveTracksFromPlaylist",
             variables=variables,
-            **kwargs
+            **kwargs,
         )
         data = self.get_data(response)
         return RemoveTracksFromPlaylist.model_validate(data).remove_tracks_from_playlist
@@ -3731,7 +3816,7 @@ class DeezerGQLClient(DeezerBaseClient):
         livestreams_first: Union[Optional[int], UnsetType] = UNSET,
         podcasts_first: Union[Optional[int], UnsetType] = UNSET,
         podcast_episodes_first: Union[Optional[int], UnsetType] = UNSET,
-        **kwargs: Any
+        **kwargs: Any,
     ) -> Optional[SearchSearch]:
         _query = gql("""
             query Search($query: String!, $tracksFirst: Int = 20, $albumsFirst: Int = 20, $artistsFirst: Int = 20, $playlistsFirst: Int = 10, $livestreamsFirst: Int = 0, $podcastsFirst: Int = 0, $podcastEpisodesFirst: Int = 0) {
@@ -3987,7 +4072,7 @@ class DeezerGQLClient(DeezerBaseClient):
         query: str,
         first: Union[Optional[int], UnsetType] = UNSET,
         after: Union[Optional[str], UnsetType] = UNSET,
-        **kwargs: Any
+        **kwargs: Any,
     ) -> Optional[SearchFlowsSearch]:
         _query = gql("""
             query SearchFlows($query: String! = "flow", $first: Int = 100, $after: String) {

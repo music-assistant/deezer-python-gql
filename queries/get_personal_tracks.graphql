@@ -1,0 +1,18 @@
+# Get the currently logged user's personal (uploaded) tracks.
+# Note: This field is restricted to applications granted with specific access.
+
+query GetPersonalTracks($first: Int = 25, $after: String) {
+  me {
+    personalTracks(first: $first, after: $after) {
+      edges {
+        cursor
+        node {
+          ...TrackFields
+        }
+      }
+      pageInfo {
+        ...PageInfoFields
+      }
+    }
+  }
+}

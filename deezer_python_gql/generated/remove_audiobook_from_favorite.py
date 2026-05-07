@@ -7,9 +7,9 @@ from .base_model import BaseModel
 
 
 class RemoveAudiobookFromFavorite(BaseModel):
-    remove_audiobook_from_favorite: (
-        "RemoveAudiobookFromFavoriteRemoveAudiobookFromFavorite"
-    ) = Field(alias="removeAudiobookFromFavorite")
+    remove_audiobook_from_favorite: "RemoveAudiobookFromFavoriteRemoveAudiobookFromFavorite" = Field(
+        alias="removeAudiobookFromFavorite"
+    )
 
 
 class RemoveAudiobookFromFavoriteRemoveAudiobookFromFavorite(BaseModel):

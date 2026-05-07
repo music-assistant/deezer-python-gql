@@ -1,4 +1,8 @@
-query GetAlbum($albumId: String!, $tracksFirst: Int = 50, $tracksAfter: String) {
+query GetAlbum(
+  $albumId: String!
+  $tracksFirst: Int = 50
+  $tracksAfter: String
+) {
   album(albumId: $albumId) {
     ...AlbumFields
     duration

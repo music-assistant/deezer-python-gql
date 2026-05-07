@@ -1,0 +1,90 @@
+{
+  "data": {
+    "me": {
+      "personalTracks": {
+        "edges": [
+          {
+            "cursor": "YXJyYXljb25uZWN0aW9uOjA=",
+            "node": {
+              "id": "9000001",
+              "title": "My Recording",
+              "ISRC": null,
+              "diskInfo": {
+                "diskNumber": 1,
+                "trackNumber": 1
+              },
+              "duration": 245,
+              "isExplicit": false,
+              "isFavorite": false,
+              "popularity": null,
+              "album": {
+                "id": "900001",
+                "displayTitle": "My Uploads",
+                "cover": {
+                  "id": "cover_900001",
+                  "urls": [
+                    "https://cdn-images.deezer.com/images/cover/900001/264x264.jpg"
+                  ]
+                }
+              },
+              "contributors": {
+                "edges": [
+                  {
+                    "roles": ["MAIN"],
+                    "node": {
+                      "__typename": "Artist",
+                      "id": "90001",
+                      "name": "Me"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "cursor": "YXJyYXljb25uZWN0aW9uOjE=",
+            "node": {
+              "id": "9000002",
+              "title": "Demo Track",
+              "ISRC": null,
+              "diskInfo": {
+                "diskNumber": 1,
+                "trackNumber": 2
+              },
+              "duration": 180,
+              "isExplicit": false,
+              "isFavorite": false,
+              "popularity": null,
+              "album": {
+                "id": "900001",
+                "displayTitle": "My Uploads",
+                "cover": {
+                  "id": "cover_900001",
+                  "urls": [
+                    "https://cdn-images.deezer.com/images/cover/900001/264x264.jpg"
+                  ]
+                }
+              },
+              "contributors": {
+                "edges": [
+                  {
+                    "roles": ["MAIN"],
+                    "node": {
+                      "__typename": "Artist",
+                      "id": "90001",
+                      "name": "Me"
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        ],
+        "pageInfo": {
+          "hasNextPage": false,
+          "endCursor": "YXJyYXljb25uZWN0aW9uOjE="
+        }
+      }
+    }
+  }
+}

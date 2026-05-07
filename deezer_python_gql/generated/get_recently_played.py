@@ -35,6 +35,7 @@ class GetRecentlyPlayedMeRecentlyPlayedEdges(BaseModel):
                 "GetRecentlyPlayedMeRecentlyPlayedEdgesNodeFlowConfig",
                 "GetRecentlyPlayedMeRecentlyPlayedEdgesNodeLivestream",
                 "GetRecentlyPlayedMeRecentlyPlayedEdgesNodeMix",
+                "GetRecentlyPlayedMeRecentlyPlayedEdgesNodeSmartTracklist",
             ],
             Field(discriminator="typename__"),
         ]
@@ -97,6 +98,19 @@ class GetRecentlyPlayedMeRecentlyPlayedEdgesNodeMix(BaseModel):
     typename__: Literal["Mix"] = Field(alias="__typename")
 
 
+class GetRecentlyPlayedMeRecentlyPlayedEdgesNodeSmartTracklist(BaseModel):
+    typename__: Literal["SmartTracklist"] = Field(alias="__typename")
+    id: str
+    title: str
+    sub_title: Optional[str] = Field(alias="subTitle")
+    cover: Optional["GetRecentlyPlayedMeRecentlyPlayedEdgesNodeSmartTracklistCover"]
+
+
+class GetRecentlyPlayedMeRecentlyPlayedEdgesNodeSmartTracklistCover(BaseModel):
+    id: str
+    urls: list[str]
+
+
 class GetRecentlyPlayedMeRecentlyPlayedPageInfo(PageInfoFields):
     pass
 
@@ -108,3 +122,4 @@ GetRecentlyPlayedMeRecentlyPlayedEdges.model_rebuild()
 GetRecentlyPlayedMeRecentlyPlayedEdgesNodeFlow.model_rebuild()
 GetRecentlyPlayedMeRecentlyPlayedEdgesNodeFlowConfig.model_rebuild()
 GetRecentlyPlayedMeRecentlyPlayedEdgesNodeFlowConfigVisuals.model_rebuild()
+GetRecentlyPlayedMeRecentlyPlayedEdgesNodeSmartTracklist.model_rebuild()

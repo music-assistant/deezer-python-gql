@@ -61,6 +61,7 @@ from deezer_python_gql.generated.get_music_together_affinity import (
 )
 from deezer_python_gql.generated.get_music_together_group import GetMusicTogetherGroup
 from deezer_python_gql.generated.get_music_together_groups import GetMusicTogetherGroups
+from deezer_python_gql.generated.get_personal_tracks import GetPersonalTracks
 from deezer_python_gql.generated.get_playlist import GetPlaylist
 from deezer_python_gql.generated.get_podcast import GetPodcast
 from deezer_python_gql.generated.get_podcast_episode import GetPodcastEpisode
@@ -197,6 +198,7 @@ def test_client_has_generated_methods() -> None:
         "search_flows",
         "get_user_charts",
         "get_user_playlists",
+        "get_personal_tracks",
         "add_artist_to_favorite",
         "remove_artist_from_favorite",
         "add_album_to_favorite",
@@ -766,7 +768,7 @@ def test_smoke_get_recently_played() -> None:
     me = GetRecentlyPlayed.model_validate(data).me
     assert me is not None
     edges = me.recently_played.edges
-    assert len(edges) == 4
+    assert len(edges) == 5
     # Check discriminated union types
     node_0 = edges[0].node
     assert node_0 is not None
@@ -780,6 +782,9 @@ def test_smoke_get_recently_played() -> None:
     node_3 = edges[3].node
     assert node_3 is not None
     assert node_3.typename__ == "Flow"
+    node_4 = edges[4].node
+    assert node_4 is not None
+    assert node_4.typename__ == "SmartTracklist"
 
 
 def test_smoke_get_favorite_artists() -> None:
@@ -893,6 +898,26 @@ def test_smoke_get_user_playlists() -> None:
     assert node.owner is not None
     assert node.owner.name == "TestUser"
     assert playlists.page_info.has_next_page is False
+
+
+# ---------------------------------------------------------------------------
+# 6b. Personal tracks query smoke test
+# ---------------------------------------------------------------------------
+
+
+def test_smoke_get_personal_tracks() -> None:
+    """Verify GetPersonalTracks fixture parses with paginated track nodes."""
+    data = _load_fixture("get_personal_tracks.json")
+    me = GetPersonalTracks.model_validate(data).me
+    assert me is not None
+    tracks = me.personal_tracks
+    assert len(tracks.edges) == 2
+    node = tracks.edges[0].node
+    assert node is not None
+    assert node.id == "9000001"
+    assert node.title == "My Recording"
+    assert node.duration == 245
+    assert tracks.page_info.has_next_page is False
 
 
 # ---------------------------------------------------------------------------

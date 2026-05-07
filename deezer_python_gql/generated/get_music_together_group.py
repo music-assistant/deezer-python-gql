@@ -84,9 +84,9 @@ class GetMusicTogetherGroupMusicTogetherGroupSuggestedTracklistTracklistTracks(
     edges: list[
         "GetMusicTogetherGroupMusicTogetherGroupSuggestedTracklistTracklistTracksEdges"
     ]
-    page_info: (
-        "GetMusicTogetherGroupMusicTogetherGroupSuggestedTracklistTracklistTracksPageInfo"
-    ) = Field(alias="pageInfo")
+    page_info: "GetMusicTogetherGroupMusicTogetherGroupSuggestedTracklistTracklistTracksPageInfo" = Field(
+        alias="pageInfo"
+    )
 
 
 class GetMusicTogetherGroupMusicTogetherGroupSuggestedTracklistTracklistTracksEdges(
@@ -153,9 +153,9 @@ class GetMusicTogetherGroupMusicTogetherGroupCuratedTracklist(PlaylistFields):
 
 class GetMusicTogetherGroupMusicTogetherGroupCuratedTracklistTracks(BaseModel):
     edges: list["GetMusicTogetherGroupMusicTogetherGroupCuratedTracklistTracksEdges"]
-    page_info: (
-        "GetMusicTogetherGroupMusicTogetherGroupCuratedTracklistTracksPageInfo"
-    ) = Field(alias="pageInfo")
+    page_info: "GetMusicTogetherGroupMusicTogetherGroupCuratedTracklistTracksPageInfo" = Field(
+        alias="pageInfo"
+    )
 
 
 class GetMusicTogetherGroupMusicTogetherGroupCuratedTracklistTracksEdges(BaseModel):

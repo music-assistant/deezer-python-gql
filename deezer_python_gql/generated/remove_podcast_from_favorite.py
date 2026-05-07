@@ -9,9 +9,9 @@ from .base_model import BaseModel
 
 
 class RemovePodcastFromFavorite(BaseModel):
-    remove_podcast_from_favorite: (
-        "RemovePodcastFromFavoriteRemovePodcastFromFavorite"
-    ) = Field(alias="removePodcastFromFavorite")
+    remove_podcast_from_favorite: "RemovePodcastFromFavoriteRemovePodcastFromFavorite" = Field(
+        alias="removePodcastFromFavorite"
+    )
 
 
 class RemovePodcastFromFavoriteRemovePodcastFromFavorite(BaseModel):

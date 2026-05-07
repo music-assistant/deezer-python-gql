@@ -3101,9 +3101,9 @@ enum GraphLiveEventTypeInput {
 enum GraphLiveEventStatusInput {
   PENDING
   STARTED
-  ENDED
-  CANCELLED
-  POSTPONED
+  ENDED @deprecated(reason: "no longer supported")
+  CANCELLED @deprecated(reason: "no longer supported")
+  POSTPONED @deprecated(reason: "no longer supported")
 }
 
 enum RecommendedLiveEventExcludeOriginsInput {
@@ -5111,6 +5111,15 @@ type User implements Node {
   estimatedPublicPlaylistCount: Int!
 
   """
+  The full list of the user's raw public playlist ids.
+  You may receive one playlist, or thousands, hence you must fetch this field only when absolutely needed, and only once per query.
+  We defined the cost of the field accordingly.
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  rawPublicPlaylists: [RawPublicPlaylist!]!
+
+  """
   Estimated number of albums favorited by the user; use for display only
   
   Access: This field is restricted to applications granted with specific access.
@@ -5268,6 +5277,13 @@ type TrackShuffledCollectionConnection {
   Access: This field is restricted to applications granted with specific access.
   """
   edges: [TrackShuffledCollectionConnectionEdge!]!
+}
+
+type RawPublicPlaylist {
+  """
+  Access: This field is restricted to applications granted with specific access.
+  """
+  id: ID!
 }
 
 type UsersConnection {
@@ -5953,7 +5969,7 @@ type ArtistPlaylists {
 }
 
 type ArtistBiography {
-  summary: String
+  summary: String @deprecated(reason: "Use full instead of summary")
   full: String!
 
   """Where the biography comes from"""
@@ -7352,6 +7368,16 @@ type RawPodcastEpisodeBookmark {
   bookmarkedAt: Date!
 }
 
+"""Raw information related to a given personal track"""
+type RawPersonalTrack {
+  """
+  Id of the personal track
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  id: ID!
+}
+
 type TrackDiskInfo {
   diskNumber: Int
   trackNumber: Int
@@ -7473,6 +7499,13 @@ type Track implements Node {
   Access: This field is restricted to applications granted with specific access.
   """
   userUploadInfo: TrackUploadInfo
+
+  """
+  Only available when the track is a user remix.
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  userRemixInfo: UserRemixInfo
 
   """
   Contains media information to use for the player.
@@ -7616,6 +7649,29 @@ type TracksConnectionEdge {
   Access: This field requires one of these scopes: [access-playback-sdk,public].
   """
   node: Track
+}
+
+type UserRemixInfo {
+  """
+  Creator of the song
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  creator: User
+
+  """
+  Original track that was remixed
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  originalTrack: Track!
+
+  """
+  Whether or not the user remix is shareable
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  isShareable: Boolean!
 }
 
 type Ucps {
@@ -8821,6 +8877,22 @@ type PrivateUser implements Node {
   playlists(first: Int = 20, after: String, sort: PrivateUserPlaylistSortInput): PrivateUserPlaylistsConnection!
 
   """
+  Paginated list of all personal tracks owned by the currently logged user
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  personalTracks(first: Int = 20, after: String): PrivateUserPersonalTracksConnection!
+
+  """
+  The full list of the currently logged user raw personal track ids.
+  You may receive one track, or thousands, hence you must fetch this field only when absolutely needed, and only once per query.
+  We defined the cost of the field accordingly.
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  rawPersonalTracks: [RawPersonalTrack!]!
+
+  """
   The full list of the the currently logged user raw playlist ids.
   You may receive one playlist, or thousands, hence you must fetch this field only when absolutely needed, and only once per query.
   We defined the cost of the field accordingly.
@@ -8957,7 +9029,7 @@ type PrivateUser implements Node {
   
   Access: This field is restricted to applications granted with specific access.
   """
-  recentlyPlayed(first: Int = 12, after: String): PrivateUserRecentlyPlayedConnection!
+  recentlyPlayed(first: Int = 12, after: String, support: [RecentlyPlayedContentTypeInput!] = [ALBUM, ARTIST, FLOW, FLOW_CONFIG, LIVESTREAM, MIX, PLAYLIST, PODCAST]): PrivateUserRecentlyPlayedConnection!
 
   """
   User's search history
@@ -9175,6 +9247,30 @@ type PrivateUserPlaylistsConnectionEdge {
   Access: This field is restricted to applications granted with specific access.
   """
   node: Playlist
+}
+
+type PrivateUserPersonalTracksConnection {
+  """
+  Access: This field is restricted to applications granted with specific access.
+  """
+  edges: [PrivateUserPersonalTracksConnectionEdge!]!
+
+  """
+  Access: This field is restricted to applications granted with specific access.
+  """
+  pageInfo: PageInfo!
+}
+
+type PrivateUserPersonalTracksConnectionEdge {
+  """
+  Access: This field is restricted to applications granted with specific access.
+  """
+  cursor: String!
+
+  """
+  Access: This field is restricted to applications granted with specific access.
+  """
+  node: Track
 }
 
 type PrivateUserPodcastEpisodeBookmarksConnection {
@@ -9909,9 +10005,6 @@ type SmartTracklist implements MadeForMe & Node {
   mosaicCover: Picture!
 
   """
-  WARNING!!
-  It returns fake data and should only be used for development at the moment.
-  
   Access: This field is restricted to applications granted with specific access.
   """
   coverComposition: SmartTracklistCoverComposition
@@ -11050,14 +11143,14 @@ type Playlist implements Node {
 
 type PlaylistFavorite {
   """
-  When was the favorite added
+  Add to favorite date of the playlist
   
   Access: This field is restricted to applications granted with specific access.
   """
   favoritedAt: Date!
 
   """
-  When was the favorite last seen
+  Last seen date for the playlist, if available
   
   Access: This field is restricted to applications granted with specific access.
   """
@@ -11878,6 +11971,11 @@ type WebviewUrls {
   Access: This field is restricted to applications granted with specific access.
   """
   usageStats: MyDeezerStatsWebviewUrl
+
+  """
+  Access: This field is restricted to applications granted with specific access.
+  """
+  remix(trackId: String!): WebviewUrl
 }
 
 type WebviewUrl {
@@ -13881,9 +13979,6 @@ type PrivateUserRawAlbumFavorite implements PrivateUserRawFavorite {
   favoritedAt: Date!
 
   """
-  WARNING!!
-  It returns fake data and should only be used for development at the moment.
-  
   Access: This field requires one of these scopes: [favorite-all-read,favorites-album-read].
   """
   playedAt: Date
@@ -13901,9 +13996,6 @@ type PrivateUserRawArtistFavorite implements PrivateUserRawFavorite {
   favoritedAt: Date!
 
   """
-  WARNING!!
-  It returns fake data and should only be used for development at the moment.
-  
   Access: This field requires one of these scopes: [favorite-all-read,favorites-artist-read].
   """
   playedAt: Date
@@ -13924,14 +14016,18 @@ type PrivateUserRawPlaylistFavorite implements PrivateUserRawFavorite {
   id: ID!
 
   """
+  Last seen date for the playlist, if available
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  lastSeen: Date
+
+  """
   Access: This field requires one of these scopes: [favorite-all-read,favorites-playlist-read].
   """
   favoritedAt: Date!
 
   """
-  WARNING!!
-  It returns fake data and should only be used for development at the moment.
-  
   Access: This field requires one of these scopes: [favorite-all-read,favorites-playlist-read].
   """
   playedAt: Date
@@ -13949,9 +14045,6 @@ type PrivateUserRawPodcastFavorite implements PrivateUserRawFavorite {
   favoritedAt: Date!
 
   """
-  WARNING!!
-  It returns fake data and should only be used for development at the moment.
-  
   Access: This field requires one of these scopes: [favorite-all-read,favorites-podcast-read].
   """
   playedAt: Date
@@ -14367,7 +14460,7 @@ enum QuickAccessTypeInput {
   TRACK
 }
 
-union RecentlyPlayedContent = Playlist | Album | Podcast | Artist | Flow | FlowConfig | Livestream | Mix
+union RecentlyPlayedContent = Playlist | Album | Podcast | Artist | Flow | FlowConfig | Livestream | Mix | SmartTracklist
 
 type PrivateUserRecentlyPlayedConnection {
   """
@@ -14391,6 +14484,18 @@ type PrivateUserRecentlyPlayedConnectionEdge {
   Access: This field is restricted to applications granted with specific access.
   """
   node: RecentlyPlayedContent
+}
+
+enum RecentlyPlayedContentTypeInput {
+  ALBUM
+  ARTIST
+  FLOW
+  FLOW_CONFIG
+  LIVESTREAM
+  MIX
+  PLAYLIST
+  PODCAST
+  SMART_TRACKLIST
 }
 
 type PrivateUserRecommendations {
@@ -16110,7 +16215,7 @@ input AppendAlbumTracksToPlaylistInput {
   albumId: String!
 
   """Playlist the tracks are added to"""
-  destinationPlaylistId: String!
+  playlistId: String!
 }
 
 union AppendAlbumTracksToPlaylistResult = AppendAlbumTracksToPlaylistOutput | AppendAlbumTracksToPlaylistError
@@ -16521,6 +16626,13 @@ type AlbumMutationFavoriteAddOut {
   Access: This field is restricted to applications granted with specific access.
   """
   favoritedAt: Date!
+
+  """
+  Last play date for the album, if available
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  playedAt: Date
 }
 
 type AlbumMutationFavoriteRemoveOut {
@@ -16540,6 +16652,13 @@ type ArtistMutationFavoriteAddOut {
   Access: This field is restricted to applications granted with specific access.
   """
   favoritedAt: Date!
+
+  """
+  Last play date for the artist, if available
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  playedAt: Date
 }
 
 type ArtistMutationFavoriteRemoveOut {
@@ -16597,6 +16716,13 @@ type PlaylistMutationFavoriteAddOut {
   Access: This field is restricted to applications granted with specific access.
   """
   favoritedAt: Date!
+
+  """
+  Last play date for the playlist, if available
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  playedAt: Date
 }
 
 type PlaylistMutationFavoriteRemoveOut {
@@ -16616,6 +16742,13 @@ type PodcastMutationFavoriteAddOut {
   Access: This field is restricted to applications granted with specific access.
   """
   favoritedAt: Date!
+
+  """
+  Last play date for the podcast, if available
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  playedAt: Date
 }
 
 type PodcastMutationFavoriteRemoveOut {

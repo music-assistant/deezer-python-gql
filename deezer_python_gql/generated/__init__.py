@@ -333,6 +333,14 @@ from .get_music_together_groups import (
     GetMusicTogetherGroupsMeMusicTogetherGroupsEdgesNodeMembersPageInfo,
     GetMusicTogetherGroupsMeMusicTogetherGroupsPageInfo,
 )
+from .get_personal_tracks import (
+    GetPersonalTracks,
+    GetPersonalTracksMe,
+    GetPersonalTracksMePersonalTracks,
+    GetPersonalTracksMePersonalTracksEdges,
+    GetPersonalTracksMePersonalTracksEdgesNode,
+    GetPersonalTracksMePersonalTracksPageInfo,
+)
 from .get_playlist import (
     GetPlaylist,
     GetPlaylistPlaylist,
@@ -389,6 +397,8 @@ from .get_recently_played import (
     GetRecentlyPlayedMeRecentlyPlayedEdgesNodeMix,
     GetRecentlyPlayedMeRecentlyPlayedEdgesNodePlaylist,
     GetRecentlyPlayedMeRecentlyPlayedEdgesNodePodcast,
+    GetRecentlyPlayedMeRecentlyPlayedEdgesNodeSmartTracklist,
+    GetRecentlyPlayedMeRecentlyPlayedEdgesNodeSmartTracklistCover,
     GetRecentlyPlayedMeRecentlyPlayedPageInfo,
 )
 from .get_recommendations import (
@@ -851,6 +861,12 @@ __all__ = [
     "GetMusicTogetherGroupsMeMusicTogetherGroupsEdgesNodeMembersEdgesNodePicture",
     "GetMusicTogetherGroupsMeMusicTogetherGroupsEdgesNodeMembersPageInfo",
     "GetMusicTogetherGroupsMeMusicTogetherGroupsPageInfo",
+    "GetPersonalTracks",
+    "GetPersonalTracksMe",
+    "GetPersonalTracksMePersonalTracks",
+    "GetPersonalTracksMePersonalTracksEdges",
+    "GetPersonalTracksMePersonalTracksEdgesNode",
+    "GetPersonalTracksMePersonalTracksPageInfo",
     "GetPlaylist",
     "GetPlaylistPlaylist",
     "GetPlaylistPlaylistTracks",
@@ -896,6 +912,8 @@ __all__ = [
     "GetRecentlyPlayedMeRecentlyPlayedEdgesNodeMix",
     "GetRecentlyPlayedMeRecentlyPlayedEdgesNodePlaylist",
     "GetRecentlyPlayedMeRecentlyPlayedEdgesNodePodcast",
+    "GetRecentlyPlayedMeRecentlyPlayedEdgesNodeSmartTracklist",
+    "GetRecentlyPlayedMeRecentlyPlayedEdgesNodeSmartTracklistCover",
     "GetRecentlyPlayedMeRecentlyPlayedPageInfo",
     "GetRecommendations",
     "GetRecommendationsMe",
