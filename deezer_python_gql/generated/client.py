@@ -1756,14 +1756,16 @@ class DeezerGQLClient(DeezerBaseClient):
     async def get_flow_configs(
         self,
         moods_first: Union[Optional[int], UnsetType] = UNSET,
+        moods_after: Union[Optional[str], UnsetType] = UNSET,
         genres_first: Union[Optional[int], UnsetType] = UNSET,
+        genres_after: Union[Optional[str], UnsetType] = UNSET,
         **kwargs: Any,
     ) -> Optional[GetFlowConfigsMe]:
         query = gql("""
-            query GetFlowConfigs($moodsFirst: Int = 12, $genresFirst: Int = 12) {
+            query GetFlowConfigs($moodsFirst: Int = 12, $moodsAfter: String, $genresFirst: Int = 12, $genresAfter: String) {
               me {
                 flowConfigs {
-                  moods(first: $moodsFirst) {
+                  moods(first: $moodsFirst, after: $moodsAfter) {
                     edges {
                       cursor
                       node {
@@ -1781,7 +1783,7 @@ class DeezerGQLClient(DeezerBaseClient):
                       ...PageInfoFields
                     }
                   }
-                  genres(first: $genresFirst) {
+                  genres(first: $genresFirst, after: $genresAfter) {
                     edges {
                       cursor
                       node {
@@ -1810,7 +1812,9 @@ class DeezerGQLClient(DeezerBaseClient):
             """)
         variables: dict[str, object] = {
             "moodsFirst": moods_first,
+            "moodsAfter": moods_after,
             "genresFirst": genres_first,
+            "genresAfter": genres_after,
         }
         response = await self.execute(
             query=query, operation_name="GetFlowConfigs", variables=variables, **kwargs
@@ -3041,10 +3045,11 @@ class DeezerGQLClient(DeezerBaseClient):
         self,
         smart_tracklist_id: str,
         first: Union[Optional[int], UnsetType] = UNSET,
+        after: Union[Optional[str], UnsetType] = UNSET,
         **kwargs: Any,
     ) -> Optional[GetSmartTracklistSmartTracklist]:
         query = gql("""
-            query GetSmartTracklist($smartTracklistId: String!, $first: Int = 50) {
+            query GetSmartTracklist($smartTracklistId: String!, $first: Int = 50, $after: String) {
               smartTracklist(smartTracklistId: $smartTracklistId) {
                 id
                 title
@@ -3053,7 +3058,7 @@ class DeezerGQLClient(DeezerBaseClient):
                   id
                   urls(pictureRequest: {width: 264, height: 264})
                 }
-                tracks(first: $first) {
+                tracks(first: $first, after: $after) {
                   edges {
                     cursor
                     node {
@@ -3108,6 +3113,7 @@ class DeezerGQLClient(DeezerBaseClient):
         variables: dict[str, object] = {
             "smartTracklistId": smart_tracklist_id,
             "first": first,
+            "after": after,
         }
         response = await self.execute(
             query=query,
