@@ -325,7 +325,11 @@ class DeezerBaseClient:
 
         resp = await self.execute(query, operation_name="CheckAudiobookIds")
         self._last_variables = {"album_ids": album_ids}
-        data = self.get_data(resp)
+        try:
+            data = self.get_data(resp)
+        except GraphQLClientGraphQLMultiError:
+            # All IDs were non-audiobooks — every alias returned an error.
+            return set()
 
         audiobook_ids: set[str] = set()
         for i, aid in enumerate(album_ids):
