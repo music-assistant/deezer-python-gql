@@ -6,7 +6,6 @@ query Search(
   $playlistsFirst: Int = 10
   $livestreamsFirst: Int = 0
   $podcastsFirst: Int = 0
-  $podcastEpisodesFirst: Int = 0
 ) {
   search(query: $query) {
     results {
@@ -14,7 +13,30 @@ query Search(
         edges {
           cursor
           node {
-            ...TrackFields
+            id
+            title
+            duration
+            isExplicit
+            isFavorite
+            album {
+              id
+              displayTitle
+              cover {
+                id
+                urls(pictureRequest: { width: 264, height: 264 })
+              }
+            }
+            contributors(first: 3, roles: [MAIN, FEATURED]) {
+              edges {
+                roles
+                node {
+                  ... on Artist {
+                    id
+                    name
+                  }
+                }
+              }
+            }
           }
         }
         pageInfo {
@@ -25,7 +47,26 @@ query Search(
         edges {
           cursor
           node {
-            ...AlbumFields
+            id
+            displayTitle
+            type
+            cover {
+              id
+              urls(pictureRequest: { width: 264, height: 264 })
+            }
+            contributors(first: 3, roles: [MAIN]) {
+              edges {
+                node {
+                  ... on Artist {
+                    id
+                    name
+                  }
+                }
+              }
+            }
+            releaseDate
+            isExplicit
+            isFavorite
           }
         }
         pageInfo {
@@ -36,7 +77,13 @@ query Search(
         edges {
           cursor
           node {
-            ...ArtistFields
+            id
+            name
+            isFavorite
+            picture {
+              id
+              urls(pictureRequest: { width: 264, height: 264 })
+            }
           }
         }
         pageInfo {
@@ -47,7 +94,18 @@ query Search(
         edges {
           cursor
           node {
-            ...PlaylistFields
+            id
+            title
+            picture {
+              id
+              urls(pictureRequest: { width: 264, height: 264 })
+            }
+            estimatedTracksCount
+            isFavorite
+            owner {
+              id
+              name
+            }
           }
         }
         pageInfo {
@@ -58,7 +116,12 @@ query Search(
         edges {
           cursor
           node {
-            ...LivestreamFields
+            id
+            name
+            cover {
+              id
+              urls(pictureRequest: { width: 264, height: 264 })
+            }
           }
         }
         pageInfo {
@@ -69,18 +132,13 @@ query Search(
         edges {
           cursor
           node {
-            ...PodcastFields
-          }
-        }
-        pageInfo {
-          ...PageInfoFields
-        }
-      }
-      podcastEpisodes(first: $podcastEpisodesFirst) {
-        edges {
-          cursor
-          node {
-            ...PodcastEpisodeFields
+            id
+            displayTitle
+            cover {
+              id
+              urls(pictureRequest: { width: 264, height: 264 })
+            }
+            isFavorite
           }
         }
         pageInfo {

@@ -3821,18 +3821,41 @@ class DeezerGQLClient(DeezerBaseClient):
         playlists_first: Union[Optional[int], UnsetType] = UNSET,
         livestreams_first: Union[Optional[int], UnsetType] = UNSET,
         podcasts_first: Union[Optional[int], UnsetType] = UNSET,
-        podcast_episodes_first: Union[Optional[int], UnsetType] = UNSET,
         **kwargs: Any,
     ) -> Optional[SearchSearch]:
         _query = gql("""
-            query Search($query: String!, $tracksFirst: Int = 20, $albumsFirst: Int = 20, $artistsFirst: Int = 20, $playlistsFirst: Int = 10, $livestreamsFirst: Int = 0, $podcastsFirst: Int = 0, $podcastEpisodesFirst: Int = 0) {
+            query Search($query: String!, $tracksFirst: Int = 20, $albumsFirst: Int = 20, $artistsFirst: Int = 20, $playlistsFirst: Int = 10, $livestreamsFirst: Int = 0, $podcastsFirst: Int = 0) {
               search(query: $query) {
                 results {
                   tracks(first: $tracksFirst) {
                     edges {
                       cursor
                       node {
-                        ...TrackFields
+                        id
+                        title
+                        duration
+                        isExplicit
+                        isFavorite
+                        album {
+                          id
+                          displayTitle
+                          cover {
+                            id
+                            urls(pictureRequest: {width: 264, height: 264})
+                          }
+                        }
+                        contributors(first: 3, roles: [MAIN, FEATURED]) {
+                          edges {
+                            roles
+                            node {
+                              __typename
+                              ... on Artist {
+                                id
+                                name
+                              }
+                            }
+                          }
+                        }
                       }
                     }
                     pageInfo {
@@ -3843,7 +3866,27 @@ class DeezerGQLClient(DeezerBaseClient):
                     edges {
                       cursor
                       node {
-                        ...AlbumFields
+                        id
+                        displayTitle
+                        type
+                        cover {
+                          id
+                          urls(pictureRequest: {width: 264, height: 264})
+                        }
+                        contributors(first: 3, roles: [MAIN]) {
+                          edges {
+                            node {
+                              __typename
+                              ... on Artist {
+                                id
+                                name
+                              }
+                            }
+                          }
+                        }
+                        releaseDate
+                        isExplicit
+                        isFavorite
                       }
                     }
                     pageInfo {
@@ -3854,7 +3897,13 @@ class DeezerGQLClient(DeezerBaseClient):
                     edges {
                       cursor
                       node {
-                        ...ArtistFields
+                        id
+                        name
+                        isFavorite
+                        picture {
+                          id
+                          urls(pictureRequest: {width: 264, height: 264})
+                        }
                       }
                     }
                     pageInfo {
@@ -3865,7 +3914,18 @@ class DeezerGQLClient(DeezerBaseClient):
                     edges {
                       cursor
                       node {
-                        ...PlaylistFields
+                        id
+                        title
+                        picture {
+                          id
+                          urls(pictureRequest: {width: 264, height: 264})
+                        }
+                        estimatedTracksCount
+                        isFavorite
+                        owner {
+                          id
+                          name
+                        }
                       }
                     }
                     pageInfo {
@@ -3876,7 +3936,12 @@ class DeezerGQLClient(DeezerBaseClient):
                     edges {
                       cursor
                       node {
-                        ...LivestreamFields
+                        id
+                        name
+                        cover {
+                          id
+                          urls(pictureRequest: {width: 264, height: 264})
+                        }
                       }
                     }
                     pageInfo {
@@ -3887,85 +3952,19 @@ class DeezerGQLClient(DeezerBaseClient):
                     edges {
                       cursor
                       node {
-                        ...PodcastFields
+                        id
+                        displayTitle
+                        cover {
+                          id
+                          urls(pictureRequest: {width: 264, height: 264})
+                        }
+                        isFavorite
                       }
                     }
                     pageInfo {
                       ...PageInfoFields
                     }
                   }
-                  podcastEpisodes(first: $podcastEpisodesFirst) {
-                    edges {
-                      cursor
-                      node {
-                        ...PodcastEpisodeFields
-                      }
-                    }
-                    pageInfo {
-                      ...PageInfoFields
-                    }
-                  }
-                }
-              }
-            }
-
-            fragment AlbumFields on Album {
-              id
-              displayTitle
-              type
-              cover {
-                id
-                urls(pictureRequest: {width: 264, height: 264})
-              }
-              contributors(first: 5, roles: [MAIN]) {
-                edges {
-                  node {
-                    ... on Artist {
-                      id
-                      name
-                    }
-                  }
-                }
-              }
-              releaseDate
-              isExplicit
-              isFavorite
-              fansCount
-              label
-              copyright
-            }
-
-            fragment ArtistFields on Artist {
-              id
-              name
-              picture {
-                id
-                urls(pictureRequest: {width: 264, height: 264})
-              }
-              fansCount
-              isFavorite
-              bio {
-                summary
-                full
-              }
-            }
-
-            fragment LivestreamFields on Livestream {
-              id
-              name
-              language
-              description
-              isOnStream
-              country
-              cover {
-                id
-                urls(pictureRequest: {width: 264, height: 264})
-              }
-              media {
-                url
-                codec {
-                  type
-                  bitrate
                 }
               }
             }
@@ -3973,88 +3972,6 @@ class DeezerGQLClient(DeezerBaseClient):
             fragment PageInfoFields on PageInfo {
               hasNextPage
               endCursor
-            }
-
-            fragment PlaylistFields on Playlist {
-              id
-              title
-              picture {
-                id
-                urls(pictureRequest: {width: 264, height: 264})
-              }
-              estimatedTracksCount
-              fansCount
-              isFavorite
-              description
-              owner {
-                id
-                name
-              }
-            }
-
-            fragment PodcastEpisodeFields on PodcastEpisode {
-              id
-              title
-              description
-              duration
-              cover {
-                id
-                urls(pictureRequest: {width: 264, height: 264})
-              }
-              publicationDate
-              media {
-                url
-                codec {
-                  type
-                  bitrate
-                }
-              }
-            }
-
-            fragment PodcastFields on Podcast {
-              id
-              displayTitle
-              cover {
-                id
-                urls(pictureRequest: {width: 264, height: 264})
-              }
-              description
-              isExplicit
-              isFavorite
-              type
-            }
-
-            fragment TrackFields on Track {
-              id
-              title
-              ISRC
-              diskInfo {
-                diskNumber
-                trackNumber
-              }
-              duration
-              isExplicit
-              isFavorite
-              popularity
-              album {
-                id
-                displayTitle
-                cover {
-                  id
-                  urls(pictureRequest: {width: 264, height: 264})
-                }
-              }
-              contributors(first: 10, roles: [MAIN, FEATURED]) {
-                edges {
-                  roles
-                  node {
-                    ... on Artist {
-                      id
-                      name
-                    }
-                  }
-                }
-              }
             }
             """)
         variables: dict[str, object] = {
@@ -4065,7 +3982,6 @@ class DeezerGQLClient(DeezerBaseClient):
             "playlistsFirst": playlists_first,
             "livestreamsFirst": livestreams_first,
             "podcastsFirst": podcasts_first,
-            "podcastEpisodesFirst": podcast_episodes_first,
         }
         response = await self.execute(
             query=_query, operation_name="Search", variables=variables, **kwargs

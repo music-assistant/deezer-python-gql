@@ -1,6 +1,10 @@
 # Get tracks for a SmartTracklist ("Made for me" generated playlist).
 
-query GetSmartTracklist($smartTracklistId: String!, $first: Int = 50, $after: String) {
+query GetSmartTracklist(
+  $smartTracklistId: String!
+  $first: Int = 50
+  $after: String
+) {
   smartTracklist(smartTracklistId: $smartTracklistId) {
     id
     title

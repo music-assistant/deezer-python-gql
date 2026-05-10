@@ -1,7 +1,12 @@
 # Discover available mood and genre Flow configs for the current user.
 # Each FlowConfig can be fetched individually via get_flow_config_tracks.graphql.
 
-query GetFlowConfigs($moodsFirst: Int = 12, $moodsAfter: String, $genresFirst: Int = 12, $genresAfter: String) {
+query GetFlowConfigs(
+  $moodsFirst: Int = 12
+  $moodsAfter: String
+  $genresFirst: Int = 12
+  $genresAfter: String
+) {
   me {
     flowConfigs {
       moods(first: $moodsFirst, after: $moodsAfter) {
