@@ -47,16 +47,24 @@ class GraphQLClientGraphQLError(GraphQLClientError):
 class GraphQLClientGraphQLMultiError(GraphQLClientError):
     """Raised when the GraphQL response contains errors."""
 
-    def __init__(self, errors: list[GraphQLClientGraphQLError], data: Any = None) -> None:
+    def __init__(
+        self,
+        errors: list[GraphQLClientGraphQLError],
+        data: Any = None,
+        operation_name: str | None = None,
+    ) -> None:
         self.errors = errors
         self.data = data
-        super().__init__(str(errors))
+        self.operation_name = operation_name
+        msg = f"{operation_name}: {errors}" if operation_name else str(errors)
+        super().__init__(msg)
 
     @classmethod
     def from_errors_dicts(
         cls,
         errors_dicts: list[dict[str, Any]],
         data: Any = None,
+        operation_name: str | None = None,
     ) -> GraphQLClientGraphQLMultiError:
         """Create from raw error dicts in a GraphQL response."""
         errors = [
@@ -67,7 +75,7 @@ class GraphQLClientGraphQLMultiError(GraphQLClientError):
             )
             for e in errors_dicts
         ]
-        return cls(errors=errors, data=data)
+        return cls(errors=errors, data=data, operation_name=operation_name)
 
 
 class DeezerBaseClient:
@@ -101,6 +109,8 @@ class DeezerBaseClient:
         self._owns_http_client = http_client is None
         self._jwt: str | None = None
         self._jwt_expires_at: float = 0
+        self._last_operation_name: str | None = None
+        self._last_variables: dict[str, Any] | None = None
 
     def _get_http_client(self) -> httpx.AsyncClient:
         """Return the HTTP client, creating an internal one if needed."""
@@ -144,6 +154,8 @@ class DeezerBaseClient:
         :param kwargs: Additional keyword arguments passed to httpx.
         """
         logger.debug("GQL execute: %s (variables=%s)", operation_name or "<unnamed>", variables)
+        self._last_operation_name = operation_name
+        self._last_variables = variables
         jwt = await self._ensure_jwt()
 
         headers: dict[str, str] = kwargs.pop("headers", None) or {}
@@ -202,17 +214,24 @@ class DeezerBaseClient:
         errors = response_json.get("errors")
 
         if errors:
+            op = self._last_operation_name or "<unknown>"
+            variables = self._last_variables
             if data:
                 # Partial success — some items failed (e.g. deleted albums in favorites).
                 # Log the errors but return the valid data.
+                error_details = [
+                    f"{e.get('message', 'Unknown error')} (path={e.get('path')})" for e in errors
+                ]
                 logger.warning(
-                    "GraphQL response contained %d error(s): %s",
+                    "GraphQL response for %s (variables=%s) contained %d error(s): %s",
+                    op,
+                    variables,
                     len(errors),
-                    [e.get("message", "Unknown error") for e in errors],
+                    error_details,
                 )
             else:
                 raise GraphQLClientGraphQLMultiError.from_errors_dicts(
-                    errors_dicts=errors, data=data
+                    errors_dicts=errors, data=data, operation_name=op
                 )
 
         # The Deezer API omits __typename for single-member union types
@@ -304,7 +323,8 @@ class DeezerBaseClient:
         ]
         query = "{ " + " ".join(parts) + " }"
 
-        resp = await self.execute(query)
+        resp = await self.execute(query, operation_name="CheckAudiobookIds")
+        self._last_variables = {"album_ids": album_ids}
         data = self.get_data(resp)
 
         audiobook_ids: set[str] = set()
