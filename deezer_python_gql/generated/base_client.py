@@ -323,7 +323,7 @@ class DeezerBaseClient:
             f'a{i}: audiobook(audiobookId: "{aid}") {{ id displayTitle }}'
             for i, aid in enumerate(album_ids)
         ]
-        query = "{ " + " ".join(parts) + " }"
+        query = "query CheckAudiobookIds { " + " ".join(parts) + " }"
 
         resp = await self.execute(query, operation_name="CheckAudiobookIds")
         self._last_variables = {"album_ids": album_ids}
