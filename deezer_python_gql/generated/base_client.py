@@ -330,7 +330,9 @@ class DeezerBaseClient:
         try:
             data = self.get_data(resp)
         except GraphQLClientGraphQLMultiError:
-            # All IDs were non-audiobooks — every alias returned an error.
+            # Expected when none of the IDs are audiobooks (every alias errors).
+            # Also handles transient API errors — return empty rather than crash.
+            logger.debug("CheckAudiobookIds: all %d IDs returned errors", len(album_ids))
             return set()
 
         audiobook_ids: set[str] = set()
