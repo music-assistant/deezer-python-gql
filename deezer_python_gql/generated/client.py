@@ -90,6 +90,7 @@ from .get_podcast_episodes_by_ids import (
 )
 from .get_recently_played import GetRecentlyPlayed, GetRecentlyPlayedMe
 from .get_recommendations import GetRecommendations, GetRecommendationsMe
+from .get_similar_artists import GetSimilarArtists, GetSimilarArtistsArtist
 from .get_similar_tracks import GetSimilarTracks, GetSimilarTracksTrack
 from .get_smart_tracklist import GetSmartTracklist, GetSmartTracklistSmartTracklist
 from .get_track import GetTrack, GetTrackTrack
@@ -755,7 +756,6 @@ class DeezerGQLClient(DeezerBaseClient):
               fansCount
               isFavorite
               bio {
-                summary
                 full
               }
             }
@@ -1146,7 +1146,6 @@ class DeezerGQLClient(DeezerBaseClient):
               fansCount
               isFavorite
               bio {
-                summary
                 full
               }
             }
@@ -1322,7 +1321,6 @@ class DeezerGQLClient(DeezerBaseClient):
               fansCount
               isFavorite
               bio {
-                summary
                 full
               }
             }
@@ -1978,7 +1976,6 @@ class DeezerGQLClient(DeezerBaseClient):
               fansCount
               isFavorite
               bio {
-                summary
                 full
               }
             }
@@ -2773,7 +2770,6 @@ class DeezerGQLClient(DeezerBaseClient):
               fansCount
               isFavorite
               bio {
-                summary
                 full
               }
             }
@@ -2910,7 +2906,6 @@ class DeezerGQLClient(DeezerBaseClient):
               fansCount
               isFavorite
               bio {
-                summary
                 full
               }
             }
@@ -2985,6 +2980,57 @@ class DeezerGQLClient(DeezerBaseClient):
         )
         data = self.get_data(response)
         return GetRecommendations.model_validate(data).me
+
+    async def get_similar_artists(
+        self,
+        artist_id: str,
+        first: Union[Optional[int], UnsetType] = UNSET,
+        **kwargs: Any,
+    ) -> Optional[GetSimilarArtistsArtist]:
+        query = gql("""
+            query GetSimilarArtists($artistId: String!, $first: Int = 25) {
+              artist(artistId: $artistId) {
+                relatedArtist(first: $first) {
+                  edges {
+                    node {
+                      ...ArtistFields
+                    }
+                  }
+                  pageInfo {
+                    ...PageInfoFields
+                  }
+                }
+              }
+            }
+
+            fragment ArtistFields on Artist {
+              id
+              name
+              picture {
+                id
+                urls(pictureRequest: {width: 264, height: 264})
+              }
+              fansCount
+              isFavorite
+              bio {
+                full
+              }
+            }
+
+            fragment PageInfoFields on PageInfo {
+              hasNextPage
+              endCursor
+            }
+            """)
+        variables: dict[str, object] = {"artistId": artist_id, "first": first}
+        response = await self.execute(
+            query=query,
+            operation_name="GetSimilarArtists",
+            variables=variables,
+            **kwargs,
+        )
+        data = self.get_data(response)
+        return GetSimilarArtists.model_validate(data).artist
 
     async def get_similar_tracks(
         self, track_id: str, nb: Union[Optional[int], UnsetType] = UNSET, **kwargs: Any
@@ -3357,7 +3403,6 @@ class DeezerGQLClient(DeezerBaseClient):
               fansCount
               isFavorite
               bio {
-                summary
                 full
               }
             }

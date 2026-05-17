@@ -1,0 +1,16 @@
+# Get artists related/similar to a given artist.
+
+query GetSimilarArtists($artistId: String!, $first: Int = 25) {
+  artist(artistId: $artistId) {
+    relatedArtist(first: $first) {
+      edges {
+        node {
+          ...ArtistFields
+        }
+      }
+      pageInfo {
+        ...PageInfoFields
+      }
+    }
+  }
+}

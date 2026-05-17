@@ -1,0 +1,57 @@
+{
+  "data": {
+    "artist": {
+      "relatedArtist": {
+        "edges": [
+          {
+            "node": {
+              "__typename": "Artist",
+              "id": "101",
+              "name": "Related Artist One",
+              "picture": {
+                "id": "pic_101",
+                "urls": ["https://cdn.deezer.com/artist/101/264x264.jpg"]
+              },
+              "fansCount": 500000,
+              "isFavorite": false,
+              "bio": {
+                "full": "Full biography of Related Artist One"
+              }
+            }
+          },
+          {
+            "node": {
+              "__typename": "Artist",
+              "id": "102",
+              "name": "Related Artist Two",
+              "picture": null,
+              "fansCount": 250000,
+              "isFavorite": true,
+              "bio": null
+            }
+          },
+          {
+            "node": {
+              "__typename": "Artist",
+              "id": "103",
+              "name": "Related Artist Three",
+              "picture": {
+                "id": "pic_103",
+                "urls": ["https://cdn.deezer.com/artist/103/264x264.jpg"]
+              },
+              "fansCount": 100000,
+              "isFavorite": false,
+              "bio": {
+                "full": "Full bio text here"
+              }
+            }
+          }
+        ],
+        "pageInfo": {
+          "hasNextPage": false,
+          "endCursor": "cursor_3"
+        }
+      }
+    }
+  }
+}

@@ -73,6 +73,7 @@ from deezer_python_gql.generated.get_podcast_episodes_by_ids import (
 )
 from deezer_python_gql.generated.get_recently_played import GetRecentlyPlayed
 from deezer_python_gql.generated.get_recommendations import GetRecommendations
+from deezer_python_gql.generated.get_similar_artists import GetSimilarArtists
 from deezer_python_gql.generated.get_similar_tracks import GetSimilarTracks
 from deezer_python_gql.generated.get_smart_tracklist import GetSmartTracklist
 from deezer_python_gql.generated.get_track import GetTrack
@@ -226,6 +227,7 @@ def test_client_has_generated_methods() -> None:
         "get_artist_mix",
         "get_track_mix",
         "get_similar_tracks",
+        "get_similar_artists",
         "get_audiobook",
         "get_audiobook_chapter",
         "get_favorite_audiobooks",
@@ -1288,6 +1290,22 @@ def test_smoke_get_similar_tracks() -> None:
     assert recs[0].duration == 245
     assert recs[1].is_explicit is True
     assert recs[2].contributors.edges[0].node.name == "Third Artist"
+
+
+def test_smoke_get_similar_artists() -> None:
+    """Verify GetSimilarArtists fixture parses with ArtistFields."""
+    data = _load_fixture("get_similar_artists.json")
+    artist = GetSimilarArtists.model_validate(data).artist
+    assert artist is not None
+    assert artist.related_artist is not None
+    nodes = [e.node for e in artist.related_artist.edges if e.node is not None]
+    assert len(nodes) == 3
+    assert nodes[0].id == "101"
+    assert nodes[0].name == "Related Artist One"
+    assert nodes[0].fans_count == 500000
+    assert nodes[1].is_favorite is True
+    assert nodes[2].bio is not None
+    assert nodes[2].bio.full == "Full bio text here"
 
 
 def test_smoke_get_favorite_audiobooks() -> None:

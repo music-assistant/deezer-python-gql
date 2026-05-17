@@ -64,7 +64,6 @@ class ArtistFieldsPicture(BaseModel):
 
 
 class ArtistFieldsBio(BaseModel):
-    summary: Optional[str]
     full: str
 
 

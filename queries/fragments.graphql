@@ -51,7 +51,6 @@ fragment ArtistFields on Artist {
   fansCount
   isFavorite
   bio {
-    summary
     full
   }
 }

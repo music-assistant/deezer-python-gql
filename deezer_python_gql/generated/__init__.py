@@ -423,6 +423,14 @@ from .get_recommendations import (
     GetRecommendationsMeRecommendationsPlaylistsEdgesNode,
     GetRecommendationsMeRecommendationsPlaylistsPageInfo,
 )
+from .get_similar_artists import (
+    GetSimilarArtists,
+    GetSimilarArtistsArtist,
+    GetSimilarArtistsArtistRelatedArtist,
+    GetSimilarArtistsArtistRelatedArtistEdges,
+    GetSimilarArtistsArtistRelatedArtistEdgesNode,
+    GetSimilarArtistsArtistRelatedArtistPageInfo,
+)
 from .get_similar_tracks import (
     GetSimilarTracks,
     GetSimilarTracksTrack,
@@ -945,6 +953,12 @@ __all__ = [
     "GetRecommendationsMeRecommendationsPlaylistsEdges",
     "GetRecommendationsMeRecommendationsPlaylistsEdgesNode",
     "GetRecommendationsMeRecommendationsPlaylistsPageInfo",
+    "GetSimilarArtists",
+    "GetSimilarArtistsArtist",
+    "GetSimilarArtistsArtistRelatedArtist",
+    "GetSimilarArtistsArtistRelatedArtistEdges",
+    "GetSimilarArtistsArtistRelatedArtistEdgesNode",
+    "GetSimilarArtistsArtistRelatedArtistPageInfo",
     "GetSimilarTracks",
     "GetSimilarTracksTrack",
     "GetSimilarTracksTrackRecommendedTracks",
