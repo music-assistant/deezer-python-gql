@@ -798,6 +798,15 @@ type Mutation {
   deezerClubWaitlist(contestId: ID!, data: RegistrationDataInput): ContestRegistrationResult
 
   """
+  Submit a remix to a Genesis contest.
+  This mutation does not handle the MP3 upload itself (The file must be uploaded via the upload API first)
+  Returns a success flag or an error describing what went wrong.
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  submitRemixContest(input: SubmitRemixContestInput!): SubmitRemixContestResult!
+
+  """
   Access: This field is restricted to applications granted with specific access.
   """
   saveDeezerStoryQuizScore(token: String!, score: Int!, playerName: String!): SaveDeezerStoryQuizScoreOutput!
@@ -6857,6 +6866,13 @@ type MediaRights {
   Access: This field requires one of these scopes: [access-playback-sdk].
   """
   upload: UploadRights
+
+  """
+  Rights for the logged-in user, resolved from JWT
+  
+  Access: This field requires one of these scopes: [access-playback-sdk].
+  """
+  user: UserMediaRights!
 }
 
 type AdsRights {
@@ -6888,6 +6904,44 @@ type UploadRights {
   Access: This field requires one of these scopes: [access-playback-sdk].
   """
   available: Boolean!
+}
+
+type UserMediaRights {
+  """
+  Access: This field requires one of these scopes: [access-playback-sdk].
+  """
+  preview: UserMediaPreviewRights
+
+  """
+  Rights matching the logged-in user's offer (ads or sub)
+  
+  Access: This field requires one of these scopes: [access-playback-sdk].
+  """
+  full: UserMediaFullRights
+}
+
+type UserMediaPreviewRights {
+  """
+  Access: This field requires one of these scopes: [access-playback-sdk].
+  """
+  available: Boolean!
+
+  """
+  Access: This field requires one of these scopes: [access-playback-sdk].
+  """
+  availableAfter: Date!
+}
+
+type UserMediaFullRights {
+  """
+  Access: This field requires one of these scopes: [access-playback-sdk].
+  """
+  available: Boolean!
+
+  """
+  Access: This field requires one of these scopes: [access-playback-sdk].
+  """
+  availableAfter: Date!
 }
 
 """
@@ -12190,6 +12244,62 @@ type ParticipateToContestError {
   Access: This field is restricted to applications granted with specific access.
   """
   hasAlreadySubscribed: Boolean
+}
+
+input SubmitRemixContestInput {
+  """ID of the track uploaded"""
+  uploadId: String!
+
+  """Identifier of the source track used for the remix"""
+  sourceTrackId: String!
+
+  """Title of the remix track"""
+  trackTitle: String!
+
+  """The track picture. You must use the hash provided by the upload server"""
+  trackPicture: String!
+
+  """Optional metadata associated to the remix"""
+  remixMetadata: RemixMetadata
+}
+
+type SubmitRemixContestOutput {
+  """
+  Access: This field is restricted to applications granted with specific access.
+  """
+  contestId: String!
+
+  """
+  Access: This field is restricted to applications granted with specific access.
+  """
+  status: ContestRegistrationStatus!
+
+  """
+  Access: This field is restricted to applications granted with specific access.
+  """
+  expiresAt: Date
+}
+
+type SubmitRemixContestError {
+  """
+  Access: This field is restricted to applications granted with specific access.
+  """
+  code: Int!
+
+  """
+  Access: This field is restricted to applications granted with specific access.
+  """
+  message: String!
+}
+
+union SubmitRemixContestResult = SubmitRemixContestOutput | SubmitRemixContestError
+
+input RemixMetadata {
+  style: String
+  reverb: String
+  pitch: String
+  tempo: String
+  boost: String
 }
 
 type AdSection implements Node {
