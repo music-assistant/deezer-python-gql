@@ -14,14 +14,14 @@ import json
 import time
 from pathlib import Path
 from typing import Any
-from unittest.mock import AsyncMock, patch
+from unittest.mock import AsyncMock, MagicMock, patch
 
-import httpx
 import pytest
 
 from deezer_python_gql import DeezerGQLClient
 from deezer_python_gql.base_client import (
     DeezerBaseClient,
+    GQLResponse,
     GraphQLClientGraphQLMultiError,
     GraphQLClientHttpError,
     GraphQLClientInvalidResponseError,
@@ -123,7 +123,8 @@ def _load_fixture(name: str) -> dict[str, Any]:
 
 
 def _make_jwt(exp: float | None = None) -> str:
-    """Build a fake JWT with a configurable expiration timestamp.
+    """
+    Build a fake JWT with a configurable expiration timestamp.
 
     :param exp: Unix timestamp for JWT expiry. Defaults to 6 min from now.
     """
@@ -140,19 +141,32 @@ def _make_jwt(exp: float | None = None) -> str:
     return f"{header}.{payload}.fake_signature"
 
 
-def _mock_auth_response(jwt: str | None = None) -> httpx.Response:
-    """Create a mock auth.deezer.com response returning a JWT.
-
-    Mimics the real API's text/plain Content-Type containing JSON.
+def _mock_post_context_manager(response_body: bytes, status: int = 200) -> AsyncMock:
     """
+    Create a mock aiohttp response async context manager.
+
+    :param response_body: The raw bytes the response should return.
+    :param status: HTTP status code (default 200).
+    """
+    mock_resp = AsyncMock()
+    mock_resp.status = status
+    mock_resp.ok = 200 <= status < 300
+    mock_resp.read = AsyncMock(return_value=response_body)
+    mock_resp.text = AsyncMock(return_value=response_body.decode())
+    mock_resp.raise_for_status = MagicMock()
+
+    cm = AsyncMock()
+    cm.__aenter__ = AsyncMock(return_value=mock_resp)
+    cm.__aexit__ = AsyncMock(return_value=False)
+    return cm
+
+
+def _mock_auth_cm(jwt: str | None = None) -> AsyncMock:
+    """Create a mock auth.deezer.com response context manager returning a JWT."""
     if jwt is None:
         jwt = _make_jwt()
-    return httpx.Response(
-        status_code=200,
-        text=json.dumps({"jwt": jwt}),
-        headers={"Content-Type": "text/plain"},
-        request=httpx.Request("POST", "https://auth.deezer.com/login/arl"),
-    )
+    body = json.dumps({"jwt": jwt}).encode()
+    return _mock_post_context_manager(body)
 
 
 # ---------------------------------------------------------------------------
@@ -254,46 +268,46 @@ def test_client_has_generated_methods() -> None:
 
 
 @pytest.mark.asyncio
-async def test_close_shuts_down_internal_client() -> None:
-    """Verify close() calls aclose() on the internally-created httpx client."""
+async def test_close_shuts_down_internal_session() -> None:
+    """Verify close() calls close() on the internally-created aiohttp session."""
     client = DeezerBaseClient(arl="test")
 
-    with patch("deezer_python_gql.base_client.httpx.AsyncClient") as mock_cls:
+    with patch("deezer_python_gql.base_client.ClientSession") as mock_cls:
         mock_instance = AsyncMock()
         mock_cls.return_value = mock_instance
 
         # Trigger lazy creation
-        client._get_http_client()  # noqa: SLF001
-        assert client._http_client is mock_instance  # noqa: SLF001
+        client._get_session()  # noqa: SLF001
+        assert client._session is mock_instance  # noqa: SLF001
 
         await client.close()
 
-    mock_instance.aclose.assert_awaited_once()
-    assert client._http_client is None  # noqa: SLF001
+    mock_instance.close.assert_awaited_once()
+    assert client._session is None  # noqa: SLF001
 
 
 @pytest.mark.asyncio
-async def test_close_skips_external_client() -> None:
-    """Verify close() does NOT close an externally-provided httpx client."""
-    external = AsyncMock(spec=httpx.AsyncClient)
-    client = DeezerBaseClient(arl="test", http_client=external)
+async def test_close_skips_external_session() -> None:
+    """Verify close() does NOT close an externally-provided session."""
+    external = AsyncMock()
+    client = DeezerBaseClient(arl="test", session=external)
 
     await client.close()
 
-    external.aclose.assert_not_awaited()
+    external.close.assert_not_awaited()
 
 
 @pytest.mark.asyncio
 async def test_context_manager_calls_close() -> None:
     """Verify the async context manager closes the client on exit."""
-    with patch("deezer_python_gql.base_client.httpx.AsyncClient") as mock_cls:
+    with patch("deezer_python_gql.base_client.ClientSession") as mock_cls:
         mock_instance = AsyncMock()
         mock_cls.return_value = mock_instance
 
         async with DeezerBaseClient(arl="test") as client:
-            client._get_http_client()  # noqa: SLF001
+            client._get_session()  # noqa: SLF001
 
-    mock_instance.aclose.assert_awaited_once()
+    mock_instance.close.assert_awaited_once()
 
 
 # ---------------------------------------------------------------------------
@@ -307,22 +321,20 @@ async def test_auth_acquires_jwt_on_first_request() -> None:
     jwt = _make_jwt()
     client = DeezerBaseClient(arl="test_arl")
 
-    gql_response = httpx.Response(
-        200,
-        json={"data": {"me": {"id": "1"}}},
-        request=httpx.Request("POST", DeezerBaseClient.PIPE_URL),
+    auth_cm = _mock_auth_cm(jwt)
+    gql_cm = _mock_post_context_manager(
+        json.dumps({"data": {"me": {"id": "1"}}}).encode(),
     )
 
-    with patch("deezer_python_gql.base_client.httpx.AsyncClient") as mock_client_cls:
-        mock_instance = AsyncMock()
-        mock_instance.post = AsyncMock(
-            side_effect=[_mock_auth_response(jwt), gql_response],
-        )
-        mock_client_cls.return_value = mock_instance
+    with patch("deezer_python_gql.base_client.ClientSession") as mock_cls:
+        mock_instance = MagicMock()
+        mock_instance.post = MagicMock(side_effect=[auth_cm, gql_cm])
+        mock_instance.close = AsyncMock()
+        mock_cls.return_value = mock_instance
 
         resp = await client.execute(query="{ me { id } }")
 
-    assert resp.status_code == 200
+    assert resp.status == 200
     assert client._jwt == jwt  # noqa: SLF001
 
 
@@ -334,16 +346,15 @@ async def test_auth_reuses_valid_jwt() -> None:
     client._jwt = _make_jwt(exp=time.time() + 600)  # noqa: SLF001
     client._jwt_expires_at = time.time() + 600  # noqa: SLF001
 
-    gql_response = httpx.Response(
-        200,
-        json={"data": {"me": {"id": "1"}}},
-        request=httpx.Request("POST", DeezerBaseClient.PIPE_URL),
+    gql_cm = _mock_post_context_manager(
+        json.dumps({"data": {"me": {"id": "1"}}}).encode(),
     )
 
-    with patch("deezer_python_gql.base_client.httpx.AsyncClient") as mock_client_cls:
-        mock_instance = AsyncMock()
-        mock_instance.post = AsyncMock(return_value=gql_response)
-        mock_client_cls.return_value = mock_instance
+    with patch("deezer_python_gql.base_client.ClientSession") as mock_cls:
+        mock_instance = MagicMock()
+        mock_instance.post = MagicMock(return_value=gql_cm)
+        mock_instance.close = AsyncMock()
+        mock_cls.return_value = mock_instance
 
         await client.execute(query="{ me { id } }")
 
@@ -360,20 +371,16 @@ async def test_auth_refreshes_expiring_jwt() -> None:
     client._jwt_expires_at = time.time() + 10  # noqa: SLF001
 
     new_jwt = _make_jwt(exp=time.time() + 600)
+    auth_cm = _mock_auth_cm(new_jwt)
+    gql_cm = _mock_post_context_manager(
+        json.dumps({"data": {"me": {"id": "1"}}}).encode(),
+    )
 
-    with patch("deezer_python_gql.base_client.httpx.AsyncClient") as mock_client_cls:
-        mock_instance = AsyncMock()
-        mock_instance.post = AsyncMock(
-            side_effect=[
-                _mock_auth_response(new_jwt),
-                httpx.Response(
-                    200,
-                    json={"data": {"me": {"id": "1"}}},
-                    request=httpx.Request("POST", DeezerBaseClient.PIPE_URL),
-                ),
-            ],
-        )
-        mock_client_cls.return_value = mock_instance
+    with patch("deezer_python_gql.base_client.ClientSession") as mock_cls:
+        mock_instance = MagicMock()
+        mock_instance.post = MagicMock(side_effect=[auth_cm, gql_cm])
+        mock_instance.close = AsyncMock()
+        mock_cls.return_value = mock_instance
 
         await client.execute(query="{ me { id } }")
 
@@ -385,19 +392,16 @@ async def test_auth_sends_arl_cookie_to_correct_domain() -> None:
     """Verify the ARL cookie is sent to auth.deezer.com, not www.deezer.com."""
     client = DeezerBaseClient(arl="my_secret_arl")
 
-    with patch("deezer_python_gql.base_client.httpx.AsyncClient") as mock_client_cls:
-        mock_instance = AsyncMock()
-        mock_instance.post = AsyncMock(
-            side_effect=[
-                _mock_auth_response(),
-                httpx.Response(
-                    200,
-                    json={"data": {"me": {"id": "1"}}},
-                    request=httpx.Request("POST", DeezerBaseClient.PIPE_URL),
-                ),
-            ],
-        )
-        mock_client_cls.return_value = mock_instance
+    auth_cm = _mock_auth_cm()
+    gql_cm = _mock_post_context_manager(
+        json.dumps({"data": {"me": {"id": "1"}}}).encode(),
+    )
+
+    with patch("deezer_python_gql.base_client.ClientSession") as mock_cls:
+        mock_instance = MagicMock()
+        mock_instance.post = MagicMock(side_effect=[auth_cm, gql_cm])
+        mock_instance.close = AsyncMock()
+        mock_cls.return_value = mock_instance
 
         await client.execute(query="{ me { id } }")
 
@@ -413,11 +417,13 @@ async def test_auth_parses_text_plain_response() -> None:
     jwt = _make_jwt()
     client = DeezerBaseClient(arl="test")
 
-    # Verify _ensure_jwt correctly parses the text/plain body
-    with patch("deezer_python_gql.base_client.httpx.AsyncClient") as mock_client_cls:
-        mock_instance = AsyncMock()
-        mock_instance.post = AsyncMock(return_value=_mock_auth_response(jwt))
-        mock_client_cls.return_value = mock_instance
+    auth_cm = _mock_auth_cm(jwt)
+
+    with patch("deezer_python_gql.base_client.ClientSession") as mock_cls:
+        mock_instance = MagicMock()
+        mock_instance.post = MagicMock(return_value=auth_cm)
+        mock_instance.close = AsyncMock()
+        mock_cls.return_value = mock_instance
 
         result = await client._ensure_jwt()  # noqa: SLF001
 
@@ -433,10 +439,10 @@ async def test_auth_parses_text_plain_response() -> None:
 def test_get_data_raises_on_http_error() -> None:
     """Verify get_data raises GraphQLClientHttpError for non-2xx responses."""
     client = DeezerBaseClient(arl="test")
-    response = httpx.Response(
-        status_code=500,
-        text="Internal Server Error",
-        request=httpx.Request("POST", DeezerBaseClient.PIPE_URL),
+    response = GQLResponse(
+        status=500,
+        data=b"Internal Server Error",
+        is_success=False,
     )
 
     with pytest.raises(GraphQLClientHttpError) as exc_info:
@@ -447,10 +453,10 @@ def test_get_data_raises_on_http_error() -> None:
 def test_get_data_raises_on_invalid_json() -> None:
     """Verify get_data raises GraphQLClientInvalidResponseError for malformed JSON."""
     client = DeezerBaseClient(arl="test")
-    response = httpx.Response(
-        status_code=200,
-        text="this is not json",
-        request=httpx.Request("POST", DeezerBaseClient.PIPE_URL),
+    response = GQLResponse(
+        status=200,
+        data=b"this is not json",
+        is_success=True,
     )
 
     with pytest.raises(GraphQLClientInvalidResponseError):
@@ -460,10 +466,10 @@ def test_get_data_raises_on_invalid_json() -> None:
 def test_get_data_raises_on_missing_data_key() -> None:
     """Verify get_data raises when response JSON has neither 'data' nor 'errors'."""
     client = DeezerBaseClient(arl="test")
-    response = httpx.Response(
-        status_code=200,
-        json={"something": "unexpected"},
-        request=httpx.Request("POST", DeezerBaseClient.PIPE_URL),
+    response = GQLResponse(
+        status=200,
+        data=json.dumps({"something": "unexpected"}).encode(),
+        is_success=True,
     )
 
     with pytest.raises(GraphQLClientInvalidResponseError):
@@ -473,16 +479,18 @@ def test_get_data_raises_on_missing_data_key() -> None:
 def test_get_data_raises_on_graphql_errors() -> None:
     """Verify get_data raises GraphQLClientGraphQLMultiError for GraphQL-level errors."""
     client = DeezerBaseClient(arl="test")
-    response = httpx.Response(
-        status_code=200,
-        json={
-            "data": None,
-            "errors": [
-                {"message": "Track not found", "locations": [{"line": 1, "column": 1}]},
-                {"message": "Unauthorized"},
-            ],
-        },
-        request=httpx.Request("POST", DeezerBaseClient.PIPE_URL),
+    response = GQLResponse(
+        status=200,
+        data=json.dumps(
+            {
+                "data": None,
+                "errors": [
+                    {"message": "Track not found", "locations": [{"line": 1, "column": 1}]},
+                    {"message": "Unauthorized"},
+                ],
+            }
+        ).encode(),
+        is_success=True,
     )
 
     with pytest.raises(GraphQLClientGraphQLMultiError) as exc_info:
@@ -495,10 +503,10 @@ def test_get_data_raises_on_graphql_errors() -> None:
 def test_get_data_returns_data_on_success() -> None:
     """Verify get_data returns the 'data' dict on a normal response."""
     client = DeezerBaseClient(arl="test")
-    response = httpx.Response(
-        status_code=200,
-        json={"data": {"track": {"id": "123", "title": "Test"}}},
-        request=httpx.Request("POST", DeezerBaseClient.PIPE_URL),
+    response = GQLResponse(
+        status=200,
+        data=json.dumps({"data": {"track": {"id": "123", "title": "Test"}}}).encode(),
+        is_success=True,
     )
 
     data = client.get_data(response)
@@ -518,21 +526,22 @@ async def test_check_audiobook_ids_returns_matching() -> None:
     client._jwt_expires_at = time.time() + 600  # noqa: SLF001
 
     # a0 is an audiobook (has displayTitle), a1 is not (displayTitle is null)
-    gql_response = httpx.Response(
-        200,
-        json={
-            "data": {
-                "a0": {"id": "111", "displayTitle": "Test Book"},
-                "a1": {"id": "222", "displayTitle": None},
+    gql_cm = _mock_post_context_manager(
+        json.dumps(
+            {
+                "data": {
+                    "a0": {"id": "111", "displayTitle": "Test Book"},
+                    "a1": {"id": "222", "displayTitle": None},
+                }
             }
-        },
-        request=httpx.Request("POST", DeezerBaseClient.PIPE_URL),
+        ).encode(),
     )
 
-    with patch("deezer_python_gql.base_client.httpx.AsyncClient") as mock_client_cls:
-        mock_instance = AsyncMock()
-        mock_instance.post = AsyncMock(return_value=gql_response)
-        mock_client_cls.return_value = mock_instance
+    with patch("deezer_python_gql.base_client.ClientSession") as mock_cls:
+        mock_instance = MagicMock()
+        mock_instance.post = MagicMock(return_value=gql_cm)
+        mock_instance.close = AsyncMock()
+        mock_cls.return_value = mock_instance
 
         result = await client.check_audiobook_ids(["111", "222"])
 

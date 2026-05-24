@@ -6,11 +6,26 @@ import json
 import logging
 import time
 from base64 import urlsafe_b64decode
+from dataclasses import dataclass
 from typing import Any, ClassVar, Self, cast
 
-import httpx
+from aiohttp import ClientSession, ClientTimeout
 
 logger = logging.getLogger(__name__)
+
+
+@dataclass(frozen=True, slots=True)
+class GQLResponse:
+    """
+    Lightweight response container for GraphQL HTTP responses.
+
+    aiohttp responses cannot escape their context manager, so we capture
+    the essential fields inside the ``async with`` block and return this.
+    """
+
+    status: int
+    data: bytes
+    is_success: bool
 
 
 class GraphQLClientError(Exception):
@@ -20,7 +35,7 @@ class GraphQLClientError(Exception):
 class GraphQLClientHttpError(GraphQLClientError):
     """Raised when the HTTP response indicates an error."""
 
-    def __init__(self, status_code: int, response: httpx.Response) -> None:
+    def __init__(self, status_code: int, response: GQLResponse) -> None:
         self.status_code = status_code
         self.response = response
         super().__init__(f"HTTP status code: {status_code}")
@@ -29,7 +44,7 @@ class GraphQLClientHttpError(GraphQLClientError):
 class GraphQLClientInvalidResponseError(GraphQLClientError):
     """Raised when the response cannot be parsed as valid GraphQL."""
 
-    def __init__(self, response: httpx.Response) -> None:
+    def __init__(self, response: GQLResponse) -> None:
         self.response = response
         super().__init__("Invalid response format")
 
@@ -79,17 +94,15 @@ class GraphQLClientGraphQLMultiError(GraphQLClientError):
 
 
 class DeezerBaseClient:
-    """Async HTTP client for Deezer's Pipe GraphQL API with ARL-based auth.
+    """
+    Async HTTP client for Deezer's Pipe GraphQL API with ARL-based auth.
 
-    Handles the ARL cookie → JWT token exchange and automatic refresh.
-    This class is used as the base client for ariadne-codegen's generated client.
-
-    Manages its own httpx connection pool by default. Pass an external
-    ``http_client`` only if you need to share a pool across multiple clients.
+    Manages its own aiohttp session by default. Pass an external
+    ``session`` to share a connection pool across multiple clients.
 
     :param arl: Deezer ARL cookie value for authentication.
     :param url: GraphQL endpoint URL (defaults to Pipe API).
-    :param http_client: Optional pre-configured httpx.AsyncClient.
+    :param session: Optional pre-configured aiohttp.ClientSession.
         If provided, the caller is responsible for closing it.
     """
 
@@ -101,33 +114,34 @@ class DeezerBaseClient:
         self,
         arl: str,
         url: str = PIPE_URL,
-        http_client: httpx.AsyncClient | None = None,
+        session: ClientSession | None = None,
     ) -> None:
         self.url = url
         self._arl = arl
-        self._http_client = http_client
-        self._owns_http_client = http_client is None
+        self._session = session
+        self._owns_session = session is None
         self._jwt: str | None = None
         self._jwt_expires_at: float = 0
         self._last_operation_name: str | None = None
         self._last_variables: dict[str, Any] | None = None
 
-    def _get_http_client(self) -> httpx.AsyncClient:
-        """Return the HTTP client, creating an internal one if needed."""
-        if self._http_client is None:
-            self._http_client = httpx.AsyncClient()
-            self._owns_http_client = True
-        return self._http_client
+    def _get_session(self) -> ClientSession:
+        """Return the HTTP session, creating an internal one if needed."""
+        if self._session is None:
+            self._session = ClientSession()
+            self._owns_session = True
+        return self._session
 
     async def close(self) -> None:
-        """Close the internal HTTP client if we own it.
+        """
+        Close the internal HTTP session if we own it.
 
         Safe to call multiple times. Does nothing if an external
-        ``http_client`` was provided at construction time.
+        ``session`` was provided at construction time.
         """
-        if self._owns_http_client and self._http_client is not None:
-            await self._http_client.aclose()
-            self._http_client = None
+        if self._owns_session and self._session is not None:
+            await self._session.close()
+            self._session = None
 
     async def __aenter__(self) -> Self:
         """Enter the async context manager."""
@@ -143,15 +157,14 @@ class DeezerBaseClient:
         operation_name: str | None = None,
         variables: dict[str, Any] | None = None,
         **kwargs: Any,
-    ) -> httpx.Response:
-        """Execute a GraphQL query against the Pipe API.
-
-        Automatically handles JWT acquisition and refresh from the ARL cookie.
+    ) -> GQLResponse:
+        """
+        Execute a GraphQL query against the Pipe API.
 
         :param query: The GraphQL query string.
         :param operation_name: Optional operation name for multi-operation documents.
         :param variables: Optional query variables.
-        :param kwargs: Additional keyword arguments passed to httpx.
+        :param kwargs: Additional keyword arguments passed to the session request.
         """
         logger.debug("GQL execute: %s (variables=%s)", operation_name or "<unnamed>", variables)
         self._last_operation_name = operation_name
@@ -174,34 +187,34 @@ class DeezerBaseClient:
                 k: v for k, v in variables.items() if not isinstance(v, UnsetType)
             }
 
-        client = self._get_http_client()
-        resp = await client.post(
-            self.url,
-            json=payload,
-            headers=headers,
-            **kwargs,
-        )
+        session = self._get_session()
+        async with session.post(self.url, json=payload, headers=headers, **kwargs) as resp:
+            body = await resp.read()
+            gql_response = GQLResponse(
+                status=resp.status,
+                data=body,
+                is_success=resp.ok,
+            )
+
         logger.debug(
             "GQL response: %s status=%s length=%s",
             operation_name or "<unnamed>",
-            resp.status_code,
-            len(resp.content),
+            gql_response.status,
+            len(gql_response.data),
         )
-        return resp
+        return gql_response
 
-    def get_data(self, response: httpx.Response) -> dict[str, Any]:
-        """Parse a GraphQL response and return the data dict.
+    def get_data(self, response: GQLResponse) -> dict[str, Any]:
+        """
+        Parse a GraphQL response and return the data dict.
 
-        Handles the Pipe API's text/plain content type and standard
-        GraphQL error responses.
-
-        :param response: The HTTP response from execute().
+        :param response: The GQLResponse from execute().
         """
         if not response.is_success:
-            raise GraphQLClientHttpError(status_code=response.status_code, response=response)
+            raise GraphQLClientHttpError(status_code=response.status, response=response)
 
         try:
-            response_json = response.json()
+            response_json = json.loads(response.data)
         except ValueError as exc:
             raise GraphQLClientInvalidResponseError(response=response) from exc
 
@@ -268,12 +281,7 @@ class DeezerBaseClient:
                 cls._inject_missing_typenames(item)
 
     async def _ensure_jwt(self) -> str:
-        """Acquire or refresh the JWT token from ARL cookie.
-
-        The Pipe API uses short-lived JWTs (~6 min TTL) obtained by
-        POSTing the ARL cookie to auth.deezer.com. The response is
-        Content-Type: text/plain containing JSON.
-        """
+        """Acquire or refresh the JWT token from ARL cookie."""
         now = time.time()
         if self._jwt and now < (self._jwt_expires_at - self.JWT_REFRESH_MARGIN_SECONDS):
             return self._jwt
@@ -281,16 +289,18 @@ class DeezerBaseClient:
         logger.debug("JWT expired or missing, refreshing from ARL")
         params = {"jo": "p", "rto": "c", "i": "c"}
 
-        client = self._get_http_client()
-        resp = await client.post(
+        session = self._get_session()
+        async with session.post(
             self.AUTH_URL,
             params=params,
             cookies={"arl": self._arl},
-        )
-        resp.raise_for_status()
+            timeout=ClientTimeout(total=10),
+        ) as resp:
+            resp.raise_for_status()
+            # Response body is text/plain containing JSON
+            text = await resp.text()
 
-        # Response body is text/plain containing JSON
-        data = json.loads(resp.text)
+        data = json.loads(text)
         self._jwt = data["jwt"]
 
         # Decode expiration from JWT payload (second segment, base64url-encoded)
@@ -304,11 +314,8 @@ class DeezerBaseClient:
         return self._jwt
 
     async def check_audiobook_ids(self, album_ids: list[str]) -> set[str]:
-        """Check which album IDs are also valid audiobooks on Deezer.
-
-        Uses GraphQL aliases to batch-check many IDs in a single request.
-        Returns the subset of IDs that are audiobooks (i.e., the audiobook
-        query returns non-null for them).
+        """
+        Check which album IDs are also valid audiobooks on Deezer.
 
         :param album_ids: List of Deezer album/audiobook IDs to check.
         """

@@ -28,7 +28,7 @@ import sys
 from pathlib import Path
 from typing import Any
 
-import httpx
+import aiohttp
 
 from deezer_python_gql.base_client import DeezerBaseClient
 
@@ -56,16 +56,15 @@ def load_arl() -> str:
 
 async def run_query(arl: str, query: str, variables: dict[str, Any] | None = None) -> None:
     """Execute a GraphQL query and print the JSON response."""
-    client = DeezerBaseClient(arl=arl)
-    async with httpx.AsyncClient() as http:
-        client._http_client = http  # noqa: SLF001
+    async with aiohttp.ClientSession() as session:
+        client = DeezerBaseClient(arl=arl, session=session)
         response = await client.execute(query=query, variables=variables)
 
     # Print raw JSON response (not just data — includes errors if any)
     try:
-        result = response.json()
+        result = json.loads(response.data)
     except ValueError:
-        result = {"raw": response.text}
+        result = {"raw": response.data.decode(errors="replace")}
 
     print(json.dumps(result, indent=2, ensure_ascii=False))  # noqa: T201
 
