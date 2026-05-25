@@ -657,6 +657,13 @@ class DeezerGQLClient(DeezerBaseClient):
                   }
                 }
               }
+              media {
+                rights {
+                  sub {
+                    available
+                  }
+                }
+              }
             }
             """)
         variables: dict[str, object] = {
@@ -796,6 +803,13 @@ class DeezerGQLClient(DeezerBaseClient):
                   }
                 }
               }
+              media {
+                rights {
+                  sub {
+                    available
+                  }
+                }
+              }
             }
             """)
         variables: dict[str, object] = {
@@ -853,6 +867,13 @@ class DeezerGQLClient(DeezerBaseClient):
                       id
                       name
                     }
+                  }
+                }
+              }
+              media {
+                rights {
+                  sub {
+                    available
                   }
                 }
               }
@@ -1203,6 +1224,13 @@ class DeezerGQLClient(DeezerBaseClient):
                   }
                 }
               }
+              media {
+                rights {
+                  sub {
+                    available
+                  }
+                }
+              }
             }
             """)
         variables: dict[str, object] = {
@@ -1539,6 +1567,13 @@ class DeezerGQLClient(DeezerBaseClient):
                   }
                 }
               }
+              media {
+                rights {
+                  sub {
+                    available
+                  }
+                }
+              }
             }
             """)
         variables: dict[str, object] = {"first": first, "after": after}
@@ -1599,6 +1634,13 @@ class DeezerGQLClient(DeezerBaseClient):
                       id
                       name
                     }
+                  }
+                }
+              }
+              media {
+                rights {
+                  sub {
+                    available
                   }
                 }
               }
@@ -1677,6 +1719,13 @@ class DeezerGQLClient(DeezerBaseClient):
                   }
                 }
               }
+              media {
+                rights {
+                  sub {
+                    available
+                  }
+                }
+              }
             }
             """)
         variables: dict[str, object] = {}
@@ -1736,6 +1785,13 @@ class DeezerGQLClient(DeezerBaseClient):
                       id
                       name
                     }
+                  }
+                }
+              }
+              media {
+                rights {
+                  sub {
+                    available
                   }
                 }
               }
@@ -2016,6 +2072,13 @@ class DeezerGQLClient(DeezerBaseClient):
                   }
                 }
               }
+              media {
+                rights {
+                  sub {
+                    available
+                  }
+                }
+              }
             }
             """)
         variables: dict[str, object] = {
@@ -2170,6 +2233,13 @@ class DeezerGQLClient(DeezerBaseClient):
                   }
                 }
               }
+              media {
+                rights {
+                  sub {
+                    available
+                  }
+                }
+              }
             }
             """)
         variables: dict[str, object] = {
@@ -2308,6 +2378,13 @@ class DeezerGQLClient(DeezerBaseClient):
                   }
                 }
               }
+              media {
+                rights {
+                  sub {
+                    available
+                  }
+                }
+              }
             }
             """)
         variables: dict[str, object] = {"first": first, "after": after}
@@ -2398,6 +2475,13 @@ class DeezerGQLClient(DeezerBaseClient):
                       id
                       name
                     }
+                  }
+                }
+              }
+              media {
+                rights {
+                  sub {
+                    available
                   }
                 }
               }
@@ -2963,6 +3047,13 @@ class DeezerGQLClient(DeezerBaseClient):
                   }
                 }
               }
+              media {
+                rights {
+                  sub {
+                    available
+                  }
+                }
+              }
             }
             """)
         variables: dict[str, object] = {
@@ -3075,6 +3166,13 @@ class DeezerGQLClient(DeezerBaseClient):
                   }
                 }
               }
+              media {
+                rights {
+                  sub {
+                    available
+                  }
+                }
+              }
             }
             """)
         variables: dict[str, object] = {"trackId": track_id, "nb": nb}
@@ -3154,6 +3252,13 @@ class DeezerGQLClient(DeezerBaseClient):
                   }
                 }
               }
+              media {
+                rights {
+                  sub {
+                    available
+                  }
+                }
+              }
             }
             """)
         variables: dict[str, object] = {
@@ -3174,7 +3279,37 @@ class DeezerGQLClient(DeezerBaseClient):
         query = gql("""
             query GetTrack($trackId: String!) {
               track(trackId: $trackId) {
-                ...TrackFields
+                id
+                title
+                ISRC
+                diskInfo {
+                  diskNumber
+                  trackNumber
+                }
+                duration
+                isExplicit
+                isFavorite
+                popularity
+                album {
+                  id
+                  displayTitle
+                  cover {
+                    id
+                    urls(pictureRequest: {width: 264, height: 264})
+                  }
+                }
+                contributors(first: 10, roles: [MAIN, FEATURED]) {
+                  edges {
+                    roles
+                    node {
+                      __typename
+                      ... on Artist {
+                        id
+                        name
+                      }
+                    }
+                  }
+                }
                 isAtmos
                 releaseDate
                 media {
@@ -3209,39 +3344,6 @@ class DeezerGQLClient(DeezerBaseClient):
                   text
                   copyright
                   writers
-                }
-              }
-            }
-
-            fragment TrackFields on Track {
-              id
-              title
-              ISRC
-              diskInfo {
-                diskNumber
-                trackNumber
-              }
-              duration
-              isExplicit
-              isFavorite
-              popularity
-              album {
-                id
-                displayTitle
-                cover {
-                  id
-                  urls(pictureRequest: {width: 264, height: 264})
-                }
-              }
-              contributors(first: 10, roles: [MAIN, FEATURED]) {
-                edges {
-                  roles
-                  node {
-                    ... on Artist {
-                      id
-                      name
-                    }
-                  }
                 }
               }
             }
@@ -3303,6 +3405,13 @@ class DeezerGQLClient(DeezerBaseClient):
                       id
                       name
                     }
+                  }
+                }
+              }
+              media {
+                rights {
+                  sub {
+                    available
                   }
                 }
               }
@@ -3440,6 +3549,13 @@ class DeezerGQLClient(DeezerBaseClient):
                       id
                       name
                     }
+                  }
+                }
+              }
+              media {
+                rights {
+                  sub {
+                    available
                   }
                 }
               }

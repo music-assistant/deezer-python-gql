@@ -30,7 +30,9 @@
               "contributors": {
                 "edges": [
                   {
-                    "roles": ["MAIN"],
+                    "roles": [
+                      "MAIN"
+                    ],
                     "node": {
                       "__typename": "Artist",
                       "id": "90001",
@@ -38,7 +40,8 @@
                     }
                   }
                 ]
-              }
+              },
+              "media": null
             }
           },
           {
@@ -68,7 +71,9 @@
               "contributors": {
                 "edges": [
                   {
-                    "roles": ["MAIN"],
+                    "roles": [
+                      "MAIN"
+                    ],
                     "node": {
                       "__typename": "Artist",
                       "id": "90001",
@@ -76,7 +81,8 @@
                     }
                   }
                 ]
-              }
+              },
+              "media": null
             }
           }
         ],

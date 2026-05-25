@@ -7,7 +7,9 @@
         "name": "Bob",
         "picture": {
           "id": "pic_200",
-          "urls": ["https://cdn.example.com/user/200/264x264.jpg"]
+          "urls": [
+            "https://cdn.example.com/user/200/264x264.jpg"
+          ]
         }
       },
       "discoveryTracks": {
@@ -18,7 +20,10 @@
               "id": "3135556",
               "title": "Harder, Better, Faster, Stronger",
               "ISRC": "GBDUW0000059",
-              "diskInfo": { "diskNumber": 1, "trackNumber": 4 },
+              "diskInfo": {
+                "diskNumber": 1,
+                "trackNumber": 4
+              },
               "duration": 226,
               "isExplicit": false,
               "isFavorite": true,
@@ -28,13 +33,17 @@
                 "displayTitle": "Discovery",
                 "cover": {
                   "id": "cover_302127",
-                  "urls": ["https://cdn.example.com/cover/264x264.jpg"]
+                  "urls": [
+                    "https://cdn.example.com/cover/264x264.jpg"
+                  ]
                 }
               },
               "contributors": {
                 "edges": [
                   {
-                    "roles": ["MAIN"],
+                    "roles": [
+                      "MAIN"
+                    ],
                     "node": {
                       "id": "27",
                       "name": "Daft Punk",
@@ -42,7 +51,8 @@
                     }
                   }
                 ]
-              }
+              },
+              "media": null
             }
           }
         ],
@@ -60,7 +70,9 @@
               "name": "Daft Punk",
               "picture": {
                 "id": "pic_27",
-                "urls": ["https://cdn.example.com/artist/27/264x264.jpg"]
+                "urls": [
+                  "https://cdn.example.com/artist/27/264x264.jpg"
+                ]
               },
               "fansCount": 5000000,
               "isFavorite": true,

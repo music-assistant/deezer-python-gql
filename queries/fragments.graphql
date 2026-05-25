@@ -36,6 +36,13 @@ fragment TrackFields on Track {
       }
     }
   }
+  media {
+    rights {
+      sub {
+        available
+      }
+    }
+  }
 }
 
 # ---------------------------------------------------------------------------

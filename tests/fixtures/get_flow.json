@@ -57,7 +57,8 @@
                 ]
               },
               "isFavorite": false,
-              "popularity": null
+              "popularity": null,
+              "media": null
             }
           },
           {
@@ -116,7 +117,8 @@
                 ]
               },
               "isFavorite": false,
-              "popularity": null
+              "popularity": null,
+              "media": null
             }
           }
         ]

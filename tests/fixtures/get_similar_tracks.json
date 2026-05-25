@@ -20,13 +20,17 @@
             "displayTitle": "Similar Album",
             "cover": {
               "id": "cover_901",
-              "urls": ["https://cdn.deezer.com/cover/901/264x264.jpg"]
+              "urls": [
+                "https://cdn.deezer.com/cover/901/264x264.jpg"
+              ]
             }
           },
           "contributors": {
             "edges": [
               {
-                "roles": ["MAIN"],
+                "roles": [
+                  "MAIN"
+                ],
                 "node": {
                   "__typename": "Artist",
                   "id": "art_901",
@@ -34,7 +38,8 @@
                 }
               }
             ]
-          }
+          },
+          "media": null
         },
         {
           "__typename": "Track",
@@ -54,13 +59,17 @@
             "displayTitle": "Another Album",
             "cover": {
               "id": "cover_902",
-              "urls": ["https://cdn.deezer.com/cover/902/264x264.jpg"]
+              "urls": [
+                "https://cdn.deezer.com/cover/902/264x264.jpg"
+              ]
             }
           },
           "contributors": {
             "edges": [
               {
-                "roles": ["MAIN"],
+                "roles": [
+                  "MAIN"
+                ],
                 "node": {
                   "__typename": "Artist",
                   "id": "art_902",
@@ -68,7 +77,8 @@
                 }
               }
             ]
-          }
+          },
+          "media": null
         },
         {
           "__typename": "Track",
@@ -88,13 +98,17 @@
             "displayTitle": "Third Album",
             "cover": {
               "id": "cover_903",
-              "urls": ["https://cdn.deezer.com/cover/903/264x264.jpg"]
+              "urls": [
+                "https://cdn.deezer.com/cover/903/264x264.jpg"
+              ]
             }
           },
           "contributors": {
             "edges": [
               {
-                "roles": ["MAIN"],
+                "roles": [
+                  "MAIN"
+                ],
                 "node": {
                   "__typename": "Artist",
                   "id": "art_903",
@@ -102,7 +116,8 @@
                 }
               }
             ]
-          }
+          },
+          "media": null
         }
       ]
     }

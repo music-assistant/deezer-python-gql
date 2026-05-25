@@ -18,7 +18,9 @@
               "name": "Alice",
               "picture": {
                 "id": "pic_100",
-                "urls": ["https://cdn.example.com/user/100/264x264.jpg"]
+                "urls": [
+                  "https://cdn.example.com/user/100/264x264.jpg"
+                ]
               }
             },
             "affinity": {
@@ -44,7 +46,10 @@
                   "id": "3135556",
                   "title": "Harder, Better, Faster, Stronger",
                   "ISRC": "GBDUW0000059",
-                  "diskInfo": { "diskNumber": 1, "trackNumber": 4 },
+                  "diskInfo": {
+                    "diskNumber": 1,
+                    "trackNumber": 4
+                  },
                   "duration": 226,
                   "isExplicit": false,
                   "isFavorite": true,
@@ -54,13 +59,17 @@
                     "displayTitle": "Discovery",
                     "cover": {
                       "id": "cover_302127",
-                      "urls": ["https://cdn.example.com/cover/264x264.jpg"]
+                      "urls": [
+                        "https://cdn.example.com/cover/264x264.jpg"
+                      ]
                     }
                   },
                   "contributors": {
                     "edges": [
                       {
-                        "roles": ["MAIN"],
+                        "roles": [
+                          "MAIN"
+                        ],
                         "node": {
                           "id": "27",
                           "name": "Daft Punk",
@@ -68,7 +77,8 @@
                         }
                       }
                     ]
-                  }
+                  },
+                  "media": null
                 },
                 "metadata": {
                   "musicTogether": {
@@ -97,7 +107,9 @@
         "title": "Road Trip Vibes - Curated",
         "picture": {
           "id": "pic_curated",
-          "urls": ["https://cdn.example.com/playlist/264x264.jpg"]
+          "urls": [
+            "https://cdn.example.com/playlist/264x264.jpg"
+          ]
         },
         "estimatedTracksCount": 25,
         "fansCount": 0,
@@ -115,7 +127,10 @@
                 "id": "9876543",
                 "title": "Unicorns",
                 "ISRC": "DEZC62590302",
-                "diskInfo": { "diskNumber": 1, "trackNumber": 1 },
+                "diskInfo": {
+                  "diskNumber": 1,
+                  "trackNumber": 1
+                },
                 "duration": 195,
                 "isExplicit": true,
                 "isFavorite": false,
@@ -125,13 +140,17 @@
                   "displayTitle": "Freundschaft Plus",
                   "cover": {
                     "id": "cover_747622201",
-                    "urls": ["https://cdn.example.com/cover/fp/264x264.jpg"]
+                    "urls": [
+                      "https://cdn.example.com/cover/fp/264x264.jpg"
+                    ]
                   }
                 },
                 "contributors": {
                   "edges": [
                     {
-                      "roles": ["MAIN"],
+                      "roles": [
+                        "MAIN"
+                      ],
                       "node": {
                         "id": "999",
                         "name": "257ers",
@@ -139,7 +158,8 @@
                       }
                     }
                   ]
-                }
+                },
+                "media": null
               }
             }
           ],

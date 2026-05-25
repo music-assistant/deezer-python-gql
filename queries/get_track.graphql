@@ -1,6 +1,35 @@
 query GetTrack($trackId: String!) {
   track(trackId: $trackId) {
-    ...TrackFields
+    id
+    title
+    ISRC
+    diskInfo {
+      diskNumber
+      trackNumber
+    }
+    duration
+    isExplicit
+    isFavorite
+    popularity
+    album {
+      id
+      displayTitle
+      cover {
+        id
+        urls(pictureRequest: { width: 264, height: 264 })
+      }
+    }
+    contributors(first: 10, roles: [MAIN, FEATURED]) {
+      edges {
+        roles
+        node {
+          ... on Artist {
+            id
+            name
+          }
+        }
+      }
+    }
     isAtmos
     releaseDate
     media {

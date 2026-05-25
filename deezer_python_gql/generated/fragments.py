@@ -224,6 +224,7 @@ class TrackFields(BaseModel):
     popularity: Optional[float]
     album: Optional["TrackFieldsAlbum"]
     contributors: "TrackFieldsContributors"
+    media: Optional["TrackFieldsMedia"]
 
 
 class TrackFieldsDiskInfo(BaseModel):
@@ -257,6 +258,18 @@ class TrackFieldsContributorsEdgesNodeArtist(BaseModel):
     typename__: Literal["Artist"] = Field(alias="__typename")
     id: str
     name: str
+
+
+class TrackFieldsMedia(BaseModel):
+    rights: "TrackFieldsMediaRights"
+
+
+class TrackFieldsMediaRights(BaseModel):
+    sub: Optional["TrackFieldsMediaRightsSub"]
+
+
+class TrackFieldsMediaRightsSub(BaseModel):
+    available: bool
 
 
 AlbumFields.model_rebuild()

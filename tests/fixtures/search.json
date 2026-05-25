@@ -34,7 +34,9 @@
                 "contributors": {
                   "edges": [
                     {
-                      "roles": ["MAIN"],
+                      "roles": [
+                        "MAIN"
+                      ],
                       "node": {
                         "id": "27",
                         "name": "Daft Punk",
@@ -45,7 +47,8 @@
                 },
                 "isFavorite": false,
                 "popularity": null,
-                "diskInfo": null
+                "diskInfo": null,
+                "media": null
               }
             },
             {
@@ -78,7 +81,9 @@
                 "contributors": {
                   "edges": [
                     {
-                      "roles": ["MAIN"],
+                      "roles": [
+                        "MAIN"
+                      ],
                       "node": {
                         "id": "27",
                         "name": "Daft Punk",
@@ -89,7 +94,8 @@
                 },
                 "isFavorite": false,
                 "popularity": null,
-                "diskInfo": null
+                "diskInfo": null,
+                "media": null
               }
             },
             {
@@ -122,7 +128,9 @@
                 "contributors": {
                   "edges": [
                     {
-                      "roles": ["MAIN"],
+                      "roles": [
+                        "MAIN"
+                      ],
                       "node": {
                         "id": "27",
                         "name": "Daft Punk",
@@ -133,7 +141,8 @@
                 },
                 "isFavorite": false,
                 "popularity": null,
-                "diskInfo": null
+                "diskInfo": null,
+                "media": null
               }
             }
           ],

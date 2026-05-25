@@ -51,7 +51,8 @@
                   ]
                 },
                 "isFavorite": false,
-                "popularity": null
+                "popularity": null,
+                "media": null
               }
             }
           ],

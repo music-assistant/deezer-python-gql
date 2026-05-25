@@ -7,7 +7,10 @@
             "id": "3135556",
             "title": "Harder, Better, Faster, Stronger",
             "ISRC": "GBDUW0000059",
-            "diskInfo": { "diskNumber": 1, "trackNumber": 4 },
+            "diskInfo": {
+              "diskNumber": 1,
+              "trackNumber": 4
+            },
             "duration": 226,
             "isExplicit": false,
             "isFavorite": true,
@@ -17,13 +20,17 @@
               "displayTitle": "Discovery",
               "cover": {
                 "id": "cover_302127",
-                "urls": ["https://cdn.example.com/cover/264x264.jpg"]
+                "urls": [
+                  "https://cdn.example.com/cover/264x264.jpg"
+                ]
               }
             },
             "contributors": {
               "edges": [
                 {
-                  "roles": ["MAIN"],
+                  "roles": [
+                    "MAIN"
+                  ],
                   "node": {
                     "id": "27",
                     "name": "Daft Punk",
@@ -31,7 +38,8 @@
                   }
                 }
               ]
-            }
+            },
+            "media": null
           }
         },
         {
@@ -39,7 +47,10 @@
             "id": "999001",
             "title": "Get Lucky",
             "ISRC": "USQX91300110",
-            "diskInfo": { "diskNumber": 1, "trackNumber": 8 },
+            "diskInfo": {
+              "diskNumber": 1,
+              "trackNumber": 8
+            },
             "duration": 369,
             "isExplicit": false,
             "isFavorite": false,
@@ -49,13 +60,17 @@
               "displayTitle": "Random Access Memories",
               "cover": {
                 "id": "cover_6575789",
-                "urls": ["https://cdn.example.com/cover3/264x264.jpg"]
+                "urls": [
+                  "https://cdn.example.com/cover3/264x264.jpg"
+                ]
               }
             },
             "contributors": {
               "edges": [
                 {
-                  "roles": ["MAIN"],
+                  "roles": [
+                    "MAIN"
+                  ],
                   "node": {
                     "id": "27",
                     "name": "Daft Punk",
@@ -63,7 +78,9 @@
                   }
                 },
                 {
-                  "roles": ["FEATURED"],
+                  "roles": [
+                    "FEATURED"
+                  ],
                   "node": {
                     "id": "293585",
                     "name": "Pharrell Williams",
@@ -71,7 +88,8 @@
                   }
                 }
               ]
-            }
+            },
+            "media": null
           }
         }
       ]
