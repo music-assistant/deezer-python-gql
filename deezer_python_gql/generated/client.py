@@ -4017,6 +4017,13 @@ class DeezerGQLClient(DeezerBaseClient):
                             }
                           }
                         }
+                        media {
+                          rights {
+                            sub {
+                              available
+                            }
+                          }
+                        }
                       }
                     }
                     pageInfo {

@@ -45,6 +45,7 @@ class SearchSearchResultsTracksEdgesNode(BaseModel):
     is_favorite: Optional[bool] = Field(alias="isFavorite")
     album: Optional["SearchSearchResultsTracksEdgesNodeAlbum"]
     contributors: "SearchSearchResultsTracksEdgesNodeContributors"
+    media: Optional["SearchSearchResultsTracksEdgesNodeMedia"]
 
 
 class SearchSearchResultsTracksEdgesNodeAlbum(BaseModel):
@@ -73,6 +74,18 @@ class SearchSearchResultsTracksEdgesNodeContributorsEdgesNodeArtist(BaseModel):
     typename__: Literal["Artist"] = Field(alias="__typename")
     id: str
     name: str
+
+
+class SearchSearchResultsTracksEdgesNodeMedia(BaseModel):
+    rights: "SearchSearchResultsTracksEdgesNodeMediaRights"
+
+
+class SearchSearchResultsTracksEdgesNodeMediaRights(BaseModel):
+    sub: Optional["SearchSearchResultsTracksEdgesNodeMediaRightsSub"]
+
+
+class SearchSearchResultsTracksEdgesNodeMediaRightsSub(BaseModel):
+    available: bool
 
 
 class SearchSearchResultsTracksPageInfo(PageInfoFields):
@@ -244,6 +257,8 @@ SearchSearchResultsTracksEdgesNode.model_rebuild()
 SearchSearchResultsTracksEdgesNodeAlbum.model_rebuild()
 SearchSearchResultsTracksEdgesNodeContributors.model_rebuild()
 SearchSearchResultsTracksEdgesNodeContributorsEdges.model_rebuild()
+SearchSearchResultsTracksEdgesNodeMedia.model_rebuild()
+SearchSearchResultsTracksEdgesNodeMediaRights.model_rebuild()
 SearchSearchResultsAlbums.model_rebuild()
 SearchSearchResultsAlbumsEdges.model_rebuild()
 SearchSearchResultsAlbumsEdgesNode.model_rebuild()

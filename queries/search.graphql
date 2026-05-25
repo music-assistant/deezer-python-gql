@@ -37,6 +37,13 @@ query Search(
                 }
               }
             }
+            media {
+              rights {
+                sub {
+                  available
+                }
+              }
+            }
           }
         }
         pageInfo {

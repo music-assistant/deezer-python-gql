@@ -615,6 +615,9 @@ from .search import (
     SearchSearchResultsTracksEdgesNodeContributors,
     SearchSearchResultsTracksEdgesNodeContributorsEdges,
     SearchSearchResultsTracksEdgesNodeContributorsEdgesNodeArtist,
+    SearchSearchResultsTracksEdgesNodeMedia,
+    SearchSearchResultsTracksEdgesNodeMediaRights,
+    SearchSearchResultsTracksEdgesNodeMediaRightsSub,
     SearchSearchResultsTracksPageInfo,
 )
 from .search_flows import (
@@ -1133,6 +1136,9 @@ __all__ = [
     "SearchSearchResultsTracksEdgesNodeContributors",
     "SearchSearchResultsTracksEdgesNodeContributorsEdges",
     "SearchSearchResultsTracksEdgesNodeContributorsEdgesNodeArtist",
+    "SearchSearchResultsTracksEdgesNodeMedia",
+    "SearchSearchResultsTracksEdgesNodeMediaRights",
+    "SearchSearchResultsTracksEdgesNodeMediaRightsSub",
     "SearchSearchResultsTracksPageInfo",
     "TrackContributorRoles",
     "TrackFields",
