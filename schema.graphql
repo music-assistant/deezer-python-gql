@@ -166,6 +166,13 @@ type Query {
   deezerClubItems(first: Int!, after: String): DeezerClubItemsConnection
 
   """
+  Get a single Deezer Club item by ID
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  deezerClubItem(deezerClubItemId: String!): DeezerClubItem
+
+  """
   Get list of Deezer Club items by artist (only ongoing items)
   
   Access: This field is restricted to applications granted with specific access.
@@ -463,6 +470,16 @@ type Query {
   Access: This field is restricted to applications granted with specific access.
   """
   ucpsData(userId: String!): UcpsData @deprecated(reason: "No more available")
+
+  """
+  WARNING!!
+  It returns fake data and should only be used for development at the moment.
+  
+  Returns the remix configuration for a given track
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  trackRemixConfig(trackId: ID!): TrackRemixConfig
 
   """
   Access: This field is restricted to applications granted with specific access.
@@ -1514,7 +1531,7 @@ type Contest implements DeezerClubItem {
     Strictly positive integer.
     You should not override the default value.
     """
-    first: Int = 3
+    first: Int = 10
   ): [Artist!]!
 
   """
@@ -1527,7 +1544,7 @@ type Contest implements DeezerClubItem {
     Strictly positive integer.
     You should not override the default value.
     """
-    first: Int = 2
+    first: Int = 10
   ): [Album!]!
 
   """
@@ -1540,7 +1557,7 @@ type Contest implements DeezerClubItem {
     Strictly positive integer.
     You should not override the default value.
     """
-    first: Int = 2
+    first: Int = 10
   ): [Playlist!]!
 
   """
@@ -1599,6 +1616,69 @@ type Contest implements DeezerClubItem {
   Access: This field is restricted to applications granted with specific access.
   """
   children: [DeezerClubItem!]!
+}
+
+"""Moderation status of a contest attachment"""
+enum ContestAttachmentStatus {
+  """Waiting for moderation review"""
+  PENDING
+
+  """Approved by moderation"""
+  APPROVED
+
+  """Rejected by moderation"""
+  REJECTED
+}
+
+"""A track submitted as a contest attachment"""
+type ContestTrackAttachment {
+  """
+  The submitted track
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  track: Track!
+}
+
+"""The submitted content reference for a contest attachment"""
+union ContestAttachmentReference = ContestTrackAttachment
+
+"""An attachment submitted by a user to a contest"""
+type ContestAttachment {
+  """
+  Unique identifier
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  id: String!
+
+  """
+  User who submitted this attachment
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  owner: User!
+
+  """
+  The submitted content
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  reference: ContestAttachmentReference!
+
+  """
+  Moderation status
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  status: ContestAttachmentStatus!
+
+  """
+  Date when the attachment was submitted
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  attachedAt: String!
 }
 
 """User participation to a contest"""
@@ -1750,7 +1830,7 @@ interface DeezerClubItem {
     Strictly positive integer.
     You should not override the default value.
     """
-    first: Int = 3
+    first: Int = 10
   ): [Artist!]!
 
   """Related festival (if any)"""
@@ -1770,6 +1850,12 @@ interface DeezerClubItem {
 
   """Children of this event when it is a multi-date parent."""
   children: [DeezerClubItem!]!
+
+  """Main content"""
+  body: String!
+
+  """Text related to "add to favorite" checkbox"""
+  addToFavoriteAgreement: String!
 }
 
 enum DeezerClubUrlIcon {
@@ -1908,7 +1994,7 @@ type ExternalEvent implements DeezerClubItem {
     Strictly positive integer.
     You should not override the default value.
     """
-    first: Int = 3
+    first: Int = 10
   ): [Artist!]!
 
   """
@@ -1945,6 +2031,28 @@ type ExternalEvent implements DeezerClubItem {
   Access: This field is restricted to applications granted with specific access.
   """
   urlIcon: DeezerClubUrlIcon!
+
+  """
+  Main content
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  body: String!
+
+  """
+  Text related to "add to favorite" checkbox
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  addToFavoriteAgreement: String!
+
+  """
+  When true, the url should be opened in an external browser
+  When false, the url can be opened in an in-app webview, to show a landing page with more details about the contest/event before redirecting to the contest/event page.
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  directRedirect: Boolean!
 
   """
   List of child external events for multi‑date contests.
@@ -2090,7 +2198,7 @@ type InstantWinnerContest implements DeezerClubItem {
     Strictly positive integer.
     You should not override the default value.
     """
-    first: Int = 3
+    first: Int = 10
   ): [Artist!]!
 
   """
@@ -2103,7 +2211,7 @@ type InstantWinnerContest implements DeezerClubItem {
     Strictly positive integer.
     You should not override the default value.
     """
-    first: Int = 2
+    first: Int = 10
   ): [Album!]!
 
   """
@@ -2116,7 +2224,7 @@ type InstantWinnerContest implements DeezerClubItem {
     Strictly positive integer.
     You should not override the default value.
     """
-    first: Int = 2
+    first: Int = 10
   ): [Playlist!]!
 
   """
@@ -2175,6 +2283,325 @@ type InstantWinnerContest implements DeezerClubItem {
   Access: This field is restricted to applications granted with specific access.
   """
   children: [DeezerClubItem!]!
+}
+
+"""Remix Contest's data"""
+type RemixContest implements DeezerClubItem {
+  """
+  Identifier
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  id: ID!
+
+  """
+  Internal name
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  name: String!
+
+  """
+  Beginning of the remix contest
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  startDate: Date!
+
+  """
+  Display of the remix contest
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  displayDate: Date!
+
+  """
+  End date
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  endDate: Date!
+
+  """
+  Date of related event.
+  The UTC date must be interpreted as the date of the event in its time zone,
+  then it must be displayed "as is", without trying to convert it to the user's time zone.
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  eventDate: Date!
+
+  """
+  End date of related event, if any.
+  The UTC date must be interpreted as the end date of the event in its time zone,
+  then it must be displayed "as is", without trying to convert it to the user's time zone.
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  eventEndDate: Date
+
+  """
+  Category
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  category: String!
+
+  """
+  Should it be in "focus" state?
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  focus: Boolean!
+
+  """
+  City
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  city: String!
+
+  """
+  Venue
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  venue: String!
+
+  """
+  Main image
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  image: Picture!
+
+  """
+  Secondary image
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  imageSecondary: Picture
+
+  """
+  Related artists
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  artists(
+    """
+    Strictly positive integer.
+    You should not override the default value.
+    """
+    first: Int = 3
+  ): [Artist!]!
+
+  """
+  Related albums
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  albums(
+    """
+    Strictly positive integer.
+    You should not override the default value.
+    """
+    first: Int = 10
+  ): [Album!]!
+
+  """
+  Related playlists
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  playlists(
+    """
+    Strictly positive integer.
+    You should not override the default value.
+    """
+    first: Int = 10
+  ): [Playlist!]!
+
+  """
+  Related festival (if any)
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  festival: String
+
+  """
+  Title of the remix contest
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  title: String!
+
+  """
+  Larger title
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  largeTitle: String!
+
+  """
+  Source track to remix
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  sourceTrack: Track!
+
+  """
+  Link to "terms and conditions" file
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  termsAndConditions: String!
+
+  """
+  Main content
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  body: String!
+
+  """
+  Text related to "add to favorite" checkbox
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  addToFavoriteAgreement: String!
+
+  """
+  Rewards information
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  rewards: RemixContestRewards!
+
+  """
+  Url to related remix contest
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  url: String!
+
+  """
+  Icon of the url
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  urlIcon: DeezerClubUrlIcon!
+
+  """
+  List of child remix contests for multi-date contests.
+  Children are ordered by event date and id. An empty list means the contest has no children.
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  children: [DeezerClubItem!]!
+
+  """
+  All attachments submitted by all users for this remix contest
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  contestAttachments(
+    """Maximum number of attachments to return. Defaults to 50."""
+    first: Int = 50
+
+    """Cursor for pagination"""
+    after: String
+  ): RemixContestAttachmentsConnection!
+
+  """
+  Total number of attachment ids for this remix contest
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  contestAttachmentsEstimatedCount: Int!
+
+  """
+  Attachments submitted by the current user for this remix contest
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  userAttachments(
+    """Maximum number of attachments to return. Defaults to 50."""
+    first: Int = 50
+
+    """Cursor for pagination"""
+    after: String
+  ): RemixContestAttachmentsConnection!
+}
+
+"""Paginated list of remix contest attachments"""
+type RemixContestAttachmentsConnection {
+  """
+  Access: This field is restricted to applications granted with specific access.
+  """
+  edges: [RemixContestAttachmentsEdge!]!
+
+  """
+  Access: This field is restricted to applications granted with specific access.
+  """
+  pageInfo: PageInfo!
+}
+
+"""Edge for a remix contest attachment in a paginated list"""
+type RemixContestAttachmentsEdge {
+  """
+  Access: This field is restricted to applications granted with specific access.
+  """
+  cursor: String!
+
+  """
+  Access: This field is restricted to applications granted with specific access.
+  """
+  node: ContestAttachment
+}
+
+"""Rewards information for a remix contest"""
+type RemixContestRewards {
+  """
+  Number of winners
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  winnerNb: Int!
+
+  """
+  Number of tickets per winner
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  nbTicketsPerWinner: Int
+
+  """
+  Whether merch is included as a reward
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  merch: Boolean!
+
+  """
+  Whether the winner gets highlighted
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  highlight: Boolean!
+
+  """
+  Translated description of the ticket reward
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  ticketDescription: String
+
+  """
+  Translated title of the ticket reward
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  ticketTitle: String
 }
 
 type DeezerStory {
@@ -5533,7 +5960,10 @@ type Album implements Node {
   mostPopularTrack: Track
 
   """Full list of the album's tracks ids"""
-  rawTracks: [ID!]!
+  rawTracks: [ID!]! @deprecated(reason: "Use sortableRawTracks instead")
+
+  """Full list of the album's track ids with sort details"""
+  sortableRawTracks: [AlbumRawTrack!]!
 
   """
   If this album is taken down, but an alternative (called fallback) is available, the client **MUST** redirect to the fallback when not null
@@ -5633,6 +6063,13 @@ type AlbumExclusions {
   Access: This field is restricted to applications granted with specific access.
   """
   isExcludedFromRecommendation: Boolean!
+}
+
+type AlbumRawTrack {
+  """
+  Access: This field is restricted to applications granted with specific access.
+  """
+  id: ID!
 }
 
 type AlbumAlternativeVersionsConnection {
@@ -5862,6 +6299,9 @@ type Artist implements Node {
 
   """Top tracks of the current artist"""
   topTracks(first: Int = 10, after: String): ArtistTopTracksConnection
+
+  """Full list of the current artist's top track ids"""
+  rawTopTracks: [ID!]!
 
   """
   Artist exclusions
@@ -8390,6 +8830,69 @@ type SaveBlindTestScoreMutationOutput {
   status: Boolean!
 }
 
+enum StemType {
+  VOCALS
+  DRUMS
+  BASS
+  OTHERS
+}
+
+enum RemixStyle {
+  ORIGINAL
+  LOFI
+  DRILL
+  REGGAETON
+  SYNTHWAVE
+  BOSSA_NOVA
+  EURODANCE
+  ORCHESTRAL
+  DISCO
+  HYPERPOP
+  AFROBEAT
+  METAL
+}
+
+type StemFile {
+  """
+  Access: This field is restricted to applications granted with specific access.
+  """
+  type: StemType!
+
+  """
+  Access: This field is restricted to applications granted with specific access.
+  """
+  url: String!
+}
+
+type RemixStyleConfig {
+  """
+  Access: This field is restricted to applications granted with specific access.
+  """
+  style: RemixStyle!
+
+  """
+  Access: This field is restricted to applications granted with specific access.
+  """
+  title: String!
+
+  """
+  Access: This field is restricted to applications granted with specific access.
+  """
+  subtitle: String!
+
+  """
+  Access: This field is restricted to applications granted with specific access.
+  """
+  stems: [StemFile!]!
+}
+
+type TrackRemixConfig {
+  """
+  Access: This field is restricted to applications granted with specific access.
+  """
+  styles: [RemixStyleConfig!]!
+}
+
 union InstantSearchBestResult = InstantSearchArtistBestResult | InstantSearchAlbumBestResult | InstantSearchPlaylistBestResult | InstantSearchTrackBestResult | InstantSearchPodcastBestResult | InstantSearchPodcastEpisodeBestResult | InstantSearchLivestreamBestResult | InstantSearchFlowConfigBestResult | InstantSearchChannelBestResult | InstantSearchSmartTracklistBestResult
 
 type InstantSearchArtistBestResult {
@@ -8896,6 +9399,13 @@ type PrivateUser implements Node {
   id: ID!
 
   """
+  User's email
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  email: String
+
+  """
   Offers user his own data for a dedicated campaign (eg: playground)
   
   Access: This field is restricted to applications granted with specific access.
@@ -9086,6 +9596,13 @@ type PrivateUser implements Node {
   recentlyPlayed(first: Int = 12, after: String, support: [RecentlyPlayedContentTypeInput!] = [ALBUM, ARTIST, FLOW, FLOW_CONFIG, LIVESTREAM, MIX, PLAYLIST, PODCAST]): PrivateUserRecentlyPlayedConnection!
 
   """
+  The 100 last listened track IDs for the currently logged user
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  listeningHistoryRawTracks: [RawHistoryTrack!]!
+
+  """
   User's search history
   
   Access: This field is restricted to applications granted with specific access.
@@ -9188,7 +9705,7 @@ type PrivateUser implements Node {
   
   Access: This field is restricted to applications granted with specific access.
   """
-  contestParticipations: [ContestParticipation!]
+  contestParticipations: [ContestParticipation!] @deprecated(reason: "Use PrivateUser.deezerClubRegistrations instead.")
 
   """
   Get Deezer Club registrations list user has done.
@@ -10551,7 +11068,7 @@ type Favorites {
   
   Access: This field is restricted to applications granted with specific access.
   """
-  rawAlbums: [RawFavorite!]
+  rawAlbums: [RawFavorite!] @deprecated(reason: "Use sortableRawAlbums instead")
 
   """
   The full list of the user's favorite album ids with sort details
@@ -10601,12 +11118,9 @@ type Favorites {
   
   Access: This field is restricted to applications granted with specific access.
   """
-  rawArtists: [RawFavorite!]
+  rawArtists: [RawFavorite!] @deprecated(reason: "Use sortableRawArtists instead")
 
   """
-  WARNING!!
-  It returns fake data and should only be used for development at the moment.
-  
   The full list of the user's favorite artist ids with sort details.
   You may receive one artist, or thousands, hence you must fetch this field only when absolutely needed, and only once per query.
   We defined the cost of the field accordingly.
@@ -10636,12 +11150,9 @@ type Favorites {
   
   Access: This field is restricted to applications granted with specific access.
   """
-  rawPlaylists: [RawFavorite!]
+  rawPlaylists: [RawFavorite!] @deprecated(reason: "Use sortableRawPlaylists instead")
 
   """
-  WARNING!!
-  It returns fake data and should only be used for development at the moment.
-  
   The full list of the user's favorite playlists ids with sort details
   You may receive one playlists, or thousands, hence you must fetch this field only when absolutely needed, and only once per query.
   We defined the cost of the field accordingly.
@@ -10671,7 +11182,7 @@ type Favorites {
   
   Access: This field is restricted to applications granted with specific access.
   """
-  rawPodcasts: [RawFavorite!]
+  rawPodcasts: [RawFavorite!] @deprecated(reason: "Use sortableRawPodcasts instead")
 
   """
   The full list of the user's favorite podcast ids with sort details
@@ -10703,7 +11214,16 @@ type Favorites {
   
   Access: This field is restricted to applications granted with specific access.
   """
-  rawTracks: [RawFavorite!]
+  rawTracks: [RawFavorite!] @deprecated(reason: "Use sortableRawTracks instead")
+
+  """
+  The full list of the user's favorite track ids with sort details.
+  You may receive one track, or thousands, hence you must fetch this field only when absolutely needed, and only once per query.
+  We defined the cost of the field accordingly.
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  sortableRawTracks: [UserRawTrackFavorite!]
 }
 
 type RawFavorite {
@@ -10813,6 +11333,18 @@ type UserRawPodcastFavorite implements UserRawFavorite {
 }
 
 type UserRawPlaylistFavorite implements UserRawFavorite {
+  """
+  Access: This field is restricted to applications granted with specific access.
+  """
+  id: ID!
+
+  """
+  Access: This field is restricted to applications granted with specific access.
+  """
+  favoritedAt: Date!
+}
+
+type UserRawTrackFavorite implements UserRawFavorite {
   """
   Access: This field is restricted to applications granted with specific access.
   """
@@ -12029,7 +12561,7 @@ type WebviewUrls {
   """
   Access: This field is restricted to applications granted with specific access.
   """
-  remix(trackId: String!): WebviewUrl
+  remix(trackId: String!, contestId: String): WebviewUrl
 }
 
 type WebviewUrl {
@@ -12196,6 +12728,9 @@ input RegistrationDataInput {
 
   """Location of the user"""
   city: String!
+
+  """Whether the user added the contest item to their favorites"""
+  hasAddedToFavorites: Boolean
 }
 
 input ParticipateToContestInput {
@@ -12228,6 +12763,9 @@ input ParticipateToContestInput {
 
   """Will the user attend to the event on its own"""
   isSolo: Boolean
+
+  """Whether the user added the contest item to their favorites"""
+  hasAddedToFavorites: Boolean
 }
 
 union ParticipateToContestResult = ParticipateToContestOutput | ParticipateToContestError
@@ -12246,8 +12784,21 @@ type ParticipateToContestError {
   hasAlreadySubscribed: Boolean
 }
 
+input RemixRegistrationDataInput {
+  """Full name of the participant"""
+  fullName: String!
+
+  """Email address of the participant"""
+  email: String!
+
+  """Age of the participant"""
+  age: Int!
+}
+
 input SubmitRemixContestInput {
-  """ID of the track uploaded"""
+  """
+  Upload id with its upload signature. Format should be uploadId:signature
+  """
   uploadId: String!
 
   """Identifier of the source track used for the remix"""
@@ -12261,6 +12812,9 @@ input SubmitRemixContestInput {
 
   """Optional metadata associated to the remix"""
   remixMetadata: RemixMetadata
+
+  """Registration data for the remix contest participant"""
+  registrationData: RemixRegistrationDataInput!
 }
 
 type SubmitRemixContestOutput {
@@ -12278,6 +12832,16 @@ type SubmitRemixContestOutput {
   Access: This field is restricted to applications granted with specific access.
   """
   expiresAt: Date
+
+  """
+  Access: This field is restricted to applications granted with specific access.
+  """
+  remixId: String!
+
+  """
+  Access: This field is restricted to applications granted with specific access.
+  """
+  remixPlaylistId: String!
 }
 
 type SubmitRemixContestError {
@@ -13751,6 +14315,18 @@ type PrivateUserFlowConfigsConnectionEdge {
   Access: This field is restricted to applications granted with specific access.
   """
   node: FlowConfig
+}
+
+type RawHistoryTrack {
+  """
+  Access: This field is restricted to applications granted with specific access.
+  """
+  id: ID!
+
+  """
+  Access: This field is restricted to applications granted with specific access.
+  """
+  listenedAt: Date!
 }
 
 type PrivateUserFavoriteAlbumEdge {
