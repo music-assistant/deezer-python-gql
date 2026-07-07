@@ -472,9 +472,6 @@ type Query {
   ucpsData(userId: String!): UcpsData @deprecated(reason: "No more available")
 
   """
-  WARNING!!
-  It returns fake data and should only be used for development at the moment.
-  
   Returns the remix configuration for a given track
   
   Access: This field is restricted to applications granted with specific access.
@@ -700,6 +697,11 @@ type Mutation {
   Access: This field is restricted to applications granted with specific access.
   """
   addPodcastToFavorite(podcastId: String!): PodcastMutationFavoriteAddOut!
+
+  """
+  Access: This field is restricted to applications granted with specific access.
+  """
+  addPodcastsToFavorite(podcastIds: [String!]!): PodcastsMutationFavoriteAddResult!
 
   """
   Access: This field is restricted to applications granted with specific access.
@@ -1596,6 +1598,13 @@ type Contest implements DeezerClubItem {
   addToFavoriteAgreement: String!
 
   """
+  Text displayed as label for the open question field
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  openQuestionLabel: String
+
+  """
   Url to related contest
   
   Access: This field is restricted to applications granted with specific access.
@@ -1653,11 +1662,11 @@ type ContestAttachment {
   id: String!
 
   """
-  User who submitted this attachment
+  User who submitted this attachment (null for user private profile)
   
   Access: This field is restricted to applications granted with specific access.
   """
-  owner: User!
+  owner: User
 
   """
   The submitted content
@@ -2845,6 +2854,11 @@ type InstantSearch {
   Access: This field is restricted to applications granted with specific access.
   """
   bestResult: InstantSearchBestResult
+
+  """
+  Access: This field is restricted to applications granted with specific access.
+  """
+  onboardingResults: InstantSearchOnboardingResults
 }
 
 type InstantSearchResults {
@@ -8850,6 +8864,22 @@ enum RemixStyle {
   HYPERPOP
   AFROBEAT
   METAL
+  FUNK
+  REGGAE
+  FRENCH_TOUCH
+  CUMBIA
+  HOUSE
+  TRAP
+  TRANCE
+  BEDROOM_POP
+  PUNK_ROCK
+  FOLK
+  ROCK
+  CLUB
+  RNB
+  DECADE_80S
+  POP
+  HIP_HOP
 }
 
 type StemFile {
@@ -8891,6 +8921,11 @@ type TrackRemixConfig {
   Access: This field is restricted to applications granted with specific access.
   """
   styles: [RemixStyleConfig!]!
+
+  """
+  Access: This field is restricted to applications granted with specific access.
+  """
+  isCustomStemMixingEnabled: Boolean!
 }
 
 union InstantSearchBestResult = InstantSearchArtistBestResult | InstantSearchAlbumBestResult | InstantSearchPlaylistBestResult | InstantSearchTrackBestResult | InstantSearchPodcastBestResult | InstantSearchPodcastEpisodeBestResult | InstantSearchLivestreamBestResult | InstantSearchFlowConfigBestResult | InstantSearchChannelBestResult | InstantSearchSmartTracklistBestResult
@@ -9037,6 +9072,65 @@ type InstantSearchChannelBestResultRelatedContent {
   Access: This field is restricted to applications granted with specific access.
   """
   playlists(first: Int = 20, after: String): PlaylistsConnection!
+}
+
+type InstantSearchOnboardingResults {
+  """
+  Access: This field is restricted to applications granted with specific access.
+  """
+  artists(first: Int = 20, after: String): InstantSearchOnboardingResultsArtistsConnection!
+}
+
+type InstantSearchOnboardingResultsArtistsConnection {
+  """
+  Access: This field is restricted to applications granted with specific access.
+  """
+  edges: [InstantSearchOnboardingResultsArtistsConnectionEdge!]!
+
+  """
+  Access: This field is restricted to applications granted with specific access.
+  """
+  pageInfo: PageInfo!
+}
+
+type InstantSearchOnboardingResultsArtistsConnectionEdge {
+  """
+  Access: This field is restricted to applications granted with specific access.
+  """
+  cursor: String!
+
+  """
+  Access: This field is restricted to applications granted with specific access.
+  """
+  node: InstantSearchOnboardingResultsArtist
+}
+
+type InstantSearchOnboardingResultsArtist {
+  """
+  Access: This field is restricted to applications granted with specific access.
+  """
+  artist: Artist!
+
+  """
+  Access: This field is restricted to applications granted with specific access.
+  """
+  relatedContent: InstantSearchOnboardingResultsArtistRelatedContent
+}
+
+union InstantSearchOnboardingResultsArtistRelatedContent = InstantSearchOnboardingResultsArtistRelatedContentTrack | InstantSearchOnboardingResultsArtistRelatedContentAlbum
+
+type InstantSearchOnboardingResultsArtistRelatedContentTrack {
+  """
+  Access: This field is restricted to applications granted with specific access.
+  """
+  track: Track!
+}
+
+type InstantSearchOnboardingResultsArtistRelatedContentAlbum {
+  """
+  Access: This field is restricted to applications granted with specific access.
+  """
+  album: Album!
 }
 
 type InstantSearchTopResult {
@@ -11292,12 +11386,12 @@ type UserRawArtistFavorite implements UserRawFavorite {
   favoritedAt: Date!
 
   """
-  WARNING!!
-  It returns fake data and should only be used for development at the moment.
+  The normalized artist name.
+  Use it for sorting only, if you'd like to get the display name of the artist, use `Artist.name` instead
   
   Access: This field is restricted to applications granted with specific access.
   """
-  name: String
+  name: String!
 }
 
 type UserRawAlbumFavorite implements UserRawFavorite {
@@ -12766,6 +12860,11 @@ input ParticipateToContestInput {
 
   """Whether the user added the contest item to their favorites"""
   hasAddedToFavorites: Boolean
+
+  """
+  Answer to the open question displayed on the contest participation form
+  """
+  openQuestion: String
 }
 
 union ParticipateToContestResult = ParticipateToContestOutput | ParticipateToContestError
@@ -14660,14 +14759,48 @@ type PrivateUserRawAlbumFavorite implements PrivateUserRawFavorite {
   id: ID!
 
   """
+  The date the album was added into user's favorites
+  
   Access: This field requires one of these scopes: [favorite-all-read,favorites-album-read].
   """
   favoritedAt: Date!
 
   """
+  The date the album was last played
+  
   Access: This field requires one of these scopes: [favorite-all-read,favorites-album-read].
   """
   playedAt: Date
+
+  """
+  The album release date
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  releasedAt: Date
+
+  """
+  The normalized album's title
+  Use it for sorting only, if you'd like to display the album's title, use `Album.displayTitle` instead
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  albumTitle: String!
+
+  """
+  The normalized album's main artist name.
+  Use it for sorting only, if you'd like to get the full list of album contributors, use `Album.contributors` instead
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  artistName: String
+
+  """
+  The album's popularity
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  rank: Int!
 }
 
 type PrivateUserRawArtistFavorite implements PrivateUserRawFavorite {
@@ -14746,6 +14879,30 @@ type PrivateUserRawTrackFavorite implements PrivateUserRawFavorite {
   Access: This field requires one of these scopes: [favorite-all-read,favorites-track-read].
   """
   favoritedAt: Date!
+
+  """
+  The normalized track's title
+  Use it for sorting only, if you'd like to display a track title, use `Track.title` instead
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  trackTitle: String!
+
+  """
+  The normalized track album's title
+  Use it for sorting only, if you'd like to display a track album's title, use `Track.album.displayTitle` instead
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  albumTitle: String
+
+  """
+  The track's main artist name.
+  Use it for sorting only, if you'd like to get the full list of track contributors, use `Track.contributors` instead
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  artistName: String
 }
 
 type PrivateUserFavoritesByArtist {
@@ -17442,6 +17599,22 @@ type PodcastMutationFavoriteRemoveOut {
   Access: This field is restricted to applications granted with specific access.
   """
   podcast: Podcast
+}
+
+union PodcastsMutationFavoriteAddResult = PodcastsMutationFavoriteAddOutput | PodcastsMutationFavoriteAddError
+
+type PodcastsMutationFavoriteAddOutput {
+  """
+  Access: This field is restricted to applications granted with specific access.
+  """
+  addedPodcastsToFavorite: [PodcastMutationFavoriteAddOut]
+}
+
+type PodcastsMutationFavoriteAddError {
+  """
+  Access: This field is restricted to applications granted with specific access.
+  """
+  podcastsNotAvailable: Boolean
 }
 
 type TrackMutationFavoriteAddOut {
