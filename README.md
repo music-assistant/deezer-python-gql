@@ -161,7 +161,7 @@ asyncio.run(main())
 
 | Method                           | Description                                                      |
 | -------------------------------- | ---------------------------------------------------------------- |
-| `check_audiobook_ids(album_ids)` | Batch-check which album IDs are audiobooks (single GraphQL call) |
+| `check_audiobook_ids(album_ids)` | Batch-check which album IDs are audiobooks (aliased queries, chunked at 50 IDs) |
 
 All methods return fully-typed Pydantic models generated from the GraphQL schema.
 
@@ -223,6 +223,10 @@ The script handles JWT auth automatically — no manual token management needed.
 The Pipe API uses short-lived JWTs obtained from an ARL cookie. The base client
 handles token acquisition and refresh automatically — you only need to supply a
 valid ARL value.
+
+If the ARL is rejected (bad or expired), the client raises
+`GraphQLClientAuthError` — catch it to prompt for a new ARL instead of retrying.
+Transient server errors raise `GraphQLClientHttpError` instead.
 
 ## License
 
