@@ -9,6 +9,7 @@ Organized into three layers:
 
 from __future__ import annotations
 
+import asyncio
 import base64
 import json
 import time
@@ -22,6 +23,7 @@ from deezer_python_gql import DeezerGQLClient
 from deezer_python_gql.base_client import (
     DeezerBaseClient,
     GQLResponse,
+    GraphQLClientAuthError,
     GraphQLClientGraphQLMultiError,
     GraphQLClientHttpError,
     GraphQLClientInvalidResponseError,
@@ -431,6 +433,114 @@ async def test_auth_parses_text_plain_response() -> None:
     assert client._jwt_expires_at > 0  # noqa: SLF001
 
 
+@pytest.mark.asyncio
+async def test_auth_rejected_arl_raises_auth_error() -> None:
+    """Verify a 4xx from auth.deezer.com raises GraphQLClientAuthError."""
+    client = DeezerBaseClient(arl="bad_arl")
+    auth_cm = _mock_post_context_manager(b"Forbidden", status=403)
+
+    with patch("deezer_python_gql.base_client.ClientSession") as mock_cls:
+        mock_instance = MagicMock()
+        mock_instance.post = MagicMock(return_value=auth_cm)
+        mock_instance.close = AsyncMock()
+        mock_cls.return_value = mock_instance
+
+        with pytest.raises(GraphQLClientAuthError, match="HTTP 403"):
+            await client._ensure_jwt()  # noqa: SLF001
+
+
+@pytest.mark.asyncio
+async def test_auth_server_error_raises_http_error() -> None:
+    """Verify a 5xx from auth.deezer.com raises GraphQLClientHttpError, not AuthError."""
+    client = DeezerBaseClient(arl="test_arl")
+    auth_cm = _mock_post_context_manager(b"Service Unavailable", status=503)
+
+    with patch("deezer_python_gql.base_client.ClientSession") as mock_cls:
+        mock_instance = MagicMock()
+        mock_instance.post = MagicMock(return_value=auth_cm)
+        mock_instance.close = AsyncMock()
+        mock_cls.return_value = mock_instance
+
+        with pytest.raises(GraphQLClientHttpError) as exc_info:
+            await client._ensure_jwt()  # noqa: SLF001
+    assert exc_info.value.status_code == 503
+
+
+@pytest.mark.asyncio
+async def test_auth_invalid_json_raises_auth_error() -> None:
+    """Verify a non-JSON auth response raises GraphQLClientAuthError."""
+    client = DeezerBaseClient(arl="test_arl")
+    auth_cm = _mock_post_context_manager(b"<html>maintenance</html>")
+
+    with patch("deezer_python_gql.base_client.ClientSession") as mock_cls:
+        mock_instance = MagicMock()
+        mock_instance.post = MagicMock(return_value=auth_cm)
+        mock_instance.close = AsyncMock()
+        mock_cls.return_value = mock_instance
+
+        with pytest.raises(GraphQLClientAuthError):
+            await client._ensure_jwt()  # noqa: SLF001
+
+
+@pytest.mark.asyncio
+async def test_auth_missing_jwt_key_raises_auth_error() -> None:
+    """Verify an auth response without a 'jwt' key raises GraphQLClientAuthError."""
+    client = DeezerBaseClient(arl="test_arl")
+    auth_cm = _mock_post_context_manager(json.dumps({"error": "invalid arl"}).encode())
+
+    with patch("deezer_python_gql.base_client.ClientSession") as mock_cls:
+        mock_instance = MagicMock()
+        mock_instance.post = MagicMock(return_value=auth_cm)
+        mock_instance.close = AsyncMock()
+        mock_cls.return_value = mock_instance
+
+        with pytest.raises(GraphQLClientAuthError):
+            await client._ensure_jwt()  # noqa: SLF001
+
+
+@pytest.mark.asyncio
+async def test_auth_concurrent_refresh_single_auth_call() -> None:
+    """Verify concurrent expired-JWT requests trigger exactly one auth call."""
+    client = DeezerBaseClient(arl="test_arl")
+    auth_cm = _mock_auth_cm()
+
+    with patch("deezer_python_gql.base_client.ClientSession") as mock_cls:
+        mock_instance = MagicMock()
+        mock_instance.post = MagicMock(return_value=auth_cm)
+        mock_instance.close = AsyncMock()
+        mock_cls.return_value = mock_instance
+
+        results = await asyncio.gather(
+            client._ensure_jwt(),  # noqa: SLF001
+            client._ensure_jwt(),  # noqa: SLF001
+            client._ensure_jwt(),  # noqa: SLF001
+        )
+
+    assert mock_instance.post.call_count == 1
+    assert len(set(results)) == 1
+
+
+@pytest.mark.asyncio
+async def test_execute_sets_default_timeout() -> None:
+    """Verify execute() applies the 30s default request timeout."""
+    client = DeezerBaseClient(arl="test_arl")
+    client._jwt = _make_jwt(exp=time.time() + 600)  # noqa: SLF001
+    client._jwt_expires_at = time.time() + 600  # noqa: SLF001
+
+    gql_cm = _mock_post_context_manager(json.dumps({"data": {"me": {"id": "1"}}}).encode())
+
+    with patch("deezer_python_gql.base_client.ClientSession") as mock_cls:
+        mock_instance = MagicMock()
+        mock_instance.post = MagicMock(return_value=gql_cm)
+        mock_instance.close = AsyncMock()
+        mock_cls.return_value = mock_instance
+
+        await client.execute(query="{ me { id } }")
+
+    timeout = mock_instance.post.call_args.kwargs["timeout"]
+    assert timeout.total == DeezerBaseClient.REQUEST_TIMEOUT_SECONDS
+
+
 # ---------------------------------------------------------------------------
 # 4. Error handling (mocked HTTP)
 # ---------------------------------------------------------------------------
@@ -554,6 +664,130 @@ async def test_check_audiobook_ids_empty_input() -> None:
     client = DeezerBaseClient(arl="test_arl")
     result = await client.check_audiobook_ids([])
     assert result == set()
+
+
+@pytest.mark.asyncio
+async def test_check_audiobook_ids_chunks_large_input() -> None:
+    """Verify large ID lists are split into multiple aliased queries."""
+    client = DeezerBaseClient(arl="test_arl")
+    client._jwt = _make_jwt(exp=time.time() + 600)  # noqa: SLF001
+    client._jwt_expires_at = time.time() + 600  # noqa: SLF001
+
+    chunk_size = DeezerBaseClient.AUDIOBOOK_CHECK_CHUNK_SIZE
+    album_ids = [str(n) for n in range(chunk_size * 2 + 10)]
+
+    def _chunk_response(size: int) -> AsyncMock:
+        data = {f"a{i}": {"id": "x", "displayTitle": "Book"} for i in range(size)}
+        return _mock_post_context_manager(json.dumps({"data": data}).encode())
+
+    with patch("deezer_python_gql.base_client.ClientSession") as mock_cls:
+        mock_instance = MagicMock()
+        mock_instance.post = MagicMock(
+            side_effect=[
+                _chunk_response(chunk_size),
+                _chunk_response(chunk_size),
+                _chunk_response(10),
+            ]
+        )
+        mock_instance.close = AsyncMock()
+        mock_cls.return_value = mock_instance
+
+        result = await client.check_audiobook_ids(album_ids)
+
+    assert mock_instance.post.call_count == 3
+    assert result == set(album_ids)
+
+
+@pytest.mark.asyncio
+async def test_check_audiobook_ids_escapes_ids() -> None:
+    """Verify IDs are JSON-escaped and cannot break out of the query string."""
+    client = DeezerBaseClient(arl="test_arl")
+    client._jwt = _make_jwt(exp=time.time() + 600)  # noqa: SLF001
+    client._jwt_expires_at = time.time() + 600  # noqa: SLF001
+
+    gql_cm = _mock_post_context_manager(json.dumps({"data": {"a0": None}}).encode())
+
+    with patch("deezer_python_gql.base_client.ClientSession") as mock_cls:
+        mock_instance = MagicMock()
+        mock_instance.post = MagicMock(return_value=gql_cm)
+        mock_instance.close = AsyncMock()
+        mock_cls.return_value = mock_instance
+
+        await client.check_audiobook_ids(['123") { id } evil: me { id'])
+
+    query = mock_instance.post.call_args.kwargs["json"]["query"]
+    assert 'audiobookId: "123\\") { id } evil: me { id"' in query
+
+
+@pytest.mark.asyncio
+async def test_check_audiobook_ids_swallows_alias_scoped_errors() -> None:
+    """Verify per-alias not-found errors yield an empty set (none are audiobooks)."""
+    client = DeezerBaseClient(arl="test_arl")
+    client._jwt = _make_jwt(exp=time.time() + 600)  # noqa: SLF001
+    client._jwt_expires_at = time.time() + 600  # noqa: SLF001
+
+    gql_cm = _mock_post_context_manager(
+        json.dumps(
+            {
+                "data": None,
+                "errors": [
+                    {"message": "Audiobook not found", "path": ["a0"]},
+                    {"message": "Audiobook not found", "path": ["a1"]},
+                ],
+            }
+        ).encode(),
+    )
+
+    with patch("deezer_python_gql.base_client.ClientSession") as mock_cls:
+        mock_instance = MagicMock()
+        mock_instance.post = MagicMock(return_value=gql_cm)
+        mock_instance.close = AsyncMock()
+        mock_cls.return_value = mock_instance
+
+        result = await client.check_audiobook_ids(["111", "222"])
+
+    assert result == set()
+
+
+@pytest.mark.asyncio
+async def test_check_audiobook_ids_raises_on_query_level_errors() -> None:
+    """Verify non-alias errors (e.g. complexity limit) surface instead of being swallowed."""
+    client = DeezerBaseClient(arl="test_arl")
+    client._jwt = _make_jwt(exp=time.time() + 600)  # noqa: SLF001
+    client._jwt_expires_at = time.time() + 600  # noqa: SLF001
+
+    gql_cm = _mock_post_context_manager(
+        json.dumps(
+            {
+                "data": None,
+                "errors": [{"message": "Query complexity limit exceeded"}],
+            }
+        ).encode(),
+    )
+
+    with patch("deezer_python_gql.base_client.ClientSession") as mock_cls:
+        mock_instance = MagicMock()
+        mock_instance.post = MagicMock(return_value=gql_cm)
+        mock_instance.close = AsyncMock()
+        mock_cls.return_value = mock_instance
+
+        with pytest.raises(GraphQLClientGraphQLMultiError):
+            await client.check_audiobook_ids(["111", "222"])
+
+
+def test_get_data_error_uses_response_operation_name() -> None:
+    """Verify GraphQL errors are attributed to the operation carried by the response."""
+    client = DeezerBaseClient(arl="test")
+    response = GQLResponse(
+        status=200,
+        data=json.dumps({"data": None, "errors": [{"message": "boom"}]}).encode(),
+        is_success=True,
+        operation_name="GetTrack",
+    )
+
+    with pytest.raises(GraphQLClientGraphQLMultiError) as exc_info:
+        client.get_data(response)
+    assert exc_info.value.operation_name == "GetTrack"
 
 
 # ---------------------------------------------------------------------------

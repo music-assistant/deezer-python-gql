@@ -170,7 +170,7 @@ deezer-python-gql/
 │   ├── favorites.graphql        # Mutations: add/remove favorites (all entity types)
 │   ├── playlists.graphql        # Mutations: create/update/delete/add/remove playlist tracks
 │   └── music_together.graphql   # Mutations: create/join/leave/refresh/update/generate groups
-├── schema.graphql               # Full SDL schema (16,668 lines, ~915 types) — generated
+├── schema.graphql               # Full SDL schema (~17,700 lines, ~915 types) — generated
 ├── schema.json                  # Raw introspection JSON — generated
 ├── scripts/
 │   ├── convert_schema.py        # Fetch introspection + fix broken types + convert to SDL
@@ -303,6 +303,8 @@ ARL cookie → POST auth.deezer.com/login/arl?jo=p&rto=c&i=c → JWT (6 min TTL)
 - Response is `Content-Type: text/plain` containing JSON — parse with `json.loads(resp.text)`, not `resp.json()`
 - JWT expiration is decoded from the token payload (base64url-encoded second segment)
 - Auto-refresh triggers 30 seconds before expiry
+- Refreshes are serialized with an `asyncio.Lock` — concurrent expired-JWT requests trigger exactly one auth call
+- **Error classification:** a 4xx from `auth.deezer.com` or a malformed auth response raises `GraphQLClientAuthError` (bad/expired ARL — do not retry, re-check the token); a 5xx raises `GraphQLClientHttpError` (transient/server-side)
 
 ### Response Handling
 
@@ -314,7 +316,7 @@ The `DeezerBaseClient.get_data()` method handles two important edge cases:
 
 ### Connection Pooling
 
-`DeezerBaseClient` self-manages its own `httpx.AsyncClient`, created lazily on first request. No external setup needed:
+`DeezerBaseClient` self-manages its own `aiohttp.ClientSession`, created lazily on first request. No external setup needed:
 
 ```python
 # Recommended: use as async context manager
@@ -329,7 +331,9 @@ finally:
     await client.close()
 ```
 
-An external `http_client` can still be passed for advanced use cases (e.g., sharing a pool across multiple clients), but the caller is then responsible for closing it.
+An external `session` can still be passed for advanced use cases (e.g., sharing a pool across multiple clients), but the caller is then responsible for closing it.
+
+All GraphQL requests carry a **30 s default timeout** (`REQUEST_TIMEOUT_SECONDS`), overridable per call via the `timeout` kwarg; the auth call uses 10 s.
 
 ### Audiobook ID Checking
 
@@ -340,6 +344,12 @@ The `check_audiobook_ids(album_ids)` method on `DeezerBaseClient` batch-checks w
 ```
 
 **Important**: Querying only `{ id }` is insufficient — the API echoes back the input ID for *any* valid album, regardless of whether it's an audiobook. The `displayTitle` field returns `null` (with `AudiobookNotFoundError`) for non-audiobooks, so the method checks `displayTitle is not None` to distinguish real audiobooks.
+
+Robustness details:
+
+- Input is **chunked at 50 IDs per query** (`AUDIOBOOK_CHECK_CHUNK_SIZE`) to stay below the API's query complexity limit
+- IDs are JSON-escaped (`json.dumps`) before interpolation into the query document
+- Only errors whose `path` points at one of the query's aliases are swallowed (the legitimate "not an audiobook" case); query-level errors (complexity limit, transient failures) are raised so callers don't silently misclassify audiobooks as albums
 
 ## Key Configuration
 
@@ -431,10 +441,10 @@ Tests are organized into five layers:
 | ------------------------- | ----- | ---------------------------------------------------------------------------------- |
 | **Client setup**          | 3     | Import, instantiation with ARL, presence of all generated methods                  |
 | **Lifecycle**             | 3     | close() on internal client, skip close on external client, context manager         |
-| **Auth flow** (mocked)    | 5     | JWT acquisition, token reuse, refresh on expiry, cookie domain, text/plain parsing |
+| **Auth flow** (mocked)    | 11    | JWT acquisition/reuse/refresh, cookie domain, text/plain parsing, auth error classification (4xx vs 5xx, malformed body), concurrent-refresh lock, default timeout |
 | **Error handling**        | 5     | HTTP errors, invalid JSON, missing data key, GraphQL errors, success path          |
-| **Audiobook ID checking** | 2     | Batch alias query returns correct subset; empty input returns empty set            |
-| **Model smoke tests**     | 62    | One per query/mutation — fixture parses correctly with key fields accessible       |
+| **Audiobook ID checking** | 7     | Batch alias query subset, empty input, chunking, ID escaping, alias-scoped vs query-level error discrimination, operation-name attribution |
+| **Model smoke tests**     | 64    | One per query/mutation — fixture parses correctly with key fields accessible       |
 
 ### Auth Flow Tests
 
@@ -517,7 +527,7 @@ git-cliff uses these prefixes to categorize changelog entries automatically (con
 ### Key Facts
 
 - **Endpoint**: `https://pipe.deezer.com/api` (POST, standard GraphQL)
-- **Introspection**: Enabled without auth (~915 types, 16,668 lines SDL)
+- **Introspection**: Enabled without auth (~915 types, ~17,700 lines SDL)
 - **Auth**: ARL → JWT Bearer token (6 min TTL, auto-refresh)
 - **Rate limiting**: Not documented; GraphQL naturally batches, reducing request volume
 - **Schema stability**: Undocumented, unofficial API — may change without notice

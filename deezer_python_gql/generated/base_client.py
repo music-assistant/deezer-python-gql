@@ -4,6 +4,7 @@
 
 from __future__ import annotations
 
+import asyncio
 import json
 import logging
 import time
@@ -23,15 +24,29 @@ class GQLResponse:
 
     aiohttp responses cannot escape their context manager, so we capture
     the essential fields inside the ``async with`` block and return this.
+    Carries the originating operation name and variables so error handling
+    and logging stay correct under concurrent requests.
     """
 
     status: int
     data: bytes
     is_success: bool
+    operation_name: str | None = None
+    variables: dict[str, Any] | None = None
 
 
 class GraphQLClientError(Exception):
     """Base exception for GraphQL client errors."""
+
+
+class GraphQLClientAuthError(GraphQLClientError):
+    """
+    Raised when ARL → JWT authentication definitively fails.
+
+    Indicates a bad or expired ARL cookie (or an unexpected auth response),
+    not a transient network/server problem — consumers should treat this as
+    "re-check your ARL token" rather than retry.
+    """
 
 
 class GraphQLClientHttpError(GraphQLClientError):
@@ -111,6 +126,8 @@ class DeezerBaseClient:
     PIPE_URL = "https://pipe.deezer.com/api"
     AUTH_URL = "https://auth.deezer.com/login/arl"
     JWT_REFRESH_MARGIN_SECONDS = 30
+    REQUEST_TIMEOUT_SECONDS = 30
+    AUDIOBOOK_CHECK_CHUNK_SIZE = 50
 
     def __init__(
         self,
@@ -124,8 +141,7 @@ class DeezerBaseClient:
         self._owns_session = session is None
         self._jwt: str | None = None
         self._jwt_expires_at: float = 0
-        self._last_operation_name: str | None = None
-        self._last_variables: dict[str, Any] | None = None
+        self._jwt_lock = asyncio.Lock()
 
     def _get_session(self) -> ClientSession:
         """Return the HTTP session, creating an internal one if needed."""
@@ -169,13 +185,12 @@ class DeezerBaseClient:
         :param kwargs: Additional keyword arguments passed to the session request.
         """
         logger.debug("GQL execute: %s (variables=%s)", operation_name or "<unnamed>", variables)
-        self._last_operation_name = operation_name
-        self._last_variables = variables
         jwt = await self._ensure_jwt()
 
         headers: dict[str, str] = kwargs.pop("headers", None) or {}
         headers["Authorization"] = f"Bearer {jwt}"
         headers["Content-Type"] = "application/json"
+        kwargs.setdefault("timeout", ClientTimeout(total=self.REQUEST_TIMEOUT_SECONDS))
 
         payload: dict[str, Any] = {"query": query}
         if operation_name:
@@ -196,6 +211,8 @@ class DeezerBaseClient:
                 status=resp.status,
                 data=body,
                 is_success=resp.ok,
+                operation_name=operation_name,
+                variables=variables,
             )
 
         logger.debug(
@@ -229,8 +246,8 @@ class DeezerBaseClient:
         errors = response_json.get("errors")
 
         if errors:
-            op = self._last_operation_name or "<unknown>"
-            variables = self._last_variables
+            op = response.operation_name or "<unknown>"
+            variables = response.variables
             if data:
                 # Partial success — some items failed (e.g. deleted albums in favorites).
                 # Log the errors but return the valid data.
@@ -282,65 +299,105 @@ class DeezerBaseClient:
             for item in obj:
                 cls._inject_missing_typenames(item)
 
+    def _jwt_is_valid(self) -> bool:
+        """Return True if the current JWT exists and is not about to expire."""
+        return self._jwt is not None and time.time() < (
+            self._jwt_expires_at - self.JWT_REFRESH_MARGIN_SECONDS
+        )
+
     async def _ensure_jwt(self) -> str:
         """Acquire or refresh the JWT token from ARL cookie."""
-        now = time.time()
-        if self._jwt and now < (self._jwt_expires_at - self.JWT_REFRESH_MARGIN_SECONDS):
+        if self._jwt is not None and self._jwt_is_valid():
             return self._jwt
 
-        logger.debug("JWT expired or missing, refreshing from ARL")
-        params = {"jo": "p", "rto": "c", "i": "c"}
+        # Serialize refreshes so concurrent expired-JWT requests trigger
+        # exactly one auth call.
+        async with self._jwt_lock:
+            if self._jwt is not None and self._jwt_is_valid():
+                return self._jwt
 
-        session = self._get_session()
-        async with session.post(
-            self.AUTH_URL,
-            params=params,
-            cookies={"arl": self._arl},
-            timeout=ClientTimeout(total=10),
-        ) as resp:
-            resp.raise_for_status()
-            # Response body is text/plain containing JSON
-            text = await resp.text()
+            logger.debug("JWT expired or missing, refreshing from ARL")
+            params = {"jo": "p", "rto": "c", "i": "c"}
 
-        data = json.loads(text)
-        self._jwt = data["jwt"]
+            session = self._get_session()
+            async with session.post(
+                self.AUTH_URL,
+                params=params,
+                cookies={"arl": self._arl},
+                timeout=ClientTimeout(total=10),
+            ) as resp:
+                status = resp.status
+                is_success = resp.ok
+                # Response body is text/plain containing JSON
+                text = await resp.text()
 
-        # Decode expiration from JWT payload (second segment, base64url-encoded)
-        payload_segment = self._jwt.split(".")[1]
-        # Add padding for base64 decoding
-        padded = payload_segment + "=" * (-len(payload_segment) % 4)
-        payload = json.loads(urlsafe_b64decode(padded))
-        self._jwt_expires_at = float(payload["exp"])
-        logger.debug("JWT acquired, expires at %s", self._jwt_expires_at)
+            if not is_success:
+                if 400 <= status < 500:
+                    msg = f"ARL authentication rejected by auth.deezer.com (HTTP {status})"
+                    raise GraphQLClientAuthError(msg)
+                raise GraphQLClientHttpError(
+                    status_code=status,
+                    response=GQLResponse(status=status, data=text.encode(), is_success=False),
+                )
 
-        return self._jwt
+            try:
+                data = json.loads(text)
+                jwt: str = data["jwt"]
+                # Decode expiration from JWT payload (second segment, base64url-encoded)
+                payload_segment = jwt.split(".")[1]
+                # Add padding for base64 decoding
+                padded = payload_segment + "=" * (-len(payload_segment) % 4)
+                payload = json.loads(urlsafe_b64decode(padded))
+                expires_at = float(payload["exp"])
+            except (ValueError, KeyError, IndexError, TypeError, AttributeError) as exc:
+                msg = "Unexpected response from auth.deezer.com (invalid or missing JWT)"
+                raise GraphQLClientAuthError(msg) from exc
+
+            self._jwt = jwt
+            self._jwt_expires_at = expires_at
+            logger.debug("JWT acquired, expires at %s", self._jwt_expires_at)
+
+            return jwt
 
     async def check_audiobook_ids(self, album_ids: list[str]) -> set[str]:
         """
         Check which album IDs are also valid audiobooks on Deezer.
 
+        Queries are chunked to stay below the API's query complexity limit.
+
         :param album_ids: List of Deezer album/audiobook IDs to check.
         """
-        if not album_ids:
-            return set()
+        audiobook_ids: set[str] = set()
+        for start in range(0, len(album_ids), self.AUDIOBOOK_CHECK_CHUNK_SIZE):
+            chunk = album_ids[start : start + self.AUDIOBOOK_CHECK_CHUNK_SIZE]
+            audiobook_ids |= await self._check_audiobook_ids_chunk(chunk)
+        return audiobook_ids
 
+    async def _check_audiobook_ids_chunk(self, album_ids: list[str]) -> set[str]:
+        """Check a single chunk of album IDs via one aliased query."""
         # Query displayTitle alongside id — querying only { id } echoes back the
         # input without validating that the ID is actually an audiobook.
+        # json.dumps escapes the IDs so they cannot break out of the string
+        # literal (this is a public library API — IDs may come from anywhere).
         parts = [
-            f'a{i}: audiobook(audiobookId: "{aid}") {{ id displayTitle }}'
+            f"a{i}: audiobook(audiobookId: {json.dumps(aid)}) {{ id displayTitle }}"
             for i, aid in enumerate(album_ids)
         ]
         query = "query CheckAudiobookIds { " + " ".join(parts) + " }"
 
         resp = await self.execute(query, operation_name="CheckAudiobookIds")
-        self._last_variables = {"album_ids": album_ids}
         try:
             data = self.get_data(resp)
-        except GraphQLClientGraphQLMultiError:
-            # Expected when none of the IDs are audiobooks (every alias errors).
-            # Also handles transient API errors — return empty rather than crash.
-            logger.debug("CheckAudiobookIds: all %d IDs returned errors", len(album_ids))
-            return set()
+        except GraphQLClientGraphQLMultiError as err:
+            # Only swallow errors scoped to our aliased audiobook fields —
+            # that is the legitimate "these IDs are not audiobooks" case.
+            # Anything else (complexity limit, transient API failure) must
+            # surface, otherwise audiobooks silently degrade to albums.
+            aliases = {f"a{i}" for i in range(len(album_ids))}
+            if all(e.path and e.path[0] in aliases for e in err.errors):
+                logger.debug("CheckAudiobookIds: all %d IDs returned errors", len(album_ids))
+                return set()
+            raise
 
         audiobook_ids: set[str] = set()
         for i, aid in enumerate(album_ids):
