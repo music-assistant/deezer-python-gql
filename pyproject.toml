@@ -16,6 +16,7 @@ classifiers = [
 dependencies = [
   "aiohttp>=3.13.5",
   "pydantic>=2.0.0",
+  "yarl>=1.22.0",
 ]
 
 [project.optional-dependencies]

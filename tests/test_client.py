@@ -13,11 +13,14 @@ import asyncio
 import base64
 import json
 import time
+from http.cookies import SimpleCookie
 from pathlib import Path
-from typing import Any
+from typing import Any, Self, cast
 from unittest.mock import AsyncMock, MagicMock, patch
 
 import pytest
+from aiohttp import ClientSession, CookieJar
+from yarl import URL
 
 from deezer_python_gql import DeezerGQLClient
 from deezer_python_gql.base_client import (
@@ -124,7 +127,7 @@ def _load_fixture(name: str) -> dict[str, Any]:
     return result
 
 
-def _make_jwt(exp: float | None = None) -> str:
+def _make_jwt(exp: float | None = None, subject: str | None = None) -> str:
     """
     Build a fake JWT with a configurable expiration timestamp.
 
@@ -133,13 +136,10 @@ def _make_jwt(exp: float | None = None) -> str:
     if exp is None:
         exp = time.time() + 360  # 6 min, matching Deezer's real TTL
     header = base64.urlsafe_b64encode(b'{"alg":"ES256"}').rstrip(b"=").decode()
-    payload = (
-        base64.urlsafe_b64encode(
-            json.dumps({"exp": exp}).encode(),
-        )
-        .rstrip(b"=")
-        .decode()
-    )
+    payload_data: dict[str, float | str] = {"exp": exp}
+    if subject is not None:
+        payload_data["sub"] = subject
+    payload = base64.urlsafe_b64encode(json.dumps(payload_data).encode()).rstrip(b"=").decode()
     return f"{header}.{payload}.fake_signature"
 
 
@@ -156,6 +156,7 @@ def _mock_post_context_manager(response_body: bytes, status: int = 200) -> Async
     mock_resp.read = AsyncMock(return_value=response_body)
     mock_resp.text = AsyncMock(return_value=response_body.decode())
     mock_resp.raise_for_status = MagicMock()
+    mock_resp.cookies = SimpleCookie()
 
     cm = AsyncMock()
     cm.__aenter__ = AsyncMock(return_value=mock_resp)
@@ -169,6 +170,86 @@ def _mock_auth_cm(jwt: str | None = None) -> AsyncMock:
         jwt = _make_jwt()
     body = json.dumps({"jwt": jwt}).encode()
     return _mock_post_context_manager(body)
+
+
+class _FakeCookieResponse:
+    """Small aiohttp response stand-in for the shared-cookie regression test."""
+
+    def __init__(
+        self,
+        body: bytes,
+        response_cookies: SimpleCookie | None = None,
+    ) -> None:
+        self.status = 200
+        self.ok = True
+        self._body = body
+        self.cookies = response_cookies or SimpleCookie()
+
+    async def __aenter__(self) -> Self:
+        return self
+
+    async def __aexit__(self, *args: object) -> None:
+        return None
+
+    async def read(self) -> bytes:
+        return self._body
+
+    async def text(self) -> str:
+        return self._body.decode()
+
+
+class _FakeSharedSession:
+    """Model Deezer preferring an existing refresh cookie over a new ARL."""
+
+    def __init__(self) -> None:
+        self.cookie_jar = CookieJar()
+        self._arl_accounts = {"arl-a": "1001", "arl-b": "2002"}
+        self._refresh_accounts = {"refresh-a": "1001", "refresh-b": "2002"}
+        self._account_refresh = {value: key for key, value in self._refresh_accounts.items()}
+        self._account_cookies = {
+            account: {
+                "refresh-token": refresh,
+                "sid": f"sid-{account}",
+                "dzr_uniq_id": f"unique-{account}",
+                "_abck": f"abck-{account}",
+                "bm_sz": f"bm-{account}",
+            }
+            for account, refresh in self._account_refresh.items()
+        }
+        self._account_jwt = {
+            account: _make_jwt(subject=account) for account in self._arl_accounts.values()
+        }
+        self._jwt_account = {jwt: account for account, jwt in self._account_jwt.items()}
+        self.requests: list[tuple[str, dict[str, str]]] = []
+
+    def post(self, url: str, **kwargs: Any) -> _FakeCookieResponse:
+        """Resolve the request identity and update the shared response-cookie jar."""
+        request_cookies = {
+            name: morsel.value for name, morsel in self.cookie_jar.filter_cookies(URL(url)).items()
+        }
+        request_cookies.update(kwargs.get("cookies") or {})
+        self.requests.append((url, request_cookies))
+
+        if url == DeezerBaseClient.AUTH_URL:
+            if refresh := request_cookies.get("refresh-token"):
+                account = self._refresh_accounts[refresh]
+            else:
+                account = self._arl_accounts[request_cookies["arl"]]
+            response_cookies = SimpleCookie()
+            for name, value in self._account_cookies[account].items():
+                response_cookies[name] = value
+                response_cookies[name]["domain"] = ".deezer.com"
+                response_cookies[name]["path"] = "/"
+            self.cookie_jar.update_cookies(response_cookies, response_url=URL(url))
+            return _FakeCookieResponse(
+                json.dumps({"jwt": self._account_jwt[account]}).encode(),
+                response_cookies,
+            )
+
+        authorization = cast("dict[str, str]", kwargs["headers"])["Authorization"]
+        jwt = authorization.removeprefix("Bearer ")
+        account = self._jwt_account[jwt]
+        return _FakeCookieResponse(json.dumps({"data": {"me": {"id": account}}}).encode())
 
 
 # ---------------------------------------------------------------------------
@@ -411,6 +492,40 @@ async def test_auth_sends_arl_cookie_to_correct_domain() -> None:
     auth_call = mock_instance.post.call_args_list[0]
     assert auth_call.args[0] == "https://auth.deezer.com/login/arl"
     assert auth_call.kwargs["cookies"] == {"arl": "my_secret_arl"}
+
+
+@pytest.mark.parametrize(("first_arl", "second_arl"), [("arl-a", "arl-b"), ("arl-b", "arl-a")])
+@pytest.mark.asyncio
+async def test_shared_session_keeps_account_cookies_isolated(
+    first_arl: str, second_arl: str
+) -> None:
+    """Verify a shared jar cannot make the first authenticated account win."""
+    session = _FakeSharedSession()
+    expected = session._arl_accounts  # noqa: SLF001
+    first = DeezerGQLClient(arl=first_arl, session=cast("ClientSession", session))
+    second = DeezerGQLClient(arl=second_arl, session=cast("ClientSession", session))
+
+    first_me = await first.get_me()
+    second_me = await second.get_me()
+
+    assert first_me is not None
+    assert second_me is not None
+    assert first_me.id == expected[first_arl]
+    assert second_me.id == expected[second_arl]
+
+    auth_requests = [cookies for url, cookies in session.requests if url == first.AUTH_URL]
+    pipe_requests = [cookies for url, cookies in session.requests if url == first.url]
+    assert auth_requests == [
+        {"arl": first_arl},
+        {
+            **dict.fromkeys(session._account_cookies[first_me.id], ""),  # noqa: SLF001
+            "arl": second_arl,
+        },
+    ]
+    assert pipe_requests == [
+        session._account_cookies[first_me.id],  # noqa: SLF001
+        session._account_cookies[second_me.id],  # noqa: SLF001
+    ]
 
 
 @pytest.mark.asyncio

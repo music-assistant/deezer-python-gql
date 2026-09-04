@@ -224,6 +224,10 @@ The Pipe API uses short-lived JWTs obtained from an ARL cookie. The base client
 handles token acquisition and refresh automatically — you only need to supply a
 valid ARL value.
 
+An external `aiohttp.ClientSession` may be shared by clients for different Deezer
+accounts. Each client keeps Deezer's response cookies locally and masks cookies from
+the shared session jar, so authentication state cannot cross between those accounts.
+
 If the ARL is rejected (bad or expired), the client raises
 `GraphQLClientAuthError` — catch it to prompt for a new ARL instead of retrying.
 Transient server errors raise `GraphQLClientHttpError` instead.
