@@ -19,6 +19,7 @@ import asyncio
 
 from deezer_python_gql import DeezerGQLClient
 
+
 async def main():
     client = DeezerGQLClient(arl="YOUR_ARL_COOKIE")
 
@@ -45,6 +46,7 @@ async def main():
     # Unified search across all entity types
     results = await client.search(query="Daft Punk")
     print(len(results.tracks.edges), "tracks found")
+
 
 asyncio.run(main())
 ```

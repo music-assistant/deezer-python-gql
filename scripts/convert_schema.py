@@ -23,7 +23,7 @@ def fetch_introspection() -> dict[str, Any]:
     """Fetch the full introspection result from the Pipe API (no auth required)."""
     query = get_introspection_query(descriptions=True)
     payload = json.dumps({"query": query}).encode()
-    req = Request(PIPE_URL, data=payload, headers={"Content-Type": "application/json"})  # noqa: S310
+    req = Request(PIPE_URL, data=payload, headers={"Content-Type": "application/json"})
     with urlopen(req, timeout=30) as resp:  # noqa: S310
         data: dict[str, Any] = json.loads(resp.read())
     if "errors" in data:

@@ -105,6 +105,7 @@ ignore = [
   "TD004", # Just annoying, not really useful
   "TRY003", # Just annoying, not really useful
   "COM812", # Conflicts with the Ruff formatter
+  "CPY001", # This project does not require per-file copyright notices
   "ISC001", # Conflicts with the Ruff formatter
 ]
 select = ["ALL"]
