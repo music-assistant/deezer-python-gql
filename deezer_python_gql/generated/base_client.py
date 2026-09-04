@@ -10,9 +10,13 @@ import logging
 import time
 from base64 import urlsafe_b64decode
 from dataclasses import dataclass
-from typing import Any, ClassVar, Self, cast
+from typing import TYPE_CHECKING, Any, ClassVar, Self, cast
 
 from aiohttp import ClientSession, ClientTimeout
+from yarl import URL
+
+if TYPE_CHECKING:
+    from aiohttp import ClientResponse
 
 logger = logging.getLogger(__name__)
 
@@ -139,6 +143,9 @@ class DeezerBaseClient:
         self._arl = arl
         self._session = session
         self._owns_session = session is None
+        # An external session may be shared by clients for different Deezer accounts.
+        # Keep Deezer's response cookies per client instead of trusting that shared jar.
+        self._cookies: dict[str, str] = {}
         self._jwt: str | None = None
         self._jwt_expires_at: float = 0
         self._jwt_lock = asyncio.Lock()
@@ -169,6 +176,21 @@ class DeezerBaseClient:
         """Exit the async context manager, closing internal resources."""
         await self.close()
 
+    def _request_cookies(self, url: str, *, include_arl: bool = False) -> dict[str, str]:
+        """Return account-local cookies while neutralizing a shared session's jar."""
+        session = self._get_session()
+        blanked = dict.fromkeys(session.cookie_jar.filter_cookies(URL(url)), "")
+        cookies = blanked | self._cookies
+        if include_arl:
+            cookies["arl"] = self._arl
+        return cookies
+
+    def _store_cookies(self, response: ClientResponse) -> None:
+        """Remember response cookies for this client instead of relying on the session jar."""
+        self._cookies.update(
+            {name: morsel.value for name, morsel in response.cookies.items() if name != "arl"}
+        )
+
     async def execute(
         self,
         query: str,
@@ -191,6 +213,8 @@ class DeezerBaseClient:
         headers["Authorization"] = f"Bearer {jwt}"
         headers["Content-Type"] = "application/json"
         kwargs.setdefault("timeout", ClientTimeout(total=self.REQUEST_TIMEOUT_SECONDS))
+        request_cookies = self._request_cookies(self.url)
+        request_cookies.update(kwargs.pop("cookies", None) or {})
 
         payload: dict[str, Any] = {"query": query}
         if operation_name:
@@ -205,7 +229,14 @@ class DeezerBaseClient:
             }
 
         session = self._get_session()
-        async with session.post(self.url, json=payload, headers=headers, **kwargs) as resp:
+        async with session.post(
+            self.url,
+            json=payload,
+            headers=headers,
+            cookies=request_cookies,
+            **kwargs,
+        ) as resp:
+            self._store_cookies(resp)
             body = await resp.read()
             gql_response = GQLResponse(
                 status=resp.status,
@@ -323,9 +354,10 @@ class DeezerBaseClient:
             async with session.post(
                 self.AUTH_URL,
                 params=params,
-                cookies={"arl": self._arl},
+                cookies=self._request_cookies(self.AUTH_URL, include_arl=True),
                 timeout=ClientTimeout(total=10),
             ) as resp:
+                self._store_cookies(resp)
                 status = resp.status
                 is_success = resp.ok
                 # Response body is text/plain containing JSON
