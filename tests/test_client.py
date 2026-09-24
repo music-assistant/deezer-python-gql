@@ -961,7 +961,7 @@ def test_smoke_get_artist() -> None:
 
 
 def test_smoke_get_playlist() -> None:
-    """Verify GetPlaylist fixture parses with owner and paginated tracks."""
+    """Verify GetPlaylist fixture parses with owner, paginated tracks and add dates."""
     data = _load_fixture("get_playlist.json")
     playlist = GetPlaylist.model_validate(data).playlist
     assert playlist is not None
@@ -969,6 +969,7 @@ def test_smoke_get_playlist() -> None:
     assert playlist.title
     assert playlist.owner is not None
     assert len(playlist.tracks.edges) > 0
+    assert playlist.tracks.edges[0].added_at == "2026-09-18T07:30:12.000Z"
 
 
 def test_smoke_search() -> None:

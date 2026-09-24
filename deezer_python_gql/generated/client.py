@@ -2414,6 +2414,7 @@ class DeezerGQLClient(DeezerBaseClient):
                 tracks(first: $tracksFirst, after: $tracksAfter) {
                   edges {
                     cursor
+                    addedAt
                     node {
                       ...TrackFields
                     }
