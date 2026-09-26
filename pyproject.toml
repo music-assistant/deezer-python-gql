@@ -60,6 +60,11 @@ plugins = [
   "ariadne_codegen.contrib.shorter_results.ShorterResultsPlugin",
 ]
 
+# Deezer's Date scalar is an ISO 8601 string ("Date and time using ISO 8601
+# as representation"); unmapped, codegen would type its fields as Any.
+[tool.ariadne-codegen.scalars.Date]
+type = "str"
+
 [tool.codespell]
 skip = "*.json,schema.graphql"
 

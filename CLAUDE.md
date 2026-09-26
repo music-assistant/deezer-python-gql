@@ -375,6 +375,7 @@ Robustness details:
 | `include_all_inputs`    | `false`                            | Only generate inputs used by queries          |
 | `include_all_enums`     | `false`                            | Only generate enums used by queries           |
 | `plugins`               | `ShorterResultsPlugin`             | Unwrap single-field responses for cleaner API |
+| `scalars.Date`          | `type = "str"`                     | Type ISO 8601 `Date` fields as `str`, not `Any` |
 
 ## Code Style Guidelines
 
