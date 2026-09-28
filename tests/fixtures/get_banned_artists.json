@@ -1,0 +1,35 @@
+{
+  "data": {
+    "me": {
+      "bannedFromRecommendation": {
+        "estimatedArtistsCount": 1,
+        "artists": {
+          "edges": [
+            {
+              "bannedAt": "2026-01-10T08:40:00.000Z",
+              "node": {
+                "__typename": "Artist",
+                "id": "27",
+                "name": "Daft Punk",
+                "picture": {
+                  "id": "pic_27",
+                  "urls": [
+                    "https://cdn-images.deezer.com/images/artist/27/264x264.jpg"
+                  ]
+                },
+                "fansCount": 18000000,
+                "isFavorite": false,
+                "bio": null,
+                "isBannedFromRecommendation": true
+              }
+            }
+          ],
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": null
+          }
+        }
+      }
+    }
+  }
+}

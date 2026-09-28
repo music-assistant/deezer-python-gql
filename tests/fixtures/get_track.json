@@ -483,7 +483,9 @@
         "writers": "Christo Guy Manuel D Homem, Edwin Birdsong, Thomas Bangalter"
       },
       "isFavorite": false,
-      "popularity": null
+      "popularity": null,
+      "isBannedFromRecommendation": false,
+      "gain": -8.2
     }
   },
   "extensions": {

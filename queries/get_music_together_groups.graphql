@@ -23,7 +23,7 @@ query GetMusicTogetherGroups($first: Int = 12, $after: String) {
                 name
                 picture {
                   id
-                  urls(pictureRequest: { width: 264, height: 264 })
+                  urls(pictureRequest: { width: 500, height: 500 })
                 }
               }
             }

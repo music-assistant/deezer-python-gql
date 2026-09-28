@@ -16,13 +16,15 @@ fragment TrackFields on Track {
   duration
   isExplicit
   isFavorite
+  isBannedFromRecommendation
   popularity
+  gain
   album {
     id
     displayTitle
     cover {
       id
-      urls(pictureRequest: { width: 264, height: 264 })
+      urls(pictureRequest: { width: 500, height: 500 })
     }
   }
   contributors(first: 10, roles: [MAIN, FEATURED]) {
@@ -53,10 +55,11 @@ fragment ArtistFields on Artist {
   name
   picture {
     id
-    urls(pictureRequest: { width: 264, height: 264 })
+    urls(pictureRequest: { width: 500, height: 500 })
   }
   fansCount
   isFavorite
+  isBannedFromRecommendation
   bio {
     full
   }
@@ -71,7 +74,7 @@ fragment AlbumFields on Album {
   type
   cover {
     id
-    urls(pictureRequest: { width: 264, height: 264 })
+    urls(pictureRequest: { width: 500, height: 500 })
   }
   contributors(first: 5, roles: [MAIN]) {
     edges {
@@ -84,6 +87,12 @@ fragment AlbumFields on Album {
     }
   }
   releaseDate
+  subtypes {
+    isStudio
+    isLive
+    isCompilation
+    isKaraoke
+  }
   isExplicit
   isFavorite
   fansCount
@@ -99,9 +108,10 @@ fragment PlaylistFields on Playlist {
   title
   picture {
     id
-    urls(pictureRequest: { width: 264, height: 264 })
+    urls(pictureRequest: { width: 500, height: 500 })
   }
   estimatedTracksCount
+  lastModificationDate
   fansCount
   isFavorite
   description
@@ -123,7 +133,7 @@ fragment LivestreamFields on Livestream {
   country
   cover {
     id
-    urls(pictureRequest: { width: 264, height: 264 })
+    urls(pictureRequest: { width: 500, height: 500 })
   }
   media {
     url
@@ -142,7 +152,7 @@ fragment PodcastFields on Podcast {
   displayTitle
   cover {
     id
-    urls(pictureRequest: { width: 264, height: 264 })
+    urls(pictureRequest: { width: 500, height: 500 })
   }
   description
   isExplicit
@@ -160,7 +170,7 @@ fragment PodcastEpisodeFields on PodcastEpisode {
   duration
   cover {
     id
-    urls(pictureRequest: { width: 264, height: 264 })
+    urls(pictureRequest: { width: 500, height: 500 })
   }
   publicationDate
   media {
@@ -178,9 +188,9 @@ fragment PodcastEpisodeFields on PodcastEpisode {
 fragment AudiobookFields on Audiobook {
   id
   displayTitle
-  cover(pictureRequest: { width: 264, height: 264 }) {
+  cover(pictureRequest: { width: 500, height: 500 }) {
     id
-    urls(pictureRequest: { width: 264, height: 264 })
+    urls(pictureRequest: { width: 500, height: 500 })
   }
   description
   duration

@@ -61,6 +61,8 @@ from .delete_playlist import DeletePlaylist, DeletePlaylistDeletePlaylist
 from .enums import (
     AlbumType,
     AudiobookContributorRoles,
+    DiscoveryTuner,
+    DiscoveryTunerInput,
     MusicTogetherRefreshSuggestedTracklistMoodInput,
     MusicTogetherSuggestedTracklistMoodInput,
     PodcastEpisodeOrder,
@@ -73,6 +75,7 @@ from .fragments import (
     AlbumFieldsContributorsEdges,
     AlbumFieldsContributorsEdgesNodeArtist,
     AlbumFieldsCover,
+    AlbumFieldsSubtypes,
     ArtistFields,
     ArtistFieldsBio,
     ArtistFieldsPicture,
@@ -126,6 +129,8 @@ from .get_artist import (
     GetArtistArtistAlbumsEdges,
     GetArtistArtistAlbumsEdgesNode,
     GetArtistArtistAlbumsPageInfo,
+    GetArtistArtistHeroPicture,
+    GetArtistArtistSocial,
     GetArtistArtistTopTracks,
     GetArtistArtistTopTracksEdges,
     GetArtistArtistTopTracksEdgesNode,
@@ -160,6 +165,24 @@ from .get_audiobook_chapter import (
     GetAudiobookChapterAudiobookChapterMediaRightsAds,
     GetAudiobookChapterAudiobookChapterMediaRightsSub,
     GetAudiobookChapterAudiobookChapterMediaToken,
+)
+from .get_banned_artists import (
+    GetBannedArtists,
+    GetBannedArtistsMe,
+    GetBannedArtistsMeBannedFromRecommendation,
+    GetBannedArtistsMeBannedFromRecommendationArtists,
+    GetBannedArtistsMeBannedFromRecommendationArtistsEdges,
+    GetBannedArtistsMeBannedFromRecommendationArtistsEdgesNode,
+    GetBannedArtistsMeBannedFromRecommendationArtistsPageInfo,
+)
+from .get_banned_tracks import (
+    GetBannedTracks,
+    GetBannedTracksMe,
+    GetBannedTracksMeBannedFromRecommendation,
+    GetBannedTracksMeBannedFromRecommendationTracks,
+    GetBannedTracksMeBannedFromRecommendationTracksEdges,
+    GetBannedTracksMeBannedFromRecommendationTracksEdgesNode,
+    GetBannedTracksMeBannedFromRecommendationTracksPageInfo,
 )
 from .get_charts import (
     GetCharts,
@@ -279,6 +302,17 @@ from .get_flow_configs import (
     GetFlowConfigsMeFlowConfigsMoodsEdgesNodeVisuals,
     GetFlowConfigsMeFlowConfigsMoodsEdgesNodeVisualsHardwareSquareIcon,
     GetFlowConfigsMeFlowConfigsMoodsPageInfo,
+)
+from .get_flow_tuner import GetFlowTuner, GetFlowTunerMe, GetFlowTunerMeFlowTuner
+from .get_infinite_track_mix import (
+    GetInfiniteTrackMix,
+    GetInfiniteTrackMixRawInfiniteTrackMix,
+    GetInfiniteTrackMixRawInfiniteTrackMixTracks,
+)
+from .get_latest_podcast_episodes import (
+    GetLatestPodcastEpisodes,
+    GetLatestPodcastEpisodesMe,
+    GetLatestPodcastEpisodesMeRawLatestPodcastEpisodes,
 )
 from .get_livestream import GetLivestream, GetLivestreamLivestream
 from .get_made_for_me import (
@@ -482,6 +516,7 @@ from .get_track_mix import (
     GetTrackMixTrackMixTracks,
     GetTrackMixTrackMixTracksTrack,
 )
+from .get_tracks_by_ids import GetTracksByIds, GetTracksByIdsTracksByIds
 from .get_user_charts import (
     GetUserCharts,
     GetUserChartsMe,
@@ -641,6 +676,10 @@ from .search_flows import (
     SearchFlowsSearchResultsFlowConfigsEdgesNodeVisualsHardwareSquareIcon,
     SearchFlowsSearchResultsFlowConfigsPageInfo,
 )
+from .set_flow_discovery_tuner import (
+    SetFlowDiscoveryTuner,
+    SetFlowDiscoveryTunerSetFlowDiscoveryTuner,
+)
 from .unban_artist_from_recommendation import (
     UnbanArtistFromRecommendation,
     UnbanArtistFromRecommendationUnbanArtistFromRecommendation,
@@ -688,6 +727,7 @@ __all__ = [
     "AlbumFieldsContributorsEdges",
     "AlbumFieldsContributorsEdgesNodeArtist",
     "AlbumFieldsCover",
+    "AlbumFieldsSubtypes",
     "AlbumType",
     "ArtistFields",
     "ArtistFieldsBio",
@@ -717,6 +757,8 @@ __all__ = [
     "DeezerGQLClient",
     "DeletePlaylist",
     "DeletePlaylistDeletePlaylist",
+    "DiscoveryTuner",
+    "DiscoveryTunerInput",
     "GetAlbum",
     "GetAlbumAlbum",
     "GetAlbumAlbumFallback",
@@ -732,6 +774,8 @@ __all__ = [
     "GetArtistArtistAlbumsEdges",
     "GetArtistArtistAlbumsEdgesNode",
     "GetArtistArtistAlbumsPageInfo",
+    "GetArtistArtistHeroPicture",
+    "GetArtistArtistSocial",
     "GetArtistArtistTopTracks",
     "GetArtistArtistTopTracksEdges",
     "GetArtistArtistTopTracksEdgesNode",
@@ -760,6 +804,20 @@ __all__ = [
     "GetAudiobookChapterAudiobookChapterMediaRightsAds",
     "GetAudiobookChapterAudiobookChapterMediaRightsSub",
     "GetAudiobookChapterAudiobookChapterMediaToken",
+    "GetBannedArtists",
+    "GetBannedArtistsMe",
+    "GetBannedArtistsMeBannedFromRecommendation",
+    "GetBannedArtistsMeBannedFromRecommendationArtists",
+    "GetBannedArtistsMeBannedFromRecommendationArtistsEdges",
+    "GetBannedArtistsMeBannedFromRecommendationArtistsEdgesNode",
+    "GetBannedArtistsMeBannedFromRecommendationArtistsPageInfo",
+    "GetBannedTracks",
+    "GetBannedTracksMe",
+    "GetBannedTracksMeBannedFromRecommendation",
+    "GetBannedTracksMeBannedFromRecommendationTracks",
+    "GetBannedTracksMeBannedFromRecommendationTracksEdges",
+    "GetBannedTracksMeBannedFromRecommendationTracksEdgesNode",
+    "GetBannedTracksMeBannedFromRecommendationTracksPageInfo",
     "GetCharts",
     "GetChartsCharts",
     "GetChartsChartsCountry",
@@ -857,6 +915,15 @@ __all__ = [
     "GetFlowMeFlowCover",
     "GetFlowMeFlowTracks",
     "GetFlowMeFlowTracksTrack",
+    "GetFlowTuner",
+    "GetFlowTunerMe",
+    "GetFlowTunerMeFlowTuner",
+    "GetInfiniteTrackMix",
+    "GetInfiniteTrackMixRawInfiniteTrackMix",
+    "GetInfiniteTrackMixRawInfiniteTrackMixTracks",
+    "GetLatestPodcastEpisodes",
+    "GetLatestPodcastEpisodesMe",
+    "GetLatestPodcastEpisodesMeRawLatestPodcastEpisodes",
     "GetLivestream",
     "GetLivestreamLivestream",
     "GetMadeForMe",
@@ -1027,6 +1094,8 @@ __all__ = [
     "GetTrackTrackMediaRightsAds",
     "GetTrackTrackMediaRightsSub",
     "GetTrackTrackMediaToken",
+    "GetTracksByIds",
+    "GetTracksByIdsTracksByIds",
     "GetUserCharts",
     "GetUserChartsMe",
     "GetUserChartsMeCharts",
@@ -1166,6 +1235,8 @@ __all__ = [
     "SearchSearchResultsTracksEdgesNodeMediaRights",
     "SearchSearchResultsTracksEdgesNodeMediaRightsSub",
     "SearchSearchResultsTracksPageInfo",
+    "SetFlowDiscoveryTuner",
+    "SetFlowDiscoveryTunerSetFlowDiscoveryTuner",
     "TrackContributorRoles",
     "TrackFields",
     "TrackFieldsAlbum",

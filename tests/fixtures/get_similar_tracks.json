@@ -39,7 +39,9 @@
               }
             ]
           },
-          "media": null
+          "media": null,
+          "isBannedFromRecommendation": false,
+          "gain": -8.2
         },
         {
           "__typename": "Track",
@@ -78,7 +80,9 @@
               }
             ]
           },
-          "media": null
+          "media": null,
+          "isBannedFromRecommendation": false,
+          "gain": -8.2
         },
         {
           "__typename": "Track",
@@ -117,7 +121,9 @@
               }
             ]
           },
-          "media": null
+          "media": null,
+          "isBannedFromRecommendation": false,
+          "gain": -8.2
         }
       ]
     }

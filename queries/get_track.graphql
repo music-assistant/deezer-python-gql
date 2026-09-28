@@ -10,13 +10,15 @@ query GetTrack($trackId: String!) {
     duration
     isExplicit
     isFavorite
+    isBannedFromRecommendation
     popularity
+    gain
     album {
       id
       displayTitle
       cover {
         id
-        urls(pictureRequest: { width: 264, height: 264 })
+        urls(pictureRequest: { width: 500, height: 500 })
       }
     }
     contributors(first: 10, roles: [MAIN, FEATURED]) {

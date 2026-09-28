@@ -1,0 +1,7 @@
+# Switch the Flow tuner between DEFAULT and DISCOVERY.
+
+mutation SetFlowDiscoveryTuner($discoveryTuner: DiscoveryTunerInput!) {
+  setFlowDiscoveryTuner(discoveryTuner: $discoveryTuner) {
+    discoveryTuner
+  }
+}

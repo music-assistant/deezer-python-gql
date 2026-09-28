@@ -78,7 +78,9 @@
                       }
                     ]
                   },
-                  "media": null
+                  "media": null,
+                  "isBannedFromRecommendation": false,
+                  "gain": -8.2
                 },
                 "metadata": {
                   "musicTogether": {
@@ -159,7 +161,9 @@
                     }
                   ]
                 },
-                "media": null
+                "media": null,
+                "isBannedFromRecommendation": false,
+                "gain": -8.2
               }
             }
           ],
@@ -167,7 +171,8 @@
             "hasNextPage": false,
             "endCursor": "ct_cursor_1"
           }
-        }
+        },
+        "lastModificationDate": "2026-01-15T10:00:00.000Z"
       }
     }
   }

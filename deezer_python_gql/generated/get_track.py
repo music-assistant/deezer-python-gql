@@ -21,7 +21,11 @@ class GetTrackTrack(BaseModel):
     duration: int
     is_explicit: bool = Field(alias="isExplicit")
     is_favorite: Optional[bool] = Field(alias="isFavorite")
+    is_banned_from_recommendation: Optional[bool] = Field(
+        alias="isBannedFromRecommendation"
+    )
     popularity: Optional[float]
+    gain: Optional[float]
     album: Optional["GetTrackTrackAlbum"]
     contributors: "GetTrackTrackContributors"
     is_atmos: bool = Field(alias="isAtmos")

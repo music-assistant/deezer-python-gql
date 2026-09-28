@@ -1,0 +1,7 @@
+# Several tracks by ID in one request. Unknown IDs come back as null.
+
+query GetTracksByIds($ids: [String!]!) {
+  tracksByIds(ids: $ids) {
+    ...TrackFields
+  }
+}

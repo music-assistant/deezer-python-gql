@@ -9,9 +9,10 @@ query GetSmartTracklist(
     id
     title
     subTitle
+    expiresAt
     cover {
       id
-      urls(pictureRequest: { width: 264, height: 264 })
+      urls(pictureRequest: { width: 500, height: 500 })
     }
     tracks(first: $first, after: $after) {
       edges {

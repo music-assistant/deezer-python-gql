@@ -60,7 +60,9 @@
               },
               "isFavorite": false,
               "popularity": null,
-              "media": null
+              "media": null,
+              "isBannedFromRecommendation": false,
+              "gain": -8.2
             }
           },
           {
@@ -111,7 +113,9 @@
               },
               "isFavorite": false,
               "popularity": null,
-              "media": null
+              "media": null,
+              "isBannedFromRecommendation": false,
+              "gain": -8.2
             }
           }
         ],
@@ -119,7 +123,8 @@
           "hasNextPage": true,
           "endCursor": "YXJyYXljb25uZWN0aW9uOjE="
         }
-      }
+      },
+      "expiresAt": "2026-01-16T03:00:00.000Z"
     }
   }
 }

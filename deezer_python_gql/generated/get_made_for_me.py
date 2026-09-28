@@ -57,6 +57,7 @@ class GetMadeForMeMeMadeForMeEdgesNodeSmartTracklist(BaseModel):
     id: str
     title: str
     sub_title: Optional[str] = Field(alias="subTitle")
+    expires_at: str = Field(alias="expiresAt")
     cover: Optional["GetMadeForMeMeMadeForMeEdgesNodeSmartTracklistCover"]
 
 

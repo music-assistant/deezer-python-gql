@@ -1,0 +1,11 @@
+# Latest episodes of the user's favorite podcasts (IDs and publication dates).
+# Expensive (query cost ~15000 of the 25000 limit), never combine with other queries.
+
+query GetLatestPodcastEpisodes {
+  me {
+    rawLatestPodcastEpisodes {
+      id
+      publicationDate
+    }
+  }
+}

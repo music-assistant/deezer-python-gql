@@ -54,6 +54,8 @@ from deezer_python_gql.generated.get_artist import GetArtist
 from deezer_python_gql.generated.get_artist_mix import GetArtistMix
 from deezer_python_gql.generated.get_audiobook import GetAudiobook
 from deezer_python_gql.generated.get_audiobook_chapter import GetAudiobookChapter
+from deezer_python_gql.generated.get_banned_artists import GetBannedArtists
+from deezer_python_gql.generated.get_banned_tracks import GetBannedTracks
 from deezer_python_gql.generated.get_charts import GetCharts
 from deezer_python_gql.generated.get_favorite_albums import GetFavoriteAlbums
 from deezer_python_gql.generated.get_favorite_artists import GetFavoriteArtists
@@ -65,6 +67,9 @@ from deezer_python_gql.generated.get_flow import GetFlow
 from deezer_python_gql.generated.get_flow_batch import GetFlowBatch
 from deezer_python_gql.generated.get_flow_config_tracks import GetFlowConfigTracks
 from deezer_python_gql.generated.get_flow_configs import GetFlowConfigs
+from deezer_python_gql.generated.get_flow_tuner import GetFlowTuner
+from deezer_python_gql.generated.get_infinite_track_mix import GetInfiniteTrackMix
+from deezer_python_gql.generated.get_latest_podcast_episodes import GetLatestPodcastEpisodes
 from deezer_python_gql.generated.get_livestream import GetLivestream
 from deezer_python_gql.generated.get_made_for_me import GetMadeForMe
 from deezer_python_gql.generated.get_me import GetMe
@@ -90,6 +95,7 @@ from deezer_python_gql.generated.get_similar_tracks import GetSimilarTracks
 from deezer_python_gql.generated.get_smart_tracklist import GetSmartTracklist
 from deezer_python_gql.generated.get_track import GetTrack
 from deezer_python_gql.generated.get_track_mix import GetTrackMix
+from deezer_python_gql.generated.get_tracks_by_ids import GetTracksByIds
 from deezer_python_gql.generated.get_user_charts import GetUserCharts
 from deezer_python_gql.generated.get_user_playlists import GetUserPlaylists
 from deezer_python_gql.generated.mark_as_not_played_podcast_episode import (
@@ -121,6 +127,7 @@ from deezer_python_gql.generated.remove_track_from_favorite import RemoveTrackFr
 from deezer_python_gql.generated.remove_tracks_from_playlist import RemoveTracksFromPlaylist
 from deezer_python_gql.generated.search import Search
 from deezer_python_gql.generated.search_flows import SearchFlows
+from deezer_python_gql.generated.set_flow_discovery_tuner import SetFlowDiscoveryTuner
 from deezer_python_gql.generated.unban_artist_from_recommendation import (
     UnbanArtistFromRecommendation,
 )
@@ -356,6 +363,13 @@ def test_client_has_generated_methods() -> None:
         "music_together_refresh_suggested_tracklist",
         "music_together_update_group_settings",
         "music_together_generate_group_name",
+        "get_banned_artists",
+        "get_banned_tracks",
+        "get_flow_tuner",
+        "get_infinite_track_mix",
+        "get_latest_podcast_episodes",
+        "get_tracks_by_ids",
+        "set_flow_discovery_tuner",
     ]
     for method in expected_methods:
         assert hasattr(client, method), f"Missing method: {method}"
@@ -943,6 +957,8 @@ def test_smoke_get_track() -> None:
     assert track.id == "3135556"
     assert track.title == "Harder, Better, Faster, Stronger"
     assert track.duration == 226
+    assert track.gain == -8.2
+    assert track.is_banned_from_recommendation is False
     # Nested structures
     assert track.album is not None
     assert track.album.id == "302127"
@@ -959,6 +975,8 @@ def test_smoke_get_album() -> None:
     assert album.id == "302127"
     assert album.display_title == "Discovery"
     assert album.tracks_count > 0
+    assert album.subtypes.is_studio is True
+    assert album.subtypes.is_live is False
     assert len(album.tracks.edges) > 0
     assert len(album.contributors.edges) > 0
 
@@ -971,6 +989,10 @@ def test_smoke_get_artist() -> None:
     assert artist.id == "27"
     assert artist.name == "Daft Punk"
     assert artist.fans_count > 0
+    assert artist.is_banned_from_recommendation is False
+    assert artist.social.website == "https://example.com"
+    assert artist.hero_picture is not None
+    assert artist.hero_picture.urls[0].endswith("1920x1080-000000-80-0-0.jpg")
     assert artist.top_tracks is not None
     assert len(artist.top_tracks.edges) > 0
     assert len(artist.albums.edges) > 0
@@ -984,6 +1006,7 @@ def test_smoke_get_playlist() -> None:
     assert playlist.id == "53362031"
     assert playlist.title
     assert playlist.owner is not None
+    assert playlist.last_modification_date == "2026-01-15T10:00:00.000Z"
     assert len(playlist.tracks.edges) > 0
     assert playlist.tracks.edges[0].added_at == "2026-09-18T07:30:12.000Z"
 
@@ -1084,6 +1107,7 @@ def test_smoke_get_made_for_me() -> None:
     node_0 = edges[0].node
     assert node_0 is not None
     assert node_0.typename__ == "SmartTracklist"
+    assert node_0.expires_at == "2026-01-16T03:00:00.000Z"
     node_2 = edges[2].node
     assert node_2 is not None
     assert node_2.typename__ == "Flow"
@@ -1096,6 +1120,7 @@ def test_smoke_get_smart_tracklist() -> None:
     assert st is not None
     assert st.id == "smart:daily_mix_1"
     assert st.title == "Your Daily Mix 1"
+    assert st.expires_at == "2026-01-16T03:00:00.000Z"
     assert len(st.tracks.edges) == 2
     track_node = st.tracks.edges[0].node
     assert track_node is not None
@@ -1667,6 +1692,7 @@ def test_smoke_get_audiobook() -> None:
     assert audiobook.chapters_count == 13
     assert audiobook.discs_count == 1
     assert audiobook.publisher == "Penguin Audio"
+    assert audiobook.upc == "3610151234567"
     assert audiobook.is_taken_down is False
     assert len(audiobook.contributors.edges) == 2
     assert audiobook.contributors.edges[0].roles == ["AUTHOR"]
@@ -1864,3 +1890,82 @@ def test_smoke_music_together_generate_group_name() -> None:
     data = _load_fixture("music_together_generate_group_name.json")
     result = MusicTogetherGenerateGroupName.model_validate(data)
     assert result.music_together_generate_group_name.name == "Sunset Harmonies"
+
+
+# ---------------------------------------------------------------------------
+# 14. Recommendation bans, Flow tuner, batch lookups and podcast news
+# ---------------------------------------------------------------------------
+
+
+def test_smoke_get_latest_podcast_episodes() -> None:
+    """Verify GetLatestPodcastEpisodes fixture parses IDs and publication dates."""
+    data = _load_fixture("get_latest_podcast_episodes.json")
+    me = GetLatestPodcastEpisodes.model_validate(data).me
+    assert me is not None
+    episodes = me.raw_latest_podcast_episodes
+    assert [e.id for e in episodes] == ["900000002", "900000001"]
+    assert episodes[0].publication_date == "2026-01-15T16:00:00.000Z"
+
+
+def test_smoke_get_banned_tracks() -> None:
+    """Verify GetBannedTracks fixture parses the ban date and a full track."""
+    data = _load_fixture("get_banned_tracks.json")
+    me = GetBannedTracks.model_validate(data).me
+    assert me is not None
+    banned = me.banned_from_recommendation
+    assert banned.estimated_tracks_count == 1
+    assert banned.tracks is not None
+    edge = banned.tracks.edges[0]
+    assert edge.banned_at == "2026-01-10T08:38:22.000Z"
+    assert edge.node is not None
+    assert edge.node.id == "3135556"
+    assert edge.node.is_banned_from_recommendation is True
+    assert banned.tracks.page_info.has_next_page is False
+
+
+def test_smoke_get_banned_artists() -> None:
+    """Verify GetBannedArtists fixture parses the ban date and a full artist."""
+    data = _load_fixture("get_banned_artists.json")
+    me = GetBannedArtists.model_validate(data).me
+    assert me is not None
+    banned = me.banned_from_recommendation
+    assert banned.estimated_artists_count == 1
+    assert banned.artists is not None
+    edge = banned.artists.edges[0]
+    assert edge.banned_at == "2026-01-10T08:40:00.000Z"
+    assert edge.node is not None
+    assert edge.node.name == "Daft Punk"
+    assert edge.node.is_banned_from_recommendation is True
+
+
+def test_smoke_get_flow_tuner() -> None:
+    """Verify GetFlowTuner fixture parses the tuner value."""
+    data = _load_fixture("get_flow_tuner.json")
+    me = GetFlowTuner.model_validate(data).me
+    assert me is not None
+    assert me.flow_tuner.discovery_tuner == "DEFAULT"
+
+
+def test_smoke_set_flow_discovery_tuner() -> None:
+    """Verify SetFlowDiscoveryTuner fixture parses the new tuner value."""
+    data = _load_fixture("set_flow_discovery_tuner.json")
+    result = SetFlowDiscoveryTuner.model_validate(data)
+    assert result.set_flow_discovery_tuner.discovery_tuner == "DISCOVERY"
+
+
+def test_smoke_get_tracks_by_ids() -> None:
+    """Verify GetTracksByIds fixture parses tracks and keeps unknown IDs as None."""
+    data = _load_fixture("get_tracks_by_ids.json")
+    tracks = GetTracksByIds.model_validate(data).tracks_by_ids
+    assert len(tracks) == 2
+    assert tracks[0] is not None
+    assert tracks[0].id == "3135556"
+    assert tracks[0].gain == -8.2
+    assert tracks[1] is None
+
+
+def test_smoke_get_infinite_track_mix() -> None:
+    """Verify GetInfiniteTrackMix fixture parses the track IDs."""
+    data = _load_fixture("get_infinite_track_mix.json")
+    mix = GetInfiniteTrackMix.model_validate(data).raw_infinite_track_mix
+    assert [t.id for t in mix.tracks] == ["3135554", "3155977", "10284909"]

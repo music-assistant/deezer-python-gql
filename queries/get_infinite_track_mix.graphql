@@ -1,0 +1,19 @@
+# Track IDs for an endless mix seeded by the given tracks. The input tracks are left out,
+# so the IDs from one call can seed the next. Resolve the IDs with GetTracksByIds.
+# Deezer returns at least 40 IDs (smaller limits are ignored), query cost ~10000.
+
+query GetInfiniteTrackMix(
+  $trackIds: [String!]!
+  $limit: Int! = 40
+  $startWithInputTracks: Boolean! = false
+) {
+  rawInfiniteTrackMix(
+    trackIds: $trackIds
+    limit: $limit
+    startWithInputTracks: $startWithInputTracks
+  ) {
+    tracks {
+      id
+    }
+  }
+}

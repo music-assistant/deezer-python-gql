@@ -23,7 +23,8 @@
                 },
                 "isFavorite": false,
                 "description": null,
-                "fansCount": 0
+                "fansCount": 0,
+                "lastModificationDate": "2026-01-15T10:00:00.000Z"
               }
             }
           ],
@@ -53,7 +54,8 @@
                 },
                 "isFavorite": false,
                 "description": null,
-                "fansCount": 0
+                "fansCount": 0,
+                "lastModificationDate": "2026-01-15T10:00:00.000Z"
               }
             },
             {
@@ -75,7 +77,8 @@
                 },
                 "isFavorite": false,
                 "description": null,
-                "fansCount": 0
+                "fansCount": 0,
+                "lastModificationDate": "2026-01-15T10:00:00.000Z"
               }
             }
           ],
@@ -115,7 +118,13 @@
                 "isFavorite": false,
                 "label": null,
                 "copyright": null,
-                "fansCount": 0
+                "fansCount": 0,
+                "subtypes": {
+                  "isStudio": true,
+                  "isLive": false,
+                  "isCompilation": false,
+                  "isKaraoke": false
+                }
               }
             }
           ],
@@ -140,7 +149,8 @@
                 },
                 "fansCount": 1800000,
                 "isFavorite": false,
-                "bio": null
+                "bio": null,
+                "isBannedFromRecommendation": false
               }
             }
           ],
@@ -196,7 +206,9 @@
             },
             "isFavorite": false,
             "popularity": null,
-            "media": null
+            "media": null,
+            "isBannedFromRecommendation": false,
+            "gain": -8.2
           }
         ]
       }

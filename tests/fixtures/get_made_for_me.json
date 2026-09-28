@@ -15,7 +15,8 @@
                 "urls": [
                   "https://cdn-images.deezer.com/images/misc/smart_1/264x264.jpg"
                 ]
-              }
+              },
+              "expiresAt": "2026-01-16T03:00:00.000Z"
             }
           },
           {
@@ -30,7 +31,8 @@
                 "urls": [
                   "https://cdn-images.deezer.com/images/misc/smart_2/264x264.jpg"
                 ]
-              }
+              },
+              "expiresAt": "2026-01-16T03:00:00.000Z"
             }
           },
           {

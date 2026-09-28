@@ -1,0 +1,20 @@
+# Artists the user banned from their recommendations (paginated).
+
+query GetBannedArtists($first: Int = 50, $after: String) {
+  me {
+    bannedFromRecommendation {
+      estimatedArtistsCount
+      artists(first: $first, after: $after) {
+        edges {
+          bannedAt
+          node {
+            ...ArtistFields
+          }
+        }
+        pageInfo {
+          ...PageInfoFields
+        }
+      }
+    }
+  }
+}

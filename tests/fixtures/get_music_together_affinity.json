@@ -52,7 +52,9 @@
                   }
                 ]
               },
-              "media": null
+              "media": null,
+              "isBannedFromRecommendation": false,
+              "gain": -8.2
             }
           }
         ],
@@ -78,7 +80,8 @@
               "isFavorite": true,
               "bio": {
                 "full": "Daft Punk was a French electronic music duo..."
-              }
+              },
+              "isBannedFromRecommendation": false
             }
           }
         ],

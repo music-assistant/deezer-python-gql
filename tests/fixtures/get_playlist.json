@@ -79,7 +79,9 @@
               },
               "isFavorite": false,
               "popularity": null,
-              "media": null
+              "media": null,
+              "isBannedFromRecommendation": false,
+              "gain": -8.2
             }
           },
           {
@@ -130,7 +132,9 @@
               },
               "isFavorite": false,
               "popularity": null,
-              "media": null
+              "media": null,
+              "isBannedFromRecommendation": false,
+              "gain": -8.2
             }
           },
           {
@@ -181,7 +185,9 @@
               },
               "isFavorite": false,
               "popularity": null,
-              "media": null
+              "media": null,
+              "isBannedFromRecommendation": false,
+              "gain": -8.2
             }
           },
           {
@@ -232,7 +238,9 @@
               },
               "isFavorite": false,
               "popularity": null,
-              "media": null
+              "media": null,
+              "isBannedFromRecommendation": false,
+              "gain": -8.2
             }
           },
           {
@@ -283,7 +291,9 @@
               },
               "isFavorite": false,
               "popularity": null,
-              "media": null
+              "media": null,
+              "isBannedFromRecommendation": false,
+              "gain": -8.2
             }
           },
           {
@@ -344,7 +354,9 @@
               },
               "isFavorite": false,
               "popularity": null,
-              "media": null
+              "media": null,
+              "isBannedFromRecommendation": false,
+              "gain": -8.2
             }
           },
           {
@@ -405,7 +417,9 @@
               },
               "isFavorite": false,
               "popularity": null,
-              "media": null
+              "media": null,
+              "isBannedFromRecommendation": false,
+              "gain": -8.2
             }
           },
           {
@@ -456,7 +470,9 @@
               },
               "isFavorite": false,
               "popularity": null,
-              "media": null
+              "media": null,
+              "isBannedFromRecommendation": false,
+              "gain": -8.2
             }
           },
           {
@@ -517,7 +533,9 @@
               },
               "isFavorite": false,
               "popularity": null,
-              "media": null
+              "media": null,
+              "isBannedFromRecommendation": false,
+              "gain": -8.2
             }
           },
           {
@@ -568,7 +586,9 @@
               },
               "isFavorite": false,
               "popularity": null,
-              "media": null
+              "media": null,
+              "isBannedFromRecommendation": false,
+              "gain": -8.2
             }
           },
           {
@@ -619,7 +639,9 @@
               },
               "isFavorite": false,
               "popularity": null,
-              "media": null
+              "media": null,
+              "isBannedFromRecommendation": false,
+              "gain": -8.2
             }
           },
           {
@@ -690,7 +712,9 @@
               },
               "isFavorite": false,
               "popularity": null,
-              "media": null
+              "media": null,
+              "isBannedFromRecommendation": false,
+              "gain": -8.2
             }
           },
           {
@@ -761,7 +785,9 @@
               },
               "isFavorite": false,
               "popularity": null,
-              "media": null
+              "media": null,
+              "isBannedFromRecommendation": false,
+              "gain": -8.2
             }
           },
           {
@@ -812,7 +838,9 @@
               },
               "isFavorite": false,
               "popularity": null,
-              "media": null
+              "media": null,
+              "isBannedFromRecommendation": false,
+              "gain": -8.2
             }
           },
           {
@@ -863,7 +891,9 @@
               },
               "isFavorite": false,
               "popularity": null,
-              "media": null
+              "media": null,
+              "isBannedFromRecommendation": false,
+              "gain": -8.2
             }
           },
           {
@@ -914,7 +944,9 @@
               },
               "isFavorite": false,
               "popularity": null,
-              "media": null
+              "media": null,
+              "isBannedFromRecommendation": false,
+              "gain": -8.2
             }
           },
           {
@@ -965,7 +997,9 @@
               },
               "isFavorite": false,
               "popularity": null,
-              "media": null
+              "media": null,
+              "isBannedFromRecommendation": false,
+              "gain": -8.2
             }
           },
           {
@@ -1036,7 +1070,9 @@
               },
               "isFavorite": false,
               "popularity": null,
-              "media": null
+              "media": null,
+              "isBannedFromRecommendation": false,
+              "gain": -8.2
             }
           },
           {
@@ -1087,7 +1123,9 @@
               },
               "isFavorite": false,
               "popularity": null,
-              "media": null
+              "media": null,
+              "isBannedFromRecommendation": false,
+              "gain": -8.2
             }
           },
           {
@@ -1148,7 +1186,9 @@
               },
               "isFavorite": false,
               "popularity": null,
-              "media": null
+              "media": null,
+              "isBannedFromRecommendation": false,
+              "gain": -8.2
             }
           },
           {
@@ -1199,7 +1239,9 @@
               },
               "isFavorite": false,
               "popularity": null,
-              "media": null
+              "media": null,
+              "isBannedFromRecommendation": false,
+              "gain": -8.2
             }
           },
           {
@@ -1250,7 +1292,9 @@
               },
               "isFavorite": false,
               "popularity": null,
-              "media": null
+              "media": null,
+              "isBannedFromRecommendation": false,
+              "gain": -8.2
             }
           },
           {
@@ -1341,7 +1385,9 @@
               },
               "isFavorite": false,
               "popularity": null,
-              "media": null
+              "media": null,
+              "isBannedFromRecommendation": false,
+              "gain": -8.2
             }
           },
           {
@@ -1392,7 +1438,9 @@
               },
               "isFavorite": false,
               "popularity": null,
-              "media": null
+              "media": null,
+              "isBannedFromRecommendation": false,
+              "gain": -8.2
             }
           },
           {
@@ -1443,7 +1491,9 @@
               },
               "isFavorite": false,
               "popularity": null,
-              "media": null
+              "media": null,
+              "isBannedFromRecommendation": false,
+              "gain": -8.2
             }
           },
           {
@@ -1494,7 +1544,9 @@
               },
               "isFavorite": false,
               "popularity": null,
-              "media": null
+              "media": null,
+              "isBannedFromRecommendation": false,
+              "gain": -8.2
             }
           },
           {
@@ -1545,7 +1597,9 @@
               },
               "isFavorite": false,
               "popularity": null,
-              "media": null
+              "media": null,
+              "isBannedFromRecommendation": false,
+              "gain": -8.2
             }
           },
           {
@@ -1606,7 +1660,9 @@
               },
               "isFavorite": false,
               "popularity": null,
-              "media": null
+              "media": null,
+              "isBannedFromRecommendation": false,
+              "gain": -8.2
             }
           },
           {
@@ -1667,7 +1723,9 @@
               },
               "isFavorite": false,
               "popularity": null,
-              "media": null
+              "media": null,
+              "isBannedFromRecommendation": false,
+              "gain": -8.2
             }
           },
           {
@@ -1718,7 +1776,9 @@
               },
               "isFavorite": false,
               "popularity": null,
-              "media": null
+              "media": null,
+              "isBannedFromRecommendation": false,
+              "gain": -8.2
             }
           },
           {
@@ -1779,7 +1839,9 @@
               },
               "isFavorite": false,
               "popularity": null,
-              "media": null
+              "media": null,
+              "isBannedFromRecommendation": false,
+              "gain": -8.2
             }
           },
           {
@@ -1830,7 +1892,9 @@
               },
               "isFavorite": false,
               "popularity": null,
-              "media": null
+              "media": null,
+              "isBannedFromRecommendation": false,
+              "gain": -8.2
             }
           },
           {
@@ -1891,7 +1955,9 @@
               },
               "isFavorite": false,
               "popularity": null,
-              "media": null
+              "media": null,
+              "isBannedFromRecommendation": false,
+              "gain": -8.2
             }
           },
           {
@@ -1952,7 +2018,9 @@
               },
               "isFavorite": false,
               "popularity": null,
-              "media": null
+              "media": null,
+              "isBannedFromRecommendation": false,
+              "gain": -8.2
             }
           },
           {
@@ -2003,7 +2071,9 @@
               },
               "isFavorite": false,
               "popularity": null,
-              "media": null
+              "media": null,
+              "isBannedFromRecommendation": false,
+              "gain": -8.2
             }
           },
           {
@@ -2054,7 +2124,9 @@
               },
               "isFavorite": false,
               "popularity": null,
-              "media": null
+              "media": null,
+              "isBannedFromRecommendation": false,
+              "gain": -8.2
             }
           },
           {
@@ -2125,7 +2197,9 @@
               },
               "isFavorite": false,
               "popularity": null,
-              "media": null
+              "media": null,
+              "isBannedFromRecommendation": false,
+              "gain": -8.2
             }
           },
           {
@@ -2176,7 +2250,9 @@
               },
               "isFavorite": false,
               "popularity": null,
-              "media": null
+              "media": null,
+              "isBannedFromRecommendation": false,
+              "gain": -8.2
             }
           },
           {
@@ -2227,7 +2303,9 @@
               },
               "isFavorite": false,
               "popularity": null,
-              "media": null
+              "media": null,
+              "isBannedFromRecommendation": false,
+              "gain": -8.2
             }
           },
           {
@@ -2318,7 +2396,9 @@
               },
               "isFavorite": false,
               "popularity": null,
-              "media": null
+              "media": null,
+              "isBannedFromRecommendation": false,
+              "gain": -8.2
             }
           },
           {
@@ -2369,7 +2449,9 @@
               },
               "isFavorite": false,
               "popularity": null,
-              "media": null
+              "media": null,
+              "isBannedFromRecommendation": false,
+              "gain": -8.2
             }
           },
           {
@@ -2420,7 +2502,9 @@
               },
               "isFavorite": false,
               "popularity": null,
-              "media": null
+              "media": null,
+              "isBannedFromRecommendation": false,
+              "gain": -8.2
             }
           },
           {
@@ -2471,7 +2555,9 @@
               },
               "isFavorite": false,
               "popularity": null,
-              "media": null
+              "media": null,
+              "isBannedFromRecommendation": false,
+              "gain": -8.2
             }
           },
           {
@@ -2522,7 +2608,9 @@
               },
               "isFavorite": false,
               "popularity": null,
-              "media": null
+              "media": null,
+              "isBannedFromRecommendation": false,
+              "gain": -8.2
             }
           },
           {
@@ -2583,7 +2671,9 @@
               },
               "isFavorite": false,
               "popularity": null,
-              "media": null
+              "media": null,
+              "isBannedFromRecommendation": false,
+              "gain": -8.2
             }
           },
           {
@@ -2644,7 +2734,9 @@
               },
               "isFavorite": false,
               "popularity": null,
-              "media": null
+              "media": null,
+              "isBannedFromRecommendation": false,
+              "gain": -8.2
             }
           },
           {
@@ -2695,7 +2787,9 @@
               },
               "isFavorite": false,
               "popularity": null,
-              "media": null
+              "media": null,
+              "isBannedFromRecommendation": false,
+              "gain": -8.2
             }
           },
           {
@@ -2746,7 +2840,9 @@
               },
               "isFavorite": false,
               "popularity": null,
-              "media": null
+              "media": null,
+              "isBannedFromRecommendation": false,
+              "gain": -8.2
             }
           },
           {
@@ -2797,7 +2893,9 @@
               },
               "isFavorite": false,
               "popularity": null,
-              "media": null
+              "media": null,
+              "isBannedFromRecommendation": false,
+              "gain": -8.2
             }
           },
           {
@@ -2858,7 +2956,9 @@
               },
               "isFavorite": false,
               "popularity": null,
-              "media": null
+              "media": null,
+              "isBannedFromRecommendation": false,
+              "gain": -8.2
             }
           }
         ],
@@ -2867,7 +2967,8 @@
           "endCursor": "3670646882"
         }
       },
-      "fansCount": 0
+      "fansCount": 0,
+      "lastModificationDate": "2026-01-15T10:00:00.000Z"
     }
   },
   "extensions": {

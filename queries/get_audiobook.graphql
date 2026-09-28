@@ -5,6 +5,7 @@ query GetAudiobook(
 ) {
   audiobook(audiobookId: $audiobookId) {
     ...AudiobookFields
+    upc
     isTakenDown
     fallback {
       id

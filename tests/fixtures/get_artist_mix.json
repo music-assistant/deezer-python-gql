@@ -39,7 +39,9 @@
                 }
               ]
             },
-            "media": null
+            "media": null,
+            "isBannedFromRecommendation": false,
+            "gain": -8.2
           }
         },
         {
@@ -79,7 +81,9 @@
                 }
               ]
             },
-            "media": null
+            "media": null,
+            "isBannedFromRecommendation": false,
+            "gain": -8.2
           }
         }
       ]

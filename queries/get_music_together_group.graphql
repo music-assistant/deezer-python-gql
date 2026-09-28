@@ -24,7 +24,7 @@ query GetMusicTogetherGroup(
           name
           picture {
             id
-            urls(pictureRequest: { width: 264, height: 264 })
+            urls(pictureRequest: { width: 500, height: 500 })
           }
         }
         affinity {

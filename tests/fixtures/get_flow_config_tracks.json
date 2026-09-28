@@ -51,7 +51,9 @@
             },
             "isFavorite": false,
             "popularity": null,
-            "media": null
+            "media": null,
+            "isBannedFromRecommendation": false,
+            "gain": -8.2
           }
         }
       ],
