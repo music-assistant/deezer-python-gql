@@ -7,6 +7,16 @@ query GetArtist(
 ) {
   artist(artistId: $artistId) {
     ...ArtistFields
+    social {
+      website
+      twitter
+      facebook
+      instagram
+    }
+    heroPicture {
+      id
+      urls(pictureRequest: { size: W1920_H1080, format: JPEG })
+    }
     url {
       ... on Url {
         webUrl

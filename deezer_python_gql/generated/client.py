@@ -630,6 +630,12 @@ class DeezerGQLClient(DeezerBaseClient):
                 }
               }
               releaseDate
+              subtypes {
+                isStudio
+                isLive
+                isCompilation
+                isKaraoke
+              }
               isExplicit
               isFavorite
               fansCount
@@ -653,7 +659,9 @@ class DeezerGQLClient(DeezerBaseClient):
               duration
               isExplicit
               isFavorite
+              isBannedFromRecommendation
               popularity
+              gain
               album {
                 id
                 displayTitle
@@ -706,6 +714,16 @@ class DeezerGQLClient(DeezerBaseClient):
             query GetArtist($artistId: String!, $topTracksFirst: Int = 50, $topTracksAfter: String, $albumsFirst: Int = 25, $albumsAfter: String) {
               artist(artistId: $artistId) {
                 ...ArtistFields
+                social {
+                  website
+                  twitter
+                  facebook
+                  instagram
+                }
+                heroPicture {
+                  id
+                  urls(pictureRequest: {size: W1920_H1080, format: JPEG})
+                }
                 url {
                   __typename
                   ... on Url {
@@ -762,6 +780,12 @@ class DeezerGQLClient(DeezerBaseClient):
                 }
               }
               releaseDate
+              subtypes {
+                isStudio
+                isLive
+                isCompilation
+                isKaraoke
+              }
               isExplicit
               isFavorite
               fansCount
@@ -778,6 +802,7 @@ class DeezerGQLClient(DeezerBaseClient):
               }
               fansCount
               isFavorite
+              isBannedFromRecommendation
               bio {
                 full
               }
@@ -799,7 +824,9 @@ class DeezerGQLClient(DeezerBaseClient):
               duration
               isExplicit
               isFavorite
+              isBannedFromRecommendation
               popularity
+              gain
               album {
                 id
                 displayTitle
@@ -866,7 +893,9 @@ class DeezerGQLClient(DeezerBaseClient):
               duration
               isExplicit
               isFavorite
+              isBannedFromRecommendation
               popularity
+              gain
               album {
                 id
                 displayTitle
@@ -913,6 +942,7 @@ class DeezerGQLClient(DeezerBaseClient):
             query GetAudiobook($audiobookId: String!, $chaptersFirst: Int = 50, $chaptersAfter: String) {
               audiobook(audiobookId: $audiobookId) {
                 ...AudiobookFields
+                upc
                 isTakenDown
                 fallback {
                   id
@@ -1166,6 +1196,12 @@ class DeezerGQLClient(DeezerBaseClient):
                 }
               }
               releaseDate
+              subtypes {
+                isStudio
+                isLive
+                isCompilation
+                isKaraoke
+              }
               isExplicit
               isFavorite
               fansCount
@@ -1182,6 +1218,7 @@ class DeezerGQLClient(DeezerBaseClient):
               }
               fansCount
               isFavorite
+              isBannedFromRecommendation
               bio {
                 full
               }
@@ -1200,6 +1237,7 @@ class DeezerGQLClient(DeezerBaseClient):
                 urls(pictureRequest: {width: 500, height: 500})
               }
               estimatedTracksCount
+              lastModificationDate
               fansCount
               isFavorite
               description
@@ -1220,7 +1258,9 @@ class DeezerGQLClient(DeezerBaseClient):
               duration
               isExplicit
               isFavorite
+              isBannedFromRecommendation
               popularity
+              gain
               album {
                 id
                 displayTitle
@@ -1307,6 +1347,12 @@ class DeezerGQLClient(DeezerBaseClient):
                 }
               }
               releaseDate
+              subtypes {
+                isStudio
+                isLive
+                isCompilation
+                isKaraoke
+              }
               isExplicit
               isFavorite
               fansCount
@@ -1364,6 +1410,7 @@ class DeezerGQLClient(DeezerBaseClient):
               }
               fansCount
               isFavorite
+              isBannedFromRecommendation
               bio {
                 full
               }
@@ -1448,6 +1495,7 @@ class DeezerGQLClient(DeezerBaseClient):
                 urls(pictureRequest: {width: 500, height: 500})
               }
               estimatedTracksCount
+              lastModificationDate
               fansCount
               isFavorite
               description
@@ -1563,7 +1611,9 @@ class DeezerGQLClient(DeezerBaseClient):
               duration
               isExplicit
               isFavorite
+              isBannedFromRecommendation
               popularity
+              gain
               album {
                 id
                 displayTitle
@@ -1633,7 +1683,9 @@ class DeezerGQLClient(DeezerBaseClient):
               duration
               isExplicit
               isFavorite
+              isBannedFromRecommendation
               popularity
+              gain
               album {
                 id
                 displayTitle
@@ -1715,7 +1767,9 @@ class DeezerGQLClient(DeezerBaseClient):
               duration
               isExplicit
               isFavorite
+              isBannedFromRecommendation
               popularity
+              gain
               album {
                 id
                 displayTitle
@@ -1784,7 +1838,9 @@ class DeezerGQLClient(DeezerBaseClient):
               duration
               isExplicit
               isFavorite
+              isBannedFromRecommendation
               popularity
+              gain
               album {
                 id
                 displayTitle
@@ -1944,6 +2000,7 @@ class DeezerGQLClient(DeezerBaseClient):
                         id
                         title
                         subTitle
+                        expiresAt
                         cover {
                           id
                           urls(pictureRequest: {width: 500, height: 500})
@@ -2047,6 +2104,7 @@ class DeezerGQLClient(DeezerBaseClient):
               }
               fansCount
               isFavorite
+              isBannedFromRecommendation
               bio {
                 full
               }
@@ -2068,7 +2126,9 @@ class DeezerGQLClient(DeezerBaseClient):
               duration
               isExplicit
               isFavorite
+              isBannedFromRecommendation
               popularity
+              gain
               album {
                 id
                 displayTitle
@@ -2209,6 +2269,7 @@ class DeezerGQLClient(DeezerBaseClient):
                 urls(pictureRequest: {width: 500, height: 500})
               }
               estimatedTracksCount
+              lastModificationDate
               fansCount
               isFavorite
               description
@@ -2229,7 +2290,9 @@ class DeezerGQLClient(DeezerBaseClient):
               duration
               isExplicit
               isFavorite
+              isBannedFromRecommendation
               popularity
+              gain
               album {
                 id
                 displayTitle
@@ -2374,7 +2437,9 @@ class DeezerGQLClient(DeezerBaseClient):
               duration
               isExplicit
               isFavorite
+              isBannedFromRecommendation
               popularity
+              gain
               album {
                 id
                 displayTitle
@@ -2455,6 +2520,7 @@ class DeezerGQLClient(DeezerBaseClient):
                 urls(pictureRequest: {width: 500, height: 500})
               }
               estimatedTracksCount
+              lastModificationDate
               fansCount
               isFavorite
               description
@@ -2475,7 +2541,9 @@ class DeezerGQLClient(DeezerBaseClient):
               duration
               isExplicit
               isFavorite
+              isBannedFromRecommendation
               popularity
+              gain
               album {
                 id
                 displayTitle
@@ -2854,6 +2922,12 @@ class DeezerGQLClient(DeezerBaseClient):
                 }
               }
               releaseDate
+              subtypes {
+                isStudio
+                isLive
+                isCompilation
+                isKaraoke
+              }
               isExplicit
               isFavorite
               fansCount
@@ -2870,6 +2944,7 @@ class DeezerGQLClient(DeezerBaseClient):
               }
               fansCount
               isFavorite
+              isBannedFromRecommendation
               bio {
                 full
               }
@@ -2888,6 +2963,7 @@ class DeezerGQLClient(DeezerBaseClient):
                 urls(pictureRequest: {width: 500, height: 500})
               }
               estimatedTracksCount
+              lastModificationDate
               fansCount
               isFavorite
               description
@@ -2990,6 +3066,12 @@ class DeezerGQLClient(DeezerBaseClient):
                 }
               }
               releaseDate
+              subtypes {
+                isStudio
+                isLive
+                isCompilation
+                isKaraoke
+              }
               isExplicit
               isFavorite
               fansCount
@@ -3006,6 +3088,7 @@ class DeezerGQLClient(DeezerBaseClient):
               }
               fansCount
               isFavorite
+              isBannedFromRecommendation
               bio {
                 full
               }
@@ -3024,6 +3107,7 @@ class DeezerGQLClient(DeezerBaseClient):
                 urls(pictureRequest: {width: 500, height: 500})
               }
               estimatedTracksCount
+              lastModificationDate
               fansCount
               isFavorite
               description
@@ -3044,7 +3128,9 @@ class DeezerGQLClient(DeezerBaseClient):
               duration
               isExplicit
               isFavorite
+              isBannedFromRecommendation
               popularity
+              gain
               album {
                 id
                 displayTitle
@@ -3120,6 +3206,7 @@ class DeezerGQLClient(DeezerBaseClient):
               }
               fansCount
               isFavorite
+              isBannedFromRecommendation
               bio {
                 full
               }
@@ -3163,7 +3250,9 @@ class DeezerGQLClient(DeezerBaseClient):
               duration
               isExplicit
               isFavorite
+              isBannedFromRecommendation
               popularity
+              gain
               album {
                 id
                 displayTitle
@@ -3215,6 +3304,7 @@ class DeezerGQLClient(DeezerBaseClient):
                 id
                 title
                 subTitle
+                expiresAt
                 cover {
                   id
                   urls(pictureRequest: {width: 500, height: 500})
@@ -3249,7 +3339,9 @@ class DeezerGQLClient(DeezerBaseClient):
               duration
               isExplicit
               isFavorite
+              isBannedFromRecommendation
               popularity
+              gain
               album {
                 id
                 displayTitle
@@ -3306,7 +3398,9 @@ class DeezerGQLClient(DeezerBaseClient):
                 duration
                 isExplicit
                 isFavorite
+                isBannedFromRecommendation
                 popularity
+                gain
                 album {
                   id
                   displayTitle
@@ -3405,7 +3499,9 @@ class DeezerGQLClient(DeezerBaseClient):
               duration
               isExplicit
               isFavorite
+              isBannedFromRecommendation
               popularity
+              gain
               album {
                 id
                 displayTitle
@@ -3512,6 +3608,12 @@ class DeezerGQLClient(DeezerBaseClient):
                 }
               }
               releaseDate
+              subtypes {
+                isStudio
+                isLive
+                isCompilation
+                isKaraoke
+              }
               isExplicit
               isFavorite
               fansCount
@@ -3528,6 +3630,7 @@ class DeezerGQLClient(DeezerBaseClient):
               }
               fansCount
               isFavorite
+              isBannedFromRecommendation
               bio {
                 full
               }
@@ -3549,7 +3652,9 @@ class DeezerGQLClient(DeezerBaseClient):
               duration
               isExplicit
               isFavorite
+              isBannedFromRecommendation
               popularity
+              gain
               album {
                 id
                 displayTitle
@@ -3625,6 +3730,7 @@ class DeezerGQLClient(DeezerBaseClient):
                 urls(pictureRequest: {width: 500, height: 500})
               }
               estimatedTracksCount
+              lastModificationDate
               fansCount
               isFavorite
               description

@@ -12,6 +12,7 @@ query GetMadeForMe($first: Int = 10) {
             id
             title
             subTitle
+            expiresAt
             cover {
               id
               urls(pictureRequest: { width: 500, height: 500 })

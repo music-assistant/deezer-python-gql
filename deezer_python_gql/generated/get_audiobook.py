@@ -14,6 +14,7 @@ class GetAudiobook(BaseModel):
 
 
 class GetAudiobookAudiobook(AudiobookFields):
+    upc: Optional[str]
     is_taken_down: bool = Field(alias="isTakenDown")
     fallback: Optional["GetAudiobookAudiobookFallback"]
     url: Union["GetAudiobookAudiobookUrlDeezerUrl", "GetAudiobookAudiobookUrlUrl"] = (

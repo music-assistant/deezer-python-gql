@@ -21,6 +21,7 @@ class AlbumFields(BaseModel):
     cover: Optional["AlbumFieldsCover"]
     contributors: "AlbumFieldsContributors"
     release_date: Optional[str] = Field(alias="releaseDate")
+    subtypes: "AlbumFieldsSubtypes"
     is_explicit: Optional[bool] = Field(alias="isExplicit")
     is_favorite: Optional[bool] = Field(alias="isFavorite")
     fans_count: int = Field(alias="fansCount")
@@ -49,12 +50,22 @@ class AlbumFieldsContributorsEdgesNodeArtist(BaseModel):
     name: str
 
 
+class AlbumFieldsSubtypes(BaseModel):
+    is_studio: bool = Field(alias="isStudio")
+    is_live: bool = Field(alias="isLive")
+    is_compilation: bool = Field(alias="isCompilation")
+    is_karaoke: bool = Field(alias="isKaraoke")
+
+
 class ArtistFields(BaseModel):
     id: str
     name: str
     picture: Optional["ArtistFieldsPicture"]
     fans_count: int = Field(alias="fansCount")
     is_favorite: Optional[bool] = Field(alias="isFavorite")
+    is_banned_from_recommendation: Optional[bool] = Field(
+        alias="isBannedFromRecommendation"
+    )
     bio: Optional["ArtistFieldsBio"]
 
 
@@ -157,6 +168,7 @@ class PlaylistFields(BaseModel):
     title: str
     picture: Optional["PlaylistFieldsPicture"]
     estimated_tracks_count: int = Field(alias="estimatedTracksCount")
+    last_modification_date: str = Field(alias="lastModificationDate")
     fans_count: int = Field(alias="fansCount")
     is_favorite: Optional[bool] = Field(alias="isFavorite")
     description: Optional[str]
@@ -221,7 +233,11 @@ class TrackFields(BaseModel):
     duration: int
     is_explicit: bool = Field(alias="isExplicit")
     is_favorite: Optional[bool] = Field(alias="isFavorite")
+    is_banned_from_recommendation: Optional[bool] = Field(
+        alias="isBannedFromRecommendation"
+    )
     popularity: Optional[float]
+    gain: Optional[float]
     album: Optional["TrackFieldsAlbum"]
     contributors: "TrackFieldsContributors"
     media: Optional["TrackFieldsMedia"]

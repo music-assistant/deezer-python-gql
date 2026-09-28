@@ -943,6 +943,8 @@ def test_smoke_get_track() -> None:
     assert track.id == "3135556"
     assert track.title == "Harder, Better, Faster, Stronger"
     assert track.duration == 226
+    assert track.gain == -8.2
+    assert track.is_banned_from_recommendation is False
     # Nested structures
     assert track.album is not None
     assert track.album.id == "302127"
@@ -959,6 +961,8 @@ def test_smoke_get_album() -> None:
     assert album.id == "302127"
     assert album.display_title == "Discovery"
     assert album.tracks_count > 0
+    assert album.subtypes.is_studio is True
+    assert album.subtypes.is_live is False
     assert len(album.tracks.edges) > 0
     assert len(album.contributors.edges) > 0
 
@@ -971,6 +975,10 @@ def test_smoke_get_artist() -> None:
     assert artist.id == "27"
     assert artist.name == "Daft Punk"
     assert artist.fans_count > 0
+    assert artist.is_banned_from_recommendation is False
+    assert artist.social.website == "https://example.com"
+    assert artist.hero_picture is not None
+    assert artist.hero_picture.urls[0].endswith("1920x1080-000000-80-0-0.jpg")
     assert artist.top_tracks is not None
     assert len(artist.top_tracks.edges) > 0
     assert len(artist.albums.edges) > 0
@@ -984,6 +992,7 @@ def test_smoke_get_playlist() -> None:
     assert playlist.id == "53362031"
     assert playlist.title
     assert playlist.owner is not None
+    assert playlist.last_modification_date == "2026-01-15T10:00:00.000Z"
     assert len(playlist.tracks.edges) > 0
     assert playlist.tracks.edges[0].added_at == "2026-09-18T07:30:12.000Z"
 
@@ -1084,6 +1093,7 @@ def test_smoke_get_made_for_me() -> None:
     node_0 = edges[0].node
     assert node_0 is not None
     assert node_0.typename__ == "SmartTracklist"
+    assert node_0.expires_at == "2026-01-16T03:00:00.000Z"
     node_2 = edges[2].node
     assert node_2 is not None
     assert node_2.typename__ == "Flow"
@@ -1096,6 +1106,7 @@ def test_smoke_get_smart_tracklist() -> None:
     assert st is not None
     assert st.id == "smart:daily_mix_1"
     assert st.title == "Your Daily Mix 1"
+    assert st.expires_at == "2026-01-16T03:00:00.000Z"
     assert len(st.tracks.edges) == 2
     track_node = st.tracks.edges[0].node
     assert track_node is not None
@@ -1667,6 +1678,7 @@ def test_smoke_get_audiobook() -> None:
     assert audiobook.chapters_count == 13
     assert audiobook.discs_count == 1
     assert audiobook.publisher == "Penguin Audio"
+    assert audiobook.upc == "3610151234567"
     assert audiobook.is_taken_down is False
     assert len(audiobook.contributors.edges) == 2
     assert audiobook.contributors.edges[0].roles == ["AUTHOR"]

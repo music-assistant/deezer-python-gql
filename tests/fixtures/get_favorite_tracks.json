@@ -52,7 +52,9 @@
                 },
                 "isFavorite": false,
                 "popularity": null,
-                "media": null
+                "media": null,
+                "isBannedFromRecommendation": false,
+                "gain": -8.2
               },
               "favoritedAt": "2025-06-15"
             }

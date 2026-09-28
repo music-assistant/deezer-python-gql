@@ -84,7 +84,9 @@
               "isFavorite": false,
               "popularity": null,
               "diskInfo": null,
-              "media": null
+              "media": null,
+              "isBannedFromRecommendation": false,
+              "gain": -8.2
             }
           },
           {
@@ -131,7 +133,9 @@
               "isFavorite": false,
               "popularity": null,
               "diskInfo": null,
-              "media": null
+              "media": null,
+              "isBannedFromRecommendation": false,
+              "gain": -8.2
             }
           },
           {
@@ -188,7 +192,9 @@
               "isFavorite": false,
               "popularity": null,
               "diskInfo": null,
-              "media": null
+              "media": null,
+              "isBannedFromRecommendation": false,
+              "gain": -8.2
             }
           },
           {
@@ -255,7 +261,9 @@
               "isFavorite": false,
               "popularity": null,
               "diskInfo": null,
-              "media": null
+              "media": null,
+              "isBannedFromRecommendation": false,
+              "gain": -8.2
             }
           },
           {
@@ -302,7 +310,9 @@
               "isFavorite": false,
               "popularity": null,
               "diskInfo": null,
-              "media": null
+              "media": null,
+              "isBannedFromRecommendation": false,
+              "gain": -8.2
             }
           },
           {
@@ -349,7 +359,9 @@
               "isFavorite": false,
               "popularity": null,
               "diskInfo": null,
-              "media": null
+              "media": null,
+              "isBannedFromRecommendation": false,
+              "gain": -8.2
             }
           },
           {
@@ -396,7 +408,9 @@
               "isFavorite": false,
               "popularity": null,
               "diskInfo": null,
-              "media": null
+              "media": null,
+              "isBannedFromRecommendation": false,
+              "gain": -8.2
             }
           },
           {
@@ -443,7 +457,9 @@
               "isFavorite": false,
               "popularity": null,
               "diskInfo": null,
-              "media": null
+              "media": null,
+              "isBannedFromRecommendation": false,
+              "gain": -8.2
             }
           },
           {
@@ -500,7 +516,9 @@
               "isFavorite": false,
               "popularity": null,
               "diskInfo": null,
-              "media": null
+              "media": null,
+              "isBannedFromRecommendation": false,
+              "gain": -8.2
             }
           },
           {
@@ -547,7 +565,9 @@
               "isFavorite": false,
               "popularity": null,
               "diskInfo": null,
-              "media": null
+              "media": null,
+              "isBannedFromRecommendation": false,
+              "gain": -8.2
             }
           },
           {
@@ -594,7 +614,9 @@
               "isFavorite": false,
               "popularity": null,
               "diskInfo": null,
-              "media": null
+              "media": null,
+              "isBannedFromRecommendation": false,
+              "gain": -8.2
             }
           },
           {
@@ -641,7 +663,9 @@
               "isFavorite": false,
               "popularity": null,
               "diskInfo": null,
-              "media": null
+              "media": null,
+              "isBannedFromRecommendation": false,
+              "gain": -8.2
             }
           },
           {
@@ -688,7 +712,9 @@
               "isFavorite": false,
               "popularity": null,
               "diskInfo": null,
-              "media": null
+              "media": null,
+              "isBannedFromRecommendation": false,
+              "gain": -8.2
             }
           },
           {
@@ -735,7 +761,9 @@
               "isFavorite": false,
               "popularity": null,
               "diskInfo": null,
-              "media": null
+              "media": null,
+              "isBannedFromRecommendation": false,
+              "gain": -8.2
             }
           },
           {
@@ -782,7 +810,9 @@
               "isFavorite": false,
               "popularity": null,
               "diskInfo": null,
-              "media": null
+              "media": null,
+              "isBannedFromRecommendation": false,
+              "gain": -8.2
             }
           },
           {
@@ -829,7 +859,9 @@
               "isFavorite": false,
               "popularity": null,
               "diskInfo": null,
-              "media": null
+              "media": null,
+              "isBannedFromRecommendation": false,
+              "gain": -8.2
             }
           },
           {
@@ -876,7 +908,9 @@
               "isFavorite": false,
               "popularity": null,
               "diskInfo": null,
-              "media": null
+              "media": null,
+              "isBannedFromRecommendation": false,
+              "gain": -8.2
             }
           },
           {
@@ -923,7 +957,9 @@
               "isFavorite": false,
               "popularity": null,
               "diskInfo": null,
-              "media": null
+              "media": null,
+              "isBannedFromRecommendation": false,
+              "gain": -8.2
             }
           },
           {
@@ -980,7 +1016,9 @@
               "isFavorite": false,
               "popularity": null,
               "diskInfo": null,
-              "media": null
+              "media": null,
+              "isBannedFromRecommendation": false,
+              "gain": -8.2
             }
           },
           {
@@ -1027,7 +1065,9 @@
               "isFavorite": false,
               "popularity": null,
               "diskInfo": null,
-              "media": null
+              "media": null,
+              "isBannedFromRecommendation": false,
+              "gain": -8.2
             }
           },
           {
@@ -1074,7 +1114,9 @@
               "isFavorite": false,
               "popularity": null,
               "diskInfo": null,
-              "media": null
+              "media": null,
+              "isBannedFromRecommendation": false,
+              "gain": -8.2
             }
           },
           {
@@ -1121,7 +1163,9 @@
               "isFavorite": false,
               "popularity": null,
               "diskInfo": null,
-              "media": null
+              "media": null,
+              "isBannedFromRecommendation": false,
+              "gain": -8.2
             }
           },
           {
@@ -1168,7 +1212,9 @@
               "isFavorite": false,
               "popularity": null,
               "diskInfo": null,
-              "media": null
+              "media": null,
+              "isBannedFromRecommendation": false,
+              "gain": -8.2
             }
           },
           {
@@ -1215,7 +1261,9 @@
               "isFavorite": false,
               "popularity": null,
               "diskInfo": null,
-              "media": null
+              "media": null,
+              "isBannedFromRecommendation": false,
+              "gain": -8.2
             }
           },
           {
@@ -1262,7 +1310,9 @@
               "isFavorite": false,
               "popularity": null,
               "diskInfo": null,
-              "media": null
+              "media": null,
+              "isBannedFromRecommendation": false,
+              "gain": -8.2
             }
           },
           {
@@ -1309,7 +1359,9 @@
               "isFavorite": false,
               "popularity": null,
               "diskInfo": null,
-              "media": null
+              "media": null,
+              "isBannedFromRecommendation": false,
+              "gain": -8.2
             }
           },
           {
@@ -1356,7 +1408,9 @@
               "isFavorite": false,
               "popularity": null,
               "diskInfo": null,
-              "media": null
+              "media": null,
+              "isBannedFromRecommendation": false,
+              "gain": -8.2
             }
           },
           {
@@ -1403,7 +1457,9 @@
               "isFavorite": false,
               "popularity": null,
               "diskInfo": null,
-              "media": null
+              "media": null,
+              "isBannedFromRecommendation": false,
+              "gain": -8.2
             }
           },
           {
@@ -1450,7 +1506,9 @@
               "isFavorite": false,
               "popularity": null,
               "diskInfo": null,
-              "media": null
+              "media": null,
+              "isBannedFromRecommendation": false,
+              "gain": -8.2
             }
           },
           {
@@ -1497,7 +1555,9 @@
               "isFavorite": false,
               "popularity": null,
               "diskInfo": null,
-              "media": null
+              "media": null,
+              "isBannedFromRecommendation": false,
+              "gain": -8.2
             }
           },
           {
@@ -1544,7 +1604,9 @@
               "isFavorite": false,
               "popularity": null,
               "diskInfo": null,
-              "media": null
+              "media": null,
+              "isBannedFromRecommendation": false,
+              "gain": -8.2
             }
           },
           {
@@ -1591,7 +1653,9 @@
               "isFavorite": false,
               "popularity": null,
               "diskInfo": null,
-              "media": null
+              "media": null,
+              "isBannedFromRecommendation": false,
+              "gain": -8.2
             }
           },
           {
@@ -1638,7 +1702,9 @@
               "isFavorite": false,
               "popularity": null,
               "diskInfo": null,
-              "media": null
+              "media": null,
+              "isBannedFromRecommendation": false,
+              "gain": -8.2
             }
           },
           {
@@ -1685,7 +1751,9 @@
               "isFavorite": false,
               "popularity": null,
               "diskInfo": null,
-              "media": null
+              "media": null,
+              "isBannedFromRecommendation": false,
+              "gain": -8.2
             }
           },
           {
@@ -1732,7 +1800,9 @@
               "isFavorite": false,
               "popularity": null,
               "diskInfo": null,
-              "media": null
+              "media": null,
+              "isBannedFromRecommendation": false,
+              "gain": -8.2
             }
           },
           {
@@ -1779,7 +1849,9 @@
               "isFavorite": false,
               "popularity": null,
               "diskInfo": null,
-              "media": null
+              "media": null,
+              "isBannedFromRecommendation": false,
+              "gain": -8.2
             }
           },
           {
@@ -1826,7 +1898,9 @@
               "isFavorite": false,
               "popularity": null,
               "diskInfo": null,
-              "media": null
+              "media": null,
+              "isBannedFromRecommendation": false,
+              "gain": -8.2
             }
           },
           {
@@ -1873,7 +1947,9 @@
               "isFavorite": false,
               "popularity": null,
               "diskInfo": null,
-              "media": null
+              "media": null,
+              "isBannedFromRecommendation": false,
+              "gain": -8.2
             }
           },
           {
@@ -1920,7 +1996,9 @@
               "isFavorite": false,
               "popularity": null,
               "diskInfo": null,
-              "media": null
+              "media": null,
+              "isBannedFromRecommendation": false,
+              "gain": -8.2
             }
           },
           {
@@ -1977,7 +2055,9 @@
               "isFavorite": false,
               "popularity": null,
               "diskInfo": null,
-              "media": null
+              "media": null,
+              "isBannedFromRecommendation": false,
+              "gain": -8.2
             }
           },
           {
@@ -2024,7 +2104,9 @@
               "isFavorite": false,
               "popularity": null,
               "diskInfo": null,
-              "media": null
+              "media": null,
+              "isBannedFromRecommendation": false,
+              "gain": -8.2
             }
           },
           {
@@ -2071,7 +2153,9 @@
               "isFavorite": false,
               "popularity": null,
               "diskInfo": null,
-              "media": null
+              "media": null,
+              "isBannedFromRecommendation": false,
+              "gain": -8.2
             }
           },
           {
@@ -2118,7 +2202,9 @@
               "isFavorite": false,
               "popularity": null,
               "diskInfo": null,
-              "media": null
+              "media": null,
+              "isBannedFromRecommendation": false,
+              "gain": -8.2
             }
           },
           {
@@ -2165,7 +2251,9 @@
               "isFavorite": false,
               "popularity": null,
               "diskInfo": null,
-              "media": null
+              "media": null,
+              "isBannedFromRecommendation": false,
+              "gain": -8.2
             }
           },
           {
@@ -2212,7 +2300,9 @@
               "isFavorite": false,
               "popularity": null,
               "diskInfo": null,
-              "media": null
+              "media": null,
+              "isBannedFromRecommendation": false,
+              "gain": -8.2
             }
           },
           {
@@ -2259,7 +2349,9 @@
               "isFavorite": false,
               "popularity": null,
               "diskInfo": null,
-              "media": null
+              "media": null,
+              "isBannedFromRecommendation": false,
+              "gain": -8.2
             }
           },
           {
@@ -2306,7 +2398,9 @@
               "isFavorite": false,
               "popularity": null,
               "diskInfo": null,
-              "media": null
+              "media": null,
+              "isBannedFromRecommendation": false,
+              "gain": -8.2
             }
           },
           {
@@ -2353,7 +2447,9 @@
               "isFavorite": false,
               "popularity": null,
               "diskInfo": null,
-              "media": null
+              "media": null,
+              "isBannedFromRecommendation": false,
+              "gain": -8.2
             }
           },
           {
@@ -2400,7 +2496,9 @@
               "isFavorite": false,
               "popularity": null,
               "diskInfo": null,
-              "media": null
+              "media": null,
+              "isBannedFromRecommendation": false,
+              "gain": -8.2
             }
           },
           {
@@ -2447,7 +2545,9 @@
               "isFavorite": false,
               "popularity": null,
               "diskInfo": null,
-              "media": null
+              "media": null,
+              "isBannedFromRecommendation": false,
+              "gain": -8.2
             }
           }
         ],
@@ -2479,6 +2579,12 @@
               "fansCount": 0,
               "contributors": {
                 "edges": []
+              },
+              "subtypes": {
+                "isStudio": true,
+                "isLive": false,
+                "isCompilation": false,
+                "isKaraoke": false
               }
             }
           },
@@ -2503,6 +2609,12 @@
               "fansCount": 0,
               "contributors": {
                 "edges": []
+              },
+              "subtypes": {
+                "isStudio": true,
+                "isLive": false,
+                "isCompilation": false,
+                "isKaraoke": false
               }
             }
           },
@@ -2527,6 +2639,12 @@
               "fansCount": 0,
               "contributors": {
                 "edges": []
+              },
+              "subtypes": {
+                "isStudio": true,
+                "isLive": false,
+                "isCompilation": false,
+                "isKaraoke": false
               }
             }
           },
@@ -2551,6 +2669,12 @@
               "fansCount": 0,
               "contributors": {
                 "edges": []
+              },
+              "subtypes": {
+                "isStudio": true,
+                "isLive": false,
+                "isCompilation": false,
+                "isKaraoke": false
               }
             }
           },
@@ -2575,6 +2699,12 @@
               "fansCount": 0,
               "contributors": {
                 "edges": []
+              },
+              "subtypes": {
+                "isStudio": true,
+                "isLive": false,
+                "isCompilation": false,
+                "isKaraoke": false
               }
             }
           },
@@ -2599,6 +2729,12 @@
               "fansCount": 0,
               "contributors": {
                 "edges": []
+              },
+              "subtypes": {
+                "isStudio": true,
+                "isLive": false,
+                "isCompilation": false,
+                "isKaraoke": false
               }
             }
           },
@@ -2623,6 +2759,12 @@
               "fansCount": 0,
               "contributors": {
                 "edges": []
+              },
+              "subtypes": {
+                "isStudio": true,
+                "isLive": false,
+                "isCompilation": false,
+                "isKaraoke": false
               }
             }
           },
@@ -2647,6 +2789,12 @@
               "fansCount": 0,
               "contributors": {
                 "edges": []
+              },
+              "subtypes": {
+                "isStudio": true,
+                "isLive": false,
+                "isCompilation": false,
+                "isKaraoke": false
               }
             }
           },
@@ -2671,6 +2819,12 @@
               "fansCount": 0,
               "contributors": {
                 "edges": []
+              },
+              "subtypes": {
+                "isStudio": true,
+                "isLive": false,
+                "isCompilation": false,
+                "isKaraoke": false
               }
             }
           },
@@ -2695,6 +2849,12 @@
               "fansCount": 0,
               "contributors": {
                 "edges": []
+              },
+              "subtypes": {
+                "isStudio": true,
+                "isLive": false,
+                "isCompilation": false,
+                "isKaraoke": false
               }
             }
           },
@@ -2719,6 +2879,12 @@
               "fansCount": 0,
               "contributors": {
                 "edges": []
+              },
+              "subtypes": {
+                "isStudio": true,
+                "isLive": false,
+                "isCompilation": false,
+                "isKaraoke": false
               }
             }
           },
@@ -2743,6 +2909,12 @@
               "fansCount": 0,
               "contributors": {
                 "edges": []
+              },
+              "subtypes": {
+                "isStudio": true,
+                "isLive": false,
+                "isCompilation": false,
+                "isKaraoke": false
               }
             }
           },
@@ -2767,6 +2939,12 @@
               "fansCount": 0,
               "contributors": {
                 "edges": []
+              },
+              "subtypes": {
+                "isStudio": true,
+                "isLive": false,
+                "isCompilation": false,
+                "isKaraoke": false
               }
             }
           },
@@ -2791,6 +2969,12 @@
               "fansCount": 0,
               "contributors": {
                 "edges": []
+              },
+              "subtypes": {
+                "isStudio": true,
+                "isLive": false,
+                "isCompilation": false,
+                "isKaraoke": false
               }
             }
           },
@@ -2815,6 +2999,12 @@
               "fansCount": 0,
               "contributors": {
                 "edges": []
+              },
+              "subtypes": {
+                "isStudio": true,
+                "isLive": false,
+                "isCompilation": false,
+                "isKaraoke": false
               }
             }
           },
@@ -2839,6 +3029,12 @@
               "fansCount": 0,
               "contributors": {
                 "edges": []
+              },
+              "subtypes": {
+                "isStudio": true,
+                "isLive": false,
+                "isCompilation": false,
+                "isKaraoke": false
               }
             }
           },
@@ -2863,6 +3059,12 @@
               "fansCount": 0,
               "contributors": {
                 "edges": []
+              },
+              "subtypes": {
+                "isStudio": true,
+                "isLive": false,
+                "isCompilation": false,
+                "isKaraoke": false
               }
             }
           },
@@ -2887,6 +3089,12 @@
               "fansCount": 0,
               "contributors": {
                 "edges": []
+              },
+              "subtypes": {
+                "isStudio": true,
+                "isLive": false,
+                "isCompilation": false,
+                "isKaraoke": false
               }
             }
           },
@@ -2911,6 +3119,12 @@
               "fansCount": 0,
               "contributors": {
                 "edges": []
+              },
+              "subtypes": {
+                "isStudio": true,
+                "isLive": false,
+                "isCompilation": false,
+                "isKaraoke": false
               }
             }
           },
@@ -2935,6 +3149,12 @@
               "fansCount": 0,
               "contributors": {
                 "edges": []
+              },
+              "subtypes": {
+                "isStudio": true,
+                "isLive": false,
+                "isCompilation": false,
+                "isKaraoke": false
               }
             }
           },
@@ -2959,6 +3179,12 @@
               "fansCount": 0,
               "contributors": {
                 "edges": []
+              },
+              "subtypes": {
+                "isStudio": true,
+                "isLive": false,
+                "isCompilation": false,
+                "isKaraoke": false
               }
             }
           },
@@ -2983,6 +3209,12 @@
               "fansCount": 0,
               "contributors": {
                 "edges": []
+              },
+              "subtypes": {
+                "isStudio": true,
+                "isLive": false,
+                "isCompilation": false,
+                "isKaraoke": false
               }
             }
           },
@@ -3007,6 +3239,12 @@
               "fansCount": 0,
               "contributors": {
                 "edges": []
+              },
+              "subtypes": {
+                "isStudio": true,
+                "isLive": false,
+                "isCompilation": false,
+                "isKaraoke": false
               }
             }
           },
@@ -3031,6 +3269,12 @@
               "fansCount": 0,
               "contributors": {
                 "edges": []
+              },
+              "subtypes": {
+                "isStudio": true,
+                "isLive": false,
+                "isCompilation": false,
+                "isKaraoke": false
               }
             }
           },
@@ -3055,6 +3299,12 @@
               "fansCount": 0,
               "contributors": {
                 "edges": []
+              },
+              "subtypes": {
+                "isStudio": true,
+                "isLive": false,
+                "isCompilation": false,
+                "isKaraoke": false
               }
             }
           }
@@ -3063,6 +3313,19 @@
           "hasNextPage": true,
           "endCursor": "299205"
         }
+      },
+      "isBannedFromRecommendation": false,
+      "social": {
+        "website": "https://example.com",
+        "twitter": null,
+        "facebook": null,
+        "instagram": null
+      },
+      "heroPicture": {
+        "id": "hero0000000000000000000000000000000000000",
+        "urls": [
+          "https://cdn-images.dzcdn.net/images/hero/0/1920x1080-000000-80-0-0.jpg"
+        ]
       }
     }
   },

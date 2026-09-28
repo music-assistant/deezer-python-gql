@@ -6,7 +6,9 @@
       "displayTitle": "The Art of War",
       "cover": {
         "id": "cover:ab_1001",
-        "urls": ["https://cdn.example.com/audiobook/264x264.jpg"]
+        "urls": [
+          "https://cdn.example.com/audiobook/264x264.jpg"
+        ]
       },
       "description": "The classic treatise on military strategy.",
       "duration": 5400,
@@ -21,7 +23,9 @@
       "contributors": {
         "edges": [
           {
-            "roles": ["AUTHOR"],
+            "roles": [
+              "AUTHOR"
+            ],
             "node": {
               "id": "auth_001",
               "name": "Sun Tzu",
@@ -29,7 +33,9 @@
             }
           },
           {
-            "roles": ["NARRATOR"],
+            "roles": [
+              "NARRATOR"
+            ],
             "node": {
               "id": "narr_001",
               "name": "Aidan Gillen",
@@ -83,7 +89,8 @@
           "hasNextPage": true,
           "endCursor": "ch_cursor_2"
         }
-      }
+      },
+      "upc": "3610151234567"
     }
   }
 }

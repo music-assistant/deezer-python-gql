@@ -55,18 +55,18 @@ asyncio.run(main())
 
 ### Content Retrieval
 
-| Method                                        | Description                                                     |
-| --------------------------------------------- | --------------------------------------------------------------- |
-| `get_me()`                                    | Current authenticated user                                      |
-| `get_track(track_id)`                         | Full track details — ISRC, media tokens, lyrics, contributors   |
-| `get_album(album_id)`                         | Album with cover, label, paginated tracks, fallback             |
-| `get_artist(artist_id)`                       | Artist with bio, top tracks, albums (ordered by release date)   |
-| `get_playlist(playlist_id)`                   | Playlist with owner, picture, paginated tracks                  |
-| `get_livestream(livestream_id)`               | Livestream (radio station) with streaming URLs and codec info   |
-| `get_podcast(podcast_id)`                     | Podcast with paginated episodes and rights info                 |
-| `get_podcast_episode(podcast_episode_id)`     | Single episode with media URL, codec, and parent podcast ref    |
-| `get_audiobook(audiobook_id)`                 | Audiobook with paginated chapters, contributors, and fallback   |
-| `get_audiobook_chapter(audiobook_chapter_id)` | Chapter with media token, estimated sizes, and streaming rights |
+| Method                                        | Description                                                                               |
+| --------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| `get_me()`                                    | Current authenticated user                                                                |
+| `get_track(track_id)`                         | Full track details — ISRC, gain, ban state, media tokens, lyrics, contributors            |
+| `get_album(album_id)`                         | Album with cover, label, paginated tracks, fallback                                       |
+| `get_artist(artist_id)`                       | Artist with bio, social links, hero picture, top tracks, albums (ordered by release date) |
+| `get_playlist(playlist_id)`                   | Playlist with owner, picture, paginated tracks                                            |
+| `get_livestream(livestream_id)`               | Livestream (radio station) with streaming URLs and codec info                             |
+| `get_podcast(podcast_id)`                     | Podcast with paginated episodes and rights info                                           |
+| `get_podcast_episode(podcast_episode_id)`     | Single episode with media URL, codec, and parent podcast ref                              |
+| `get_audiobook(audiobook_id)`                 | Audiobook with UPC, paginated chapters, contributors, and fallback                        |
+| `get_audiobook_chapter(audiobook_chapter_id)` | Chapter with media token, estimated sizes, and streaming rights                           |
 
 ### Search & Discovery
 
@@ -82,7 +82,7 @@ asyncio.run(main())
 | `get_flow_configs(moods_first, genres_first)`    | Mood & genre flow config lists for discovery                                    |
 | `get_flow_config_tracks(flow_config_id)`         | Tracks for a specific mood/genre flow config                                    |
 | `get_made_for_me(first)`                         | "Made For You" SmartTracklist & Flow items                                      |
-| `get_smart_tracklist(smart_tracklist_id, first)` | Smart tracklist with paginated tracks                                           |
+| `get_smart_tracklist(smart_tracklist_id, first)` | Smart tracklist with expiry and paginated tracks                                |
 | `get_charts(country_code, ...)`                  | Country charts — tracks, albums, artists, playlists                             |
 | `get_recommendations(playlists_first, ...)`      | Personalized recommendations across categories                                  |
 | `get_recently_played(first)`                     | Recently played mixed content (albums, playlists, artists...)                   |

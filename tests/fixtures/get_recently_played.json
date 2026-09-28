@@ -32,7 +32,13 @@
               "isFavorite": false,
               "label": null,
               "copyright": null,
-              "fansCount": 0
+              "fansCount": 0,
+              "subtypes": {
+                "isStudio": true,
+                "isLive": false,
+                "isCompilation": false,
+                "isKaraoke": false
+              }
             }
           },
           {
@@ -54,7 +60,8 @@
               },
               "isFavorite": false,
               "description": null,
-              "fansCount": 0
+              "fansCount": 0,
+              "lastModificationDate": "2026-01-15T10:00:00.000Z"
             }
           },
           {
@@ -71,7 +78,8 @@
               },
               "fansCount": 18000000,
               "isFavorite": false,
-              "bio": null
+              "bio": null,
+              "isBannedFromRecommendation": false
             }
           },
           {

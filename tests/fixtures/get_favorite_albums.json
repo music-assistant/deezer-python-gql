@@ -33,7 +33,13 @@
                 "isFavorite": false,
                 "label": null,
                 "copyright": null,
-                "fansCount": 0
+                "fansCount": 0,
+                "subtypes": {
+                  "isStudio": true,
+                  "isLive": false,
+                  "isCompilation": false,
+                  "isKaraoke": false
+                }
               },
               "favoritedAt": "2025-06-15"
             }

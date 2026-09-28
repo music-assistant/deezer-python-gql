@@ -10,7 +10,9 @@ query GetTrack($trackId: String!) {
     duration
     isExplicit
     isFavorite
+    isBannedFromRecommendation
     popularity
+    gain
     album {
       id
       displayTitle

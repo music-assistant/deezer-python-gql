@@ -18,7 +18,8 @@
                 },
                 "fansCount": 18000000,
                 "isFavorite": false,
-                "bio": null
+                "bio": null,
+                "isBannedFromRecommendation": false
               },
               "favoritedAt": "2025-06-15"
             },
@@ -36,7 +37,8 @@
                 },
                 "fansCount": 1800000,
                 "isFavorite": false,
-                "bio": null
+                "bio": null,
+                "isBannedFromRecommendation": false
               },
               "favoritedAt": "2025-06-15"
             }

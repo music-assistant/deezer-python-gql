@@ -14,11 +14,25 @@ class GetArtist(BaseModel):
 
 
 class GetArtistArtist(ArtistFields):
+    social: "GetArtistArtistSocial"
+    hero_picture: Optional["GetArtistArtistHeroPicture"] = Field(alias="heroPicture")
     url: Union["GetArtistArtistUrlDeezerUrl", "GetArtistArtistUrlUrl"] = Field(
         discriminator="typename__"
     )
     top_tracks: Optional["GetArtistArtistTopTracks"] = Field(alias="topTracks")
     albums: "GetArtistArtistAlbums"
+
+
+class GetArtistArtistSocial(BaseModel):
+    website: Optional[str]
+    twitter: Optional[str]
+    facebook: Optional[str]
+    instagram: Optional[str]
+
+
+class GetArtistArtistHeroPicture(BaseModel):
+    id: str
+    urls: list[str]
 
 
 class GetArtistArtistUrlDeezerUrl(BaseModel):

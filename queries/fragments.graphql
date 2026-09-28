@@ -16,7 +16,9 @@ fragment TrackFields on Track {
   duration
   isExplicit
   isFavorite
+  isBannedFromRecommendation
   popularity
+  gain
   album {
     id
     displayTitle
@@ -57,6 +59,7 @@ fragment ArtistFields on Artist {
   }
   fansCount
   isFavorite
+  isBannedFromRecommendation
   bio {
     full
   }
@@ -84,6 +87,12 @@ fragment AlbumFields on Album {
     }
   }
   releaseDate
+  subtypes {
+    isStudio
+    isLive
+    isCompilation
+    isKaraoke
+  }
   isExplicit
   isFavorite
   fansCount
@@ -102,6 +111,7 @@ fragment PlaylistFields on Playlist {
     urls(pictureRequest: { width: 500, height: 500 })
   }
   estimatedTracksCount
+  lastModificationDate
   fansCount
   isFavorite
   description
