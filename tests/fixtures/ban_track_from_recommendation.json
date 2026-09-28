@@ -1,0 +1,11 @@
+{
+  "data": {
+    "banTrackFromRecommendation": {
+      "status": true,
+      "track": {
+        "id": "100000001",
+        "title": "Test Track"
+      }
+    }
+  }
+}

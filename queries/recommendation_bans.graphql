@@ -1,0 +1,47 @@
+# Keep a track out of the user's recommendations (Flow, mixes).
+
+mutation BanTrackFromRecommendation($trackId: String!) {
+  banTrackFromRecommendation(trackId: $trackId) {
+    status
+    track {
+      id
+      title
+    }
+  }
+}
+
+# Allow a banned track back into the user's recommendations.
+
+mutation UnbanTrackFromRecommendation($trackId: String!) {
+  unbanTrackFromRecommendation(trackId: $trackId) {
+    status
+    track {
+      id
+      title
+    }
+  }
+}
+
+# Keep an artist out of the user's recommendations.
+
+mutation BanArtistFromRecommendation($artistId: String!) {
+  banArtistFromRecommendation(artistId: $artistId) {
+    status
+    artist {
+      id
+      name
+    }
+  }
+}
+
+# Allow a banned artist back into the user's recommendations.
+
+mutation UnbanArtistFromRecommendation($artistId: String!) {
+  unbanArtistFromRecommendation(artistId: $artistId) {
+    status
+    artist {
+      id
+      name
+    }
+  }
+}

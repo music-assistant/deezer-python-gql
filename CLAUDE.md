@@ -115,6 +115,8 @@ deezer-python-gql/
 │       ├── get_music_together_affinity.py  # Response models: Music Together affinity
 │       ├── add_*_to_favorite.py  # Mutation models: add artist/album/track/playlist/podcast/audiobook
 │       ├── remove_*_from_favorite.py  # Mutation models: remove favorites
+│       ├── ban_*_from_recommendation.py    # Mutation models: ban track/artist from recommendations
+│       ├── unban_*_from_recommendation.py  # Mutation models: unban track/artist
 │       ├── create_playlist.py   # Mutation model: create playlist
 │       ├── update_playlist.py   # Mutation model: update playlist
 │       ├── delete_playlist.py   # Mutation model: delete playlist
@@ -168,6 +170,7 @@ deezer-python-gql/
 │   ├── get_music_together_group.graphql  # GetMusicTogetherGroup: single group with tracks
 │   ├── get_music_together_affinity.graphql  # GetMusicTogetherAffinity: group member affinity
 │   ├── favorites.graphql        # Mutations: add/remove favorites (all entity types)
+│   ├── recommendation_bans.graphql  # Mutations: ban/unban track or artist from recommendations
 │   ├── playlists.graphql        # Mutations: create/update/delete/add/remove playlist tracks
 │   └── music_together.graphql   # Mutations: create/join/leave/refresh/update/generate groups
 ├── schema.graphql               # Full SDL schema (~17,700 lines, ~915 types) — generated

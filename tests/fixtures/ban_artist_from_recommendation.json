@@ -1,0 +1,11 @@
+{
+  "data": {
+    "banArtistFromRecommendation": {
+      "status": true,
+      "artist": {
+        "id": "100000001",
+        "name": "Test Artist"
+      }
+    }
+  }
+}

@@ -39,6 +39,12 @@ from deezer_python_gql.generated.add_playlist_to_favorite import AddPlaylistToFa
 from deezer_python_gql.generated.add_podcast_to_favorite import AddPodcastToFavorite
 from deezer_python_gql.generated.add_track_to_favorite import AddTrackToFavorite
 from deezer_python_gql.generated.add_tracks_to_playlist import AddTracksToPlaylist
+from deezer_python_gql.generated.ban_artist_from_recommendation import (
+    BanArtistFromRecommendation,
+)
+from deezer_python_gql.generated.ban_track_from_recommendation import (
+    BanTrackFromRecommendation,
+)
 from deezer_python_gql.generated.bookmark_podcast_episode import BookmarkPodcastEpisode
 from deezer_python_gql.generated.create_playlist import CreatePlaylist
 from deezer_python_gql.generated.delete_playlist import DeletePlaylist
@@ -115,6 +121,12 @@ from deezer_python_gql.generated.remove_track_from_favorite import RemoveTrackFr
 from deezer_python_gql.generated.remove_tracks_from_playlist import RemoveTracksFromPlaylist
 from deezer_python_gql.generated.search import Search
 from deezer_python_gql.generated.search_flows import SearchFlows
+from deezer_python_gql.generated.unban_artist_from_recommendation import (
+    UnbanArtistFromRecommendation,
+)
+from deezer_python_gql.generated.unban_track_from_recommendation import (
+    UnbanTrackFromRecommendation,
+)
 from deezer_python_gql.generated.unbookmark_podcast_episode import UnbookmarkPodcastEpisode
 from deezer_python_gql.generated.update_playlist import UpdatePlaylist
 
@@ -306,6 +318,10 @@ def test_client_has_generated_methods() -> None:
         "remove_track_from_favorite",
         "add_playlist_to_favorite",
         "remove_playlist_from_favorite",
+        "ban_track_from_recommendation",
+        "unban_track_from_recommendation",
+        "ban_artist_from_recommendation",
+        "unban_artist_from_recommendation",
         "create_playlist",
         "update_playlist",
         "delete_playlist",
@@ -1357,6 +1373,42 @@ def test_smoke_remove_playlist_from_favorite() -> None:
     result = RemovePlaylistFromFavorite.model_validate(data)
     assert result.remove_playlist_from_favorite.playlist.id == "1000000001"
     assert result.remove_playlist_from_favorite.playlist.title == "Test Playlist"
+
+
+def test_smoke_ban_track_from_recommendation() -> None:
+    """Verify BanTrackFromRecommendation fixture parses with status and returned track."""
+    data = _load_fixture("ban_track_from_recommendation.json")
+    result = BanTrackFromRecommendation.model_validate(data)
+    assert result.ban_track_from_recommendation.status is True
+    assert result.ban_track_from_recommendation.track.id == "100000001"
+    assert result.ban_track_from_recommendation.track.title == "Test Track"
+
+
+def test_smoke_ban_artist_from_recommendation() -> None:
+    """Verify BanArtistFromRecommendation fixture parses with status and returned artist."""
+    data = _load_fixture("ban_artist_from_recommendation.json")
+    result = BanArtistFromRecommendation.model_validate(data)
+    assert result.ban_artist_from_recommendation.status is True
+    assert result.ban_artist_from_recommendation.artist.id == "100000001"
+    assert result.ban_artist_from_recommendation.artist.name == "Test Artist"
+
+
+def test_smoke_unban_track_from_recommendation() -> None:
+    """Verify UnbanTrackFromRecommendation fixture parses with status and returned track."""
+    data = _load_fixture("unban_track_from_recommendation.json")
+    result = UnbanTrackFromRecommendation.model_validate(data)
+    assert result.unban_track_from_recommendation.status is True
+    assert result.unban_track_from_recommendation.track.id == "100000001"
+    assert result.unban_track_from_recommendation.track.title == "Test Track"
+
+
+def test_smoke_unban_artist_from_recommendation() -> None:
+    """Verify UnbanArtistFromRecommendation fixture parses with status and returned artist."""
+    data = _load_fixture("unban_artist_from_recommendation.json")
+    result = UnbanArtistFromRecommendation.model_validate(data)
+    assert result.unban_artist_from_recommendation.status is True
+    assert result.unban_artist_from_recommendation.artist.id == "100000001"
+    assert result.unban_artist_from_recommendation.artist.name == "Test Artist"
 
 
 # ---------------------------------------------------------------------------
