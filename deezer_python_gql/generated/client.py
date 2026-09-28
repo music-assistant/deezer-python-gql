@@ -617,7 +617,7 @@ class DeezerGQLClient(DeezerBaseClient):
               type
               cover {
                 id
-                urls(pictureRequest: {width: 264, height: 264})
+                urls(pictureRequest: {width: 500, height: 500})
               }
               contributors(first: 5, roles: [MAIN]) {
                 edges {
@@ -659,7 +659,7 @@ class DeezerGQLClient(DeezerBaseClient):
                 displayTitle
                 cover {
                   id
-                  urls(pictureRequest: {width: 264, height: 264})
+                  urls(pictureRequest: {width: 500, height: 500})
                 }
               }
               contributors(first: 10, roles: [MAIN, FEATURED]) {
@@ -749,7 +749,7 @@ class DeezerGQLClient(DeezerBaseClient):
               type
               cover {
                 id
-                urls(pictureRequest: {width: 264, height: 264})
+                urls(pictureRequest: {width: 500, height: 500})
               }
               contributors(first: 5, roles: [MAIN]) {
                 edges {
@@ -774,7 +774,7 @@ class DeezerGQLClient(DeezerBaseClient):
               name
               picture {
                 id
-                urls(pictureRequest: {width: 264, height: 264})
+                urls(pictureRequest: {width: 500, height: 500})
               }
               fansCount
               isFavorite
@@ -805,7 +805,7 @@ class DeezerGQLClient(DeezerBaseClient):
                 displayTitle
                 cover {
                   id
-                  urls(pictureRequest: {width: 264, height: 264})
+                  urls(pictureRequest: {width: 500, height: 500})
                 }
               }
               contributors(first: 10, roles: [MAIN, FEATURED]) {
@@ -872,7 +872,7 @@ class DeezerGQLClient(DeezerBaseClient):
                 displayTitle
                 cover {
                   id
-                  urls(pictureRequest: {width: 264, height: 264})
+                  urls(pictureRequest: {width: 500, height: 500})
                 }
               }
               contributors(first: 10, roles: [MAIN, FEATURED]) {
@@ -954,9 +954,9 @@ class DeezerGQLClient(DeezerBaseClient):
             fragment AudiobookFields on Audiobook {
               id
               displayTitle
-              cover(pictureRequest: {width: 264, height: 264}) {
+              cover(pictureRequest: {width: 500, height: 500}) {
                 id
-                urls(pictureRequest: {width: 264, height: 264})
+                urls(pictureRequest: {width: 500, height: 500})
               }
               description
               duration
@@ -1049,9 +1049,9 @@ class DeezerGQLClient(DeezerBaseClient):
             fragment AudiobookFields on Audiobook {
               id
               displayTitle
-              cover(pictureRequest: {width: 264, height: 264}) {
+              cover(pictureRequest: {width: 500, height: 500}) {
                 id
-                urls(pictureRequest: {width: 264, height: 264})
+                urls(pictureRequest: {width: 500, height: 500})
               }
               description
               duration
@@ -1153,7 +1153,7 @@ class DeezerGQLClient(DeezerBaseClient):
               type
               cover {
                 id
-                urls(pictureRequest: {width: 264, height: 264})
+                urls(pictureRequest: {width: 500, height: 500})
               }
               contributors(first: 5, roles: [MAIN]) {
                 edges {
@@ -1178,7 +1178,7 @@ class DeezerGQLClient(DeezerBaseClient):
               name
               picture {
                 id
-                urls(pictureRequest: {width: 264, height: 264})
+                urls(pictureRequest: {width: 500, height: 500})
               }
               fansCount
               isFavorite
@@ -1197,7 +1197,7 @@ class DeezerGQLClient(DeezerBaseClient):
               title
               picture {
                 id
-                urls(pictureRequest: {width: 264, height: 264})
+                urls(pictureRequest: {width: 500, height: 500})
               }
               estimatedTracksCount
               fansCount
@@ -1226,7 +1226,7 @@ class DeezerGQLClient(DeezerBaseClient):
                 displayTitle
                 cover {
                   id
-                  urls(pictureRequest: {width: 264, height: 264})
+                  urls(pictureRequest: {width: 500, height: 500})
                 }
               }
               contributors(first: 10, roles: [MAIN, FEATURED]) {
@@ -1294,7 +1294,7 @@ class DeezerGQLClient(DeezerBaseClient):
               type
               cover {
                 id
-                urls(pictureRequest: {width: 264, height: 264})
+                urls(pictureRequest: {width: 500, height: 500})
               }
               contributors(first: 5, roles: [MAIN]) {
                 edges {
@@ -1360,7 +1360,7 @@ class DeezerGQLClient(DeezerBaseClient):
               name
               picture {
                 id
-                urls(pictureRequest: {width: 264, height: 264})
+                urls(pictureRequest: {width: 500, height: 500})
               }
               fansCount
               isFavorite
@@ -1445,7 +1445,7 @@ class DeezerGQLClient(DeezerBaseClient):
               title
               picture {
                 id
-                urls(pictureRequest: {width: 264, height: 264})
+                urls(pictureRequest: {width: 500, height: 500})
               }
               estimatedTracksCount
               fansCount
@@ -1503,7 +1503,7 @@ class DeezerGQLClient(DeezerBaseClient):
               displayTitle
               cover {
                 id
-                urls(pictureRequest: {width: 264, height: 264})
+                urls(pictureRequest: {width: 500, height: 500})
               }
               description
               isExplicit
@@ -1569,7 +1569,7 @@ class DeezerGQLClient(DeezerBaseClient):
                 displayTitle
                 cover {
                   id
-                  urls(pictureRequest: {width: 264, height: 264})
+                  urls(pictureRequest: {width: 500, height: 500})
                 }
               }
               contributors(first: 10, roles: [MAIN, FEATURED]) {
@@ -1611,7 +1611,7 @@ class DeezerGQLClient(DeezerBaseClient):
                   title
                   cover {
                     id
-                    urls(pictureRequest: {width: 264, height: 264})
+                    urls(pictureRequest: {width: 500, height: 500})
                   }
                   tracks {
                     track {
@@ -1639,7 +1639,7 @@ class DeezerGQLClient(DeezerBaseClient):
                 displayTitle
                 cover {
                   id
-                  urls(pictureRequest: {width: 264, height: 264})
+                  urls(pictureRequest: {width: 500, height: 500})
                 }
               }
               contributors(first: 10, roles: [MAIN, FEATURED]) {
@@ -1678,7 +1678,7 @@ class DeezerGQLClient(DeezerBaseClient):
                   title
                   cover {
                     id
-                    urls(pictureRequest: {width: 264, height: 264})
+                    urls(pictureRequest: {width: 500, height: 500})
                   }
                   batch1: tracks {
                     track {
@@ -1721,7 +1721,7 @@ class DeezerGQLClient(DeezerBaseClient):
                 displayTitle
                 cover {
                   id
-                  urls(pictureRequest: {width: 264, height: 264})
+                  urls(pictureRequest: {width: 500, height: 500})
                 }
               }
               contributors(first: 10, roles: [MAIN, FEATURED]) {
@@ -1762,7 +1762,7 @@ class DeezerGQLClient(DeezerBaseClient):
                 visuals {
                   hardwareSquareIcon {
                     id
-                    urls(uiAssetRequest: {width: 264, height: 264})
+                    urls(uiAssetRequest: {width: 500, height: 500})
                   }
                 }
                 tracks {
@@ -1790,7 +1790,7 @@ class DeezerGQLClient(DeezerBaseClient):
                 displayTitle
                 cover {
                   id
-                  urls(pictureRequest: {width: 264, height: 264})
+                  urls(pictureRequest: {width: 500, height: 500})
                 }
               }
               contributors(first: 10, roles: [MAIN, FEATURED]) {
@@ -1844,7 +1844,7 @@ class DeezerGQLClient(DeezerBaseClient):
                         visuals {
                           hardwareSquareIcon {
                             id
-                            urls(uiAssetRequest: {width: 264, height: 264})
+                            urls(uiAssetRequest: {width: 500, height: 500})
                           }
                         }
                       }
@@ -1862,7 +1862,7 @@ class DeezerGQLClient(DeezerBaseClient):
                         visuals {
                           hardwareSquareIcon {
                             id
-                            urls(uiAssetRequest: {width: 264, height: 264})
+                            urls(uiAssetRequest: {width: 500, height: 500})
                           }
                         }
                       }
@@ -1911,7 +1911,7 @@ class DeezerGQLClient(DeezerBaseClient):
               country
               cover {
                 id
-                urls(pictureRequest: {width: 264, height: 264})
+                urls(pictureRequest: {width: 500, height: 500})
               }
               media {
                 url
@@ -1946,7 +1946,7 @@ class DeezerGQLClient(DeezerBaseClient):
                         subTitle
                         cover {
                           id
-                          urls(pictureRequest: {width: 264, height: 264})
+                          urls(pictureRequest: {width: 500, height: 500})
                         }
                       }
                       ... on Flow {
@@ -1954,7 +1954,7 @@ class DeezerGQLClient(DeezerBaseClient):
                         title
                         cover {
                           id
-                          urls(pictureRequest: {width: 264, height: 264})
+                          urls(pictureRequest: {width: 500, height: 500})
                         }
                       }
                     }
@@ -2010,7 +2010,7 @@ class DeezerGQLClient(DeezerBaseClient):
                   name
                   picture {
                     id
-                    urls(pictureRequest: {width: 264, height: 264})
+                    urls(pictureRequest: {width: 500, height: 500})
                   }
                 }
                 discoveryTracks(first: $discoveryTracksFirst) {
@@ -2043,7 +2043,7 @@ class DeezerGQLClient(DeezerBaseClient):
               name
               picture {
                 id
-                urls(pictureRequest: {width: 264, height: 264})
+                urls(pictureRequest: {width: 500, height: 500})
               }
               fansCount
               isFavorite
@@ -2074,7 +2074,7 @@ class DeezerGQLClient(DeezerBaseClient):
                 displayTitle
                 cover {
                   id
-                  urls(pictureRequest: {width: 264, height: 264})
+                  urls(pictureRequest: {width: 500, height: 500})
                 }
               }
               contributors(first: 10, roles: [MAIN, FEATURED]) {
@@ -2139,7 +2139,7 @@ class DeezerGQLClient(DeezerBaseClient):
                       name
                       picture {
                         id
-                        urls(pictureRequest: {width: 264, height: 264})
+                        urls(pictureRequest: {width: 500, height: 500})
                       }
                     }
                     affinity {
@@ -2206,7 +2206,7 @@ class DeezerGQLClient(DeezerBaseClient):
               title
               picture {
                 id
-                urls(pictureRequest: {width: 264, height: 264})
+                urls(pictureRequest: {width: 500, height: 500})
               }
               estimatedTracksCount
               fansCount
@@ -2235,7 +2235,7 @@ class DeezerGQLClient(DeezerBaseClient):
                 displayTitle
                 cover {
                   id
-                  urls(pictureRequest: {width: 264, height: 264})
+                  urls(pictureRequest: {width: 500, height: 500})
                 }
               }
               contributors(first: 10, roles: [MAIN, FEATURED]) {
@@ -2303,7 +2303,7 @@ class DeezerGQLClient(DeezerBaseClient):
                             name
                             picture {
                               id
-                              urls(pictureRequest: {width: 264, height: 264})
+                              urls(pictureRequest: {width: 500, height: 500})
                             }
                           }
                         }
@@ -2380,7 +2380,7 @@ class DeezerGQLClient(DeezerBaseClient):
                 displayTitle
                 cover {
                   id
-                  urls(pictureRequest: {width: 264, height: 264})
+                  urls(pictureRequest: {width: 500, height: 500})
                 }
               }
               contributors(first: 10, roles: [MAIN, FEATURED]) {
@@ -2452,7 +2452,7 @@ class DeezerGQLClient(DeezerBaseClient):
               title
               picture {
                 id
-                urls(pictureRequest: {width: 264, height: 264})
+                urls(pictureRequest: {width: 500, height: 500})
               }
               estimatedTracksCount
               fansCount
@@ -2481,7 +2481,7 @@ class DeezerGQLClient(DeezerBaseClient):
                 displayTitle
                 cover {
                   id
-                  urls(pictureRequest: {width: 264, height: 264})
+                  urls(pictureRequest: {width: 500, height: 500})
                 }
               }
               contributors(first: 10, roles: [MAIN, FEATURED]) {
@@ -2564,7 +2564,7 @@ class DeezerGQLClient(DeezerBaseClient):
               duration
               cover {
                 id
-                urls(pictureRequest: {width: 264, height: 264})
+                urls(pictureRequest: {width: 500, height: 500})
               }
               publicationDate
               media {
@@ -2581,7 +2581,7 @@ class DeezerGQLClient(DeezerBaseClient):
               displayTitle
               cover {
                 id
-                urls(pictureRequest: {width: 264, height: 264})
+                urls(pictureRequest: {width: 500, height: 500})
               }
               description
               isExplicit
@@ -2627,7 +2627,7 @@ class DeezerGQLClient(DeezerBaseClient):
               duration
               cover {
                 id
-                urls(pictureRequest: {width: 264, height: 264})
+                urls(pictureRequest: {width: 500, height: 500})
               }
               publicationDate
               media {
@@ -2644,7 +2644,7 @@ class DeezerGQLClient(DeezerBaseClient):
               displayTitle
               cover {
                 id
-                urls(pictureRequest: {width: 264, height: 264})
+                urls(pictureRequest: {width: 500, height: 500})
               }
               description
               isExplicit
@@ -2705,7 +2705,7 @@ class DeezerGQLClient(DeezerBaseClient):
               duration
               cover {
                 id
-                urls(pictureRequest: {width: 264, height: 264})
+                urls(pictureRequest: {width: 500, height: 500})
               }
               publicationDate
               media {
@@ -2722,7 +2722,7 @@ class DeezerGQLClient(DeezerBaseClient):
               displayTitle
               cover {
                 id
-                urls(pictureRequest: {width: 264, height: 264})
+                urls(pictureRequest: {width: 500, height: 500})
               }
               description
               isExplicit
@@ -2757,7 +2757,7 @@ class DeezerGQLClient(DeezerBaseClient):
               duration
               cover {
                 id
-                urls(pictureRequest: {width: 264, height: 264})
+                urls(pictureRequest: {width: 500, height: 500})
               }
               publicationDate
               media {
@@ -2804,7 +2804,7 @@ class DeezerGQLClient(DeezerBaseClient):
                         title
                         cover {
                           id
-                          urls(pictureRequest: {width: 264, height: 264})
+                          urls(pictureRequest: {width: 500, height: 500})
                         }
                       }
                       ... on FlowConfig {
@@ -2813,7 +2813,7 @@ class DeezerGQLClient(DeezerBaseClient):
                         visuals {
                           hardwareSquareIcon {
                             id
-                            urls(uiAssetRequest: {width: 264, height: 264})
+                            urls(uiAssetRequest: {width: 500, height: 500})
                           }
                         }
                       }
@@ -2823,7 +2823,7 @@ class DeezerGQLClient(DeezerBaseClient):
                         subTitle
                         cover {
                           id
-                          urls(pictureRequest: {width: 264, height: 264})
+                          urls(pictureRequest: {width: 500, height: 500})
                         }
                       }
                     }
@@ -2841,7 +2841,7 @@ class DeezerGQLClient(DeezerBaseClient):
               type
               cover {
                 id
-                urls(pictureRequest: {width: 264, height: 264})
+                urls(pictureRequest: {width: 500, height: 500})
               }
               contributors(first: 5, roles: [MAIN]) {
                 edges {
@@ -2866,7 +2866,7 @@ class DeezerGQLClient(DeezerBaseClient):
               name
               picture {
                 id
-                urls(pictureRequest: {width: 264, height: 264})
+                urls(pictureRequest: {width: 500, height: 500})
               }
               fansCount
               isFavorite
@@ -2885,7 +2885,7 @@ class DeezerGQLClient(DeezerBaseClient):
               title
               picture {
                 id
-                urls(pictureRequest: {width: 264, height: 264})
+                urls(pictureRequest: {width: 500, height: 500})
               }
               estimatedTracksCount
               fansCount
@@ -2977,7 +2977,7 @@ class DeezerGQLClient(DeezerBaseClient):
               type
               cover {
                 id
-                urls(pictureRequest: {width: 264, height: 264})
+                urls(pictureRequest: {width: 500, height: 500})
               }
               contributors(first: 5, roles: [MAIN]) {
                 edges {
@@ -3002,7 +3002,7 @@ class DeezerGQLClient(DeezerBaseClient):
               name
               picture {
                 id
-                urls(pictureRequest: {width: 264, height: 264})
+                urls(pictureRequest: {width: 500, height: 500})
               }
               fansCount
               isFavorite
@@ -3021,7 +3021,7 @@ class DeezerGQLClient(DeezerBaseClient):
               title
               picture {
                 id
-                urls(pictureRequest: {width: 264, height: 264})
+                urls(pictureRequest: {width: 500, height: 500})
               }
               estimatedTracksCount
               fansCount
@@ -3050,7 +3050,7 @@ class DeezerGQLClient(DeezerBaseClient):
                 displayTitle
                 cover {
                   id
-                  urls(pictureRequest: {width: 264, height: 264})
+                  urls(pictureRequest: {width: 500, height: 500})
                 }
               }
               contributors(first: 10, roles: [MAIN, FEATURED]) {
@@ -3116,7 +3116,7 @@ class DeezerGQLClient(DeezerBaseClient):
               name
               picture {
                 id
-                urls(pictureRequest: {width: 264, height: 264})
+                urls(pictureRequest: {width: 500, height: 500})
               }
               fansCount
               isFavorite
@@ -3169,7 +3169,7 @@ class DeezerGQLClient(DeezerBaseClient):
                 displayTitle
                 cover {
                   id
-                  urls(pictureRequest: {width: 264, height: 264})
+                  urls(pictureRequest: {width: 500, height: 500})
                 }
               }
               contributors(first: 10, roles: [MAIN, FEATURED]) {
@@ -3217,7 +3217,7 @@ class DeezerGQLClient(DeezerBaseClient):
                 subTitle
                 cover {
                   id
-                  urls(pictureRequest: {width: 264, height: 264})
+                  urls(pictureRequest: {width: 500, height: 500})
                 }
                 tracks(first: $first, after: $after) {
                   edges {
@@ -3255,7 +3255,7 @@ class DeezerGQLClient(DeezerBaseClient):
                 displayTitle
                 cover {
                   id
-                  urls(pictureRequest: {width: 264, height: 264})
+                  urls(pictureRequest: {width: 500, height: 500})
                 }
               }
               contributors(first: 10, roles: [MAIN, FEATURED]) {
@@ -3312,7 +3312,7 @@ class DeezerGQLClient(DeezerBaseClient):
                   displayTitle
                   cover {
                     id
-                    urls(pictureRequest: {width: 264, height: 264})
+                    urls(pictureRequest: {width: 500, height: 500})
                   }
                 }
                 contributors(first: 10, roles: [MAIN, FEATURED]) {
@@ -3411,7 +3411,7 @@ class DeezerGQLClient(DeezerBaseClient):
                 displayTitle
                 cover {
                   id
-                  urls(pictureRequest: {width: 264, height: 264})
+                  urls(pictureRequest: {width: 500, height: 500})
                 }
               }
               contributors(first: 10, roles: [MAIN, FEATURED]) {
@@ -3499,7 +3499,7 @@ class DeezerGQLClient(DeezerBaseClient):
               type
               cover {
                 id
-                urls(pictureRequest: {width: 264, height: 264})
+                urls(pictureRequest: {width: 500, height: 500})
               }
               contributors(first: 5, roles: [MAIN]) {
                 edges {
@@ -3524,7 +3524,7 @@ class DeezerGQLClient(DeezerBaseClient):
               name
               picture {
                 id
-                urls(pictureRequest: {width: 264, height: 264})
+                urls(pictureRequest: {width: 500, height: 500})
               }
               fansCount
               isFavorite
@@ -3555,7 +3555,7 @@ class DeezerGQLClient(DeezerBaseClient):
                 displayTitle
                 cover {
                   id
-                  urls(pictureRequest: {width: 264, height: 264})
+                  urls(pictureRequest: {width: 500, height: 500})
                 }
               }
               contributors(first: 10, roles: [MAIN, FEATURED]) {
@@ -3622,7 +3622,7 @@ class DeezerGQLClient(DeezerBaseClient):
               title
               picture {
                 id
-                urls(pictureRequest: {width: 264, height: 264})
+                urls(pictureRequest: {width: 500, height: 500})
               }
               estimatedTracksCount
               fansCount
@@ -4123,7 +4123,7 @@ class DeezerGQLClient(DeezerBaseClient):
                           displayTitle
                           cover {
                             id
-                            urls(pictureRequest: {width: 264, height: 264})
+                            urls(pictureRequest: {width: 500, height: 500})
                           }
                         }
                         contributors(first: 3, roles: [MAIN, FEATURED]) {
@@ -4160,7 +4160,7 @@ class DeezerGQLClient(DeezerBaseClient):
                         type
                         cover {
                           id
-                          urls(pictureRequest: {width: 264, height: 264})
+                          urls(pictureRequest: {width: 500, height: 500})
                         }
                         contributors(first: 3, roles: [MAIN]) {
                           edges {
@@ -4191,7 +4191,7 @@ class DeezerGQLClient(DeezerBaseClient):
                         isFavorite
                         picture {
                           id
-                          urls(pictureRequest: {width: 264, height: 264})
+                          urls(pictureRequest: {width: 500, height: 500})
                         }
                       }
                     }
@@ -4207,7 +4207,7 @@ class DeezerGQLClient(DeezerBaseClient):
                         title
                         picture {
                           id
-                          urls(pictureRequest: {width: 264, height: 264})
+                          urls(pictureRequest: {width: 500, height: 500})
                         }
                         estimatedTracksCount
                         isFavorite
@@ -4229,7 +4229,7 @@ class DeezerGQLClient(DeezerBaseClient):
                         name
                         cover {
                           id
-                          urls(pictureRequest: {width: 264, height: 264})
+                          urls(pictureRequest: {width: 500, height: 500})
                         }
                       }
                     }
@@ -4245,7 +4245,7 @@ class DeezerGQLClient(DeezerBaseClient):
                         displayTitle
                         cover {
                           id
-                          urls(pictureRequest: {width: 264, height: 264})
+                          urls(pictureRequest: {width: 500, height: 500})
                         }
                         isFavorite
                       }
@@ -4298,7 +4298,7 @@ class DeezerGQLClient(DeezerBaseClient):
                         visuals {
                           hardwareSquareIcon {
                             id
-                            urls(uiAssetRequest: {width: 264, height: 264})
+                            urls(uiAssetRequest: {width: 500, height: 500})
                           }
                         }
                       }

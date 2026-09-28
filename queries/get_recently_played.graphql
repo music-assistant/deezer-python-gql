@@ -22,7 +22,7 @@ query GetRecentlyPlayed($first: Int = 20) {
             title
             cover {
               id
-              urls(pictureRequest: { width: 264, height: 264 })
+              urls(pictureRequest: { width: 500, height: 500 })
             }
           }
           ... on FlowConfig {
@@ -31,7 +31,7 @@ query GetRecentlyPlayed($first: Int = 20) {
             visuals {
               hardwareSquareIcon {
                 id
-                urls(uiAssetRequest: { width: 264, height: 264 })
+                urls(uiAssetRequest: { width: 500, height: 500 })
               }
             }
           }
@@ -41,7 +41,7 @@ query GetRecentlyPlayed($first: Int = 20) {
             subTitle
             cover {
               id
-              urls(pictureRequest: { width: 264, height: 264 })
+              urls(pictureRequest: { width: 500, height: 500 })
             }
           }
         }

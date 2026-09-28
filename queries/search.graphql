@@ -23,7 +23,7 @@ query Search(
               displayTitle
               cover {
                 id
-                urls(pictureRequest: { width: 264, height: 264 })
+                urls(pictureRequest: { width: 500, height: 500 })
               }
             }
             contributors(first: 3, roles: [MAIN, FEATURED]) {
@@ -59,7 +59,7 @@ query Search(
             type
             cover {
               id
-              urls(pictureRequest: { width: 264, height: 264 })
+              urls(pictureRequest: { width: 500, height: 500 })
             }
             contributors(first: 3, roles: [MAIN]) {
               edges {
@@ -89,7 +89,7 @@ query Search(
             isFavorite
             picture {
               id
-              urls(pictureRequest: { width: 264, height: 264 })
+              urls(pictureRequest: { width: 500, height: 500 })
             }
           }
         }
@@ -105,7 +105,7 @@ query Search(
             title
             picture {
               id
-              urls(pictureRequest: { width: 264, height: 264 })
+              urls(pictureRequest: { width: 500, height: 500 })
             }
             estimatedTracksCount
             isFavorite
@@ -127,7 +127,7 @@ query Search(
             name
             cover {
               id
-              urls(pictureRequest: { width: 264, height: 264 })
+              urls(pictureRequest: { width: 500, height: 500 })
             }
           }
         }
@@ -143,7 +143,7 @@ query Search(
             displayTitle
             cover {
               id
-              urls(pictureRequest: { width: 264, height: 264 })
+              urls(pictureRequest: { width: 500, height: 500 })
             }
             isFavorite
           }

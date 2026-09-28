@@ -8,7 +8,7 @@ query GetFlowBatch {
       title
       cover {
         id
-        urls(pictureRequest: { width: 264, height: 264 })
+        urls(pictureRequest: { width: 500, height: 500 })
       }
       batch1: tracks {
         track {

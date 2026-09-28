@@ -18,7 +18,7 @@ query GetFlowConfigs(
             visuals {
               hardwareSquareIcon {
                 id
-                urls(uiAssetRequest: { width: 264, height: 264 })
+                urls(uiAssetRequest: { width: 500, height: 500 })
               }
             }
           }
@@ -36,7 +36,7 @@ query GetFlowConfigs(
             visuals {
               hardwareSquareIcon {
                 id
-                urls(uiAssetRequest: { width: 264, height: 264 })
+                urls(uiAssetRequest: { width: 500, height: 500 })
               }
             }
           }
