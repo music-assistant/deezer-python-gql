@@ -1,0 +1,70 @@
+{
+  "data": {
+    "me": {
+      "bannedFromRecommendation": {
+        "estimatedTracksCount": 1,
+        "tracks": {
+          "edges": [
+            {
+              "bannedAt": "2026-01-10T08:38:22.000Z",
+              "node": {
+                "__typename": "Track",
+                "id": "3135556",
+                "title": "Harder, Better, Faster, Stronger",
+                "ISRC": "GBDUW0000059",
+                "diskInfo": {
+                  "diskNumber": 1,
+                  "trackNumber": 4
+                },
+                "duration": 226,
+                "isExplicit": false,
+                "album": {
+                  "id": "302127",
+                  "displayTitle": "Discovery",
+                  "cover": {
+                    "id": "cover_302127",
+                    "urls": [
+                      "https://cdn-images.deezer.com/images/cover/302127/264x264.jpg"
+                    ]
+                  },
+                  "isFavorite": null,
+                  "fansCount": 0,
+                  "label": null,
+                  "copyright": null,
+                  "isExplicit": false,
+                  "releaseDate": null,
+                  "contributors": {
+                    "edges": []
+                  }
+                },
+                "contributors": {
+                  "edges": [
+                    {
+                      "roles": [
+                        "MAIN"
+                      ],
+                      "node": {
+                        "__typename": "Artist",
+                        "id": "27",
+                        "name": "Daft Punk"
+                      }
+                    }
+                  ]
+                },
+                "isFavorite": false,
+                "popularity": null,
+                "media": null,
+                "isBannedFromRecommendation": true,
+                "gain": -8.2
+              }
+            }
+          ],
+          "pageInfo": {
+            "hasNextPage": false,
+            "endCursor": null
+          }
+        }
+      }
+    }
+  }
+}

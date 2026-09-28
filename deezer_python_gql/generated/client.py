@@ -49,6 +49,7 @@ from .bookmark_podcast_episode import (
 from .create_playlist import CreatePlaylist, CreatePlaylistCreatePlaylist
 from .delete_playlist import DeletePlaylist, DeletePlaylistDeletePlaylist
 from .enums import (
+    DiscoveryTunerInput,
     MusicTogetherRefreshSuggestedTracklistMoodInput,
     MusicTogetherSuggestedTracklistMoodInput,
     PodcastEpisodeOrder,
@@ -61,6 +62,8 @@ from .get_audiobook_chapter import (
     GetAudiobookChapter,
     GetAudiobookChapterAudiobookChapter,
 )
+from .get_banned_artists import GetBannedArtists, GetBannedArtistsMe
+from .get_banned_tracks import GetBannedTracks, GetBannedTracksMe
 from .get_charts import GetCharts, GetChartsCharts
 from .get_favorite_albums import GetFavoriteAlbums, GetFavoriteAlbumsMe
 from .get_favorite_artists import GetFavoriteArtists, GetFavoriteArtistsMe
@@ -72,6 +75,15 @@ from .get_flow import GetFlow, GetFlowMe
 from .get_flow_batch import GetFlowBatch, GetFlowBatchMe
 from .get_flow_config_tracks import GetFlowConfigTracks, GetFlowConfigTracksFlowConfig
 from .get_flow_configs import GetFlowConfigs, GetFlowConfigsMe
+from .get_flow_tuner import GetFlowTuner, GetFlowTunerMe
+from .get_infinite_track_mix import (
+    GetInfiniteTrackMix,
+    GetInfiniteTrackMixRawInfiniteTrackMix,
+)
+from .get_latest_podcast_episodes import (
+    GetLatestPodcastEpisodes,
+    GetLatestPodcastEpisodesMe,
+)
 from .get_livestream import GetLivestream, GetLivestreamLivestream
 from .get_made_for_me import GetMadeForMe, GetMadeForMeMe
 from .get_me import GetMe, GetMeMe
@@ -103,6 +115,7 @@ from .get_similar_tracks import GetSimilarTracks, GetSimilarTracksTrack
 from .get_smart_tracklist import GetSmartTracklist, GetSmartTracklistSmartTracklist
 from .get_track import GetTrack, GetTrackTrack
 from .get_track_mix import GetTrackMix, GetTrackMixTrackMix
+from .get_tracks_by_ids import GetTracksByIds, GetTracksByIdsTracksByIds
 from .get_user_charts import GetUserCharts, GetUserChartsMe
 from .get_user_playlists import GetUserPlaylists, GetUserPlaylistsMe
 from .mark_as_not_played_podcast_episode import (
@@ -172,6 +185,10 @@ from .remove_tracks_from_playlist import (
 )
 from .search import Search, SearchSearch
 from .search_flows import SearchFlows, SearchFlowsSearch
+from .set_flow_discovery_tuner import (
+    SetFlowDiscoveryTuner,
+    SetFlowDiscoveryTunerSetFlowDiscoveryTuner,
+)
 from .unban_artist_from_recommendation import (
     UnbanArtistFromRecommendation,
     UnbanArtistFromRecommendationUnbanArtistFromRecommendation,
@@ -571,6 +588,26 @@ class DeezerGQLClient(DeezerBaseClient):
         return RemoveAudiobookFromFavorite.model_validate(
             data
         ).remove_audiobook_from_favorite
+
+    async def set_flow_discovery_tuner(
+        self, discovery_tuner: DiscoveryTunerInput, **kwargs: Any
+    ) -> SetFlowDiscoveryTunerSetFlowDiscoveryTuner:
+        query = gql("""
+            mutation SetFlowDiscoveryTuner($discoveryTuner: DiscoveryTunerInput!) {
+              setFlowDiscoveryTuner(discoveryTuner: $discoveryTuner) {
+                discoveryTuner
+              }
+            }
+            """)
+        variables: dict[str, object] = {"discoveryTuner": discovery_tuner}
+        response = await self.execute(
+            query=query,
+            operation_name="SetFlowDiscoveryTuner",
+            variables=variables,
+            **kwargs,
+        )
+        data = self.get_data(response)
+        return SetFlowDiscoveryTuner.model_validate(data).set_flow_discovery_tuner
 
     async def get_album(
         self,
@@ -1115,6 +1152,142 @@ class DeezerGQLClient(DeezerBaseClient):
         )
         data = self.get_data(response)
         return GetAudiobookChapter.model_validate(data).audiobook_chapter
+
+    async def get_banned_artists(
+        self,
+        first: Union[Optional[int], UnsetType] = UNSET,
+        after: Union[Optional[str], UnsetType] = UNSET,
+        **kwargs: Any,
+    ) -> Optional[GetBannedArtistsMe]:
+        query = gql("""
+            query GetBannedArtists($first: Int = 50, $after: String) {
+              me {
+                bannedFromRecommendation {
+                  estimatedArtistsCount
+                  artists(first: $first, after: $after) {
+                    edges {
+                      bannedAt
+                      node {
+                        ...ArtistFields
+                      }
+                    }
+                    pageInfo {
+                      ...PageInfoFields
+                    }
+                  }
+                }
+              }
+            }
+
+            fragment ArtistFields on Artist {
+              id
+              name
+              picture {
+                id
+                urls(pictureRequest: {width: 500, height: 500})
+              }
+              fansCount
+              isFavorite
+              isBannedFromRecommendation
+              bio {
+                full
+              }
+            }
+
+            fragment PageInfoFields on PageInfo {
+              hasNextPage
+              endCursor
+            }
+            """)
+        variables: dict[str, object] = {"first": first, "after": after}
+        response = await self.execute(
+            query=query,
+            operation_name="GetBannedArtists",
+            variables=variables,
+            **kwargs,
+        )
+        data = self.get_data(response)
+        return GetBannedArtists.model_validate(data).me
+
+    async def get_banned_tracks(
+        self,
+        first: Union[Optional[int], UnsetType] = UNSET,
+        after: Union[Optional[str], UnsetType] = UNSET,
+        **kwargs: Any,
+    ) -> Optional[GetBannedTracksMe]:
+        query = gql("""
+            query GetBannedTracks($first: Int = 50, $after: String) {
+              me {
+                bannedFromRecommendation {
+                  estimatedTracksCount
+                  tracks(first: $first, after: $after) {
+                    edges {
+                      bannedAt
+                      node {
+                        ...TrackFields
+                      }
+                    }
+                    pageInfo {
+                      ...PageInfoFields
+                    }
+                  }
+                }
+              }
+            }
+
+            fragment PageInfoFields on PageInfo {
+              hasNextPage
+              endCursor
+            }
+
+            fragment TrackFields on Track {
+              id
+              title
+              ISRC
+              diskInfo {
+                diskNumber
+                trackNumber
+              }
+              duration
+              isExplicit
+              isFavorite
+              isBannedFromRecommendation
+              popularity
+              gain
+              album {
+                id
+                displayTitle
+                cover {
+                  id
+                  urls(pictureRequest: {width: 500, height: 500})
+                }
+              }
+              contributors(first: 10, roles: [MAIN, FEATURED]) {
+                edges {
+                  roles
+                  node {
+                    ... on Artist {
+                      id
+                      name
+                    }
+                  }
+                }
+              }
+              media {
+                rights {
+                  sub {
+                    available
+                  }
+                }
+              }
+            }
+            """)
+        variables: dict[str, object] = {"first": first, "after": after}
+        response = await self.execute(
+            query=query, operation_name="GetBannedTracks", variables=variables, **kwargs
+        )
+        data = self.get_data(response)
+        return GetBannedTracks.model_validate(data).me
 
     async def get_charts(
         self,
@@ -1947,6 +2120,80 @@ class DeezerGQLClient(DeezerBaseClient):
         )
         data = self.get_data(response)
         return GetFlowConfigs.model_validate(data).me
+
+    async def get_flow_tuner(self, **kwargs: Any) -> Optional[GetFlowTunerMe]:
+        query = gql("""
+            query GetFlowTuner {
+              me {
+                flowTuner {
+                  discoveryTuner
+                }
+              }
+            }
+            """)
+        variables: dict[str, object] = {}
+        response = await self.execute(
+            query=query, operation_name="GetFlowTuner", variables=variables, **kwargs
+        )
+        data = self.get_data(response)
+        return GetFlowTuner.model_validate(data).me
+
+    async def get_infinite_track_mix(
+        self,
+        track_ids: list[str],
+        limit: int,
+        start_with_input_tracks: bool,
+        **kwargs: Any,
+    ) -> GetInfiniteTrackMixRawInfiniteTrackMix:
+        query = gql("""
+            query GetInfiniteTrackMix($trackIds: [String!]!, $limit: Int! = 40, $startWithInputTracks: Boolean! = false) {
+              rawInfiniteTrackMix(
+                trackIds: $trackIds
+                limit: $limit
+                startWithInputTracks: $startWithInputTracks
+              ) {
+                tracks {
+                  id
+                }
+              }
+            }
+            """)
+        variables: dict[str, object] = {
+            "trackIds": track_ids,
+            "limit": limit,
+            "startWithInputTracks": start_with_input_tracks,
+        }
+        response = await self.execute(
+            query=query,
+            operation_name="GetInfiniteTrackMix",
+            variables=variables,
+            **kwargs,
+        )
+        data = self.get_data(response)
+        return GetInfiniteTrackMix.model_validate(data).raw_infinite_track_mix
+
+    async def get_latest_podcast_episodes(
+        self, **kwargs: Any
+    ) -> Optional[GetLatestPodcastEpisodesMe]:
+        query = gql("""
+            query GetLatestPodcastEpisodes {
+              me {
+                rawLatestPodcastEpisodes {
+                  id
+                  publicationDate
+                }
+              }
+            }
+            """)
+        variables: dict[str, object] = {}
+        response = await self.execute(
+            query=query,
+            operation_name="GetLatestPodcastEpisodes",
+            variables=variables,
+            **kwargs,
+        )
+        data = self.get_data(response)
+        return GetLatestPodcastEpisodes.model_validate(data).me
 
     async def get_livestream(
         self, livestream_id: str, **kwargs: Any
@@ -3540,6 +3787,65 @@ class DeezerGQLClient(DeezerBaseClient):
         )
         data = self.get_data(response)
         return GetTrackMix.model_validate(data).track_mix
+
+    async def get_tracks_by_ids(
+        self, ids: list[str], **kwargs: Any
+    ) -> list[Optional[GetTracksByIdsTracksByIds]]:
+        query = gql("""
+            query GetTracksByIds($ids: [String!]!) {
+              tracksByIds(ids: $ids) {
+                ...TrackFields
+              }
+            }
+
+            fragment TrackFields on Track {
+              id
+              title
+              ISRC
+              diskInfo {
+                diskNumber
+                trackNumber
+              }
+              duration
+              isExplicit
+              isFavorite
+              isBannedFromRecommendation
+              popularity
+              gain
+              album {
+                id
+                displayTitle
+                cover {
+                  id
+                  urls(pictureRequest: {width: 500, height: 500})
+                }
+              }
+              contributors(first: 10, roles: [MAIN, FEATURED]) {
+                edges {
+                  roles
+                  node {
+                    ... on Artist {
+                      id
+                      name
+                    }
+                  }
+                }
+              }
+              media {
+                rights {
+                  sub {
+                    available
+                  }
+                }
+              }
+            }
+            """)
+        variables: dict[str, object] = {"ids": ids}
+        response = await self.execute(
+            query=query, operation_name="GetTracksByIds", variables=variables, **kwargs
+        )
+        data = self.get_data(response)
+        return GetTracksByIds.model_validate(data).tracks_by_ids
 
     async def get_user_charts(
         self,

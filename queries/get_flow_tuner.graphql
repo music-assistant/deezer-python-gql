@@ -1,0 +1,9 @@
+# The user's Flow tuner: DEFAULT (familiar) or DISCOVERY (more new music).
+
+query GetFlowTuner {
+  me {
+    flowTuner {
+      discoveryTuner
+    }
+  }
+}

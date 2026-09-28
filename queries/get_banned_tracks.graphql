@@ -1,0 +1,20 @@
+# Tracks the user banned from their recommendations (paginated).
+
+query GetBannedTracks($first: Int = 50, $after: String) {
+  me {
+    bannedFromRecommendation {
+      estimatedTracksCount
+      tracks(first: $first, after: $after) {
+        edges {
+          bannedAt
+          node {
+            ...TrackFields
+          }
+        }
+        pageInfo {
+          ...PageInfoFields
+        }
+      }
+    }
+  }
+}

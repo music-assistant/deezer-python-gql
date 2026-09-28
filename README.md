@@ -77,6 +77,8 @@ asyncio.run(main())
 | `get_similar_tracks(track_id, nb)`               | Recommended tracks based on a given track                                       |
 | `get_artist_mix(artist_ids, limit)`              | Track mix blended from given artists                                            |
 | `get_track_mix(track_ids, limit)`                | Track mix blended around given tracks                                           |
+| `get_infinite_track_mix(track_ids, limit, ...)`  | Track IDs for an endless mix, input tracks left out (at least 40, cost ~10000)  |
+| `get_tracks_by_ids(ids)`                         | Several tracks in one request, unknown IDs come back as `None`                  |
 | `get_flow()`                                     | User's default Flow with tracks                                                 |
 | `get_flow_batch()`                               | 4 batches of Flow tracks in one request (via GraphQL aliases)                   |
 | `get_flow_configs(moods_first, genres_first)`    | Mood & genre flow config lists for discovery                                    |
@@ -90,17 +92,21 @@ asyncio.run(main())
 
 ### Library & Favorites
 
-| Method                                        | Description                                                 |
-| --------------------------------------------- | ----------------------------------------------------------- |
-| `get_favorite_artists(first, after)`          | Paginated favorite artists                                  |
-| `get_favorite_albums(first, after)`           | Paginated favorite albums                                   |
-| `get_favorite_tracks(first, after)`           | Paginated favorite tracks                                   |
-| `get_favorite_playlists(first, after)`        | Paginated favorite playlists                                |
-| `get_favorite_podcasts(first, after)`         | Paginated favorite podcasts                                 |
-| `get_favorite_audiobooks()`                   | Favorite audiobook IDs with dates (via deprecated endpoint) |
-| `get_podcast_episode_bookmarks(first, after)` | Bookmarked podcast episodes with playback position          |
-| `get_user_playlists(first, after)`            | User's own playlists (not just favorites)                   |
-| `get_personal_tracks(first, after)`           | User's uploaded/personal tracks (restricted access)         |
+| Method                                        | Description                                                     |
+| --------------------------------------------- | --------------------------------------------------------------- |
+| `get_favorite_artists(first, after)`          | Paginated favorite artists                                      |
+| `get_favorite_albums(first, after)`           | Paginated favorite albums                                       |
+| `get_favorite_tracks(first, after)`           | Paginated favorite tracks                                       |
+| `get_favorite_playlists(first, after)`        | Paginated favorite playlists                                    |
+| `get_favorite_podcasts(first, after)`         | Paginated favorite podcasts                                     |
+| `get_favorite_audiobooks()`                   | Favorite audiobook IDs with dates (via deprecated endpoint)     |
+| `get_podcast_episode_bookmarks(first, after)` | Bookmarked podcast episodes with playback position              |
+| `get_user_playlists(first, after)`            | User's own playlists (not just favorites)                       |
+| `get_personal_tracks(first, after)`           | User's uploaded/personal tracks (restricted access)             |
+| `get_latest_podcast_episodes()`               | Latest episodes of favorite podcasts (IDs + dates, cost ~15000) |
+| `get_banned_tracks(first, after)`             | Tracks banned from recommendations, with ban date               |
+| `get_banned_artists(first, after)`            | Artists banned from recommendations, with ban date              |
+| `get_flow_tuner()`                            | Flow tuner: `DEFAULT` or `DISCOVERY`                            |
 
 ### Music Together (Collaborative Playlists)
 
@@ -139,6 +145,12 @@ Keep a track or artist out of the user's recommendations (Flow, mixes).
 | `unban_track_from_recommendation(track_id)`   | Allow track back into recommendations  |
 | `ban_artist_from_recommendation(artist_id)`   | Keep artist out of recommendations     |
 | `unban_artist_from_recommendation(artist_id)` | Allow artist back into recommendations |
+
+### Flow
+
+| Method                                      | Description                                   |
+| ------------------------------------------- | --------------------------------------------- |
+| `set_flow_discovery_tuner(discovery_tuner)` | Switch Flow between `DEFAULT` and `DISCOVERY` |
 
 ### Playlist Management
 

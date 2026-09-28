@@ -46,8 +46,18 @@ class PodcastEpisodeOrder(str, Enum):
     LATEST = "LATEST"
 
 
+class DiscoveryTuner(str, Enum):
+    DEFAULT = "DEFAULT"
+    DISCOVERY = "DISCOVERY"
+
+
 class MusicTogetherRefreshSuggestedTracklistMoodInput(str, Enum):
     NONE = "NONE"
     CHILL = "CHILL"
     FOCUS = "FOCUS"
     PARTY = "PARTY"
+
+
+class DiscoveryTunerInput(str, Enum):
+    DEFAULT = "DEFAULT"
+    DISCOVERY = "DISCOVERY"
