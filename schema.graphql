@@ -385,7 +385,7 @@ type Query {
   
   Access: This field is restricted to applications granted with specific access.
   """
-  searchTrendingQueries(first: Int = 5, after: String): SearchTrendingQueriesConnection!
+  searchTrendingQueries(first: Int = 5, after: String): SearchTrendingQueriesConnection! @deprecated(reason: "This feature is deprecated. This field now always returns an empty connection.")
 
   """
   The theming partner of the currently logged-in user
@@ -482,6 +482,25 @@ type Query {
   Access: This field is restricted to applications granted with specific access.
   """
   onboardingSteps(context: OnboardingContextInput! = WELCOME): OnboardingSteps
+
+  """
+  Search a raw, infinite-scrollable track mix by tracks Id.
+  
+  The input tracks are always excluded from the output by the
+  recommendation API, so successive calls can be used to build a
+  near infinite deduplicated mix
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  rawInfiniteTrackMix(
+    trackIds: [String!]!
+
+    """Number of tracks in the mix (capped at 100 for now)"""
+    limit: Int! = 40
+
+    """If true, the mix starts with the input tracks"""
+    startWithInputTracks: Boolean! = false
+  ): RawInfiniteTrackMix!
 
   """
   Search a track mix by tracks Id. Each call will return a new TrackMix.
@@ -990,6 +1009,20 @@ type Mutation {
   patchQueueState(input: PatchQueueStateInput!): PatchQueueStateResult!
 
   """
+  Enable the "up next" feature of the queue list for current user
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  enableQueueListUpNext: EnableQueueListUpNextOutput!
+
+  """
+  Disable the "up next" feature of the queue list for current user
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  disableQueueListUpNext: DisableQueueListUpNextOutput!
+
+  """
   Launch the discovery process for systems that uses the discovery
   bridges
   
@@ -1039,6 +1072,20 @@ type Mutation {
   Access: This field is restricted to applications granted with specific access.
   """
   changeEmailAddressByInvoiceId(input: ChangeEmailAddressInput!): ChangeEmailAddressResult!
+
+  """
+  Set the current user's consent for the email open tracking pixel.
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  setEmailTrackingConsent(input: SetEmailTrackingConsentInput!): SetEmailTrackingConsentResult!
+
+  """
+  Update the explicit level of the current user
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  updateExplicitLevel(input: UpdateExplicitLevelInput!): UpdateExplicitLevelResult!
 
   """
   Access: This field is restricted to applications granted with specific access.
@@ -1688,6 +1735,10 @@ type ContestAttachment {
   Access: This field is restricted to applications granted with specific access.
   """
   attachedAt: String!
+}
+
+enum ContestAttachmentsSortByInput {
+  ATTACHED_AT
 }
 
 """User participation to a contest"""
@@ -2519,6 +2570,7 @@ type RemixContest implements DeezerClubItem {
 
     """Cursor for pagination"""
     after: String
+    sort: ContestAttachmentsSortInput! = {by: ATTACHED_AT, order: DESC}
   ): RemixContestAttachmentsConnection!
 
   """
@@ -2540,6 +2592,11 @@ type RemixContest implements DeezerClubItem {
     """Cursor for pagination"""
     after: String
   ): RemixContestAttachmentsConnection!
+}
+
+input ContestAttachmentsSortInput {
+  by: ContestAttachmentsSortByInput!
+  order: SortOrderInput!
 }
 
 """Paginated list of remix contest attachments"""
@@ -4370,18 +4427,18 @@ type Search {
   """
   Access: This field is restricted to applications granted with specific access.
   """
-  suggestions(first: Int = 10, after: String): SearchSuggestionsConnection!
+  suggestions(first: Int = 10, after: String): SearchSuggestionsConnection! @deprecated(reason: "This feature is deprecated. This field now always returns an empty connection.")
   topResult: SearchTopResult!
 
   """
   Access: This field is restricted to applications granted with specific access.
   """
-  queryCorrection: QueryCorrection
+  queryCorrection: QueryCorrection @deprecated(reason: "This feature is deprecated. This field now always returns null.")
 
   """
   Access: This field is restricted to applications granted with specific access.
   """
-  mixedResults(first: Int = 20, after: String, types: [GraphSearchMixedResultTypeInput!] = [ALBUM, ARTIST, PLAYLIST, TRACK, PODCAST, PODCAST_EPISODE, LIVESTREAM, USER, FLOW_CONFIG, CHANNEL]): SearchMixedResultsConnection!
+  mixedResults(first: Int = 20, after: String, types: [GraphSearchMixedResultTypeInput!] = [ALBUM, ARTIST, PLAYLIST, TRACK, PODCAST, PODCAST_EPISODE, LIVESTREAM, USER, FLOW_CONFIG, CHANNEL]): SearchMixedResultsConnection! @deprecated(reason: "This feature is deprecated. This field now always returns an empty connection.")
 }
 
 type QueryCorrection {
@@ -5012,7 +5069,12 @@ type Card {
   """
   Access: This field is restricted to applications granted with specific access.
   """
-  metas: [Meta!]
+  metas: [Meta!] @deprecated(reason: "Use `meta` instead, values are migrating to string arrays")
+
+  """
+  Access: This field is restricted to applications granted with specific access.
+  """
+  meta: [Metadata!]
 }
 
 interface CardTemplate {
@@ -5065,6 +5127,18 @@ type Meta {
   Access: This field is restricted to applications granted with specific access.
   """
   value: String!
+}
+
+type Metadata {
+  """
+  Access: This field is restricted to applications granted with specific access.
+  """
+  type: String!
+
+  """
+  Access: This field is restricted to applications granted with specific access.
+  """
+  value: [String!]!
 }
 
 enum ImageFormats {
@@ -7498,6 +7572,11 @@ type TrackMediaChecksums {
   Access: This field is restricted to applications granted with specific access.
   """
   OPUS_HIGH: String
+
+  """
+  Access: This field is restricted to applications granted with specific access.
+  """
+  FLAC_24: String
 }
 
 type TrackMediaSizes {
@@ -7555,6 +7634,11 @@ type TrackMediaSizes {
   Access: This field requires one of these scopes: [access-playback-sdk].
   """
   FLAC: Int
+
+  """
+  Access: This field requires one of these scopes: [access-playback-sdk].
+  """
+  FLAC_24: Int
 
   """
   Access: This field requires one of these scopes: [access-playback-sdk].
@@ -7843,6 +7927,23 @@ type PodcastEpisodesEdge {
   Access: This field is restricted to applications granted with specific access.
   """
   node: PodcastEpisode
+}
+
+"""Raw information related to a given latest podcast episode"""
+type RawLatestPodcastEpisode {
+  """
+  Id of the podcast episode
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  id: ID!
+
+  """
+  Publication date of the podcast episode
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  publicationDate: Date
 }
 
 """Raw information related to a given podcast episode bookmark"""
@@ -8180,6 +8281,84 @@ type UserRemixInfo {
   Access: This field is restricted to applications granted with specific access.
   """
   isShareable: Boolean!
+
+  """
+  Metadata used to create the remix.
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  metadata: UserRemixMetadata
+}
+
+type UserRemixMetadata {
+  """
+  Access: This field is restricted to applications granted with specific access.
+  """
+  boost: String
+
+  """
+  Access: This field is restricted to applications granted with specific access.
+  """
+  pitch: String
+
+  """
+  Access: This field is restricted to applications granted with specific access.
+  """
+  reverb: String
+
+  """
+  Access: This field is restricted to applications granted with specific access.
+  """
+  style: String
+
+  """
+  Access: This field is restricted to applications granted with specific access.
+  """
+  tempo: String
+
+  """
+  Access: This field is restricted to applications granted with specific access.
+  """
+  stemsStyle: UserRemixMetadataStemsStyle
+
+  """
+  Access: This field is restricted to applications granted with specific access.
+  """
+  cover: UserRemixMetadataCover
+}
+
+type UserRemixMetadataStemsStyle {
+  """
+  Access: This field is restricted to applications granted with specific access.
+  """
+  drums: String
+
+  """
+  Access: This field is restricted to applications granted with specific access.
+  """
+  bass: String
+
+  """
+  Access: This field is restricted to applications granted with specific access.
+  """
+  others: String
+}
+
+type UserRemixMetadataCover {
+  """
+  Access: This field is restricted to applications granted with specific access.
+  """
+  template: String
+
+  """
+  Access: This field is restricted to applications granted with specific access.
+  """
+  tone: String
+
+  """
+  Access: This field is restricted to applications granted with specific access.
+  """
+  shade: String
 }
 
 type Ucps {
@@ -8880,6 +9059,19 @@ enum RemixStyle {
   DECADE_80S
   POP
   HIP_HOP
+  BRAZILIAN_FUNK
+  SOUL
+  DANCEHALL
+  BACHATA
+  BALLAD
+  BREAKBEAT
+  CINEMATIC
+  EDM
+  SHATTA
+  INDIE
+  INDIE_POP
+  JAZZ
+  SALSA
 }
 
 type StemFile {
@@ -9500,6 +9692,13 @@ type PrivateUser implements Node {
   email: String
 
   """
+  User's age
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  age: Int
+
+  """
   Offers user his own data for a dedicated campaign (eg: playground)
   
   Access: This field is restricted to applications granted with specific access.
@@ -9586,6 +9785,13 @@ type PrivateUser implements Node {
   Access: This field is restricted to applications granted with specific access.
   """
   rawPodcastEpisodeBookmarks: [RawPodcastEpisodeBookmark]!
+
+  """
+  Raw episode ids for the user's latest favorite podcast episodes
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  rawLatestPodcastEpisodes: [RawLatestPodcastEpisode!]!
 
   """
   User's favorites aggregation
@@ -9823,6 +10029,13 @@ type PrivateUser implements Node {
   explicitLevel: UserExplicitLevel!
 
   """
+  User's consent for the email open tracking pixel.
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  emailTrackingConsent: PrivateUserEmailTrackingConsent
+
+  """
   Determine if the user retrieved from the given Apple invoice ID is from a private relay.
   
   Access: This field is restricted to applications granted with specific access.
@@ -9842,6 +10055,13 @@ type PrivateUser implements Node {
   Access: This field is restricted to applications granted with specific access.
   """
   subscription: PrivateUserSubscription!
+
+  """
+  Whether the "up next" feature of the queue list is enabled for the currently logged user
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  isQueueListUpNextEnabled: Boolean!
 }
 
 type PrivateUserGames {
@@ -10270,6 +10490,20 @@ enum MediaTypeInput {
   RAW_URL
 }
 
+type EnableQueueListUpNextOutput {
+  """
+  Access: This field is restricted to applications granted with specific access.
+  """
+  status: Boolean!
+}
+
+type DisableQueueListUpNextOutput {
+  """
+  Access: This field is restricted to applications granted with specific access.
+  """
+  status: Boolean!
+}
+
 """Player repeat mode"""
 enum RepeatModeInput {
   """No repeat queue is played as given"""
@@ -10639,6 +10873,20 @@ interface MadeForMe implements Node {
   cover: Picture
 }
 
+type RawInfiniteTrackMix {
+  """
+  Access: This field is restricted to applications granted with specific access.
+  """
+  tracks: [RawInfiniteTrackMixTrack!]!
+}
+
+type RawInfiniteTrackMixTrack {
+  """
+  Access: This field is restricted to applications granted with specific access.
+  """
+  id: ID!
+}
+
 """
 SmartTracklist are playlist generated for a given user
 (Aka "Generated for you")
@@ -10673,6 +10921,13 @@ type SmartTracklist implements MadeForMe & Node {
   Access: This field is restricted to applications granted with specific access.
   """
   coverComposition: SmartTracklistCoverComposition
+
+  """
+  Date at which the SmartTracklist expires
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  expiresAt: Date!
 
   """
   Paginated list of the smarttracklist's tracks
@@ -11376,11 +11631,15 @@ interface UserRawFavorite {
 
 type UserRawArtistFavorite implements UserRawFavorite {
   """
+  The artist id
+  
   Access: This field is restricted to applications granted with specific access.
   """
   id: ID!
 
   """
+  The date the artist was added into user's favorites
+  
   Access: This field is restricted to applications granted with specific access.
   """
   favoritedAt: Date!
@@ -11391,63 +11650,162 @@ type UserRawArtistFavorite implements UserRawFavorite {
   
   Access: This field is restricted to applications granted with specific access.
   """
-  name: String!
+  normalizedArtistName: String
 }
 
 type UserRawAlbumFavorite implements UserRawFavorite {
   """
+  The album id
+  
   Access: This field is restricted to applications granted with specific access.
   """
   id: ID!
 
   """
+  The date the album was added into user's favorites
+  
   Access: This field is restricted to applications granted with specific access.
   """
   favoritedAt: Date!
+
+  """
+  The album release date
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  releasedAt: Date
+
+  """
+  The normalized album's title
+  Use it for sorting only, if you'd like to display the album's title, use `Album.displayTitle` instead
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  normalizedAlbumTitle: String
+
+  """
+  The normalized album's main artist name.
+  Use it for sorting only, if you'd like to get the full list of album contributors, use `Album.contributors` instead
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  normalizedArtistName: String
+
+  """
+  The album's popularity
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  rank: Int
 }
 
 type UserRawPodcastFavorite implements UserRawFavorite {
   """
+  The podcast id
+  
   Access: This field is restricted to applications granted with specific access.
   """
   id: ID!
 
   """
+  The date the podcast was added into user's favorites
+  
   Access: This field is restricted to applications granted with specific access.
   """
   favoritedAt: Date!
 
   """
-  WARNING!!
-  It returns fake data and should only be used for development at the moment.
+  The normalized podcast title.
+  Use it for sorting only, if you'd like to display a podcast name, use `Podcast.displayTitle` instead
   
   Access: This field is restricted to applications granted with specific access.
   """
-  name: String
+  normalizedPodcastTitle: String
+
+  """
+  The publication date of the most recently published episode.
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  latestEpisodeDate: Date
 }
 
 type UserRawPlaylistFavorite implements UserRawFavorite {
   """
+  The playlist id
+  
   Access: This field is restricted to applications granted with specific access.
   """
   id: ID!
 
   """
+  The date the playlist was added into user's favorites
+  
   Access: This field is restricted to applications granted with specific access.
   """
   favoritedAt: Date!
+
+  """
+  The normalized playlist's title
+  Use it for sorting only, if you'd like to display a playlist title, use `Playlist.title` instead
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  normalizedPlaylistTitle: String
+
+  """
+  The playlist's creation date
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  playlistCreationDate: Date
+
+  """
+  The playlist's last modification date
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  playlistLastModificationDate: Date
 }
 
 type UserRawTrackFavorite implements UserRawFavorite {
   """
+  The track id
+  
   Access: This field is restricted to applications granted with specific access.
   """
   id: ID!
 
   """
+  The date the track was added into user's favorites
+  
   Access: This field is restricted to applications granted with specific access.
   """
   favoritedAt: Date!
+
+  """
+  The normalized track's title
+  Use it for sorting only, if you'd like to display a track title, use `Track.title` instead
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  normalizedTrackTitle: String
+
+  """
+  The normalized track album's title
+  Use it for sorting only, if you'd like to display a track album's title, use `Track.album.displayTitle` instead
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  normalizedAlbumTitle: String
+
+  """
+  The normalized track's main artist name.
+  Use it for sorting only, if you'd like to get the full list of track contributors, use `Track.contributors` instead (and `Artist.name` for each contributor)
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  normalizedArtistName: String
 }
 
 type FavoriteAlbumEdge {
@@ -12655,7 +13013,12 @@ type WebviewUrls {
   """
   Access: This field is restricted to applications granted with specific access.
   """
-  remix(trackId: String!, contestId: String): WebviewUrl
+  remix(trackId: String!, contestId: String, isDiscoveryMode: Boolean): WebviewUrl
+
+  """
+  Access: This field is restricted to applications granted with specific access.
+  """
+  aiPlaylist: WebviewUrl
 }
 
 type WebviewUrl {
@@ -12865,6 +13228,11 @@ input ParticipateToContestInput {
   Answer to the open question displayed on the contest participation form
   """
   openQuestion: String
+
+  """
+  Whether the user agreed to share their personal data with a third party
+  """
+  piiSharingOptin: Boolean
 }
 
 union ParticipateToContestResult = ParticipateToContestOutput | ParticipateToContestError
@@ -12963,6 +13331,20 @@ input RemixMetadata {
   pitch: String
   tempo: String
   boost: String
+  stemsStyle: StemsStyle
+  cover: RemixCover
+}
+
+input StemsStyle {
+  drums: String
+  bass: String
+  others: String
+}
+
+input RemixCover {
+  template: String
+  tone: String
+  shade: String
 }
 
 type AdSection implements Node {
@@ -14260,6 +14642,26 @@ enum CustomizeRecommendationsTrackOrigin {
   RECENTLY_STREAMED_ON_REPEAT
 }
 
+"""
+User consent for the email open tracking pixel, as required by the CNIL in France and Italy.
+"""
+type PrivateUserEmailTrackingConsent {
+  """
+  Whether the feature is offered to this user. When false, the client must not render the consent
+  toggle at all: the user is outside the countries covered by the obligation.
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  isAvailable: Boolean!
+
+  """
+  Whether the user accepts email open tracking. Null when the consent could not be retrieved.
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  hasConsented: Boolean
+}
+
 enum UserExplicitLevel {
   EXPLICIT_DISPLAY
   EXPLICIT_NO_RECOMMENDATION
@@ -14666,7 +15068,7 @@ type PrivateUserFavorites {
   You may receive one artist, or thousands, hence you must fetch this field only when absolutely needed, and only once per query.
   We defined the cost of the field accordingly.
   
-  Access: This field requires one of these scopes: [favorite-all-read,favorite-album-read].
+  Access: This field requires one of these scopes: [favorite-all-read,favorite-artist-read].
   """
   rawArtists: [PrivateUserRawArtistFavorite!]
 
@@ -14754,6 +15156,8 @@ interface PrivateUserRawFavorite {
 
 type PrivateUserRawAlbumFavorite implements PrivateUserRawFavorite {
   """
+  The album id
+  
   Access: This field requires one of these scopes: [favorite-all-read,favorites-album-read].
   """
   id: ID!
@@ -14785,7 +15189,7 @@ type PrivateUserRawAlbumFavorite implements PrivateUserRawFavorite {
   
   Access: This field is restricted to applications granted with specific access.
   """
-  albumTitle: String!
+  normalizedAlbumTitle: String
 
   """
   The normalized album's main artist name.
@@ -14793,46 +15197,61 @@ type PrivateUserRawAlbumFavorite implements PrivateUserRawFavorite {
   
   Access: This field is restricted to applications granted with specific access.
   """
-  artistName: String
+  normalizedArtistName: String
 
   """
   The album's popularity
   
   Access: This field is restricted to applications granted with specific access.
   """
-  rank: Int!
+  rank: Int
 }
 
 type PrivateUserRawArtistFavorite implements PrivateUserRawFavorite {
   """
+  The artist id
+  
   Access: This field requires one of these scopes: [favorite-all-read,favorites-artist-read].
   """
   id: ID!
 
   """
+  The date the artist was added into user's favorites
+  
   Access: This field requires one of these scopes: [favorite-all-read,favorites-artist-read].
   """
   favoritedAt: Date!
 
   """
+  The date the artist was last played
+  
   Access: This field requires one of these scopes: [favorite-all-read,favorites-artist-read].
   """
   playedAt: Date
 
   """
-  WARNING!!
-  It returns fake data and should only be used for development at the moment.
+  The normalized artist name.
+  Use it for sorting only, if you'd like to display an artist name, use `Artist.name` instead
   
-  Access: This field requires one of these scopes: [favorite-all-read,favorites-artist-read].
+  Access: This field is restricted to applications granted with specific access.
   """
-  name: String
+  normalizedArtistName: String
 }
 
 type PrivateUserRawPlaylistFavorite implements PrivateUserRawFavorite {
   """
+  The playlist id
+  
   Access: This field requires one of these scopes: [favorite-all-read,favorites-playlist-read].
   """
   id: ID!
+
+  """
+  The date the playlist was added into user's favorites
+  
+  Access: This field requires one of these scopes: [favorite-all-read,favorites-playlist-read].
+  """
+  favoritedAt: Date!
 
   """
   Last seen date for the playlist, if available
@@ -14842,40 +15261,84 @@ type PrivateUserRawPlaylistFavorite implements PrivateUserRawFavorite {
   lastSeen: Date
 
   """
-  Access: This field requires one of these scopes: [favorite-all-read,favorites-playlist-read].
-  """
-  favoritedAt: Date!
-
-  """
+  The date the playlist was last played
+  
   Access: This field requires one of these scopes: [favorite-all-read,favorites-playlist-read].
   """
   playedAt: Date
+
+  """
+  The normalized playlist's title
+  Use it for sorting only, if you'd like to display a playlist title, use `Playlist.title` instead
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  normalizedPlaylistTitle: String
+
+  """
+  The playlist's creation date
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  playlistCreationDate: Date
+
+  """
+  The playlist's last modification date
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  playlistLastModificationDate: Date
 }
 
 type PrivateUserRawPodcastFavorite implements PrivateUserRawFavorite {
   """
+  The podcast id
+  
   Access: This field requires one of these scopes: [favorite-all-read,favorites-podcast-read].
   """
   id: ID!
 
   """
+  The date the podcast was added into user's favorites
+  
   Access: This field requires one of these scopes: [favorite-all-read,favorites-podcast-read].
   """
   favoritedAt: Date!
 
   """
+  The date the podcast was last played
+  
   Access: This field requires one of these scopes: [favorite-all-read,favorites-podcast-read].
   """
   playedAt: Date
+
+  """
+  The normalized podcast title.
+  Use it for sorting only, if you'd like to display a podcast name, use `Podcast.displayTitle` instead
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  normalizedPodcastTitle: String
+
+  """
+  The publication date of the most recently published episode.
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  latestEpisodeDate: Date
 }
 
 type PrivateUserRawTrackFavorite implements PrivateUserRawFavorite {
   """
+  The track id
+  
   Access: This field requires one of these scopes: [favorite-all-read,favorites-track-read].
   """
   id: ID!
 
   """
+  The date the track was added into user's favorites
+  
   Access: This field requires one of these scopes: [favorite-all-read,favorites-track-read].
   """
   favoritedAt: Date!
@@ -14886,7 +15349,7 @@ type PrivateUserRawTrackFavorite implements PrivateUserRawFavorite {
   
   Access: This field is restricted to applications granted with specific access.
   """
-  trackTitle: String!
+  normalizedTrackTitle: String
 
   """
   The normalized track album's title
@@ -14894,15 +15357,15 @@ type PrivateUserRawTrackFavorite implements PrivateUserRawFavorite {
   
   Access: This field is restricted to applications granted with specific access.
   """
-  albumTitle: String
+  normalizedAlbumTitle: String
 
   """
-  The track's main artist name.
-  Use it for sorting only, if you'd like to get the full list of track contributors, use `Track.contributors` instead
+  The normalized track's main artist name.
+  Use it for sorting only, if you'd like to get the full list of track contributors, use `Track.contributors` instead (and `Artist.name` for each contributor)
   
   Access: This field is restricted to applications granted with specific access.
   """
-  artistName: String
+  normalizedArtistName: String
 }
 
 type PrivateUserFavoritesByArtist {
@@ -14925,7 +15388,14 @@ type PrivateUserFavoritesByArtist {
   
   Access: This field is restricted to applications granted with specific access.
   """
-  rawTracks: [RawFavorite!]!
+  rawTracks: [RawFavorite!]! @deprecated(reason: "Use sortableRawTracks instead")
+
+  """
+  The full list of tracks ids favorited by the user for a given artist, with sort details
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  sortableRawTracks: [UserRawTrackFavorite!]!
 
   """
   Estimated number of albums favorited by the user for a given artist; use for display only
@@ -17141,6 +17611,56 @@ type ChangeEmailAddressError {
 }
 
 union ChangeEmailAddressResult = ChangeEmailAddressOutput | ChangeEmailAddressError
+
+input SetEmailTrackingConsentInput {
+  hasConsented: Boolean!
+}
+
+type SetEmailTrackingConsentOutput {
+  """
+  If consent was saved, should be always true
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  isSaved: Boolean!
+}
+
+type SetEmailTrackingConsentError {
+  """
+  Feature is disabled, cannot consent
+  
+  Access: This field is restricted to applications granted with specific access.
+  """
+  isFeatureDisabled: Boolean
+}
+
+union SetEmailTrackingConsentResult = SetEmailTrackingConsentOutput | SetEmailTrackingConsentError
+
+input UpdateExplicitLevelInput {
+  """The new explicit level for the user"""
+  explicitLevel: UserExplicitLevel!
+}
+
+type UpdateExplicitLevelOutput {
+  """
+  Access: This field is restricted to applications granted with specific access.
+  """
+  explicitLevel: UserExplicitLevel!
+}
+
+type UpdateExplicitLevelError {
+  """
+  Access: This field is restricted to applications granted with specific access.
+  """
+  userIdNotFound: Boolean
+
+  """
+  Access: This field is restricted to applications granted with specific access.
+  """
+  profileInfoNotFound: Boolean
+}
+
+union UpdateExplicitLevelResult = UpdateExplicitLevelOutput | UpdateExplicitLevelError
 
 """Apple subscription information for the logged-in user"""
 type PrivateUserSubscriptionAppleInvoice {
