@@ -11,6 +11,7 @@ query GetPlaylist(
     tracks(first: $tracksFirst, after: $tracksAfter) {
       edges {
         cursor
+        addedAt
         node {
           ...TrackFields
         }

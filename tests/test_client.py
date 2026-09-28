@@ -20,6 +20,7 @@ from unittest.mock import AsyncMock, MagicMock, patch
 
 import pytest
 from aiohttp import ClientSession, CookieJar
+from pydantic import ValidationError
 from yarl import URL
 
 from deezer_python_gql import DeezerGQLClient
@@ -960,7 +961,7 @@ def test_smoke_get_artist() -> None:
 
 
 def test_smoke_get_playlist() -> None:
-    """Verify GetPlaylist fixture parses with owner and paginated tracks."""
+    """Verify GetPlaylist fixture parses with owner, paginated tracks and add dates."""
     data = _load_fixture("get_playlist.json")
     playlist = GetPlaylist.model_validate(data).playlist
     assert playlist is not None
@@ -968,6 +969,7 @@ def test_smoke_get_playlist() -> None:
     assert playlist.title
     assert playlist.owner is not None
     assert len(playlist.tracks.edges) > 0
+    assert playlist.tracks.edges[0].added_at == "2026-09-18T07:30:12.000Z"
 
 
 def test_smoke_search() -> None:
@@ -1190,6 +1192,14 @@ def test_smoke_get_favorite_tracks() -> None:
     assert track_node.title == "Harder, Better, Faster, Stronger"
     assert tracks.edges[0].favorited_at == "2025-06-15"
     assert tracks.page_info.has_next_page is True
+
+
+def test_date_scalar_rejects_non_strings() -> None:
+    """Date scalar fields are typed as ISO 8601 strings, so other values fail validation."""
+    data = _load_fixture("get_favorite_tracks.json")
+    data["me"]["userFavorites"]["tracks"]["edges"][0]["favoritedAt"] = 1749945600
+    with pytest.raises(ValidationError, match="favoritedAt"):
+        GetFavoriteTracks.model_validate(data)
 
 
 def test_smoke_get_favorite_playlists() -> None:

@@ -27,6 +27,7 @@ class GetPlaylistPlaylistTracks(BaseModel):
 
 class GetPlaylistPlaylistTracksEdges(BaseModel):
     cursor: str
+    added_at: str = Field(alias="addedAt")
     node: Optional["GetPlaylistPlaylistTracksEdgesNode"]
 
 
