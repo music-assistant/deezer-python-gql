@@ -34,6 +34,16 @@ from .add_tracks_to_playlist import (
     AddTracksToPlaylistAddTracksToPlaylistPlaylistAddTracksError,
     AddTracksToPlaylistAddTracksToPlaylistPlaylistAddTracksOutput,
 )
+from .ban_artist_from_recommendation import (
+    BanArtistFromRecommendation,
+    BanArtistFromRecommendationBanArtistFromRecommendation,
+    BanArtistFromRecommendationBanArtistFromRecommendationArtist,
+)
+from .ban_track_from_recommendation import (
+    BanTrackFromRecommendation,
+    BanTrackFromRecommendationBanTrackFromRecommendation,
+    BanTrackFromRecommendationBanTrackFromRecommendationTrack,
+)
 from .base_client import DeezerBaseClient
 from .base_model import BaseModel, Upload
 from .bookmark_podcast_episode import (
@@ -631,6 +641,16 @@ from .search_flows import (
     SearchFlowsSearchResultsFlowConfigsEdgesNodeVisualsHardwareSquareIcon,
     SearchFlowsSearchResultsFlowConfigsPageInfo,
 )
+from .unban_artist_from_recommendation import (
+    UnbanArtistFromRecommendation,
+    UnbanArtistFromRecommendationUnbanArtistFromRecommendation,
+    UnbanArtistFromRecommendationUnbanArtistFromRecommendationArtist,
+)
+from .unban_track_from_recommendation import (
+    UnbanTrackFromRecommendation,
+    UnbanTrackFromRecommendationUnbanTrackFromRecommendation,
+    UnbanTrackFromRecommendationUnbanTrackFromRecommendationTrack,
+)
 from .unbookmark_podcast_episode import (
     UnbookmarkPodcastEpisode,
     UnbookmarkPodcastEpisodeUnbookmarkPodcastEpisode,
@@ -680,6 +700,12 @@ __all__ = [
     "AudiobookFieldsContributorsEdges",
     "AudiobookFieldsContributorsEdgesNodeArtist",
     "AudiobookFieldsCover",
+    "BanArtistFromRecommendation",
+    "BanArtistFromRecommendationBanArtistFromRecommendation",
+    "BanArtistFromRecommendationBanArtistFromRecommendationArtist",
+    "BanTrackFromRecommendation",
+    "BanTrackFromRecommendationBanTrackFromRecommendation",
+    "BanTrackFromRecommendationBanTrackFromRecommendationTrack",
     "BaseModel",
     "BookmarkPodcastEpisode",
     "BookmarkPodcastEpisodeBookmarkPodcastEpisode",
@@ -1151,6 +1177,12 @@ __all__ = [
     "TrackFieldsMedia",
     "TrackFieldsMediaRights",
     "TrackFieldsMediaRightsSub",
+    "UnbanArtistFromRecommendation",
+    "UnbanArtistFromRecommendationUnbanArtistFromRecommendation",
+    "UnbanArtistFromRecommendationUnbanArtistFromRecommendationArtist",
+    "UnbanTrackFromRecommendation",
+    "UnbanTrackFromRecommendationUnbanTrackFromRecommendation",
+    "UnbanTrackFromRecommendationUnbanTrackFromRecommendationTrack",
     "UnbookmarkPodcastEpisode",
     "UnbookmarkPodcastEpisodeUnbookmarkPodcastEpisode",
     "UnbookmarkPodcastEpisodeUnbookmarkPodcastEpisodeEpisode",

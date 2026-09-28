@@ -129,6 +129,17 @@ asyncio.run(main())
 | `add_audiobook_to_favorite(audiobook_id)`      | Add audiobook to favorites (deprecated but functional)      |
 | `remove_audiobook_from_favorite(audiobook_id)` | Remove audiobook from favorites (deprecated but functional) |
 
+### Recommendation Bans
+
+Keep a track or artist out of the user's recommendations (Flow, mixes).
+
+| Method                                        | Description                            |
+| --------------------------------------------- | -------------------------------------- |
+| `ban_track_from_recommendation(track_id)`     | Keep track out of recommendations      |
+| `unban_track_from_recommendation(track_id)`   | Allow track back into recommendations  |
+| `ban_artist_from_recommendation(artist_id)`   | Keep artist out of recommendations     |
+| `unban_artist_from_recommendation(artist_id)` | Allow artist back into recommendations |
+
 ### Playlist Management
 
 | Method                                           | Description                                       |

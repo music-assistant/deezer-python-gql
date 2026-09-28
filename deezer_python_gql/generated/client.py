@@ -32,6 +32,14 @@ from .add_tracks_to_playlist import (
     AddTracksToPlaylistAddTracksToPlaylistPlaylistAddTracksError,
     AddTracksToPlaylistAddTracksToPlaylistPlaylistAddTracksOutput,
 )
+from .ban_artist_from_recommendation import (
+    BanArtistFromRecommendation,
+    BanArtistFromRecommendationBanArtistFromRecommendation,
+)
+from .ban_track_from_recommendation import (
+    BanTrackFromRecommendation,
+    BanTrackFromRecommendationBanTrackFromRecommendation,
+)
 from .base_client import DeezerBaseClient
 from .base_model import UNSET, UnsetType
 from .bookmark_podcast_episode import (
@@ -164,6 +172,14 @@ from .remove_tracks_from_playlist import (
 )
 from .search import Search, SearchSearch
 from .search_flows import SearchFlows, SearchFlowsSearch
+from .unban_artist_from_recommendation import (
+    UnbanArtistFromRecommendation,
+    UnbanArtistFromRecommendationUnbanArtistFromRecommendation,
+)
+from .unban_track_from_recommendation import (
+    UnbanTrackFromRecommendation,
+    UnbanTrackFromRecommendationUnbanTrackFromRecommendation,
+)
 from .unbookmark_podcast_episode import (
     UnbookmarkPodcastEpisode,
     UnbookmarkPodcastEpisodeUnbookmarkPodcastEpisode,
@@ -3973,6 +3989,110 @@ class DeezerGQLClient(DeezerBaseClient):
         )
         data = self.get_data(response)
         return RemoveTracksFromPlaylist.model_validate(data).remove_tracks_from_playlist
+
+    async def ban_track_from_recommendation(
+        self, track_id: str, **kwargs: Any
+    ) -> BanTrackFromRecommendationBanTrackFromRecommendation:
+        query = gql("""
+            mutation BanTrackFromRecommendation($trackId: String!) {
+              banTrackFromRecommendation(trackId: $trackId) {
+                status
+                track {
+                  id
+                  title
+                }
+              }
+            }
+            """)
+        variables: dict[str, object] = {"trackId": track_id}
+        response = await self.execute(
+            query=query,
+            operation_name="BanTrackFromRecommendation",
+            variables=variables,
+            **kwargs,
+        )
+        data = self.get_data(response)
+        return BanTrackFromRecommendation.model_validate(
+            data
+        ).ban_track_from_recommendation
+
+    async def unban_track_from_recommendation(
+        self, track_id: str, **kwargs: Any
+    ) -> UnbanTrackFromRecommendationUnbanTrackFromRecommendation:
+        query = gql("""
+            mutation UnbanTrackFromRecommendation($trackId: String!) {
+              unbanTrackFromRecommendation(trackId: $trackId) {
+                status
+                track {
+                  id
+                  title
+                }
+              }
+            }
+            """)
+        variables: dict[str, object] = {"trackId": track_id}
+        response = await self.execute(
+            query=query,
+            operation_name="UnbanTrackFromRecommendation",
+            variables=variables,
+            **kwargs,
+        )
+        data = self.get_data(response)
+        return UnbanTrackFromRecommendation.model_validate(
+            data
+        ).unban_track_from_recommendation
+
+    async def ban_artist_from_recommendation(
+        self, artist_id: str, **kwargs: Any
+    ) -> BanArtistFromRecommendationBanArtistFromRecommendation:
+        query = gql("""
+            mutation BanArtistFromRecommendation($artistId: String!) {
+              banArtistFromRecommendation(artistId: $artistId) {
+                status
+                artist {
+                  id
+                  name
+                }
+              }
+            }
+            """)
+        variables: dict[str, object] = {"artistId": artist_id}
+        response = await self.execute(
+            query=query,
+            operation_name="BanArtistFromRecommendation",
+            variables=variables,
+            **kwargs,
+        )
+        data = self.get_data(response)
+        return BanArtistFromRecommendation.model_validate(
+            data
+        ).ban_artist_from_recommendation
+
+    async def unban_artist_from_recommendation(
+        self, artist_id: str, **kwargs: Any
+    ) -> UnbanArtistFromRecommendationUnbanArtistFromRecommendation:
+        query = gql("""
+            mutation UnbanArtistFromRecommendation($artistId: String!) {
+              unbanArtistFromRecommendation(artistId: $artistId) {
+                status
+                artist {
+                  id
+                  name
+                }
+              }
+            }
+            """)
+        variables: dict[str, object] = {"artistId": artist_id}
+        response = await self.execute(
+            query=query,
+            operation_name="UnbanArtistFromRecommendation",
+            variables=variables,
+            **kwargs,
+        )
+        data = self.get_data(response)
+        return UnbanArtistFromRecommendation.model_validate(
+            data
+        ).unban_artist_from_recommendation
 
     async def search(
         self,
