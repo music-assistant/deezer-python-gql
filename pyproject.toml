@@ -165,3 +165,8 @@ warn_unused_ignores = true
 [tool.pytest.ini_options]
 addopts = "--cov deezer_python_gql"
 asyncio_mode = "auto"
+
+[tool.uv]
+# ariadne-codegen caps ruff below 0.16, which would pull in an older ariadne-codegen that
+# formats the generated code with black. Keep this in sync with the ruff pin in the test extras.
+override-dependencies = ["ruff==0.16.8"]
