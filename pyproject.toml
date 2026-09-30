@@ -28,7 +28,7 @@ test = [
   "pytest==9.1.1",
   "pytest-asyncio==1.4.0",
   "pytest-cov==7.1.0",
-  "ruff==0.16.8",
+  "ruff==0.16.9",
 ]
 dev = [
   "ariadne-codegen[subscriptions]",
@@ -169,4 +169,4 @@ asyncio_mode = "auto"
 [tool.uv]
 # ariadne-codegen caps ruff below 0.16, which would pull in an older ariadne-codegen that
 # formats the generated code with black. Keep this in sync with the ruff pin in the test extras.
-override-dependencies = ["ruff==0.16.8"]
+override-dependencies = ["ruff==0.16.9"]
