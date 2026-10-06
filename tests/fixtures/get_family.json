@@ -1,0 +1,38 @@
+{
+  "data": {
+    "me": {
+      "id": "1001",
+      "family": {
+        "main": {
+          "id": "1001",
+          "name": "Admin",
+          "caption": "Admin",
+          "permissions": {
+            "isLoggableAs": true
+          }
+        },
+        "linked": [
+          {
+            "id": "2002",
+            "name": "Kid",
+            "caption": "Kid profile",
+            "permissions": {
+              "isLoggableAs": true
+            }
+          },
+          {
+            "id": "3003",
+            "name": "Friend",
+            "caption": "Independent account",
+            "permissions": {
+              "isLoggableAs": false
+            }
+          }
+        ]
+      }
+    }
+  },
+  "extensions": {
+    "queryCost": 19
+  }
+}

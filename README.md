@@ -107,6 +107,7 @@ asyncio.run(main())
 | `get_banned_tracks(first, after)`             | Tracks banned from recommendations, with ban date               |
 | `get_banned_artists(first, after)`            | Artists banned from recommendations, with ban date              |
 | `get_flow_tuner()`                            | Flow tuner: `DEFAULT` or `DISCOVERY`                            |
+| `get_family()`                                | Deezer Family members, with `isLoggableAs` for usable profiles  |
 
 ### Music Together (Collaborative Playlists)
 
@@ -256,6 +257,21 @@ the shared session jar, so authentication state cannot cross between those accou
 If the ARL is rejected (bad or expired), the client raises
 `GraphQLClientAuthError` — catch it to prompt for a new ARL instead of retrying.
 Transient server errors raise `GraphQLClientHttpError` instead.
+
+### Deezer Family profiles
+
+Profiles of a Deezer Family have no ARL of their own, they share the login of the
+Family admin. Pass `account_id` to act as one of them:
+
+```python
+family = (await client.get_family()).family
+profile = next(m for m in family.linked if m.permissions.is_loggable_as)
+profile_client = DeezerGQLClient(arl="ADMIN_ARL", account_id=profile.id)
+```
+
+Members with their own login (independent accounts) are not loggable, they need their
+own ARL. If Deezer does not sign in as the profile, the client raises
+`GraphQLClientAuthError`.
 
 ## License
 

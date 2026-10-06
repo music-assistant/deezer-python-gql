@@ -125,6 +125,9 @@ class DeezerBaseClient:
     :param url: GraphQL endpoint URL (defaults to Pipe API).
     :param session: Optional pre-configured aiohttp.ClientSession.
         If provided, the caller is responsible for closing it.
+    :param account_id: Optional Deezer Family profile to act as. A profile has no
+        ARL of its own; it signs in with the ARL of the Family admin. Only profiles
+        that ``get_family()`` marks as ``isLoggableAs`` can be used.
     """
 
     PIPE_URL = "https://pipe.deezer.com/api"
@@ -138,9 +141,11 @@ class DeezerBaseClient:
         arl: str,
         url: str = PIPE_URL,
         session: ClientSession | None = None,
+        account_id: str | None = None,
     ) -> None:
         self.url = url
         self._arl = arl
+        self._account_id = account_id
         self._session = session
         self._owns_session = session is None
         # An external session may be shared by clients for different Deezer accounts.
@@ -349,12 +354,18 @@ class DeezerBaseClient:
 
             logger.debug("JWT expired or missing, refreshing from ARL")
             params = {"jo": "p", "rto": "c", "i": "c"}
+            body = None
+            if self._account_id:
+                # A Family profile signs in with the admin's ARL and its own id
+                params["i"] = "p"
+                body = {"arl": self._arl, "account_id": self._account_id}
 
             session = self._get_session()
             async with session.post(
                 self.AUTH_URL,
                 params=params,
                 cookies=self._request_cookies(self.AUTH_URL, include_arl=True),
+                json=body,
                 timeout=ClientTimeout(total=10),
             ) as resp:
                 self._store_cookies(resp)
@@ -384,6 +395,10 @@ class DeezerBaseClient:
             except (ValueError, KeyError, IndexError, TypeError, AttributeError) as exc:
                 msg = "Unexpected response from auth.deezer.com (invalid or missing JWT)"
                 raise GraphQLClientAuthError(msg) from exc
+
+            if self._account_id and str(payload.get("userId")) != self._account_id:
+                msg = f"auth.deezer.com did not sign in as Family profile {self._account_id}"
+                raise GraphQLClientAuthError(msg)
 
             self._jwt = jwt
             self._jwt_expires_at = expires_at

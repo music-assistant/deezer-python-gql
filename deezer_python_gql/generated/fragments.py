@@ -132,6 +132,17 @@ class AudiobookFieldsContributorsEdgesNodeArtist(BaseModel):
     name: str
 
 
+class FamilyProfileFields(BaseModel):
+    id: str
+    name: str
+    caption: str
+    permissions: "FamilyProfileFieldsPermissions"
+
+
+class FamilyProfileFieldsPermissions(BaseModel):
+    is_loggable_as: bool = Field(alias="isLoggableAs")
+
+
 class LivestreamFields(BaseModel):
     id: str
     name: str
@@ -292,6 +303,7 @@ AlbumFields.model_rebuild()
 ArtistFields.model_rebuild()
 AudiobookChapterFields.model_rebuild()
 AudiobookFields.model_rebuild()
+FamilyProfileFields.model_rebuild()
 LivestreamFields.model_rebuild()
 PageInfoFields.model_rebuild()
 PlaylistFields.model_rebuild()

@@ -86,6 +86,8 @@ from .fragments import (
     AudiobookFieldsContributorsEdges,
     AudiobookFieldsContributorsEdgesNodeArtist,
     AudiobookFieldsCover,
+    FamilyProfileFields,
+    FamilyProfileFieldsPermissions,
     LivestreamFields,
     LivestreamFieldsCover,
     LivestreamFieldsMedia,
@@ -204,6 +206,13 @@ from .get_charts import (
     GetChartsChartsCountryTracksEdges,
     GetChartsChartsCountryTracksEdgesNode,
     GetChartsChartsCountryTracksPageInfo,
+)
+from .get_family import (
+    GetFamily,
+    GetFamilyMe,
+    GetFamilyMeFamily,
+    GetFamilyMeFamilyLinked,
+    GetFamilyMeFamilyMain,
 )
 from .get_favorite_albums import (
     GetFavoriteAlbums,
@@ -759,6 +768,8 @@ __all__ = [
     "DeletePlaylistDeletePlaylist",
     "DiscoveryTuner",
     "DiscoveryTunerInput",
+    "FamilyProfileFields",
+    "FamilyProfileFieldsPermissions",
     "GetAlbum",
     "GetAlbumAlbum",
     "GetAlbumAlbumFallback",
@@ -837,6 +848,11 @@ __all__ = [
     "GetChartsChartsCountryTracksEdges",
     "GetChartsChartsCountryTracksEdgesNode",
     "GetChartsChartsCountryTracksPageInfo",
+    "GetFamily",
+    "GetFamilyMe",
+    "GetFamilyMeFamily",
+    "GetFamilyMeFamilyLinked",
+    "GetFamilyMeFamilyMain",
     "GetFavoriteAlbums",
     "GetFavoriteAlbumsMe",
     "GetFavoriteAlbumsMeUserFavorites",

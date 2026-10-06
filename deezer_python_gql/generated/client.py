@@ -65,6 +65,7 @@ from .get_audiobook_chapter import (
 from .get_banned_artists import GetBannedArtists, GetBannedArtistsMe
 from .get_banned_tracks import GetBannedTracks, GetBannedTracksMe
 from .get_charts import GetCharts, GetChartsCharts
+from .get_family import GetFamily, GetFamilyMe
 from .get_favorite_albums import GetFavoriteAlbums, GetFavoriteAlbumsMe
 from .get_favorite_artists import GetFavoriteArtists, GetFavoriteArtistsMe
 from .get_favorite_audiobooks import GetFavoriteAudiobooks, GetFavoriteAudiobooksMe
@@ -1474,6 +1475,38 @@ class DeezerGQLClient(DeezerBaseClient):
         )
         data = self.get_data(response)
         return GetCharts.model_validate(data).charts
+
+    async def get_family(self, **kwargs: Any) -> Optional[GetFamilyMe]:
+        query = gql("""
+            query GetFamily {
+              me {
+                id
+                family {
+                  main {
+                    ...FamilyProfileFields
+                  }
+                  linked {
+                    ...FamilyProfileFields
+                  }
+                }
+              }
+            }
+
+            fragment FamilyProfileFields on FamilyUser {
+              id
+              name
+              caption
+              permissions {
+                isLoggableAs
+              }
+            }
+            """)
+        variables: dict[str, object] = {}
+        response = await self.execute(
+            query=query, operation_name="GetFamily", variables=variables, **kwargs
+        )
+        data = self.get_data(response)
+        return GetFamily.model_validate(data).me
 
     async def get_favorite_albums(
         self,

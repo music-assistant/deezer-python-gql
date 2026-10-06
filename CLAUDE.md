@@ -117,6 +117,7 @@ deezer-python-gql/
 │       ├── get_banned_tracks.py     # Response models: tracks banned from recommendations
 │       ├── get_banned_artists.py    # Response models: artists banned from recommendations
 │       ├── get_flow_tuner.py        # Response models: Flow tuner (DEFAULT/DISCOVERY)
+│       ├── get_family.py            # Response models: Deezer Family members
 │       ├── get_tracks_by_ids.py     # Response models: several tracks by ID
 │       ├── get_infinite_track_mix.py  # Response models: track IDs for an endless mix
 │       ├── add_*_to_favorite.py  # Mutation models: add artist/album/track/playlist/podcast/audiobook
@@ -180,6 +181,7 @@ deezer-python-gql/
 │   ├── get_banned_tracks.graphql    # GetBannedTracks: paginated banned tracks
 │   ├── get_banned_artists.graphql   # GetBannedArtists: paginated banned artists
 │   ├── get_flow_tuner.graphql       # GetFlowTuner: current Flow tuner value
+│   ├── get_family.graphql           # GetFamily: Family admin and members with isLoggableAs
 │   ├── get_tracks_by_ids.graphql    # GetTracksByIds: batch track lookup
 │   ├── get_infinite_track_mix.graphql  # GetInfiniteTrackMix: endless mix IDs (≥40, cost ~10000)
 │   ├── favorites.graphql        # Mutations: add/remove favorites (all entity types)

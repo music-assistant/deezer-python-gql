@@ -1,0 +1,17 @@
+# The Deezer Family of the signed-in account. Members with isLoggableAs are
+# profiles that can be used through the account's ARL (see account_id on the
+# client); independent accounts have their own login and are not loggable.
+
+query GetFamily {
+  me {
+    id
+    family {
+      main {
+        ...FamilyProfileFields
+      }
+      linked {
+        ...FamilyProfileFields
+      }
+    }
+  }
+}
