@@ -57,6 +57,7 @@ from deezer_python_gql.generated.get_audiobook_chapter import GetAudiobookChapte
 from deezer_python_gql.generated.get_banned_artists import GetBannedArtists
 from deezer_python_gql.generated.get_banned_tracks import GetBannedTracks
 from deezer_python_gql.generated.get_charts import GetCharts
+from deezer_python_gql.generated.get_family import GetFamily
 from deezer_python_gql.generated.get_favorite_albums import GetFavoriteAlbums
 from deezer_python_gql.generated.get_favorite_artists import GetFavoriteArtists
 from deezer_python_gql.generated.get_favorite_audiobooks import GetFavoriteAudiobooks
@@ -147,11 +148,14 @@ def _load_fixture(name: str) -> dict[str, Any]:
     return result
 
 
-def _make_jwt(exp: float | None = None, subject: str | None = None) -> str:
+def _make_jwt(
+    exp: float | None = None, subject: str | None = None, user_id: str | None = None
+) -> str:
     """
     Build a fake JWT with a configurable expiration timestamp.
 
     :param exp: Unix timestamp for JWT expiry. Defaults to 6 min from now.
+    :param user_id: Optional ``userId`` claim, which Deezer sets to the account id.
     """
     if exp is None:
         exp = time.time() + 360  # 6 min, matching Deezer's real TTL
@@ -159,6 +163,8 @@ def _make_jwt(exp: float | None = None, subject: str | None = None) -> str:
     payload_data: dict[str, float | str] = {"exp": exp}
     if subject is not None:
         payload_data["sub"] = subject
+    if user_id is not None:
+        payload_data["userId"] = user_id
     payload = base64.urlsafe_b64encode(json.dumps(payload_data).encode()).rstrip(b"=").decode()
     return f"{header}.{payload}.fake_signature"
 
@@ -523,6 +529,39 @@ async def test_auth_sends_arl_cookie_to_correct_domain() -> None:
     auth_call = mock_instance.post.call_args_list[0]
     assert auth_call.args[0] == "https://auth.deezer.com/login/arl"
     assert auth_call.kwargs["cookies"] == {"arl": "my_secret_arl"}
+
+
+@pytest.mark.asyncio
+async def test_auth_family_profile_signs_in_with_account_id() -> None:
+    """Verify a Family profile sends the admin's ARL and its id in the payload."""
+    client = DeezerBaseClient(arl="admin_arl", account_id="456")
+
+    with patch("deezer_python_gql.base_client.ClientSession") as mock_cls:
+        mock_instance = MagicMock()
+        mock_instance.post = MagicMock(return_value=_mock_auth_cm(_make_jwt(user_id="456")))
+        mock_instance.close = AsyncMock()
+        mock_cls.return_value = mock_instance
+
+        await client._ensure_jwt()  # noqa: SLF001
+
+    auth_call = mock_instance.post.call_args
+    assert auth_call.kwargs["params"]["i"] == "p"
+    assert auth_call.kwargs["json"] == {"arl": "admin_arl", "account_id": "456"}
+
+
+@pytest.mark.asyncio
+async def test_auth_family_profile_rejects_a_token_for_another_account() -> None:
+    """Verify a token for another account is never used for a Family profile."""
+    client = DeezerBaseClient(arl="admin_arl", account_id="456")
+
+    with patch("deezer_python_gql.base_client.ClientSession") as mock_cls:
+        mock_instance = MagicMock()
+        mock_instance.post = MagicMock(return_value=_mock_auth_cm(_make_jwt(user_id="123")))
+        mock_instance.close = AsyncMock()
+        mock_cls.return_value = mock_instance
+
+        with pytest.raises(GraphQLClientAuthError, match="Family profile 456"):
+            await client._ensure_jwt()  # noqa: SLF001
 
 
 @pytest.mark.parametrize(("first_arl", "second_arl"), [("arl-a", "arl-b"), ("arl-b", "arl-a")])
@@ -1969,3 +2008,16 @@ def test_smoke_get_infinite_track_mix() -> None:
     data = _load_fixture("get_infinite_track_mix.json")
     mix = GetInfiniteTrackMix.model_validate(data).raw_infinite_track_mix
     assert [t.id for t in mix.tracks] == ["3135554", "3155977", "10284909"]
+
+
+def test_smoke_get_family() -> None:
+    """Verify GetFamily fixture parses the admin, a profile and an independent account."""
+    data = _load_fixture("get_family.json")
+    me = GetFamily.model_validate(data).me
+    assert me is not None
+    assert me.family is not None
+    assert me.family.main.id == me.id
+    assert [(m.id, m.permissions.is_loggable_as) for m in me.family.linked] == [
+        ("2002", True),
+        ("3003", False),
+    ]

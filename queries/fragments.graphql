@@ -238,3 +238,15 @@ fragment PageInfoFields on PageInfo {
   hasNextPage
   endCursor
 }
+
+# ---------------------------------------------------------------------------
+# FamilyUser — a Deezer Family member as seen by the signed-in account
+# ---------------------------------------------------------------------------
+fragment FamilyProfileFields on FamilyUser {
+  id
+  name
+  caption
+  permissions {
+    isLoggableAs
+  }
+}
