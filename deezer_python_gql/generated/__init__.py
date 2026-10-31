@@ -561,6 +561,10 @@ from .mark_as_played_podcast_episode import (
     MarkAsPlayedPodcastEpisodeMarkAsPlayedPodcastEpisode,
     MarkAsPlayedPodcastEpisodeMarkAsPlayedPodcastEpisodeBookmark,
 )
+from .move_track_in_playlist import (
+    MoveTrackInPlaylist,
+    MoveTrackInPlaylistMoveTrackInPlaylist,
+)
 from .music_together_create_group import (
     MusicTogetherCreateGroup,
     MusicTogetherCreateGroupMusicTogetherCreateGroupMusicTogetherCreateGroupError,
@@ -1143,6 +1147,8 @@ __all__ = [
     "MarkAsPlayedPodcastEpisode",
     "MarkAsPlayedPodcastEpisodeMarkAsPlayedPodcastEpisode",
     "MarkAsPlayedPodcastEpisodeMarkAsPlayedPodcastEpisodeBookmark",
+    "MoveTrackInPlaylist",
+    "MoveTrackInPlaylistMoveTrackInPlaylist",
     "MusicTogetherCreateGroup",
     "MusicTogetherCreateGroupMusicTogetherCreateGroupMusicTogetherCreateGroupError",
     "MusicTogetherCreateGroupMusicTogetherCreateGroupMusicTogetherCreateGroupOutput",

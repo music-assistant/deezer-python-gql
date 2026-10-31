@@ -76,3 +76,17 @@ mutation RemoveTracksFromPlaylist($playlistId: String!, $trackIds: [String!]!) {
     removedTrackIds
   }
 }
+
+# Move a track within a playlist, behind afterTrackId or to the top without it.
+
+mutation MoveTrackInPlaylist(
+  $playlistId: String!
+  $trackId: String!
+  $afterTrackId: String
+) {
+  moveTrackInPlaylist(
+    input: { playlistId: $playlistId, trackId: $trackId, afterTrackId: $afterTrackId }
+  ) {
+    moveStatus
+  }
+}

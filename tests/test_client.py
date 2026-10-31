@@ -105,6 +105,7 @@ from deezer_python_gql.generated.mark_as_not_played_podcast_episode import (
 from deezer_python_gql.generated.mark_as_played_podcast_episode import (
     MarkAsPlayedPodcastEpisode,
 )
+from deezer_python_gql.generated.move_track_in_playlist import MoveTrackInPlaylist
 from deezer_python_gql.generated.music_together_create_group import (
     MusicTogetherCreateGroup,
 )
@@ -340,6 +341,7 @@ def test_client_has_generated_methods() -> None:
         "delete_playlist",
         "add_tracks_to_playlist",
         "remove_tracks_from_playlist",
+        "move_track_in_playlist",
         "get_podcast",
         "get_podcast_episode",
         "get_podcast_episodes_by_ids",
@@ -1521,6 +1523,13 @@ def test_smoke_remove_tracks_from_playlist() -> None:
     data = _load_fixture("remove_tracks_from_playlist.json")
     result = RemoveTracksFromPlaylist.model_validate(data)
     assert result.remove_tracks_from_playlist.removed_track_ids == ["100000001", "100000002"]
+
+
+def test_smoke_move_track_in_playlist() -> None:
+    """Verify MoveTrackInPlaylist fixture parses with move status."""
+    data = _load_fixture("move_track_in_playlist.json")
+    result = MoveTrackInPlaylist.model_validate(data)
+    assert result.move_track_in_playlist.move_status is True
 
 
 def test_smoke_get_livestream() -> None:

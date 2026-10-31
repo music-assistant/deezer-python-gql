@@ -130,6 +130,7 @@ deezer-python-gql/
 │       ├── delete_playlist.py   # Mutation model: delete playlist
 │       ├── add_tracks_to_playlist.py  # Mutation model: add tracks to playlist
 │       ├── remove_tracks_from_playlist.py  # Mutation model: remove tracks from playlist
+│       ├── move_track_in_playlist.py  # Mutation model: move a track within a playlist
 │       ├── bookmark_podcast_episode.py  # Mutation model: bookmark episode
 │       ├── unbookmark_podcast_episode.py  # Mutation model: unbookmark episode
 │       ├── mark_as_played_podcast_episode.py  # Mutation model: mark played
@@ -187,7 +188,7 @@ deezer-python-gql/
 │   ├── favorites.graphql        # Mutations: add/remove favorites (all entity types)
 │   ├── recommendation_bans.graphql  # Mutations: ban/unban track or artist from recommendations
 │   ├── flow_tuner.graphql           # Mutation: set the Flow tuner
-│   ├── playlists.graphql        # Mutations: create/update/delete/add/remove playlist tracks
+│   ├── playlists.graphql        # Mutations: create/update/delete/add/remove/move playlist tracks
 │   └── music_together.graphql   # Mutations: create/join/leave/refresh/update/generate groups
 ├── schema.graphql               # Full SDL schema (~17,700 lines, ~915 types) — generated
 ├── schema.json                  # Raw introspection JSON — generated
