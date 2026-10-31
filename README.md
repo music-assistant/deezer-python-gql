@@ -162,6 +162,7 @@ Keep a track or artist out of the user's recommendations (Flow, mixes).
 | `delete_playlist(playlist_id)`                   | Delete a playlist                                 |
 | `add_tracks_to_playlist(playlist_id, track_ids)` | Add tracks to a playlist                          |
 | `remove_tracks_from_playlist(playlist_id, ...)`  | Remove tracks from a playlist                     |
+| `move_track_in_playlist(playlist_id, ...)`       | Move a track behind another one or to the top     |
 
 ### Podcast Episode Management
 

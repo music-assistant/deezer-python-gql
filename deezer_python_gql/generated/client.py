@@ -127,6 +127,10 @@ from .mark_as_played_podcast_episode import (
     MarkAsPlayedPodcastEpisode,
     MarkAsPlayedPodcastEpisodeMarkAsPlayedPodcastEpisode,
 )
+from .move_track_in_playlist import (
+    MoveTrackInPlaylist,
+    MoveTrackInPlaylistMoveTrackInPlaylist,
+)
 from .music_together_create_group import (
     MusicTogetherCreateGroup,
     MusicTogetherCreateGroupMusicTogetherCreateGroupMusicTogetherCreateGroupError,
@@ -4434,6 +4438,36 @@ class DeezerGQLClient(DeezerBaseClient):
         )
         data = self.get_data(response)
         return RemoveTracksFromPlaylist.model_validate(data).remove_tracks_from_playlist
+
+    async def move_track_in_playlist(
+        self,
+        playlist_id: str,
+        track_id: str,
+        after_track_id: Union[Optional[str], UnsetType] = UNSET,
+        **kwargs: Any,
+    ) -> MoveTrackInPlaylistMoveTrackInPlaylist:
+        query = gql("""
+            mutation MoveTrackInPlaylist($playlistId: String!, $trackId: String!, $afterTrackId: String) {
+              moveTrackInPlaylist(
+                input: {playlistId: $playlistId, trackId: $trackId, afterTrackId: $afterTrackId}
+              ) {
+                moveStatus
+              }
+            }
+            """)
+        variables: dict[str, object] = {
+            "playlistId": playlist_id,
+            "trackId": track_id,
+            "afterTrackId": after_track_id,
+        }
+        response = await self.execute(
+            query=query,
+            operation_name="MoveTrackInPlaylist",
+            variables=variables,
+            **kwargs,
+        )
+        data = self.get_data(response)
+        return MoveTrackInPlaylist.model_validate(data).move_track_in_playlist
 
     async def ban_track_from_recommendation(
         self, track_id: str, **kwargs: Any
