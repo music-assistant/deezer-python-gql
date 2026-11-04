@@ -11,6 +11,7 @@ from dataclasses import dataclass
 from typing import TYPE_CHECKING, Any, ClassVar, Self, cast
 
 from aiohttp import ClientSession, ClientTimeout
+from pydantic_core import to_jsonable_python
 from yarl import URL
 
 if TYPE_CHECKING:
@@ -227,8 +228,11 @@ class DeezerBaseClient:
             # Inline import avoids depending on generated code at module level.
             from deezer_python_gql.generated.base_model import UnsetType  # noqa: PLC0415
 
+            # input types are pydantic models, sent under their GraphQL field names
             payload["variables"] = {
-                k: v for k, v in variables.items() if not isinstance(v, UnsetType)
+                k: to_jsonable_python(v, by_alias=True)
+                for k, v in variables.items()
+                if not isinstance(v, UnsetType)
             }
 
         session = self._get_session()
