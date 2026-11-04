@@ -46,6 +46,20 @@ class PodcastEpisodeOrder(str, Enum):
     LATEST = "LATEST"
 
 
+class MediaTypeInput(str, Enum):
+    TRACK = "TRACK"
+    EPISODE = "EPISODE"
+    CHAPTER = "CHAPTER"
+    LIVE = "LIVE"
+    RAW_URL = "RAW_URL"
+
+
+class RepeatModeInput(str, Enum):
+    NONE = "NONE"
+    ONE = "ONE"
+    ALL = "ALL"
+
+
 class DiscoveryTuner(str, Enum):
     DEFAULT = "DEFAULT"
     DISCOVERY = "DISCOVERY"

@@ -119,6 +119,7 @@ from .get_track_mix import GetTrackMix, GetTrackMixTrackMix
 from .get_tracks_by_ids import GetTracksByIds, GetTracksByIdsTracksByIds
 from .get_user_charts import GetUserCharts, GetUserChartsMe
 from .get_user_playlists import GetUserPlaylists, GetUserPlaylistsMe
+from .input_types import PushQueueStateInput
 from .mark_as_not_played_podcast_episode import (
     MarkAsNotPlayedPodcastEpisode,
     MarkAsNotPlayedPodcastEpisodeMarkAsNotPlayedPodcastEpisode,
@@ -159,6 +160,11 @@ from .music_together_update_group_settings import (
     MusicTogetherUpdateGroupSettings,
     MusicTogetherUpdateGroupSettingsMusicTogetherUpdateGroupSettingsMusicTogetherUpdateGroupSettingsError,
     MusicTogetherUpdateGroupSettingsMusicTogetherUpdateGroupSettingsMusicTogetherUpdateGroupSettingsOutput,
+)
+from .push_queue_state import (
+    PushQueueState,
+    PushQueueStatePushQueueStatePushQueueStateError,
+    PushQueueStatePushQueueStatePushQueueStateOutput,
 )
 from .remove_album_from_favorite import (
     RemoveAlbumFromFavorite,
@@ -4468,6 +4474,37 @@ class DeezerGQLClient(DeezerBaseClient):
         )
         data = self.get_data(response)
         return MoveTrackInPlaylist.model_validate(data).move_track_in_playlist
+
+    async def push_queue_state(
+        self, input: PushQueueStateInput, **kwargs: Any
+    ) -> Union[
+        PushQueueStatePushQueueStatePushQueueStateOutput,
+        PushQueueStatePushQueueStatePushQueueStateError,
+    ]:
+        query = gql("""
+            mutation PushQueueState($input: PushQueueStateInput!) {
+              pushQueueState(input: $input) {
+                __typename
+                ... on PushQueueStateOutput {
+                  version
+                }
+                ... on PushQueueStateError {
+                  isBadRequest
+                  conflict {
+                    current {
+                      version
+                    }
+                  }
+                }
+              }
+            }
+            """)
+        variables: dict[str, object] = {"input": input}
+        response = await self.execute(
+            query=query, operation_name="PushQueueState", variables=variables, **kwargs
+        )
+        data = self.get_data(response)
+        return PushQueueState.model_validate(data).push_queue_state
 
     async def ban_track_from_recommendation(
         self, track_id: str, **kwargs: Any

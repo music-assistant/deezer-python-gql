@@ -1,0 +1,19 @@
+# Replace the queue the Deezer apps restore when they start (queue sync).
+# previousVersion must name the current state; a conflict returns that version.
+
+mutation PushQueueState($input: PushQueueStateInput!) {
+  pushQueueState(input: $input) {
+    __typename
+    ... on PushQueueStateOutput {
+      version
+    }
+    ... on PushQueueStateError {
+      isBadRequest
+      conflict {
+        current {
+          version
+        }
+      }
+    }
+  }
+}

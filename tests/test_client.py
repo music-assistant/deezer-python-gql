@@ -114,6 +114,11 @@ from deezer_python_gql.generated.music_together_generate_group_name import (
 )
 from deezer_python_gql.generated.music_together_join_group import MusicTogetherJoinGroup
 from deezer_python_gql.generated.music_together_leave_group import MusicTogetherLeaveGroup
+from deezer_python_gql.generated.push_queue_state import (
+    PushQueueState,
+    PushQueueStatePushQueueStatePushQueueStateError,
+    PushQueueStatePushQueueStatePushQueueStateOutput,
+)
 from deezer_python_gql.generated.remove_album_from_favorite import RemoveAlbumFromFavorite
 from deezer_python_gql.generated.remove_artist_from_favorite import RemoveArtistFromFavorite
 from deezer_python_gql.generated.remove_audiobook_from_favorite import (
@@ -378,6 +383,7 @@ def test_client_has_generated_methods() -> None:
         "get_latest_podcast_episodes",
         "get_tracks_by_ids",
         "set_flow_discovery_tuner",
+        "push_queue_state",
     ]
     for method in expected_methods:
         assert hasattr(client, method), f"Missing method: {method}"
@@ -2030,3 +2036,22 @@ def test_smoke_get_family() -> None:
         ("2002", True),
         ("3003", False),
     ]
+
+
+def test_smoke_push_queue_state() -> None:
+    """Verify PushQueueState fixture parses the new queue state version."""
+    data = _load_fixture("push_queue_state.json")
+    result = PushQueueState.model_validate(data).push_queue_state
+    assert isinstance(result, PushQueueStatePushQueueStatePushQueueStateOutput)
+    assert result.version == "01a1a613-c68c-731f-8677-15d9c535adbb"
+
+
+def test_smoke_push_queue_state_conflict() -> None:
+    """Verify a PushQueueState conflict parses the version it conflicts with."""
+    data = _load_fixture("push_queue_state_conflict.json")
+    result = PushQueueState.model_validate(data).push_queue_state
+    assert isinstance(result, PushQueueStatePushQueueStatePushQueueStateError)
+    assert result.is_bad_request is False
+    assert result.conflict is not None
+    assert result.conflict.current is not None
+    assert result.conflict.current.version == "01a1a63d-1f5b-7d29-ae26-099eb9c20ab7"

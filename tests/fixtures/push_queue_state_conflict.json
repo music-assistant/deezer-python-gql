@@ -1,0 +1,13 @@
+{
+  "data": {
+    "pushQueueState": {
+      "__typename": "PushQueueStateError",
+      "isBadRequest": false,
+      "conflict": {
+        "current": {
+          "version": "01a1a63d-1f5b-7d29-ae26-099eb9c20ab7"
+        }
+      }
+    }
+  }
+}

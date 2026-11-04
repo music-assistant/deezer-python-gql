@@ -1,0 +1,8 @@
+{
+  "data": {
+    "pushQueueState": {
+      "__typename": "PushQueueStateOutput",
+      "version": "01a1a613-c68c-731f-8677-15d9c535adbb"
+    }
+  }
+}
