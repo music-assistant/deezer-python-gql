@@ -48,7 +48,7 @@ from deezer_python_gql.generated.ban_track_from_recommendation import (
 from deezer_python_gql.generated.bookmark_podcast_episode import BookmarkPodcastEpisode
 from deezer_python_gql.generated.create_playlist import CreatePlaylist
 from deezer_python_gql.generated.delete_playlist import DeletePlaylist
-from deezer_python_gql.generated.enums import PodcastType
+from deezer_python_gql.generated.enums import MediaTypeInput, PodcastType, RepeatModeInput
 from deezer_python_gql.generated.get_album import GetAlbum
 from deezer_python_gql.generated.get_artist import GetArtist
 from deezer_python_gql.generated.get_artist_mix import GetArtistMix
@@ -99,6 +99,11 @@ from deezer_python_gql.generated.get_track_mix import GetTrackMix
 from deezer_python_gql.generated.get_tracks_by_ids import GetTracksByIds
 from deezer_python_gql.generated.get_user_charts import GetUserCharts
 from deezer_python_gql.generated.get_user_playlists import GetUserPlaylists
+from deezer_python_gql.generated.input_types import (
+    PushQueueMediaInput,
+    PushQueueStateClientDetailsInput,
+    PushQueueStateInput,
+)
 from deezer_python_gql.generated.mark_as_not_played_podcast_episode import (
     MarkAsNotPlayedPodcastEpisode,
 )
@@ -114,6 +119,11 @@ from deezer_python_gql.generated.music_together_generate_group_name import (
 )
 from deezer_python_gql.generated.music_together_join_group import MusicTogetherJoinGroup
 from deezer_python_gql.generated.music_together_leave_group import MusicTogetherLeaveGroup
+from deezer_python_gql.generated.push_queue_state import (
+    PushQueueState,
+    PushQueueStatePushQueueStatePushQueueStateError,
+    PushQueueStatePushQueueStatePushQueueStateOutput,
+)
 from deezer_python_gql.generated.remove_album_from_favorite import RemoveAlbumFromFavorite
 from deezer_python_gql.generated.remove_artist_from_favorite import RemoveArtistFromFavorite
 from deezer_python_gql.generated.remove_audiobook_from_favorite import (
@@ -378,6 +388,7 @@ def test_client_has_generated_methods() -> None:
         "get_latest_podcast_episodes",
         "get_tracks_by_ids",
         "set_flow_discovery_tuner",
+        "push_queue_state",
     ]
     for method in expected_methods:
         assert hasattr(client, method), f"Missing method: {method}"
@@ -2030,3 +2041,64 @@ def test_smoke_get_family() -> None:
         ("2002", True),
         ("3003", False),
     ]
+
+
+def test_smoke_push_queue_state() -> None:
+    """Verify PushQueueState fixture parses the new queue state version."""
+    data = _load_fixture("push_queue_state.json")
+    result = PushQueueState.model_validate(data).push_queue_state
+    assert isinstance(result, PushQueueStatePushQueueStatePushQueueStateOutput)
+    assert result.version == "01a1a613-c68c-731f-8677-15d9c535adbb"
+
+
+def test_smoke_push_queue_state_conflict() -> None:
+    """Verify a PushQueueState conflict parses the version it conflicts with."""
+    data = _load_fixture("push_queue_state_conflict.json")
+    result = PushQueueState.model_validate(data).push_queue_state
+    assert isinstance(result, PushQueueStatePushQueueStatePushQueueStateError)
+    assert result.is_bad_request is False
+    assert result.conflict is not None
+    assert result.conflict.current is not None
+    assert result.conflict.current.version == "01a1a63d-1f5b-7d29-ae26-099eb9c20ab7"
+
+
+@pytest.mark.asyncio
+async def test_execute_sends_input_types_by_their_graphql_names() -> None:
+    """Verify an input type variable is sent as JSON with the API's field names."""
+    client = DeezerGQLClient(arl="test_arl")
+    client._jwt = _make_jwt(exp=time.time() + 600)  # noqa: SLF001
+    client._jwt_expires_at = time.time() + 600  # noqa: SLF001
+    state = PushQueueStateInput(
+        clientDetails=PushQueueStateClientDetailsInput(
+            localQueueID="queue", locallyUpdatedAt="2026-11-04T10:21:16.223Z"
+        ),
+        mediaList=[PushQueueMediaInput(id="1", type=MediaTypeInput.TRACK, unshuffledPosition=0)],
+        position=0,
+        queueConfiguration="{}",
+        repeatMode=RepeatModeInput.NONE,
+    )
+    gql_cm = _mock_post_context_manager(
+        json.dumps({"data": _load_fixture("push_queue_state.json")}).encode()
+    )
+
+    # the generated client runs on the generated copy of the base client
+    with patch("deezer_python_gql.generated.base_client.ClientSession") as mock_cls:
+        mock_instance = MagicMock()
+        mock_instance.post = MagicMock(return_value=gql_cm)
+        mock_instance.close = AsyncMock()
+        mock_cls.return_value = mock_instance
+
+        await client.push_queue_state(input=state)
+
+    sent = mock_instance.post.call_args.kwargs["json"]["variables"]["input"]
+    assert sent["clientDetails"]["localQueueID"] == "queue"
+    assert sent["mediaList"] == [
+        {
+            "id": "1",
+            "type": "TRACK",
+            "contextId": None,
+            "localQueueItemId": None,
+            "unshuffledPosition": 0,
+        }
+    ]
+    assert sent["repeatMode"] == "NONE"
