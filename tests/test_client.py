@@ -12,6 +12,7 @@ from __future__ import annotations
 import asyncio
 import base64
 import json
+import logging
 import time
 from http.cookies import SimpleCookie
 from pathlib import Path
@@ -648,10 +649,11 @@ async def test_auth_rejected_arl_raises_auth_error() -> None:
 
 
 @pytest.mark.asyncio
-async def test_auth_server_error_raises_http_error() -> None:
-    """Verify a 5xx from auth.deezer.com raises GraphQLClientHttpError, not AuthError."""
+@pytest.mark.parametrize("status", [429, 503])
+async def test_auth_server_error_raises_http_error(status: int) -> None:
+    """Verify a 5xx or 429 from auth.deezer.com raises GraphQLClientHttpError, not AuthError."""
     client = DeezerBaseClient(arl="test_arl")
-    auth_cm = _mock_post_context_manager(b"Service Unavailable", status=503)
+    auth_cm = _mock_post_context_manager(b"Service Unavailable", status=status)
 
     with patch("deezer_python_gql.base_client.ClientSession") as mock_cls:
         mock_instance = MagicMock()
@@ -661,7 +663,7 @@ async def test_auth_server_error_raises_http_error() -> None:
 
         with pytest.raises(GraphQLClientHttpError) as exc_info:
             await client._ensure_jwt()  # noqa: SLF001
-    assert exc_info.value.status_code == 503
+    assert exc_info.value.status_code == status
 
 
 @pytest.mark.asyncio
@@ -782,6 +784,25 @@ def test_get_data_raises_on_missing_data_key() -> None:
 
     with pytest.raises(GraphQLClientInvalidResponseError):
         client.get_data(response)
+
+
+def test_get_data_logs_partial_errors_at_debug(caplog: pytest.LogCaptureFixture) -> None:
+    """Verify items Deezer no longer has are logged at debug level, not as a warning."""
+    client = DeezerBaseClient(arl="test")
+    response = GQLResponse(
+        status=200,
+        data=json.dumps(
+            {
+                "data": {"me": {"id": "1"}},
+                "errors": [{"message": "PodcastEpisode does not exist", "path": ["me"]}],
+            }
+        ).encode(),
+        is_success=True,
+    )
+
+    with caplog.at_level(logging.DEBUG, logger="deezer_python_gql"):
+        assert client.get_data(response) == {"me": {"id": "1"}}
+    assert [record.levelno for record in caplog.records] == [logging.DEBUG]
 
 
 def test_get_data_raises_on_graphql_errors() -> None:
