@@ -377,7 +377,8 @@ class DeezerBaseClient:
                 text = await resp.text()
 
             if not is_success:
-                if 400 <= status < 500:
+                # 429 is rate limiting, not a rejected ARL
+                if 400 <= status < 500 and status != 429:
                     msg = f"ARL authentication rejected by auth.deezer.com (HTTP {status})"
                     raise GraphQLClientAuthError(msg)
                 raise GraphQLClientHttpError(

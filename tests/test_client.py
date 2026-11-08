@@ -649,10 +649,11 @@ async def test_auth_rejected_arl_raises_auth_error() -> None:
 
 
 @pytest.mark.asyncio
-async def test_auth_server_error_raises_http_error() -> None:
-    """Verify a 5xx from auth.deezer.com raises GraphQLClientHttpError, not AuthError."""
+@pytest.mark.parametrize("status", [429, 503])
+async def test_auth_server_error_raises_http_error(status: int) -> None:
+    """Verify a 5xx or 429 from auth.deezer.com raises GraphQLClientHttpError, not AuthError."""
     client = DeezerBaseClient(arl="test_arl")
-    auth_cm = _mock_post_context_manager(b"Service Unavailable", status=503)
+    auth_cm = _mock_post_context_manager(b"Service Unavailable", status=status)
 
     with patch("deezer_python_gql.base_client.ClientSession") as mock_cls:
         mock_instance = MagicMock()
@@ -662,7 +663,7 @@ async def test_auth_server_error_raises_http_error() -> None:
 
         with pytest.raises(GraphQLClientHttpError) as exc_info:
             await client._ensure_jwt()  # noqa: SLF001
-    assert exc_info.value.status_code == 503
+    assert exc_info.value.status_code == status
 
 
 @pytest.mark.asyncio
