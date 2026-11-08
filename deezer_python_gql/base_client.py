@@ -288,11 +288,11 @@ class DeezerBaseClient:
             variables = response.variables
             if data:
                 # Partial success — some items failed (e.g. deleted albums in favorites).
-                # Log the errors but return the valid data.
+                # That is expected, so log at debug level and return the valid data.
                 error_details = [
                     f"{e.get('message', 'Unknown error')} (path={e.get('path')})" for e in errors
                 ]
-                logger.warning(
+                logger.debug(
                     "GraphQL response for %s (variables=%s) contained %d error(s): %s",
                     op,
                     variables,

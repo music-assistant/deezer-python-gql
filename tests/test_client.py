@@ -12,6 +12,7 @@ from __future__ import annotations
 import asyncio
 import base64
 import json
+import logging
 import time
 from http.cookies import SimpleCookie
 from pathlib import Path
@@ -782,6 +783,25 @@ def test_get_data_raises_on_missing_data_key() -> None:
 
     with pytest.raises(GraphQLClientInvalidResponseError):
         client.get_data(response)
+
+
+def test_get_data_logs_partial_errors_at_debug(caplog: pytest.LogCaptureFixture) -> None:
+    """Verify items Deezer no longer has are logged at debug level, not as a warning."""
+    client = DeezerBaseClient(arl="test")
+    response = GQLResponse(
+        status=200,
+        data=json.dumps(
+            {
+                "data": {"me": {"id": "1"}},
+                "errors": [{"message": "PodcastEpisode does not exist", "path": ["me"]}],
+            }
+        ).encode(),
+        is_success=True,
+    )
+
+    with caplog.at_level(logging.DEBUG, logger="deezer_python_gql"):
+        assert client.get_data(response) == {"me": {"id": "1"}}
+    assert [record.levelno for record in caplog.records] == [logging.DEBUG]
 
 
 def test_get_data_raises_on_graphql_errors() -> None:
