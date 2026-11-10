@@ -46,6 +46,7 @@ query GetTrack($trackId: String!) {
         MP3_128
         MP3_320
         FLAC
+        FLAC_24
       }
       rights {
         ads {

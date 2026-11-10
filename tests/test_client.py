@@ -1038,6 +1038,7 @@ def test_smoke_get_track() -> None:
     assert len(track.contributors.edges) > 0
     assert track.media is not None
     assert track.media.token.payload  # non-empty token
+    assert track.media.estimated_sizes.flac_24 is None
 
 
 def test_smoke_get_album() -> None:
@@ -2041,6 +2042,8 @@ def test_smoke_get_tracks_by_ids() -> None:
     assert tracks[0] is not None
     assert tracks[0].id == "3135556"
     assert tracks[0].gain == -8.2
+    assert tracks[0].media is not None
+    assert tracks[0].media.estimated_sizes.flac_24 == 84510760
     assert tracks[1] is None
 
 

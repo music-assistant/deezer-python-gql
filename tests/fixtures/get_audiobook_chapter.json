@@ -55,7 +55,8 @@
           "MP3_MISC": 5000000,
           "MP3_128": 3360000,
           "MP3_320": 8400000,
-          "FLAC": 25200000
+          "FLAC": 25200000,
+          "FLAC_24": null
         },
         "rights": {
           "ads": { "available": true },

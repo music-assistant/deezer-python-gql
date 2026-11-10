@@ -47,7 +47,19 @@
         },
         "isFavorite": false,
         "popularity": null,
-        "media": null,
+        "media": {
+          "estimatedSizes": {
+            "MP3_128": 3623705,
+            "MP3_320": 9059264,
+            "FLAC": 25275843,
+            "FLAC_24": 84510760
+          },
+          "rights": {
+            "sub": {
+              "available": true
+            }
+          }
+        },
         "isBannedFromRecommendation": false,
         "gain": -8.2
       },
