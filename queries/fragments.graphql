@@ -39,6 +39,12 @@ fragment TrackFields on Track {
     }
   }
   media {
+    estimatedSizes {
+      MP3_128
+      MP3_320
+      FLAC
+      FLAC_24
+    }
     rights {
       sub {
         available

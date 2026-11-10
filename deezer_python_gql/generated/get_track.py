@@ -85,6 +85,7 @@ class GetTrackTrackMediaEstimatedSizes(BaseModel):
     mp_3_128: Optional[int] = Field(alias="MP3_128")
     mp_3_320: Optional[int] = Field(alias="MP3_320")
     flac: Optional[int] = Field(alias="FLAC")
+    flac_24: Optional[int] = Field(alias="FLAC_24")
 
 
 class GetTrackTrackMediaRights(BaseModel):

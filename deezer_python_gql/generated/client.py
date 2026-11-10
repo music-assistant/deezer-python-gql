@@ -730,6 +730,12 @@ class DeezerGQLClient(DeezerBaseClient):
                 }
               }
               media {
+                estimatedSizes {
+                  MP3_128
+                  MP3_320
+                  FLAC
+                  FLAC_24
+                }
                 rights {
                   sub {
                     available
@@ -895,6 +901,12 @@ class DeezerGQLClient(DeezerBaseClient):
                 }
               }
               media {
+                estimatedSizes {
+                  MP3_128
+                  MP3_320
+                  FLAC
+                  FLAC_24
+                }
                 rights {
                   sub {
                     available
@@ -964,6 +976,12 @@ class DeezerGQLClient(DeezerBaseClient):
                 }
               }
               media {
+                estimatedSizes {
+                  MP3_128
+                  MP3_320
+                  FLAC
+                  FLAC_24
+                }
                 rights {
                   sub {
                     available
@@ -1098,6 +1116,7 @@ class DeezerGQLClient(DeezerBaseClient):
                     MP3_128
                     MP3_320
                     FLAC
+                    FLAC_24
                   }
                   rights {
                     ads {
@@ -1285,6 +1304,12 @@ class DeezerGQLClient(DeezerBaseClient):
                 }
               }
               media {
+                estimatedSizes {
+                  MP3_128
+                  MP3_320
+                  FLAC
+                  FLAC_24
+                }
                 rights {
                   sub {
                     available
@@ -1465,6 +1490,12 @@ class DeezerGQLClient(DeezerBaseClient):
                 }
               }
               media {
+                estimatedSizes {
+                  MP3_128
+                  MP3_320
+                  FLAC
+                  FLAC_24
+                }
                 rights {
                   sub {
                     available
@@ -1850,6 +1881,12 @@ class DeezerGQLClient(DeezerBaseClient):
                 }
               }
               media {
+                estimatedSizes {
+                  MP3_128
+                  MP3_320
+                  FLAC
+                  FLAC_24
+                }
                 rights {
                   sub {
                     available
@@ -1922,6 +1959,12 @@ class DeezerGQLClient(DeezerBaseClient):
                 }
               }
               media {
+                estimatedSizes {
+                  MP3_128
+                  MP3_320
+                  FLAC
+                  FLAC_24
+                }
                 rights {
                   sub {
                     available
@@ -2006,6 +2049,12 @@ class DeezerGQLClient(DeezerBaseClient):
                 }
               }
               media {
+                estimatedSizes {
+                  MP3_128
+                  MP3_320
+                  FLAC
+                  FLAC_24
+                }
                 rights {
                   sub {
                     available
@@ -2077,6 +2126,12 @@ class DeezerGQLClient(DeezerBaseClient):
                 }
               }
               media {
+                estimatedSizes {
+                  MP3_128
+                  MP3_320
+                  FLAC
+                  FLAC_24
+                }
                 rights {
                   sub {
                     available
@@ -2439,6 +2494,12 @@ class DeezerGQLClient(DeezerBaseClient):
                 }
               }
               media {
+                estimatedSizes {
+                  MP3_128
+                  MP3_320
+                  FLAC
+                  FLAC_24
+                }
                 rights {
                   sub {
                     available
@@ -2603,6 +2664,12 @@ class DeezerGQLClient(DeezerBaseClient):
                 }
               }
               media {
+                estimatedSizes {
+                  MP3_128
+                  MP3_320
+                  FLAC
+                  FLAC_24
+                }
                 rights {
                   sub {
                     available
@@ -2750,6 +2817,12 @@ class DeezerGQLClient(DeezerBaseClient):
                 }
               }
               media {
+                estimatedSizes {
+                  MP3_128
+                  MP3_320
+                  FLAC
+                  FLAC_24
+                }
                 rights {
                   sub {
                     available
@@ -2854,6 +2927,12 @@ class DeezerGQLClient(DeezerBaseClient):
                 }
               }
               media {
+                estimatedSizes {
+                  MP3_128
+                  MP3_320
+                  FLAC
+                  FLAC_24
+                }
                 rights {
                   sub {
                     available
@@ -3441,6 +3520,12 @@ class DeezerGQLClient(DeezerBaseClient):
                 }
               }
               media {
+                estimatedSizes {
+                  MP3_128
+                  MP3_320
+                  FLAC
+                  FLAC_24
+                }
                 rights {
                   sub {
                     available
@@ -3563,6 +3648,12 @@ class DeezerGQLClient(DeezerBaseClient):
                 }
               }
               media {
+                estimatedSizes {
+                  MP3_128
+                  MP3_320
+                  FLAC
+                  FLAC_24
+                }
                 rights {
                   sub {
                     available
@@ -3652,6 +3743,12 @@ class DeezerGQLClient(DeezerBaseClient):
                 }
               }
               media {
+                estimatedSizes {
+                  MP3_128
+                  MP3_320
+                  FLAC
+                  FLAC_24
+                }
                 rights {
                   sub {
                     available
@@ -3725,6 +3822,7 @@ class DeezerGQLClient(DeezerBaseClient):
                     MP3_128
                     MP3_320
                     FLAC
+                    FLAC_24
                   }
                   rights {
                     ads {
@@ -3812,6 +3910,12 @@ class DeezerGQLClient(DeezerBaseClient):
                 }
               }
               media {
+                estimatedSizes {
+                  MP3_128
+                  MP3_320
+                  FLAC
+                  FLAC_24
+                }
                 rights {
                   sub {
                     available
@@ -3875,6 +3979,12 @@ class DeezerGQLClient(DeezerBaseClient):
                 }
               }
               media {
+                estimatedSizes {
+                  MP3_128
+                  MP3_320
+                  FLAC
+                  FLAC_24
+                }
                 rights {
                   sub {
                     available
@@ -4024,6 +4134,12 @@ class DeezerGQLClient(DeezerBaseClient):
                 }
               }
               media {
+                estimatedSizes {
+                  MP3_128
+                  MP3_320
+                  FLAC
+                  FLAC_24
+                }
                 rights {
                   sub {
                     available
@@ -4655,6 +4771,12 @@ class DeezerGQLClient(DeezerBaseClient):
                           }
                         }
                         media {
+                          estimatedSizes {
+                            MP3_128
+                            MP3_320
+                            FLAC
+                            FLAC_24
+                          }
                           rights {
                             sub {
                               available
