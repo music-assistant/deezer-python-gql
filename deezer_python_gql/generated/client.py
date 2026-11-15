@@ -1064,7 +1064,7 @@ class DeezerGQLClient(DeezerBaseClient):
               discsCount
               producerLine
               publisher
-              contributors(first: 5, roles: [AUTHOR, NARRATOR]) {
+              contributors(first: 10, roles: [AUTHOR, NARRATOR]) {
                 edges {
                   roles
                   node {
@@ -1160,7 +1160,7 @@ class DeezerGQLClient(DeezerBaseClient):
               discsCount
               producerLine
               publisher
-              contributors(first: 5, roles: [AUTHOR, NARRATOR]) {
+              contributors(first: 10, roles: [AUTHOR, NARRATOR]) {
                 edges {
                   roles
                   node {
