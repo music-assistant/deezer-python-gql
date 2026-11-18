@@ -35,7 +35,19 @@ class GetFavoriteArtistsMeUserFavoritesArtistsEdges(BaseModel):
 
 
 class GetFavoriteArtistsMeUserFavoritesArtistsEdgesNode(ArtistFields):
-    pass
+    albums: "GetFavoriteArtistsMeUserFavoritesArtistsEdgesNodeAlbums"
+
+
+class GetFavoriteArtistsMeUserFavoritesArtistsEdgesNodeAlbums(BaseModel):
+    edges: list["GetFavoriteArtistsMeUserFavoritesArtistsEdgesNodeAlbumsEdges"]
+
+
+class GetFavoriteArtistsMeUserFavoritesArtistsEdgesNodeAlbumsEdges(BaseModel):
+    node: Optional["GetFavoriteArtistsMeUserFavoritesArtistsEdgesNodeAlbumsEdgesNode"]
+
+
+class GetFavoriteArtistsMeUserFavoritesArtistsEdgesNodeAlbumsEdgesNode(BaseModel):
+    id: str
 
 
 class GetFavoriteArtistsMeUserFavoritesArtistsPageInfo(PageInfoFields):
@@ -47,3 +59,6 @@ GetFavoriteArtistsMe.model_rebuild()
 GetFavoriteArtistsMeUserFavorites.model_rebuild()
 GetFavoriteArtistsMeUserFavoritesArtists.model_rebuild()
 GetFavoriteArtistsMeUserFavoritesArtistsEdges.model_rebuild()
+GetFavoriteArtistsMeUserFavoritesArtistsEdgesNode.model_rebuild()
+GetFavoriteArtistsMeUserFavoritesArtistsEdgesNodeAlbums.model_rebuild()
+GetFavoriteArtistsMeUserFavoritesArtistsEdgesNodeAlbumsEdges.model_rebuild()

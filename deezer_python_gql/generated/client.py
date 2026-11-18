@@ -1638,6 +1638,13 @@ class DeezerGQLClient(DeezerBaseClient):
                       favoritedAt
                       node {
                         ...ArtistFields
+                        albums(first: 25, order: RELEASE_DATE) {
+                          edges {
+                            node {
+                              id
+                            }
+                          }
+                        }
                       }
                     }
                     pageInfo {

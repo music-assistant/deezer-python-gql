@@ -233,6 +233,9 @@ from .get_favorite_artists import (
     GetFavoriteArtistsMeUserFavoritesArtists,
     GetFavoriteArtistsMeUserFavoritesArtistsEdges,
     GetFavoriteArtistsMeUserFavoritesArtistsEdgesNode,
+    GetFavoriteArtistsMeUserFavoritesArtistsEdgesNodeAlbums,
+    GetFavoriteArtistsMeUserFavoritesArtistsEdgesNodeAlbumsEdges,
+    GetFavoriteArtistsMeUserFavoritesArtistsEdgesNodeAlbumsEdgesNode,
     GetFavoriteArtistsMeUserFavoritesArtistsPageInfo,
 )
 from .get_favorite_audiobooks import (
@@ -887,6 +890,9 @@ __all__ = [
     "GetFavoriteArtistsMeUserFavoritesArtists",
     "GetFavoriteArtistsMeUserFavoritesArtistsEdges",
     "GetFavoriteArtistsMeUserFavoritesArtistsEdgesNode",
+    "GetFavoriteArtistsMeUserFavoritesArtistsEdgesNodeAlbums",
+    "GetFavoriteArtistsMeUserFavoritesArtistsEdgesNodeAlbumsEdges",
+    "GetFavoriteArtistsMeUserFavoritesArtistsEdgesNodeAlbumsEdgesNode",
     "GetFavoriteArtistsMeUserFavoritesArtistsPageInfo",
     "GetFavoriteAudiobooks",
     "GetFavoriteAudiobooksMe",

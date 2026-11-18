@@ -19,7 +19,21 @@
                 "fansCount": 18000000,
                 "isFavorite": false,
                 "bio": null,
-                "isBannedFromRecommendation": false
+                "isBannedFromRecommendation": false,
+                "albums": {
+                  "edges": [
+                    {
+                      "node": {
+                        "id": "302127"
+                      }
+                    },
+                    {
+                      "node": {
+                        "id": "6575789"
+                      }
+                    }
+                  ]
+                }
               },
               "favoritedAt": "2025-06-15"
             },
@@ -38,7 +52,16 @@
                 "fansCount": 1800000,
                 "isFavorite": false,
                 "bio": null,
-                "isBannedFromRecommendation": false
+                "isBannedFromRecommendation": false,
+                "albums": {
+                  "edges": [
+                    {
+                      "node": {
+                        "id": "1446541"
+                      }
+                    }
+                  ]
+                }
               },
               "favoritedAt": "2025-06-15"
             }
