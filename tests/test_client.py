@@ -1275,6 +1275,7 @@ def test_smoke_get_favorite_artists() -> None:
     artist_node = artists.edges[0].node
     assert artist_node is not None
     assert artist_node.name == "Daft Punk"
+    assert [edge.node.id for edge in artist_node.albums.edges if edge.node] == ["302127", "6575789"]
     assert artists.edges[0].favorited_at == "2025-06-15"
     assert artists.page_info.has_next_page is True
 

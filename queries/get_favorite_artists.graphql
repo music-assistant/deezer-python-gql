@@ -9,6 +9,14 @@ query GetFavoriteArtists($first: Int = 50, $after: String) {
           favoritedAt
           node {
             ...ArtistFields
+            # newest releases first; 25 keeps a page of 50 artists at about 6,250 of the 25,000 complexity limit
+            albums(first: 25, order: RELEASE_DATE) {
+              edges {
+                node {
+                  id
+                }
+              }
+            }
           }
         }
         pageInfo {

@@ -94,7 +94,7 @@ asyncio.run(main())
 
 | Method                                        | Description                                                     |
 | --------------------------------------------- | --------------------------------------------------------------- |
-| `get_favorite_artists(first, after)`          | Paginated favorite artists                                      |
+| `get_favorite_artists(first, after)`          | Paginated favorite artists with their 25 newest release IDs     |
 | `get_favorite_albums(first, after)`           | Paginated favorite albums                                       |
 | `get_favorite_tracks(first, after)`           | Paginated favorite tracks                                       |
 | `get_favorite_playlists(first, after)`        | Paginated favorite playlists                                    |
