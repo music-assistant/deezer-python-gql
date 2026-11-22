@@ -201,6 +201,7 @@ fragment AudiobookFields on Audiobook {
   description
   duration
   releaseDate
+  originalReleaseDate
   fansCount
   isExplicit
   isFavorite
