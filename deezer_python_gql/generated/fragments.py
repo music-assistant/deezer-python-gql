@@ -100,6 +100,7 @@ class AudiobookFields(BaseModel):
     description: Optional[str]
     duration: int
     release_date: Optional[str] = Field(alias="releaseDate")
+    original_release_date: Optional[str] = Field(alias="originalReleaseDate")
     fans_count: int = Field(alias="fansCount")
     is_explicit: bool = Field(alias="isExplicit")
     is_favorite: Optional[bool] = Field(alias="isFavorite")

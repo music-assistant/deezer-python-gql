@@ -1057,6 +1057,7 @@ class DeezerGQLClient(DeezerBaseClient):
               description
               duration
               releaseDate
+              originalReleaseDate
               fansCount
               isExplicit
               isFavorite
@@ -1153,6 +1154,7 @@ class DeezerGQLClient(DeezerBaseClient):
               description
               duration
               releaseDate
+              originalReleaseDate
               fansCount
               isExplicit
               isFavorite

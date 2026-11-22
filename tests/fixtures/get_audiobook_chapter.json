@@ -24,6 +24,7 @@
         "description": "The classic treatise on military strategy.",
         "duration": 5400,
         "releaseDate": "2020-03-15",
+        "originalReleaseDate": "2020-03-15",
         "fansCount": 12500,
         "isExplicit": false,
         "isFavorite": true,
